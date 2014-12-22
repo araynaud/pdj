@@ -1,0 +1,61 @@
+"Ingredients":
+[
+      {
+            id: 72,
+            name: "sea scallops",
+            genericName: "scallops",
+            nutritionInfo: { calories: 200, per: "100g" }
+      },
+      {
+            id: 75,
+            name: "extra-virgin olive oil",
+            genericName: "olive oil",
+            nutritionInfo: { calories: 150, per: "100g" }
+      },
+      {
+            id: 713,
+            name: "saffron threads",
+            genericName: "saffron",
+            nutritionInfo: { calories: 10, transfat: 0, per: "100g" }
+      }
+
+ ]
+
+"RecipeIngredients":
+[
+      { text: "4 sea scallops, cleaned", quantity: 4, unit: "oz", ingredient: 72, textAfter: ", cleaned" },
+      { text: "1 tablespoon extra-virgin olive oil", quantity: 1, unit: "tbsp", ingredient: 75 },
+      { text: "1 small shallot, finely diced", quantity: 1, unit: "pinch", ingredient: 713 }
+     
+]
+
+units:
+{
+      weight:
+      {
+            base: "g",
+            g:  {val: 1, name: "gram" },
+            kg: {val: 1000, name: "kilogram" },
+            oz: {val: 28, name: "ounce" },
+            lb: {val: 440, name: "pound"}
+      },
+      volume:
+      {
+            base: "l",
+            l: 1,
+            floz: {val: 0.028, name: "fluid ounce"},
+            gal: {val: 3.78, name: "gallon"},
+            ukgal: {val: 4.56, name: "English gallon"},
+            tbsp: {val: 28, name: "tablespoon" },
+            cup: {val: 440 },           
+      },
+      length:
+      {
+            base: "m",
+            m:  {val: .01, name: "meter"},
+            cm: {val: .01, name: "centimeter"},
+            mm: {val: .001, name: "millimeter"},
+            in: {val: .0254, name: "inch"},
+            ft: {val: .01, name: "foot"}
+      }
+}

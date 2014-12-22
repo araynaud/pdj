@@ -1,0 +1,43 @@
+<div id="slideshowContainer" class="centered container noscroll shrinkW90" style="height: 10cm; max-width: 1000px;" ng-show="hasPhoto">
+	<img id="slide0" class="slide hidden bottom right" alt="" src="/mt/icons/blank1px.png"/>
+	<img id="slide1" class="slide hidden top left" alt="" src="/mt/icons/blank1px.png"/>
+	<div id="videoSlide" class="inlineBlock centered"></div>
+
+	<div class="title captionTop">{{title()}}</div>
+	<div class="bottomLeftCorner right maxWidthHalf translucent text">{{displayProperty(recipe.Recipe,"CookingTime")}}{{displayProperty(recipe.Recipe,"PrepTime")}}{{displayProperty(recipe.Recipe,"TotalTime")}}</div>
+	<div class="bottomRightCorner maxWidthHalf translucent text">{{displayProperty(recipe.Recipe,"Author")}}{{displayProperty(recipe.Recipe,"Yield")}}</div>
+</div>
+
+<div class="margin">
+
+<div class="title" ng-show="!hasPhoto">{{title()}}</div>
+
+<div class="floatR">
+	<a href="{{shareUrl()}}" title="Direct link"><img alt="link" src="images/link.png"/></a>
+	<a target="facebook" href="{{shareUrl('facebook')}}" title="share on Facebook"><img alt="facebook" src="images/facebook.png"/></a>
+	<a target="twitter" href="{{shareUrl('twitter')}}" title="tweet"><img alt="twitter" src="images/twitter.png"/></a>
+</div>
+
+<p class="text bold">{{recipe.Recipe.Description}}</p>
+
+<div class="inlineBlock right">
+	<div class="" ng-repeat="type in recipe.RecipeCategories">
+		{{categoryTypeNames[type.CategoryTypeID]}}: <span class="bold" ng-repeat="cat in type.CategoryIDs">{{ ($index ? ", " : "") + categoryNames[cat]}}</span>
+	</div>
+</div>
+
+<div class="inlineBlock left vtop">
+	<h3>Ingredients ({{recipe.RecipeIngredients.length}})</h3>
+	<ul class="text inlineBlock nomargin">
+		<li ng-repeat="ingredient in recipe.RecipeIngredients">{{ingredient}}</li>
+	</ul>
+</div>
+
+<div class="inlineBlock left vtop">
+	<h3>Preparation</h3>
+	<ol class="text nomargin">
+		<li ng-repeat="step in recipe.RecipeSteps">{{step}}</li>
+	</ol>
+</div>
+
+</div>

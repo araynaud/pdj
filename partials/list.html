@@ -1,0 +1,64 @@
+<div id="menuleft" class="leftSidebar bgwhite boxShadow0 aboveFooter" show="showSearch"
+ng-class="{hidden:!showSearch, slideleft:showSearch}"
+>	
+	<img src="images/close_red.gif" ng-click="showSearch=!showSearch"/>
+	Search:
+	<input ng-model="query" ng-change="getRecipeList()"/>
+
+	<div id="categories" class="scrollY0">
+		<div id="categoryType_{{type.ID}}" ng-repeat="type in categoryTypes" class="categoryType">
+			<div class="categoryTypeTitle">
+				<a ng-click="type.show=!type.show">
+					<img ng-src="images/{{type.show ? 'minus' : 'expand'}}.png"/>{{type.Name}}
+				</a>
+			</div>
+			<div id="category_{{cat.ID}}" class="category" ng-repeat="cat in type.Categories" ng-show="type.show">
+
+				<input type="checkbox" class="chkSearch" id="cb_cat_{{cat.ID}}"
+				 ng-model="selectedCategories[cat.ID]"  ng-true-value="{{cat.ID}}"
+				  ng-change="getRecipeList()" />
+				<label for="cb_cat_{{cat.ID}}">{{cat.Name}}</label>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="contentmain" class="margin center" ng-class="{slideleft:showSearch}">
+
+	<div class="floatL">
+		<a class="recipeTitle" href="" ng-click="showSearch=!showSearch" ng-show="!showSearch">Search</a>
+	</div>
+
+	<div class="floatR">
+		<img src="images/ajax-loader.gif" ng-show="loading"/>
+		<span id="resultCount" ng-show="!loading">
+			{{list.length ? plural(list.length, "recipe") : "No results found."}}
+			{{status}}
+		</span>
+	</div>
+
+	<h2>{{title()}}</h2>
+
+	<div id="item_{{recipe.RecipeID}}" 	class="recipeListItem bgwhite shadow margin inlineBlock photoBorder" ng-repeat="recipe in list">
+		<div class="thumbnailContainer floatL">
+			<a href="#/recipe/{{recipe.RecipeID}}">
+				<img class="thumbnail stretchH" ng-src="{{recipePhotoUrl(recipe,1)}}" />
+			</a>
+		</div>
+
+		<div>
+			<a class="recipeTitle" href="#/recipe/{{recipe.RecipeID}}">{{recipe.RecipeName}}</a>
+			<div class="left">
+				{{recipe.RecipeDescription.substringBefore('.', false, true, true)}}
+			</div>
+		</div>
+
+		<div class="right small">
+			<div class="floatR equalWidth2" ng-repeat="type in recipe.RecipeCategories">
+				{{categoryTypeNames[type.CategoryTypeID]}}:
+				<span class="bold" ng-repeat="cat in type.CategoryIDs">{{ ($index ? ", " : "") + categoryNames[cat]}}</span>
+			</div>
+		</div>
+	</div>
+
+</div>

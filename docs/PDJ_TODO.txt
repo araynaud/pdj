@@ -1,0 +1,48 @@
+PDJ
+
+PHP: recipe.php
+list .txt files
+with their name, title, file date
+parse keywords / sections
+
+TITLE
+RECIPE BY			Amy Raynaud
+PHOTOGRAPH BY		Arthur Raynaud
+PREPARATION TIME	10 minutes
+COOKING TIME		15 minutes
+TOTAL TIME			25 minutes
+YIELD				2 servings
+Ingredients
+Preparation
+Recipe Tips
+Links of Interest
+
+if value on same line, take value until end of line
+if no value on line, take from next line until next keyword
+
+photos: display {name}.jpg or slideshow photos/videos from /img/{name}
+
+list of recipes:
+use http://minorart.free.fr/.mt/data.php?data=files&format=json&indent=1&path=.pdj&type=txt
+
+http://localhost/mt/data.php?data=files&format=json&indent=1&path=.pdj&type=txt
+http://localhost/mt/data.php?data=album&format=json&indent=1&path=pdj/recipes&config=false
+
+http://localhost/mt/data.php?data=groupedfiles&format=json&indent=1&path=pdj/recipes
+=> add date
+
+make angular list and detail views
+
+edit recipe: contenteditable=true
+onchange, ajax save text.
+
+
+//http://tylermcginnis.com/angularjs-factory-vs-service-vs-provider/
+//http://stackoverflow.com/questions/16130345/is-there-a-way-i-can-return-a-promise-from-a-resource-without-needing-to-use-q
+
+//Forms Authentication
+http://www.seankenny.me/blog/2013/10/02/angularjs-formsauthentication-in-net-land/
+
+window resize
+
+http://stackoverflow.com/questions/23044338/window-resize-directive

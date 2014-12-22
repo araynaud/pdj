@@ -1,0 +1,242 @@
+ul.horizontal, ul.tabs
+{
+	list-style: none;
+	padding: 0px;
+	height: 10mm;
+	margin: 0;
+	padding: 0
+}
+
+ul.horizontal > li
+{
+	float: left;
+	text-align: center;
+	margin: 0;
+	padding: 0
+}
+
+.slideleft, #menuleft.hidden, #contentmain
+{
+    transition: all 0.3s ease;
+}
+
+#menuleft
+{
+    left:-5cm;
+    position:fixed;
+    top: 12mm;
+    height: 90%;
+    display:block;
+    z-index: 100;
+    border-top: 1px solid black;
+}
+
+.boxShadow
+{
+    box-shadow: 5px 5px 8px #444;
+}
+
+#menuleft.slideleft
+{
+    left:0;
+    overflow-y:auto;
+}
+
+#contentmain.slideleft
+{
+    margin-left: 5cm;
+}
+
+#header
+{
+    height: 12mm;
+    border-bottom: 1px solid black;
+}
+
+#content
+{
+    margin-top: 12mm;
+}
+
+#main > div, div.vtop
+{
+    vertical-align: top;
+}
+
+#footer
+{
+    height: 6mm;
+}
+
+.aboveFooter
+{
+    margin-bottom: 6mm;
+}
+
+ul.tabs > li, .tabs > a
+{
+	display: inline-block;
+	text-align: center;
+	margin-left: 0px; 
+	margin-right: 0px;
+}
+
+.maxWidthHalf
+{
+    max-width: 50%;
+}
+
+ul.equalWidth2 > li, div.equalWidth2
+{
+	width: 48%;
+}
+
+ul.equalWidth3 > li, div.equalWidth3
+{
+	width: 33%;
+}
+
+ul.equalWidth4 > li, div.equalWidth4
+{
+	width: 25%;
+}
+
+ul.equalWidth5 > li, div.equalWidth5
+{
+	width: 20%;
+}
+
+ul.tabs > li, .tab, .tabs > a
+{
+    border-top:1px solid #6d6d6d;
+    border-left:1px solid #6d6d6d;
+    border-right:1px solid #6d6d6d;
+    border-bottom: 1px solid #6d6d6d;
+	font-weight: bold;
+    text-decoration: none;
+    background-color: #EEE;
+    padding: 2px;
+/*    border-top-left-radius: 10px;
+	border-top-right-radius: 10px; */
+}
+
+ul.tabs > li a, .tabs > a
+{
+    color:black;
+}
+
+ul.tabs > li.active, .tab.active, .tabs > a.active
+{
+    background-color: #FFF;
+    color:#6EAC2C;
+    border-bottom: none;
+/*    box-shadow: -5px -5px 8px #444; */
+}
+
+ul.tabs > li.active a
+{
+    color:#6EAC2C;
+}
+
+a.button
+{
+	font-weight: bold;
+    text-decoration: none;
+    color:#6EAC2C;    
+    background-color: #DDD;
+    border:1px solid #6d6d6d;
+    padding: 1mm;
+}
+
+.leftSidebar, .rightSidebar
+{
+	width: 4.5cm;
+	padding-left:10px; padding-right:10px; 
+	text-align: left;
+}
+
+/*
+.leftSidebar
+{
+	float: left;
+}
+*/
+
+.rightSidebar
+{
+	float: right;
+}
+
+.maxWidth
+{
+	max-width: 1000px;
+}
+
+.maxHeight
+{
+	max-height: 600px;
+}
+
+.leftSidebar, .gradientLeft
+{
+    background-image: linear-gradient(to left, white 0%, rgba(221,221,221,0) 80% );
+}
+
+.rightSidebar, .gradientRight
+{
+    background-image: linear-gradient(to right, white 0%, rgba(221,221,221,0) 50% );
+}
+
+.categoryType
+{
+    border-radius: 12px;
+    border: 1px solid #AAA;
+    margin-top: 5px;
+    background-color:#F8F8F8;
+    overflow: hidden;
+}
+
+.categoryTypeTitle
+{
+    background-color:#6EAC2C;
+    color:#FFF;
+    font-weight: bold;
+}
+
+.category
+{
+    border-top: 1px solid #AAA;
+    color:#222;
+    font-size:0.8em;
+    padding-left: 5px;
+}
+
+.recipeListItem
+{
+    display: inline-block;
+/*    height: 4cm; */
+    max-width: 11cm;
+}
+
+a.recipeTitle
+{
+    font-weight: bold;
+    color: orange;
+    text-decoration: none;
+}
+
+
+div.thumbnailContainer
+{
+    height: 3cm;
+    width: 3cm;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: center; 
+    text-shadow: black 2px 2px;
+}
+
+div.thumbnailContainer > img.thumbnail
+{
+
+}

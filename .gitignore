@@ -1,0 +1,5 @@
+docs/*.jpg
+*.mp4
+web.config
+json/old
+recipes/

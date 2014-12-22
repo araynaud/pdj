@@ -1,0 +1,1002 @@
+{
+  "$id": "1",
+  "State": "SUCCESS",
+  "Message": null,
+  "Exception": null,
+  "Data": [
+    {
+      "$id": "2",
+      "ID": 1,
+      "Name": "Cooking Level",
+      "Categories": [
+        {
+          "$id": "3",
+          "ID": 12,
+          "Name": "Intermediate",
+          "IsDefault": false
+        },
+        {
+          "$id": "4",
+          "ID": 56,
+          "Name": "Easy",
+          "IsDefault": false
+        },
+        {
+          "$id": "5",
+          "ID": 68,
+          "Name": "Advanced",
+          "IsDefault": false
+        },
+        {
+          "$id": "6",
+          "ID": 122,
+          "Name": "Unknown",
+          "IsDefault": true
+        }
+      ],
+      "SelectedCategoryID": 122
+    },
+    {
+      "$id": "7",
+      "ID": 2,
+      "Name": "Season",
+      "Categories": [
+        {
+          "$id": "8",
+          "ID": 14,
+          "Name": "Summer",
+          "IsDefault": false
+        },
+        {
+          "$id": "9",
+          "ID": 37,
+          "Name": "Spring",
+          "IsDefault": false
+        },
+        {
+          "$id": "10",
+          "ID": 59,
+          "Name": "Fall",
+          "IsDefault": false
+        },
+        {
+          "$id": "11",
+          "ID": 116,
+          "Name": "Any",
+          "IsDefault": true
+        },
+        {
+          "$id": "12",
+          "ID": 154,
+          "Name": "Winter",
+          "IsDefault": false
+        }
+      ],
+      "SelectedCategoryID": 116
+    },
+    {
+      "$id": "13",
+      "ID": 3,
+      "Name": "Technique",
+      "Categories": [
+        {
+          "$id": "14",
+          "ID": 1,
+          "Name": "Shake",
+          "IsDefault": false
+        },
+        {
+          "$id": "15",
+          "ID": 5,
+          "Name": "Poaching",
+          "IsDefault": false
+        },
+        {
+          "$id": "16",
+          "ID": 9,
+          "Name": "Barbecuing",
+          "IsDefault": false
+        },
+        {
+          "$id": "17",
+          "ID": 24,
+          "Name": "Baking",
+          "IsDefault": false
+        },
+        {
+          "$id": "18",
+          "ID": 40,
+          "Name": "Stir Frying",
+          "IsDefault": false
+        },
+        {
+          "$id": "19",
+          "ID": 43,
+          "Name": "Marinating",
+          "IsDefault": false
+        },
+        {
+          "$id": "20",
+          "ID": 55,
+          "Name": "Grilling",
+          "IsDefault": false
+        },
+        {
+          "$id": "21",
+          "ID": 58,
+          "Name": "Slow Cooking",
+          "IsDefault": false
+        },
+        {
+          "$id": "22",
+          "ID": 73,
+          "Name": "Brining",
+          "IsDefault": false
+        },
+        {
+          "$id": "23",
+          "ID": 81,
+          "Name": "Microwave",
+          "IsDefault": false
+        },
+        {
+          "$id": "24",
+          "ID": 89,
+          "Name": "Saute",
+          "IsDefault": false
+        },
+        {
+          "$id": "25",
+          "ID": 96,
+          "Name": "Roasting",
+          "IsDefault": false
+        },
+        {
+          "$id": "26",
+          "ID": 100,
+          "Name": "Frying",
+          "IsDefault": false
+        },
+        {
+          "$id": "27",
+          "ID": 102,
+          "Name": "Braising",
+          "IsDefault": false
+        },
+        {
+          "$id": "28",
+          "ID": 112,
+          "Name": "Broiling",
+          "IsDefault": false
+        },
+        {
+          "$id": "29",
+          "ID": 115,
+          "Name": "Other",
+          "IsDefault": true
+        },
+        {
+          "$id": "30",
+          "ID": 134,
+          "Name": "Muddle",
+          "IsDefault": false
+        }
+      ],
+      "SelectedCategoryID": 115
+    },
+    {
+      "$id": "31",
+      "ID": 4,
+      "Name": "Cuisine",
+      "Categories": [
+        {
+          "$id": "32",
+          "ID": 2,
+          "Name": "Korean",
+          "IsDefault": false
+        },
+        {
+          "$id": "33",
+          "ID": 3,
+          "Name": "Greek",
+          "IsDefault": false
+        },
+        {
+          "$id": "34",
+          "ID": 8,
+          "Name": "Central American",
+          "IsDefault": false
+        },
+        {
+          "$id": "35",
+          "ID": 11,
+          "Name": "Argentinean",
+          "IsDefault": false
+        },
+        {
+          "$id": "36",
+          "ID": 13,
+          "Name": "Southwestern",
+          "IsDefault": false
+        },
+        {
+          "$id": "37",
+          "ID": 17,
+          "Name": "El Salvadoran",
+          "IsDefault": false
+        },
+        {
+          "$id": "38",
+          "ID": 18,
+          "Name": "African",
+          "IsDefault": false
+        },
+        {
+          "$id": "39",
+          "ID": 20,
+          "Name": "Norwegian",
+          "IsDefault": false
+        },
+        {
+          "$id": "40",
+          "ID": 25,
+          "Name": "American",
+          "IsDefault": false
+        },
+        {
+          "$id": "41",
+          "ID": 26,
+          "Name": "British",
+          "IsDefault": false
+        },
+        {
+          "$id": "42",
+          "ID": 27,
+          "Name": "French",
+          "IsDefault": false
+        },
+        {
+          "$id": "43",
+          "ID": 29,
+          "Name": "Western",
+          "IsDefault": false
+        },
+        {
+          "$id": "44",
+          "ID": 30,
+          "Name": "Russian",
+          "IsDefault": false
+        },
+        {
+          "$id": "45",
+          "ID": 33,
+          "Name": "Chinese",
+          "IsDefault": false
+        },
+        {
+          "$id": "46",
+          "ID": 35,
+          "Name": "Austrian",
+          "IsDefault": false
+        },
+        {
+          "$id": "47",
+          "ID": 41,
+          "Name": "Malaysian",
+          "IsDefault": false
+        },
+        {
+          "$id": "48",
+          "ID": 44,
+          "Name": "German",
+          "IsDefault": false
+        },
+        {
+          "$id": "49",
+          "ID": 47,
+          "Name": "Belgian",
+          "IsDefault": false
+        },
+        {
+          "$id": "50",
+          "ID": 50,
+          "Name": "Asian",
+          "IsDefault": false
+        },
+        {
+          "$id": "51",
+          "ID": 51,
+          "Name": "Jewish",
+          "IsDefault": false
+        },
+        {
+          "$id": "52",
+          "ID": 52,
+          "Name": "Thai",
+          "IsDefault": false
+        },
+        {
+          "$id": "53",
+          "ID": 53,
+          "Name": "Brazillian",
+          "IsDefault": false
+        },
+        {
+          "$id": "54",
+          "ID": 54,
+          "Name": "Canadian",
+          "IsDefault": false
+        },
+        {
+          "$id": "55",
+          "ID": 64,
+          "Name": "Turkish",
+          "IsDefault": false
+        },
+        {
+          "$id": "56",
+          "ID": 65,
+          "Name": "Basque",
+          "IsDefault": false
+        },
+        {
+          "$id": "57",
+          "ID": 69,
+          "Name": "Vietnamese",
+          "IsDefault": false
+        },
+        {
+          "$id": "58",
+          "ID": 74,
+          "Name": "Jamaican",
+          "IsDefault": false
+        },
+        {
+          "$id": "59",
+          "ID": 76,
+          "Name": "Peruvian",
+          "IsDefault": false
+        },
+        {
+          "$id": "60",
+          "ID": 83,
+          "Name": "Italian",
+          "IsDefault": false
+        },
+        {
+          "$id": "61",
+          "ID": 84,
+          "Name": "Indian",
+          "IsDefault": false
+        },
+        {
+          "$id": "62",
+          "ID": 85,
+          "Name": "Cuban",
+          "IsDefault": false
+        },
+        {
+          "$id": "63",
+          "ID": 88,
+          "Name": "Portuguese",
+          "IsDefault": false
+        },
+        {
+          "$id": "64",
+          "ID": 94,
+          "Name": "Lebanese",
+          "IsDefault": false
+        },
+        {
+          "$id": "65",
+          "ID": 99,
+          "Name": "Mediterranean",
+          "IsDefault": false
+        },
+        {
+          "$id": "66",
+          "ID": 103,
+          "Name": "Northeastern",
+          "IsDefault": false
+        },
+        {
+          "$id": "67",
+          "ID": 104,
+          "Name": "Polish",
+          "IsDefault": false
+        },
+        {
+          "$id": "68",
+          "ID": 108,
+          "Name": "Puerto Rican",
+          "IsDefault": false
+        },
+        {
+          "$id": "69",
+          "ID": 110,
+          "Name": "Dutch",
+          "IsDefault": false
+        },
+        {
+          "$id": "70",
+          "ID": 111,
+          "Name": "South American",
+          "IsDefault": false
+        },
+        {
+          "$id": "71",
+          "ID": 118,
+          "Name": "Other",
+          "IsDefault": true
+        },
+        {
+          "$id": "72",
+          "ID": 120,
+          "Name": "Danish",
+          "IsDefault": false
+        },
+        {
+          "$id": "73",
+          "ID": 121,
+          "Name": "Irish",
+          "IsDefault": false
+        },
+        {
+          "$id": "74",
+          "ID": 124,
+          "Name": "Japanese",
+          "IsDefault": false
+        },
+        {
+          "$id": "75",
+          "ID": 126,
+          "Name": "Fusion",
+          "IsDefault": false
+        },
+        {
+          "$id": "76",
+          "ID": 127,
+          "Name": "European",
+          "IsDefault": false
+        },
+        {
+          "$id": "77",
+          "ID": 129,
+          "Name": "Mexican",
+          "IsDefault": false
+        },
+        {
+          "$id": "78",
+          "ID": 131,
+          "Name": "Swedish",
+          "IsDefault": false
+        },
+        {
+          "$id": "79",
+          "ID": 133,
+          "Name": "Cajun",
+          "IsDefault": false
+        },
+        {
+          "$id": "80",
+          "ID": 139,
+          "Name": "Middle Eastern",
+          "IsDefault": false
+        },
+        {
+          "$id": "81",
+          "ID": 141,
+          "Name": "Finnish",
+          "IsDefault": false
+        },
+        {
+          "$id": "82",
+          "ID": 142,
+          "Name": "Swiss",
+          "IsDefault": false
+        },
+        {
+          "$id": "83",
+          "ID": 144,
+          "Name": "Hawaiian",
+          "IsDefault": false
+        },
+        {
+          "$id": "84",
+          "ID": 151,
+          "Name": "Caribbean",
+          "IsDefault": false
+        },
+        {
+          "$id": "85",
+          "ID": 152,
+          "Name": "Spanish",
+          "IsDefault": false
+        },
+        {
+          "$id": "86",
+          "ID": 155,
+          "Name": "Southern",
+          "IsDefault": false
+        }
+      ],
+      "SelectedCategoryID": 118
+    },
+    {
+      "$id": "87",
+      "ID": 5,
+      "Name": "Occasion",
+      "Categories": [
+        {
+          "$id": "88",
+          "ID": 4,
+          "Name": "Birthday Party",
+          "IsDefault": false
+        },
+        {
+          "$id": "89",
+          "ID": 10,
+          "Name": "Cocktail Party",
+          "IsDefault": false
+        },
+        {
+          "$id": "90",
+          "ID": 19,
+          "Name": "Christmas",
+          "IsDefault": false
+        },
+        {
+          "$id": "91",
+          "ID": 32,
+          "Name": "Halloween",
+          "IsDefault": false
+        },
+        {
+          "$id": "92",
+          "ID": 36,
+          "Name": "Outdoor Party",
+          "IsDefault": false
+        },
+        {
+          "$id": "93",
+          "ID": 45,
+          "Name": "Anniversary",
+          "IsDefault": false
+        },
+        {
+          "$id": "94",
+          "ID": 66,
+          "Name": "Mardi Gras",
+          "IsDefault": false
+        },
+        {
+          "$id": "95",
+          "ID": 70,
+          "Name": "Cinco De Mayo",
+          "IsDefault": false
+        },
+        {
+          "$id": "96",
+          "ID": 71,
+          "Name": "Parties",
+          "IsDefault": false
+        },
+        {
+          "$id": "97",
+          "ID": 78,
+          "Name": "Other",
+          "IsDefault": true
+        },
+        {
+          "$id": "98",
+          "ID": 79,
+          "Name": "Super Bowl",
+          "IsDefault": false
+        },
+        {
+          "$id": "99",
+          "ID": 87,
+          "Name": "St. Patricks Day",
+          "IsDefault": false
+        },
+        {
+          "$id": "100",
+          "ID": 93,
+          "Name": "Easter",
+          "IsDefault": false
+        },
+        {
+          "$id": "101",
+          "ID": 97,
+          "Name": "Dinner Party",
+          "IsDefault": false
+        },
+        {
+          "$id": "102",
+          "ID": 101,
+          "Name": "4th of July",
+          "IsDefault": false
+        },
+        {
+          "$id": "103",
+          "ID": 114,
+          "Name": "Chinese New Year",
+          "IsDefault": false
+        },
+        {
+          "$id": "104",
+          "ID": 119,
+          "Name": "Hanukkah",
+          "IsDefault": false
+        },
+        {
+          "$id": "105",
+          "ID": 140,
+          "Name": "Thanksgiving",
+          "IsDefault": false
+        },
+        {
+          "$id": "106",
+          "ID": 148,
+          "Name": "Valentine's Day",
+          "IsDefault": false
+        },
+        {
+          "$id": "107",
+          "ID": 153,
+          "Name": "Holidays",
+          "IsDefault": false
+        }
+      ],
+      "SelectedCategoryID": 78
+    },
+    {
+      "$id": "108",
+      "ID": 6,
+      "Name": "Course",
+      "Categories": [
+        {
+          "$id": "109",
+          "ID": 49,
+          "Name": "Main Dish",
+          "IsDefault": false
+        },
+        {
+          "$id": "110",
+          "ID": 60,
+          "Name": "Appetizer",
+          "IsDefault": false
+        },
+        {
+          "$id": "111",
+          "ID": 90,
+          "Name": "Other",
+          "IsDefault": true
+        },
+        {
+          "$id": "112",
+          "ID": 117,
+          "Name": "Dessert",
+          "IsDefault": false
+        },
+        {
+          "$id": "113",
+          "ID": 125,
+          "Name": "Drink",
+          "IsDefault": false
+        },
+        {
+          "$id": "114",
+          "ID": 132,
+          "Name": "Side Dish",
+          "IsDefault": false
+        }
+      ],
+      "SelectedCategoryID": 90
+    },
+    {
+      "$id": "115",
+      "ID": 7,
+      "Name": "Dish",
+      "Categories": [
+        {
+          "$id": "116",
+          "ID": 6,
+          "Name": "Bread",
+          "IsDefault": false
+        },
+        {
+          "$id": "117",
+          "ID": 7,
+          "Name": "Enchilada",
+          "IsDefault": false
+        },
+        {
+          "$id": "118",
+          "ID": 15,
+          "Name": "Pasta",
+          "IsDefault": false
+        },
+        {
+          "$id": "119",
+          "ID": 16,
+          "Name": "Cookie",
+          "IsDefault": false
+        },
+        {
+          "$id": "120",
+          "ID": 21,
+          "Name": "Stock",
+          "IsDefault": false
+        },
+        {
+          "$id": "121",
+          "ID": 22,
+          "Name": "Dumpling",
+          "IsDefault": false
+        },
+        {
+          "$id": "122",
+          "ID": 28,
+          "Name": "Cocktail",
+          "IsDefault": false
+        },
+        {
+          "$id": "123",
+          "ID": 34,
+          "Name": "Egg",
+          "IsDefault": false
+        },
+        {
+          "$id": "124",
+          "ID": 38,
+          "Name": "Sauce",
+          "IsDefault": false
+        },
+        {
+          "$id": "125",
+          "ID": 39,
+          "Name": "Salad",
+          "IsDefault": false
+        },
+        {
+          "$id": "126",
+          "ID": 42,
+          "Name": "Ice Cream",
+          "IsDefault": false
+        },
+        {
+          "$id": "127",
+          "ID": 48,
+          "Name": "Soup",
+          "IsDefault": false
+        },
+        {
+          "$id": "128",
+          "ID": 57,
+          "Name": "Sandwich",
+          "IsDefault": false
+        },
+        {
+          "$id": "129",
+          "ID": 61,
+          "Name": "Risotto",
+          "IsDefault": false
+        },
+        {
+          "$id": "130",
+          "ID": 62,
+          "Name": "Dip",
+          "IsDefault": false
+        },
+        {
+          "$id": "131",
+          "ID": 63,
+          "Name": "Fish",
+          "IsDefault": false
+        },
+        {
+          "$id": "132",
+          "ID": 67,
+          "Name": "Potato",
+          "IsDefault": false
+        },
+        {
+          "$id": "133",
+          "ID": 72,
+          "Name": "Chowder",
+          "IsDefault": false
+        },
+        {
+          "$id": "134",
+          "ID": 75,
+          "Name": "Burgers",
+          "IsDefault": false
+        },
+        {
+          "$id": "135",
+          "ID": 77,
+          "Name": "Kabob",
+          "IsDefault": false
+        },
+        {
+          "$id": "136",
+          "ID": 82,
+          "Name": "Pizza",
+          "IsDefault": false
+        },
+        {
+          "$id": "137",
+          "ID": 86,
+          "Name": "Pie",
+          "IsDefault": false
+        },
+        {
+          "$id": "138",
+          "ID": 92,
+          "Name": "Marinade",
+          "IsDefault": false
+        },
+        {
+          "$id": "139",
+          "ID": 95,
+          "Name": "Frittata",
+          "IsDefault": false
+        },
+        {
+          "$id": "140",
+          "ID": 98,
+          "Name": "Other",
+          "IsDefault": true
+        },
+        {
+          "$id": "141",
+          "ID": 106,
+          "Name": "Dough",
+          "IsDefault": false
+        },
+        {
+          "$id": "142",
+          "ID": 107,
+          "Name": "Casserole",
+          "IsDefault": false
+        },
+        {
+          "$id": "143",
+          "ID": 109,
+          "Name": "Biscuit",
+          "IsDefault": false
+        },
+        {
+          "$id": "144",
+          "ID": 123,
+          "Name": "Chili",
+          "IsDefault": false
+        },
+        {
+          "$id": "145",
+          "ID": 128,
+          "Name": "Seafood",
+          "IsDefault": false
+        },
+        {
+          "$id": "146",
+          "ID": 130,
+          "Name": "Barbecue",
+          "IsDefault": false
+        },
+        {
+          "$id": "147",
+          "ID": 135,
+          "Name": "Stew",
+          "IsDefault": false
+        },
+        {
+          "$id": "148",
+          "ID": 136,
+          "Name": "Curry",
+          "IsDefault": false
+        },
+        {
+          "$id": "149",
+          "ID": 137,
+          "Name": "Cake",
+          "IsDefault": false
+        },
+        {
+          "$id": "150",
+          "ID": 138,
+          "Name": "Pastry",
+          "IsDefault": false
+        },
+        {
+          "$id": "151",
+          "ID": 145,
+          "Name": "Gnocci",
+          "IsDefault": false
+        },
+        {
+          "$id": "152",
+          "ID": 146,
+          "Name": "Gumbo",
+          "IsDefault": false
+        },
+        {
+          "$id": "153",
+          "ID": 147,
+          "Name": "Chicken",
+          "IsDefault": false
+        },
+        {
+          "$id": "154",
+          "ID": 149,
+          "Name": "Candy",
+          "IsDefault": false
+        },
+        {
+          "$id": "155",
+          "ID": 150,
+          "Name": "Gravy",
+          "IsDefault": false
+        }
+      ],
+      "SelectedCategoryID": 98
+    },
+    {
+      "$id": "156",
+      "ID": 8,
+      "Name": "Meal",
+      "Categories": [
+        {
+          "$id": "157",
+          "ID": 23,
+          "Name": "Lunch",
+          "IsDefault": false
+        },
+        {
+          "$id": "158",
+          "ID": 31,
+          "Name": "Dinner",
+          "IsDefault": false
+        },
+        {
+          "$id": "159",
+          "ID": 46,
+          "Name": "Snack",
+          "IsDefault": false
+        },
+        {
+          "$id": "160",
+          "ID": 80,
+          "Name": "Drink",
+          "IsDefault": false
+        },
+        {
+          "$id": "161",
+          "ID": 91,
+          "Name": "Dessert",
+          "IsDefault": false
+        },
+        {
+          "$id": "162",
+          "ID": 105,
+          "Name": "Breakfast",
+          "IsDefault": false
+        },
+        {
+          "$id": "163",
+          "ID": 113,
+          "Name": "Other",
+          "IsDefault": true
+        },
+        {
+          "$id": "164",
+          "ID": 143,
+          "Name": "Brunch",
+          "IsDefault": false
+        }
+      ],
+      "SelectedCategoryID": 113
+    }
+  ]
+}
