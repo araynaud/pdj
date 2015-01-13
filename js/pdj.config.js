@@ -5,11 +5,13 @@ pdjApp.config = {
 	pdjApiRoot: "/proxy.php/www.pimentdujour.com/api/",
 //	offline: true,
 	MediaThingyRoot: "/mt",
-	imagesRoot: "/pictures",
-	imagesDir: "RecipeImages",
+	images: {
+		root: "/pictures",
+		dir: "RecipeImages",
+	},
 	recipeIdDir: true,
 	defaultImage: "nophoto.jpg",
-//	backgroundImage: "/pictures/web/renards_files/18fox-magnifiques-7364.jpg",
+	backgroundImage: "/pictures/web/renards_files/18fox-magnifiques-7364.jpg",
 	subdirs: ["", "tn", "ss"],
 	share: {
 		twitter: "https://twitter.com/intent/tweet?url={0}&text={1}&via={2}",

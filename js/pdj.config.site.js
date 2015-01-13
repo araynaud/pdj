@@ -3,8 +3,10 @@ pdjApp.config = {
 	defaultTitle: "Piment du Jour",
 	pdjApiRoot: "/api/",
 	MediaThingyRoot: "/mt",
-	imagesRoot: "/",
-	imagesDir: "images/RecipeImages",
+	images: {
+		root: "/pictures",
+		dir: "images/RecipeImages",
+	},
 	recipeIdDir: true,
 	defaultImage: "nophoto.jpg",
 	backgroundImage:"/images/fall_leaves.jpg",

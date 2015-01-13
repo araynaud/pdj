@@ -86,7 +86,7 @@ function ($scope, $window, $routeParams, RecipeService)
     }
 
     if($window.Album)
-      Album.getAlbumAjax("album", {path: String.combine(pdjApp.config.imagesDir, id) }, true); //, albumOnLoad);
+      Album.getAlbumAjax("album", {path: String.combine(pdjApp.config.images.dir, id) }, true); //, albumOnLoad);
 
   };
 
@@ -161,12 +161,12 @@ function ($scope, $window, $routeParams, RecipeService)
     var subdir = pdjApp.config.subdirs[size] || "";
     subdir="."+subdir;
     if(!id || !imageUrl)
-      return String.combine(pdjApp.config.imagesRoot, pdjApp.config.imagesDir, pdjApp.config.defaultImage);
+      return String.combine(pdjApp.config.images.root, pdjApp.config.images.dir, pdjApp.config.defaultImage);
 
     if(pdjApp.config.recipeIdDir)
-      return String.combine(pdjApp.config.imagesRoot, pdjApp.config.imagesDir, id, subdir, imageUrl);
+      return String.combine(pdjApp.config.images.root, pdjApp.config.images.dir, id, subdir, imageUrl);
 
-    return String.combine(pdjApp.config.imagesRoot, pdjApp.config.imagesDir, subdir, imageUrl);
+    return String.combine(pdjApp.config.images.root, pdjApp.config.images.dir, subdir, imageUrl);
   };
 
   $scope.getCategoryTypes = function()
@@ -206,10 +206,10 @@ function ($scope, $window, $routeParams, RecipeService)
 
     $scope.directLinkUrl = function()
     {
-      var currentUrl = window.location.href.substringBefore("?");
+      var currentUrl = window.location.href.substringBefore("#").substringBefore("?");
       var id = $scope.recipe.Recipe.ID;
       if(id)
-        currentUrl += "?recipeid=" + id;
+        currentUrl += "?recipe=" + id;
       return currentUrl;
     };
 
