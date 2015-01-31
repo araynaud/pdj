@@ -14,7 +14,7 @@ function ($scope, $window, $routeParams, RecipeService)
   $scope.loading = false;
   $scope.recipe = {};
   $scope.article = {};
-  $scope.config = pdjApp.config;
+  $scope.config = $window.pdjConfig;
   $scope.hasPhoto = false;
 
   $scope.selectedCategoriesArray= function()
@@ -86,13 +86,13 @@ function ($scope, $window, $routeParams, RecipeService)
     }
 
     if($window.Album)
-      Album.getAlbumAjax("album", {path: String.combine(pdjApp.config.images.dir, id) }, true); //, albumOnLoad);
+      Album.getAlbumAjax("album", {path: String.combine($scope.config.images.dir, id) }, true); //, albumOnLoad);
 
   };
 
   if($window.Album)
   {
-    Album.serviceUrl = pdjApp.config.MediaThingyRoot; 
+    Album.serviceUrl = $scope.config.MediaThingyRoot; 
     Album.onLoad = function (albumInstance) 
     {
       $scope.recipe.pics = albumInstance.selectSlideshowFiles();
@@ -158,15 +158,14 @@ function ($scope, $window, $routeParams, RecipeService)
 
     var id = recipe.RecipeID || recipe.Recipe.ID;
     var imageUrl = id+".jpg";
-    var subdir = pdjApp.config.subdirs[size] || "";
+    var subdir = $scope.config.images.subdirs[size] || "";
     subdir="."+subdir;
     if(!id || !imageUrl)
-      return String.combine(pdjApp.config.images.root, pdjApp.config.images.dir, pdjApp.config.defaultImage);
+      return String.combine($scope.config.images.root, $scope.config.images.dir, $scope.config.images.default);
 
-    if(pdjApp.config.recipeIdDir)
-      return String.combine(pdjApp.config.images.root, pdjApp.config.images.dir, id, subdir, imageUrl);
-
-    return String.combine(pdjApp.config.images.root, pdjApp.config.images.dir, subdir, imageUrl);
+    if(!$scope.config.images.idDir) 
+      id="";
+    return String.combine($scope.config.images.root, $scope.config.images.dir, id, subdir, imageUrl);
   };
 
   $scope.getCategoryTypes = function()
@@ -190,8 +189,8 @@ function ($scope, $window, $routeParams, RecipeService)
 
   $scope.title = function()
   {
-    document.title = RecipeService.title ? RecipeService.title + " - " + pdjApp.config.defaultTitle : pdjApp.config.defaultTitle;
-    return RecipeService.title || pdjApp.config.defaultTitle;
+    document.title = RecipeService.title ? RecipeService.title + " - " + $scope.config.defaultTitle : $scope.config.defaultTitle;
+    return RecipeService.title || $scope.config.defaultTitle;
   };
 
   $scope.displayProperty = function(obj, key, label)
@@ -215,7 +214,7 @@ function ($scope, $window, $routeParams, RecipeService)
 
     $scope.shareUrl = function(site)
     {
-      var url = pdjApp.config.share[site];
+      var url = $scope.config.share[site];
       if(!site || !url) return $scope.directLinkUrl();
 
       var currentUrl = $scope.directLinkUrl();
@@ -232,8 +231,9 @@ function ($scope, $window, $routeParams, RecipeService)
 pdjControllers.controller('LayoutController', ['$scope', '$window', 'RecipeService', 
 function ($scope, $window, RecipeService)
 {
-    if(pdjApp.config.backgroundImage)
-        $scope.backgroundImage = "url({0})".format(pdjApp.config.backgroundImage);
+    $scope.config = $window.pdjConfig;
+    if($scope.config.images.background)
+        $scope.backgroundImage = "url({0})".format($scope.config.images.background);
 
     $scope.getWindowSize = function()
     {
@@ -262,8 +262,8 @@ function ($scope, $window, RecipeService)
 
     $scope.title = function()
     {
-      document.title = RecipeService.title ? RecipeService.title + " - " + pdjApp.config.defaultTitle : pdjApp.config.defaultTitle;
-      return RecipeService.title || pdjApp.config.defaultTitle;
+      document.title = RecipeService.title ? RecipeService.title + " - " + $scope.config.defaultTitle : $scope.config.defaultTitle;
+      return RecipeService.title || $scope.config.defaultTitle;
     };
 
     $scope.mode = function()
