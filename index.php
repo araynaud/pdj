@@ -69,7 +69,7 @@ if($json)
 	$title = $recipe["Name"] . " - $title";
 
 	$meta["og:title"] = $recipe["Name"] ;
-	$meta["description"] = $meta["og:description"] = $recipe["Description"];
+	$meta["description"] = $meta["og:description"] = cutAfterSentence($recipe["Description"], 300);
 	$meta["og:url"] = combine(currentUrlDir(), "?recipe=$recipeid");
 
 	//get recipe 1st image according to config
