@@ -86,13 +86,16 @@ function ($scope, $window, $routeParams, RecipeService)
     }
 
     if($window.Album)
-      Album.getAlbumAjax("album", {path: String.combine($scope.config.images.dir, id) }, true); //, albumOnLoad);
+    {
+      var path = String.combine($scope.config.MediaThingy.imagesRoot, $scope.config.images.dir, id);
+      Album.getAlbumAjax("album", {path: path }, true); //, albumOnLoad);
+    }
 
   };
 
   if($window.Album)
   {
-    Album.serviceUrl = $scope.config.MediaThingyRoot; 
+    Album.serviceUrl = $scope.config.MediaThingy.root; 
     Album.onLoad = function (albumInstance) 
     {
       $scope.recipe.pics = albumInstance.selectSlideshowFiles();
@@ -205,8 +208,9 @@ function ($scope, $window, $routeParams, RecipeService)
 
     $scope.directLinkUrl = function()
     {
-      var currentUrl = window.location.href.substringBefore("#").substringBefore("?");
-      var id = $scope.recipe.Recipe.ID;
+      var currentUrl = $window.location.href.substringBefore("#").substringBefore("?");
+      if(!$scope.recipe) return currentUrl;
+      var id = ($scope.recipe && $scope.recipe.Recipe) ? $scope.recipe.Recipe.ID : null;
       if(id)
         currentUrl += "?recipe=" + id;
       return currentUrl;

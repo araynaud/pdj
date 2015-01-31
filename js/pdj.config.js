@@ -1,11 +1,13 @@
 var pdjConfig = {
 	defaultTitle: "PDJ local",
-	pdjApi: {
-		//root: "/pdj/api/",
-		root: "/proxy.php/www.pimentdujour.com/api/"
-	},
 	offline: true,
-	MediaThingyRoot: "/mt",
+	pdjApi: {
+		root: "/proxy.php/www.pimentdujour.com/api/",
+		proxy: "/proxy.php",
+		"recipeDetails": "Recipes/GetRecipeDetails?recipeId",
+		offline: { recipeDetails: "json/GetRecipeDetails.json" }
+	},
+	MediaThingy: {root: "/mt"},
 	images: {
 		root: "/pictures",
 		dir: "RecipeImages",

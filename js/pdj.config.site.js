@@ -1,7 +1,10 @@
 var pdjConfig = {
 	defaultTitle: "Piment du Jour",
-	pdjApi: {root: "/api/" },
-	MediaThingyRoot: "/mt",
+	pdjApi: {
+		root: "/api/",
+		recipeDetails: "Recipes/GetRecipeDetails?recipeId"
+	},
+	MediaThingy: {root: "/mt" },
 	images: {
 		root: "/images",
 		dir: "RecipeImages",

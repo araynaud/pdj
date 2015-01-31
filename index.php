@@ -5,7 +5,9 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 ini_set('display_errors', '1');
 
 $MT_DIR = "../mt";
-$MT_DIR = "../MediaThingy";
+if(!file_exists("$MT_DIR/include/http_functions.php"))
+	$MT_DIR = "../MediaThingy";
+
 require_once("$MT_DIR/include/http_functions.php");
 require_once("$MT_DIR/include/text_functions.php");
 require_once("$MT_DIR/include/debug_functions.php");
@@ -19,8 +21,7 @@ function getRecipeUrl($id)
 {
 	if(!$id) return;
 
-	$offline = getConfig("offline");
-	if($offline)
+	if(getConfig("offline"))
 	{
 		$url = getConfig("pdjApi.offline.recipeDetails");
 		return toAbsoluteUrl($url);
@@ -29,10 +30,8 @@ function getRecipeUrl($id)
 	$pdjApiRoot = getConfig("pdjApi.root");
 	$proxy = getConfig("pdjApi.proxy");
 	$url = getConfig("pdjApi.recipeDetails") . $id;
-
 	$url = $pdjApiRoot . "/" . $url;
-//	if($proxy)
-//		$url = combine($proxy, $url);
+//	if($proxy)	$url = combine($proxy, $url);
 	return toAbsoluteUrl($url);
 }
 
