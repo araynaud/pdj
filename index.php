@@ -13,6 +13,8 @@ require_once("$MT_DIR/include/text_functions.php");
 require_once("$MT_DIR/include/debug_functions.php");
 require_once("$MT_DIR/include/path_functions.php");
 require_once("$MT_DIR/include/dir_functions.php");
+require_once("$MT_DIR/include/array_functions.php");
+require_once("$MT_DIR/include/config_functions.php");
 require_once("$MT_DIR/include/file_functions.php");
 require_once("$MT_DIR/include/ui_functions.php");
 require_once("$MT_DIR/include/json_xml_functions.php");
