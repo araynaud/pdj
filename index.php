@@ -39,6 +39,8 @@ function getRecipeUrl($id)
 
 //get recipe id and parameters from query string, 
 $config = readConfigFile("pdj.config");
+readConfigFile("pdj.local.config", $config);
+
 debugText("<div id='php_debug' class='footerRightCorner left text controls photoBorder bgwhite'>DEBUG");
 $offline = getConfig("offline");
 $recipeid = reqParam("recipe");
@@ -99,20 +101,28 @@ if($recipe)
 
 <link rel="stylesheet" href="/mt/MediaThingy.css">
 <link rel="stylesheet" href="pdj.css">
+<link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+
 <link rel="icon" href="images/PJgreen32.png">
 <link rel="icon" sizes="192x192" href="images/PJgreen192.png">
 <link rel="icon" sizes="128x128" href="images/PJgreen128.png">
 <link rel="apple-touch-icon" sizes="128x128" href="images/PJgreen128.png">
 <link rel="apple-touch-icon-precomposed" sizes="128x128" href="images/PJgreen128.png">
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="/mt/js/lib/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" src="js/lib/jquery.min.js"></script>
+<script type="text/javascript" src="js/lib/ui-bootstrap-tpls-0.14.3.min.js"></script>
+<script type="text/javascript" src="js/lib/ng-file-upload.js"></script>
+<script type="text/javascript" src="js/lib/md5.min.js"></script>
 
-<script type="text/javascript" src="js/angular.min.js"></script>
-<script type="text/javascript" src="js/angular-route.min.js"></script>
-<script type="text/javascript" src="js/angular-resource.min.js"></script>
-<script type="text/javascript" src="js/angular-sanitize.min.js"></script>
-<script type="text/javascript" src="js/angular-animate.min.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="js/ng14/angular.min.js"></script>
+<script type="text/javascript" src="js/ng14/angular-ui-router.min.js"></script>
+<script type="text/javascript" src="js/ng14/angular-route.min.js"></script>
+<script type="text/javascript" src="js/ng14/angular-resource.min.js"></script>
+<script type="text/javascript" src="js/ng14/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="js/ng14/angular-animate.min.js"></script>
+
 <script type="text/javascript" src="js/pdj.app.js"></script>
 <script type="text/javascript" src="js/pdj.services.js"></script>
 <script type="text/javascript" src="js/pdj.controllers.js"></script>
