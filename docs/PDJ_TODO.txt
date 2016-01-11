@@ -1,3 +1,16 @@
+pdj amazon
+x1 angular 1.4
+x2 bootstrap
+3 convert menus to boostrap
+4 recipe text upload page
+5 login page / JS using existing login service
+
+Amazon
+x1 setup SQL Server instance
+2 setup IIS  for .net PDJ app
+
+GoDaddy: point pimentdujour.com to amazon box 52.8.226.210
+
 PDJ
 
 PHP: recipe.php

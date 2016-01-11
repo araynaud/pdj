@@ -2,10 +2,11 @@
 
 var pdjServices = angular.module('pdjServices', ['ngResource']);
 
-var recipeService = pdjServices.service('RecipeService', ['$resource', '$q', function($resource, $q) 
+pdjServices.service('RecipeService', ['$resource', '$q', function($resource, $q) 
 {
 	this._album=null;
     var pdjService = this;
+    window.recipeService = this;
     this.config = pdjConfig || {};
     this.pdjApiBaseUrl = this.config.pdjApi.root;
     if(this.config.pdjApi.proxy)

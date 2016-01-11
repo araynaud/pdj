@@ -99,9 +99,9 @@ if($recipe)
 	metaImage($imageUrlPath, $imageDir, $image);
 ?>
 
+<link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="/mt/MediaThingy.css">
 <link rel="stylesheet" href="pdj.css">
-<link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
 
 <link rel="icon" href="images/PJgreen32.png">
 <link rel="icon" sizes="192x192" href="images/PJgreen192.png">
@@ -110,10 +110,7 @@ if($recipe)
 <link rel="apple-touch-icon-precomposed" sizes="128x128" href="images/PJgreen128.png">
 
 <script type="text/javascript" src="js/lib/jquery.min.js"></script>
-<script type="text/javascript" src="js/lib/ui-bootstrap-tpls-0.14.3.min.js"></script>
-<script type="text/javascript" src="js/lib/ng-file-upload.js"></script>
 <script type="text/javascript" src="js/lib/md5.min.js"></script>
-
 <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="js/ng14/angular.min.js"></script>
@@ -122,6 +119,9 @@ if($recipe)
 <script type="text/javascript" src="js/ng14/angular-resource.min.js"></script>
 <script type="text/javascript" src="js/ng14/angular-sanitize.min.js"></script>
 <script type="text/javascript" src="js/ng14/angular-animate.min.js"></script>
+
+<script type="text/javascript" src="js/lib/ui-bootstrap-tpls-0.14.3.min.js"></script>
+<script type="text/javascript" src="js/lib/ng-file-upload.js"></script>
 
 <script type="text/javascript" src="js/pdj.app.js"></script>
 <script type="text/javascript" src="js/pdj.services.js"></script>

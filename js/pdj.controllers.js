@@ -7,6 +7,8 @@ var pdjControllers = angular.module('pdjControllers', ['ngSanitize']);
 pdjControllers.controller('RecipeController', ['$scope', '$window', '$routeParams', 'RecipeService',  
 function ($scope, $window, $routeParams, RecipeService)
 {
+  window.RecipeController = this;
+  RecipeController.scope = $scope;
   $scope.query="";
   $scope.showSearch= ($window.innerWidth >= 1000);
   $scope.selectedCategories={};
