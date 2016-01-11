@@ -2,8 +2,18 @@
 ng-class="{hidden:!showSearch, slideleft:showSearch}"
 >	
 	<img src="images/close_red.gif" ng-click="showSearch=!showSearch"/>
-	Search:
-	<input ng-model="query" ng-change="getRecipeList()"/>
+    <div class="input-group">
+      <input type="text" class="form-control" id="inputDescription" ng-model="query" placeholder="Search" />
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-default" ng-click="getRecipeList()">
+          <i class="glyphicon glyphicon-search"></i>
+        </button> 
+        <button type="button" class="btn btn-default" ng-click="query=''; getRecipeList();">
+          <i class="glyphicon glyphicon-remove-circle"></i>
+        </button> 
+      </span>
+    </div>
+
 
 	<div id="categories" class="scrollY0">
 		<div id="categoryType_{{type.ID}}" ng-repeat="type in categoryTypes" class="categoryType">

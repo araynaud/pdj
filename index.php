@@ -132,7 +132,7 @@ if(recipe)
 </script>
 
 </head>
-<body class="nomargin bgwhite" ng-controller="LayoutController">
+<body class="nomargin bgwhite isMobile" ng-controller="LayoutController">
 	<div class="nomargin bg" ng-style="{ 'background-image': backgroundImage }"></div>
 
 	<!-- Static navbar -->
@@ -143,7 +143,7 @@ if(recipe)
 	    </a>
 
 	  <div class="navbar-header">
-	    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".mobile #navbar" aria-expanded="false" aria-controls="navbar">
+	    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".isMobile #navbar" aria-expanded="false" aria-controls="navbar">
 	      <span class="icon-bar"></span>
 	      <span class="icon-bar"></span>
 	      <span class="icon-bar"></span>
@@ -152,37 +152,22 @@ if(recipe)
 
 	  <div id="navbar" class="navbar-collapse collapse">
 	    <ul class="nav navbar-nav">
-	      <li ng-class="{active: mode()=='list'}" data-toggle="collapse" data-target=".mobile #navbar"><a href="#/list">Recipes</a></li>
-	      <li ng-class="{active: mode()=='article'}" data-toggle="collapse" data-target=".mobile #navbar"><a href="#/about">About</a></li>
-	      <li ng-show="lc.loggedIn()" ng-class="{active: mode()=='upload'}"  data-toggle="collapse" data-target=".mobile #navbar"><a href="#/upload/">Upload</a></li>
+	      <li ng-class="{active: mode()=='list'}" data-toggle="collapse" data-target=".isMobile #navbar"><a href="#/list">Recipes</a></li>
+	      <li ng-class="{active: mode()=='article'}" data-toggle="collapse" data-target=".isMobile #navbar"><a href="#/about">About</a></li>
+	      <li ng-show="lc.loggedIn()" ng-class="{active: mode()=='upload'}"  data-toggle="collapse" data-target=".isMobile #navbar"><a href="#/upload/">Upload</a></li>
 	    </ul>
 	    <ul class="nav navbar-nav navbar-right">
-	      <li ng-hide="lc.loggedIn()" ng-class="{active: lc.stateIs('signin')}" data-toggle="collapse" data-target=".mobile #navbar"><a href="#/signin">Log in</a></li>
-	      <li ng-hide="lc.loggedIn()" ng-class="{active: lc.stateIs('signup')}" data-toggle="collapse" data-target=".mobile #navbar"><a href="#/signup">Sign up</a></li>
-	      <li ng-show="lc.loggedIn()" ng-class="{active: lc.stateIs('user')}"   data-toggle="collapse" data-target=".mobile #navbar"><a href="#/main">{{lc.userFullName()}}</a></li>
-	      <li ng-show="lc.loggedIn()" data-toggle="collapse" data-target=".mobile #navbar"><a href="#/login" ng-click="lc.logout()">Sign out</a></li>
+	      <li ng-hide="lc.loggedIn()" ng-class="{active: lc.stateIs('signin')}" data-toggle="collapse" data-target=".isMobile #navbar"><a href="#/signin">Log in</a></li>
+	      <li ng-hide="lc.loggedIn()" ng-class="{active: lc.stateIs('signup')}" data-toggle="collapse" data-target=".isMobile #navbar"><a href="#/signup">Sign up</a></li>
+	      <li ng-show="lc.loggedIn()" ng-class="{active: lc.stateIs('user')}"   data-toggle="collapse" data-target=".isMobile #navbar"><a href="#/main">{{lc.userFullName()}}</a></li>
+	      <li ng-show="lc.loggedIn()" data-toggle="collapse" data-target=".isMobile #navbar"><a href="#/login" ng-click="lc.logout()">Sign out</a></li>
 	      <li><a>{{mode()}}</a></li>
 	    </ul>
 	  </div>
 	</div>
 	</nav>
-
-	<div id="header" class="bgwhite headerLeftCorner stretchW boxShadow0">
-		<a href="./">
-			<img class="floatL marginH stretchH" src="images/PimentJourVertOrange200.png" alt="PDJ"/>
-		</a>
-		<a class="floatR" href="#/login">Log in</a>
-		<?php debugVar("offline"); debugVar("recipeid"); debugVar("recipeImagesDir"); debugVar("image"); ?>
-		<div id="mainMenu" class="stretchH tabs noprint">
-			<a ng-class="{'active': mode()=='list' || mode()=='recipe'}" href="#">Recipes</a>
-			<a ng-class="{'active': mode()=='article'}" href="#/about">About</a>
-		</div>
-	</div>
   
-	<div id="content" class="noscroll aboveFooter translucentWhite">
-		<div id="main" class="scrollY" ng-view ui-view>
-		</div>
-	</div>
+  <div id="main"  class="translucentWhite" ng-view ui-view></div>
 
   <footer class="footer container nowrap">
     <div class="text-muted">{{title()}} {{windowWidth}} x {{windowHeight}} {{userAgent}}</div>

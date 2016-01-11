@@ -24,11 +24,10 @@ ul.horizontal > li
 {
     left:-5cm;
     position:fixed;
-    top: 12mm;
+    top: 55px;
     height: 90%;
     display:block;
-    z-index: 100;
-    border-top: 1px solid black;
+/*    z-index: 100;*/
 }
 
 .boxShadow
@@ -140,9 +139,21 @@ a.button
 
 .leftSidebar, .rightSidebar
 {
-	width: 4.5cm;
-	padding-left:10px; padding-right:10px; 
+	width: 5cm;
+	padding-left:10px; 
+    padding-right:10px; 
 	text-align: left;
+}
+
+.leftSidebar
+{
+    padding-left:10px; 
+}
+
+.rightSidebar
+{
+    padding-right:10px; 
+    text-align: right;
 }
 
 /*
@@ -258,6 +269,12 @@ body.footer
   background-color: #f5f5f5;
   text-align: center;
 }
+
+div#main
+{
+  margin-top: 55px;
+}
+
 
 /*
 #footer
