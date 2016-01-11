@@ -10,7 +10,7 @@ pdjServices.service('RecipeService', ['$resource', '$q', function($resource, $q)
     this.config = pdjConfig || {};
     this.pdjApiBaseUrl = this.config.pdjApi.root;
     if(this.config.pdjApi.proxy)
-        this.pdjApiBaseUrl = this.config.pdjApi.proxy + "/" + this.config.pdjApi.root;
+        this.pdjApiBaseUrl = String.combine(this.config.pdjApi.proxy + "/" + this.config.pdjApi.root);
     this.pdjApiBaseUrl += "/";
 
     this.articles={};
@@ -24,7 +24,7 @@ pdjServices.service('RecipeService', ['$resource', '$q', function($resource, $q)
 $resource(this.pdjApiBaseUrl + 'Categories/GetAllCategoryTypes',
     {}, { query: {method:'GET', isArray:true} });
 
-    if(this.config.offline)
+    if(valueIfDefined("config.debug.offline",this))
     {
         this.listResource = $resource('json/GetRecipeBrowseDetails.json');
         this.articleResource = $resource('json/GetAboutArticle.json');

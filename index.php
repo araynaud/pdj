@@ -4,26 +4,13 @@
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 ini_set('display_errors', '1');
 
-$MT_DIR = "../mt";
-if(!file_exists("$MT_DIR/include/http_functions.php"))
-	$MT_DIR = "../MediaThingy";
-
-require_once("$MT_DIR/include/http_functions.php");
-require_once("$MT_DIR/include/text_functions.php");
-require_once("$MT_DIR/include/debug_functions.php");
-require_once("$MT_DIR/include/path_functions.php");
-require_once("$MT_DIR/include/dir_functions.php");
-require_once("$MT_DIR/include/array_functions.php");
-require_once("$MT_DIR/include/config_functions.php");
-require_once("$MT_DIR/include/file_functions.php");
-require_once("$MT_DIR/include/ui_functions.php");
-require_once("$MT_DIR/include/json_xml_functions.php");
+require_once("include/includes.php");
 
 function getRecipeUrl($id)
 {
 	if(!$id) return;
 
-	if(getConfig("offline"))
+	if(getConfig("debug.offline"))
 	{
 		$url = getConfig("pdjApi.offline.recipeDetails");
 		return toAbsoluteUrl($url);
@@ -38,11 +25,8 @@ function getRecipeUrl($id)
 }
 
 //get recipe id and parameters from query string, 
-$config = readConfigFile("pdj.config");
-readConfigFile("pdj.local.config", $config);
-
 debugText("<div id='php_debug' class='footerRightCorner left text controls photoBorder bgwhite'>DEBUG");
-$offline = getConfig("offline");
+$offline = getConfig("debug.offline");
 $recipeid = reqParam("recipe");
 $recipe = $image = $json = null;
 $imageDir = $imageUrlPath = "";
@@ -110,7 +94,6 @@ if($recipe)
 <link rel="apple-touch-icon-precomposed" sizes="128x128" href="images/PJgreen128.png">
 
 <script type="text/javascript" src="js/lib/jquery.min.js"></script>
-<script type="text/javascript" src="js/lib/md5.min.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="js/ng14/angular.min.js"></script>
@@ -122,6 +105,7 @@ if($recipe)
 
 <script type="text/javascript" src="js/lib/ui-bootstrap-tpls-0.14.3.min.js"></script>
 <script type="text/javascript" src="js/lib/ng-file-upload.js"></script>
+<script type="text/javascript" src="js/lib/md5.min.js"></script>
 
 <script type="text/javascript" src="js/pdj.app.js"></script>
 <script type="text/javascript" src="js/pdj.services.js"></script>
@@ -139,6 +123,9 @@ if($recipe)
 
 <script type="text/javascript">
 <?php echoJsVar("pdjConfig"); echoJsVar("url"); echoJsVar("recipe"); 
+echoJsVar("imageUrlPath");
+echoJsVar("imageDir");
+echoJsVar("image");
 ?>
 if(recipe)
 	window.location = "./#/recipe/" + recipe.ID;
@@ -146,28 +133,60 @@ if(recipe)
 
 </head>
 <body class="nomargin bgwhite" ng-controller="LayoutController">
-	<div class="nomargin bg" ng-style="{ 'background-image': backgroundImage }">
+	<div class="nomargin bg" ng-style="{ 'background-image': backgroundImage }"></div>
+
+	<!-- Static navbar -->
+	<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+	    <a class="navbar-brand" ng-class="{active: lc.stateIs('main')}" href="#/main">
+	      <img class="stretchH" src="images/PimentJourVertOrange200.png" alt="PDJ"/>
+	    </a>
+
+	  <div class="navbar-header">
+	    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".mobile #navbar" aria-expanded="false" aria-controls="navbar">
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	    </button>
+	  </div>
+
+	  <div id="navbar" class="navbar-collapse collapse">
+	    <ul class="nav navbar-nav">
+	      <li ng-class="{active: mode()=='list'}" data-toggle="collapse" data-target=".mobile #navbar"><a href="#/list">Recipes</a></li>
+	      <li ng-class="{active: mode()=='article'}" data-toggle="collapse" data-target=".mobile #navbar"><a href="#/about">About</a></li>
+	      <li ng-show="lc.loggedIn()" ng-class="{active: mode()=='upload'}"  data-toggle="collapse" data-target=".mobile #navbar"><a href="#/upload/">Upload</a></li>
+	    </ul>
+	    <ul class="nav navbar-nav navbar-right">
+	      <li ng-hide="lc.loggedIn()" ng-class="{active: lc.stateIs('signin')}" data-toggle="collapse" data-target=".mobile #navbar"><a href="#/signin">Log in</a></li>
+	      <li ng-hide="lc.loggedIn()" ng-class="{active: lc.stateIs('signup')}" data-toggle="collapse" data-target=".mobile #navbar"><a href="#/signup">Sign up</a></li>
+	      <li ng-show="lc.loggedIn()" ng-class="{active: lc.stateIs('user')}"   data-toggle="collapse" data-target=".mobile #navbar"><a href="#/main">{{lc.userFullName()}}</a></li>
+	      <li ng-show="lc.loggedIn()" data-toggle="collapse" data-target=".mobile #navbar"><a href="#/login" ng-click="lc.logout()">Sign out</a></li>
+	      <li><a>{{mode()}}</a></li>
+	    </ul>
+	  </div>
 	</div>
-	<div id="content" class="noscroll aboveFooter translucentWhite">
-		<div id="main" class="scrollY" ng-view>
-		</div>
-	</div>
+	</nav>
 
 	<div id="header" class="bgwhite headerLeftCorner stretchW boxShadow0">
 		<a href="./">
 			<img class="floatL marginH stretchH" src="images/PimentJourVertOrange200.png" alt="PDJ"/>
 		</a>
 		<a class="floatR" href="#/login">Log in</a>
-		{{mode()}}
 		<?php debugVar("offline"); debugVar("recipeid"); debugVar("recipeImagesDir"); debugVar("image"); ?>
 		<div id="mainMenu" class="stretchH tabs noprint">
 			<a ng-class="{'active': mode()=='list' || mode()=='recipe'}" href="#">Recipes</a>
 			<a ng-class="{'active': mode()=='article'}" href="#/about">About</a>
 		</div>
 	</div>
-
-	<div id="footer" class="footerLeftCorner small bold centered translucent stretchW hidden">
-		{{title()}} {{windowWidth}} x {{windowHeight}} {{userAgent}}
+  
+	<div id="content" class="noscroll aboveFooter translucentWhite">
+		<div id="main" class="scrollY" ng-view ui-view>
+		</div>
 	</div>
+
+  <footer class="footer container nowrap">
+    <div class="text-muted">{{title()}} {{windowWidth}} x {{windowHeight}} {{userAgent}}</div>
+  </footer>
+
 </body>
 </html>

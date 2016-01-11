@@ -63,16 +63,6 @@ ul.horizontal > li
     vertical-align: top;
 }
 
-#footer
-{
-    height: 6mm;
-}
-
-.aboveFooter
-{
-    margin-bottom: 6mm;
-}
-
 ul.tabs > li, .tabs > a
 {
 	display: inline-block;
@@ -236,7 +226,47 @@ div.thumbnailContainer
     text-shadow: black 2px 2px;
 }
 
-div.thumbnailContainer > img.thumbnail
-{
+/* bootstrap overrides */
 
+a.navbar-brand
+{
+    padding: 2px;
 }
+
+.categoryTypeTitle > a
+{
+    color: white;
+}
+
+
+/* Sticky footer styles
+-------------------------------------------------- */
+
+body.footer
+{
+  /* Margin bottom by footer height */
+  margin-bottom: 40px;
+}
+
+.footer 
+{
+  position: fixed;
+  bottom: 0;
+  max-height: 40px;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  background-color: #f5f5f5;
+  text-align: center;
+}
+
+/*
+#footer
+{
+    height: 6mm;
+}
+
+.aboveFooter
+{
+    margin-bottom: 6mm;
+}
+*/
