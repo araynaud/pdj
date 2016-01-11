@@ -97,7 +97,10 @@ function ($scope, $window, $routeParams, RecipeService)
 
   if($window.Album)
   {
+    //use proxy script if cross domain
     Album.serviceUrl = $scope.config.MediaThingy.root; 
+    Album.proxy = $scope.config.pdjApi.proxy;
+ 
     Album.onLoad = function (albumInstance) 
     {
       $scope.recipe.pics = albumInstance.selectSlideshowFiles();
