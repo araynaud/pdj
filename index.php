@@ -169,7 +169,7 @@ if(recipe)
   
   <div id="main"  class="translucentWhite" ng-view ui-view></div>
 
-  <footer class="footer container nowrap">
+  <footer class="footer container nowrap" ng-if="lc.showDebug">
     <div class="text-muted">{{title()}} {{windowWidth}} x {{windowHeight}} {{userAgent}}</div>
   </footer>
 
