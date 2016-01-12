@@ -24,7 +24,7 @@ ul.horizontal > li
 {
     left:-5cm;
     position:fixed;
-    top: 55px;
+    top: 51px;
     height: 90%;
     display:block;
 /*    z-index: 100;*/
@@ -272,7 +272,7 @@ body.footer
 
 div#main
 {
-  margin-top: 55px;
+  margin-top: 50px;
 }
 
 

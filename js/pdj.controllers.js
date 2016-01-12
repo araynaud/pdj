@@ -167,11 +167,11 @@ function ($scope, $window, $routeParams, RecipeService)
     var subdir = $scope.config.images.subdirs[size] || "";
     subdir="."+subdir;
     if(!id || !imageUrl)
-      return String.combine($scope.config.MediaThingy.root, $scope.config.images.root, $scope.config.images.dir, $scope.config.images.default);
+      return String.combine($scope.config.images.root, $scope.config.images.dir, $scope.config.images.default);
 
     if(!$scope.config.images.idDir) 
       id="";
-    return String.combine($scope.config.MediaThingy.root, $scope.config.images.root, $scope.config.images.dir, id, subdir, imageUrl);
+    return String.combine($scope.config.images.root, $scope.config.images.dir, id, subdir, imageUrl);
   };
 
   $scope.getCategoryTypes = function()
