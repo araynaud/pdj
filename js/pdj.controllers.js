@@ -1,10 +1,8 @@
 'use strict';
 
-var pdjControllers = angular.module('pdjControllers', ['ngSanitize']);
-
 // =========== RecipeController ===========
-
-pdjControllers.controller('RecipeController', ['$scope', '$window', '$routeParams', 'RecipeService',  
+angular.module('pdjControllers').
+controller('RecipeController', ['$scope', '$window', '$routeParams', 'RecipeService',  
 function ($scope, $window, $routeParams, RecipeService)
 {
   window.RecipeController = this;
@@ -236,8 +234,8 @@ function ($scope, $window, $routeParams, RecipeService)
 }]);
 
 // =========== LayoutController ===========
-
-pdjControllers.controller('LayoutController', ['$scope', '$window', 'RecipeService', 
+angular.module('pdjControllers').
+controller('LayoutController', ['$scope', '$window', 'RecipeService', 
 function ($scope, $window, RecipeService)
 {
     $scope.config = $window.pdjConfig;

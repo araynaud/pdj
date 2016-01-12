@@ -59,3 +59,23 @@ http://www.seankenny.me/blog/2013/10/02/angularjs-formsauthentication-in-net-lan
 window resize
 
 http://stackoverflow.com/questions/23044338/window-resize-directive
+
+
+AccountsController
+[HttpPost]
+public HttpResponseMessage SignIn(LogOnModel logOnModel)
+
+public class LogOnModel
+    {
+        [Required]
+        [Display(Name = "User name")]
+        public string UserName { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [Display(Name = "Remember me?")]
+        public bool RememberMe { get; set; }
+    }

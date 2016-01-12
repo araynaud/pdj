@@ -1,8 +1,7 @@
 'use strict';
 
-var pdjServices = angular.module('pdjServices', ['ngResource']);
-
-pdjServices.service('RecipeService', ['$resource', '$q', function($resource, $q) 
+angular.module('pdjServices')
+.service('RecipeService', ['$resource', '$q', function($resource, $q) 
 {
 	this._album=null;
     var pdjService = this;
@@ -10,7 +9,7 @@ pdjServices.service('RecipeService', ['$resource', '$q', function($resource, $q)
     this.config = pdjConfig || {};
     this.pdjApiBaseUrl = this.config.pdjApi.root;
     if(this.config.pdjApi.proxy)
-        this.pdjApiBaseUrl = String.combine(this.config.pdjApi.proxy + "/" + this.config.pdjApi.root);
+        this.pdjApiBaseUrl = String.combine(this.config.pdjApi.proxy, this.config.pdjApi.root);
     this.pdjApiBaseUrl += "/";
 
     this.articles={};
