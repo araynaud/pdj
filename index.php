@@ -96,21 +96,21 @@ if($recipe)
 <script type="text/javascript" src="js/lib/jquery.min.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" src="js/ng14/angular.min.js"></script>
-<script type="text/javascript" src="js/ng14/angular-ui-router.min.js"></script>
-<script type="text/javascript" src="js/ng14/angular-route.min.js"></script>
+<script type="text/javascript" src="js/ng14/angular.js"></script>
 <script type="text/javascript" src="js/ng14/angular-resource.min.js"></script>
 <script type="text/javascript" src="js/ng14/angular-sanitize.min.js"></script>
 <script type="text/javascript" src="js/ng14/angular-animate.min.js"></script>
+<script type="text/javascript" src="js/ng14/angular-ui-router.min.js"></script>
 
 <script type="text/javascript" src="js/lib/ui-bootstrap-tpls-0.14.3.min.js"></script>
 <script type="text/javascript" src="js/lib/ng-file-upload.js"></script>
 <script type="text/javascript" src="js/lib/md5.min.js"></script>
 
 <script type="text/javascript" src="js/pdj.app.js"></script>
+<script type="text/javascript" src="js/pdj.config.service.js"></script>
 <script type="text/javascript" src="js/pdj.recipe.service.js"></script>
-<script type="text/javascript" src="js/pdj.layout.controller.js"></script>
 <script type="text/javascript" src="js/pdj.recipe.controller.js"></script>
+<script type="text/javascript" src="js/pdj.layout.controller.js"></script>
 
 <script type="text/javascript" src="/mt/js/mt.extensions.js"></script>
 <script type="text/javascript" src="/mt/js/mt.extensions.jquery.js"></script>
@@ -133,7 +133,7 @@ if(recipe)
 </script>
 
 </head>
-<body class="nomargin bgwhite isMobile" ng-controller="LayoutController as lc">
+<body class="nomargin bgwhite" ng-class="lc.bodyClasses()" ng-controller="LayoutController as lc">
 	<div class="nomargin bg" ng-style="{ 'background-image': backgroundImage }"></div>
 
 	<!-- Static navbar -->
@@ -153,26 +153,24 @@ if(recipe)
 
 	  <div id="navbar" class="navbar-collapse collapse">
 	    <ul class="nav navbar-nav">
-	      <li ng-class="{active: mode()=='list'}" data-toggle="collapse" data-target=".isMobile #navbar"><a href="#/list">Recipes</a></li>
-	      <li ng-class="{active: mode()=='article'}" data-toggle="collapse" data-target=".isMobile #navbar"><a href="#/about">About</a></li>
-	      <li ng-show="lc.loggedIn()" ng-class="{active: mode()=='upload'}"  data-toggle="collapse" data-target=".isMobile #navbar"><a href="#/upload/">Upload</a></li>
+	      <li ng-class="{active: lc.stateIs('list')}" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="list">Recipes</a></li>
+	      <li ng-class="{active: lc.stateIs('article')}" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="about">About</a></li>
+	      <li ng-show="lc.loggedIn()" ng-class="{active: lc.stateIs('upload')=='upload'}"  data-toggle="collapse" data-target=".isMobile #navbar"><a href="#/upload/">Upload</a></li>
 	    </ul>
 	    <ul class="nav navbar-nav navbar-right">
 	      <li ng-hide="lc.loggedIn()" ng-class="{active: lc.stateIs('signin')}" data-toggle="collapse" data-target=".isMobile #navbar"><a href="#/signin">Log in</a></li>
 	      <li ng-hide="lc.loggedIn()" ng-class="{active: lc.stateIs('signup')}" data-toggle="collapse" data-target=".isMobile #navbar"><a href="#/signup">Sign up</a></li>
 	      <li ng-show="lc.loggedIn()" ng-class="{active: lc.stateIs('user')}"   data-toggle="collapse" data-target=".isMobile #navbar"><a href="#/main">{{lc.userFullName()}}</a></li>
 	      <li ng-show="lc.loggedIn()" data-toggle="collapse" data-target=".isMobile #navbar"><a href="#/login" ng-click="lc.logout()">Sign out</a></li>
-	      <li><a>{{mode()}}</a></li>
 	    </ul>
 	  </div>
 	</div>
 	</nav>
   
-  <div id="main"  class="translucentWhite" ng-view ui-view></div>
+  <div id="main"  class="translucentWhite" ui-view></div>
 
-  <footer class="footer container nowrap" ng-if="!lc.showDebug">
-    <div class="text-muted">{{title()}} {{windowWidth}} x {{windowHeight}} {{userAgent}}</div>
+  <footer class="footer container nowrap" ng-if="lc.showDebug">
+    <div class="text-muted"> {{lc.currentState()}} {{lc.windowWidth}} x {{lc.windowHeight}} {{lc.userAgent}}</div>
   </footer>
-
 </body>
 </html>

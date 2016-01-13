@@ -5,7 +5,7 @@ angular.module('pdjServices')
 {
 	this._album=null;
     var pdjService = this;
-    window.recipeService = this;
+    window.RecipeService = this;
     this.config = pdjConfig || {};
     this.pdjApiBaseUrl = this.config.pdjApi.root;
     if(this.config.pdjApi.proxy)

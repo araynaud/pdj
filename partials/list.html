@@ -36,7 +36,7 @@ ng-class="{hidden:!showSearch, slideleft:showSearch}"
 <div id="contentmain" class="margin center" ng-class="{slideleft:showSearch}">
 
 	<div class="floatL">
-		<a class="recipeTitle" href="" ng-click="showSearch=!showSearch" ng-show="!showSearch">Search</a>
+		<a class="recipeTitle" ng-click="showSearch=!showSearch" ng-show="!showSearch">Search</a>
 	</div>
 
 	<div class="floatR">
@@ -51,13 +51,13 @@ ng-class="{hidden:!showSearch, slideleft:showSearch}"
 
 	<div id="item_{{recipe.RecipeID}}" 	class="recipeListItem bgwhite shadow margin inlineBlock photoBorder" ng-repeat="recipe in list">
 		<div class="thumbnailContainer floatL">
-			<a href="#/recipe/{{recipe.RecipeID}}">
+			<a ui-sref="recipe({recipeId: recipe.RecipeID})">
 				<img class="thumbnail stretchH" ng-src="{{recipePhotoUrl(recipe,1)}}" />
 			</a>
 		</div>
 
 		<div>
-			<a class="recipeTitle" href="#/recipe/{{recipe.RecipeID}}">{{recipe.RecipeName}}</a>
+			<a class="recipeTitle" ui-sref="recipe({recipeId: recipe.RecipeID})">{{recipe.RecipeName}}</a>
 			<div class="left">
 				{{recipe.RecipeDescription.substringBefore('.', false, true, true)}}
 			</div>

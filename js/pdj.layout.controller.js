@@ -1,50 +1,91 @@
 'use strict';
 
 // =========== LayoutController ===========
-angular.module('pdjControllers').
-controller('LayoutController', ['$scope', '$window', 'RecipeService', 
-function ($scope, $window, RecipeService)
+angular.module('pdjControllers')
+.controller('LayoutController', ['$scope', '$window', '$state', 'ConfigService', 
+function ($scope, $window, $state, ConfigService)
 {
-    $scope.config = $window.pdjConfig;
-    if($scope.config.images.background)
-        $scope.backgroundImage = "url({0})".format($scope.config.images.background);
+    var lc = this;
+    $window.LayoutController = this;
+    this.state = $state;
 
-    $scope.getWindowSize = function()
+    lc.init = function()
     {
-        $scope.windowWidth  = $window.innerWidth;
-        $scope.windowHeight = $window.innerHeight;
+        $window.addEventListener("load",   lc.getWindowSize);
+        $window.addEventListener("resize", lc.getWindowSize);
+        
+        lc.showDebug = valueIfDefined("pdjConfig.debug.angular");
+        lc.userAgent = navigator.userAgent.substringAfter(")", true);
+        lc.isMobile = ConfigService.isMobile();
+
+        ConfigService.user = $window.fpUser;
+//        if(!ConfigService.user)   $state.go('signin');
+    }
+
+    lc.getWindowSize = function()
+    {
+        lc.windowWidth  = $window.innerWidth;
+        lc.windowHeight = $window.innerHeight;
         $scope.$apply();
     };
 
-    $window.addEventListener("load",   $scope.getWindowSize);
-    $window.addEventListener("resize", $scope.getWindowSize);
+    lc.bodyClasses = function()
+    {
+        var isSmall = lc.isMobile || $window.innerWidth < 768 ;
+        var classes = { isMobile: isSmall, desktop: !isSmall  };        
+        return classes;
+    }
 
-    $scope.width = function()
+    lc.width = function()
     {
       return $window.innerWidth;
     };
 
-    $scope.isPortrait = function()
+    lc.height = function()
+    {
+      return $window.innerHeight;
+    };
+
+    lc.isPortrait = function()
     {
       return $window.innerWidth <= $window.innerHeight;      
     };
 
-    $scope.isWider = function(min)
+    lc.isWider = function(min)
     {
       return $window.innerWidth >= min;      
     };
 
-    $scope.title = function()
+    lc.userFullName = function()
     {
-      document.title = RecipeService.title ? RecipeService.title + " - " + $scope.config.defaultTitle : $scope.config.defaultTitle;
-      return RecipeService.title || $scope.config.defaultTitle;
+      return ConfigService.userFullName();
     };
 
-    $scope.mode = function()
+    lc.loggedIn = function()
     {
-      return RecipeService.mode;
+      return !!ConfigService.user;
     };
 
-    $scope.userAgent = navigator.userAgent;
+    lc.logout = function()
+    {
+        return ConfigService.logout();
+    }
 
-}]); 
+    lc.stateIs = function(st)
+    {
+        return $state.is(st);
+    };
+
+    lc.currentState = function()
+    {
+        return $state.current.name;
+    };
+
+    lc.title = function()
+    {
+      document.title = ConfigService.title ? ConfigService.title + " - " + lc.config.defaultTitle : lc.config.defaultTitle;
+      return ConfigService.title || lc.config.defaultTitle;
+    };
+
+    lc.init();
+}]);

@@ -1,10 +1,11 @@
 'use strict';
 
 // =========== RecipeController ===========
-angular.module('pdjControllers').
-controller('RecipeController', ['$scope', '$window', '$routeParams', 'RecipeService',  
-function ($scope, $window, $routeParams, RecipeService)
+angular.module('pdjControllers')
+.controller('RecipeController', ['$scope', '$window', '$state', '$stateParams', 'RecipeService',  
+function ($scope, $window, $state, $stateParams, RecipeService)
 {
+    var rc = this;
     window.RecipeController = this;
     RecipeController.scope = $scope;
     $scope.query="";
@@ -23,16 +24,30 @@ function ($scope, $window, $routeParams, RecipeService)
       { return !!el; });
     };
 
+    rc.stateIs = function(st)
+    {
+        return $state.is(st);
+    };
+
+    rc.currentState = function()
+    {
+        return $state.current.name;
+    };
+
+
     $scope.init = function()
     {
-      if($routeParams.recipeId)
-        return $scope.getRecipe($routeParams.recipeId);
+      if($stateParams.recipeId)
+        return $scope.getRecipe($stateParams.recipeId);
 
-      if($routeParams.articleId)
-        return $scope.getArticle($routeParams.articleId);
+      if(rc.stateIs('about'))
+        return $scope.getArticle('GetAboutArticle');
+
+      if($stateParams.articleId)
+        return $scope.getArticle($stateParams.articleId);
       
-      if($routeParams.search) 
-        $scope.query=$routeParams.search;
+      if($stateParams.search) 
+        $scope.query=$stateParams.search;
 
       return $scope.getRecipeList();
     } 
