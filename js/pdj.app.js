@@ -7,8 +7,6 @@ var pdjApp = angular.module('pdjApp', ['ui.router', 'ui.bootstrap', 'ngFileUploa
 
 pdjApp.config(function($stateProvider, $urlRouterProvider)
 {  
-  // For any unmatched url, send to /route1
-
   $stateProvider
   	.state('list',  { url: "/",                   controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'partials/list.html' })
     .state('about', { url: "/about", controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'partials/article.html' })
@@ -18,9 +16,6 @@ pdjApp.config(function($stateProvider, $urlRouterProvider)
 //  	.state('signup',  { url: "/signup",  controller: 'LoginController',  controllerAs: 'lc', templateUrl: "views/signup.html" });
 
   $urlRouterProvider.otherwise("/");
-//	.when('/about', ['$state', function ($state) { console.log(" when /about"); $state.go('/article/GetAboutArticle');  }])
-
-
 });
 
 angular.module('pdjServices', ['ngResource']);
