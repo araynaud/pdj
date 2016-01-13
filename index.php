@@ -108,8 +108,9 @@ if($recipe)
 <script type="text/javascript" src="js/lib/md5.min.js"></script>
 
 <script type="text/javascript" src="js/pdj.app.js"></script>
-<script type="text/javascript" src="js/pdj.services.js"></script>
-<script type="text/javascript" src="js/pdj.controllers.js"></script>
+<script type="text/javascript" src="js/pdj.recipe.service.js"></script>
+<script type="text/javascript" src="js/pdj.layout.controller.js"></script>
+<script type="text/javascript" src="js/pdj.recipe.controller.js"></script>
 
 <script type="text/javascript" src="/mt/js/mt.extensions.js"></script>
 <script type="text/javascript" src="/mt/js/mt.extensions.jquery.js"></script>
@@ -132,7 +133,7 @@ if(recipe)
 </script>
 
 </head>
-<body class="nomargin bgwhite isMobile" ng-controller="LayoutController">
+<body class="nomargin bgwhite isMobile" ng-controller="LayoutController as lc">
 	<div class="nomargin bg" ng-style="{ 'background-image': backgroundImage }"></div>
 
 	<!-- Static navbar -->
@@ -169,7 +170,7 @@ if(recipe)
   
   <div id="main"  class="translucentWhite" ng-view ui-view></div>
 
-  <footer class="footer container nowrap" ng-if="lc.showDebug">
+  <footer class="footer container nowrap" ng-if="!lc.showDebug">
     <div class="text-muted">{{title()}} {{windowWidth}} x {{windowHeight}} {{userAgent}}</div>
   </footer>
 

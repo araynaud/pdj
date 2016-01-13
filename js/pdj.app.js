@@ -36,7 +36,7 @@ angular.module('pdjServices', ['ngResource']);
 angular.module('pdjControllers', ['ngSanitize']);
 pdjApp.filter('escape', function() { return window.escape; });
 
-app.toJson = function(data, loop)
+pdjApp.toJson = function(data, loop)
 {
   if(!data || angular.isString(data)) return data;
   var result = '';
@@ -54,7 +54,7 @@ app.toJson = function(data, loop)
   if(loop && angular.isObject(data))
   {
     for(key in data)
-      result += key + ": " + app.toJson(data[key]) + '\n';
+      result += key + ": " + pdjApp.toJson(data[key]) + '\n';
     return result;
   }
   
@@ -63,4 +63,4 @@ app.toJson = function(data, loop)
 
 // In the return function, we must pass in a single parameter which will be the data we will work on.
 // We have the ability to support multiple other parameters that can be passed into the filter optionally
-app.filter('toJson', function() { return app.toJson; });
+pdjApp.filter('toJson', function() { return pdjApp.toJson; });
