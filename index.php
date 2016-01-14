@@ -85,8 +85,10 @@ if($recipe)
 
 <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="/mt/MediaThingy.css">
+<link rel="stylesheet" href="../foodportrait/style/common.css">
+<link rel="stylesheet" href="../foodportrait/style/sidebar.css">
+<link rel="stylesheet" href="../foodportrait/style/signin.css">
 <link rel="stylesheet" href="pdj.css">
-<link rel="stylesheet" href="signin.css">
 
 <link rel="icon" href="images/PJgreen32.png">
 <link rel="icon" sizes="192x192" href="images/PJgreen192.png">
