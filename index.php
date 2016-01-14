@@ -136,7 +136,7 @@ if(recipe)
 
 </head>
 <body class="nomargin bgwhite" ng-class="lc.bodyClasses()" ng-controller="LayoutController as lc">
-	<div class="nomargin bg" ng-style="{ 'background-image': backgroundImage }"></div>
+	<div class="nomargin bg" ng-style="{ 'background-image': lc.backgroundImage }"></div>
 
 	<!-- Static navbar -->
 	<nav class="navbar navbar-default navbar-fixed-top">

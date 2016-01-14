@@ -2,8 +2,8 @@
 
 // =========== LayoutController ===========
 angular.module('pdjControllers')
-.controller('LayoutController', ['$scope', '$window', '$state', 'ConfigService', 'RecipeService',
-function ($scope, $window, $state, ConfigService, RecipeService)
+.controller('LayoutController', ['$scope', '$window', '$state', 'ConfigService',
+function ($scope, $window, $state, ConfigService)
 {
     var lc = this;
     $window.LayoutController = this;
@@ -14,9 +14,12 @@ function ($scope, $window, $state, ConfigService, RecipeService)
         $window.addEventListener("load",   lc.getWindowSize);
         $window.addEventListener("resize", lc.getWindowSize);
         
-        lc.showDebug = valueIfDefined("pdjConfig.debug.angular");
+        lc.showDebug = ConfigService.isDebug();
         lc.userAgent = navigator.userAgent.substringAfter(")", true);
         lc.isMobile = ConfigService.isMobile();
+        lc.backgroundImage = ConfigService.getConfig("images.background");
+        if(lc.backgroundImage)
+            lc.backgroundImage = "url({0})".format(lc.backgroundImage);
 
         ConfigService.user = $window.fpUser;
         if(!ConfigService.user)   $state.go('signin');
