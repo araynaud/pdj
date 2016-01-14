@@ -2,8 +2,8 @@
 
 // =========== LayoutController ===========
 angular.module('pdjControllers')
-.controller('LayoutController', ['$scope', '$window', '$state', 'ConfigService', 
-function ($scope, $window, $state, ConfigService)
+.controller('LayoutController', ['$scope', '$window', '$state', 'ConfigService', 'RecipeService',
+function ($scope, $window, $state, ConfigService, RecipeService)
 {
     var lc = this;
     $window.LayoutController = this;
@@ -19,7 +19,7 @@ function ($scope, $window, $state, ConfigService)
         lc.isMobile = ConfigService.isMobile();
 
         ConfigService.user = $window.fpUser;
-//        if(!ConfigService.user)   $state.go('signin');
+        if(!ConfigService.user)   $state.go('signin');
     }
 
     lc.getWindowSize = function()

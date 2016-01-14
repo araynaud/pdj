@@ -1,41 +1,22 @@
 'use strict';
 
 angular.module('pdjServices')
-.service('RecipeService', ['$resource', '$q', function($resource, $q) 
+.service('RecipeService', ['$resource', '$q', 'ConfigService',  function($resource, $q, ConfigService) 
 {
-	this._album=null;
     var pdjService = this;
     window.RecipeService = this;
-    this.config = pdjConfig || {};
-    this.pdjApiBaseUrl = this.config.pdjApi.root;
-    if(this.config.pdjApi.proxy)
-        this.pdjApiBaseUrl = String.combine(this.config.pdjApi.proxy, this.config.pdjApi.root);
-    this.pdjApiBaseUrl += "/";
-
     this.articles={};
     this.recipes={};
     this.recipeCategories={};
     this.categoryTypes=[];
     this.categoryTypeNames={};
     this.categoryNames={};
-    this.mode = "";
+    this.offline = ConfigService.isOffline();
 
-$resource(this.pdjApiBaseUrl + 'Categories/GetAllCategoryTypes',
-    {}, { query: {method:'GET', isArray:true} });
-
-    if(valueIfDefined("config.debug.offline",this))
-    {
-        this.listResource = $resource('json/GetRecipeBrowseDetails.json');
-        this.articleResource = $resource('json/GetAboutArticle.json');
-        this.recipeResource = $resource('json/GetRecipeDetails.json');
-        this.categoryTypeResource = $resource('json/GetAllCategoriesWithDetails.json');
-    }else
-    {
-        this.listResource = $resource(this.pdjApiBaseUrl + 'Recipes/GetRecipeBrowseDetails?searchText=:search:categories');
-        this.articleResource = $resource(this.pdjApiBaseUrl + 'Articles/:article');
-        this.recipeResource = $resource(this.pdjApiBaseUrl + 'Recipes/GetRecipeDetails?recipeId=:id');
-        this.categoryTypeResource = $resource(this.pdjApiBaseUrl + 'Categories/GetAllCategoriesWithDetails');
-    }
+    this.listResource =         ConfigService.getResource("Recipes/GetRecipeBrowseDetails", "searchText=:search:categories", this.offline);
+    this.recipeResource =       ConfigService.getResource("Recipes/GetRecipeDetails", "recipeId=:id", this.offline);
+    this.articleResource =      ConfigService.getResource("Articles/:article", "", this.offline);
+    this.categoryTypeResource = ConfigService.getResource("Categories/GetAllCategoriesWithDetails", "", this.offline);
 
     this.getCategoryTypes = function()
     {
@@ -63,7 +44,6 @@ $resource(this.pdjApiBaseUrl + 'Categories/GetAllCategoryTypes',
 
 	this.getList = function(search, categories)
 	{
-        this.mode="list";
         var catqs = this.getCategoriesQS(categories);
         var deferred = $q.defer();
 	    this.listResource.get({ search: search, categories: catqs }, function(response)
@@ -94,8 +74,6 @@ window.recipeCategories = pdjService.recipeCategories;
     {
         if(!article) article = 'GetAboutArticle';
 
-        this.mode="article";
-
         if(pdjService.articles[article])
         {
             pdjService.title = pdjService.articles[article].title;
@@ -121,8 +99,6 @@ window.recipeCategories = pdjService.recipeCategories;
 
     this.getRecipe = function(id)
     {
-        this.mode="recipe";
-
         if(pdjService.recipes[id])
         {
             pdjService.title = pdjService.recipes[id].Recipe.Name;

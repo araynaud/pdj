@@ -8,12 +8,12 @@ var pdjApp = angular.module('pdjApp', ['ui.router', 'ui.bootstrap', 'ngFileUploa
 pdjApp.config(function($stateProvider, $urlRouterProvider)
 {  
   $stateProvider
-  	.state('list',  { url: "/",                   controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'partials/list.html' })
-    .state('about', { url: "/about", controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'partials/article.html' })
-    .state('article', { url: "/article/:articleId", controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'partials/article.html' })
-    .state('recipe',  { url: "/recipe/:recipeId",   controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'partials/recipe.html' });
-//  	.state('signin',  { url: "/signin",  controller: 'LoginController',  controllerAs: 'lc', templateUrl: "views/signin.html" })
-//  	.state('signup',  { url: "/signup",  controller: 'LoginController',  controllerAs: 'lc', templateUrl: "views/signup.html" });
+  	.state('list',  { url: "/",                   controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'views/list.html' })
+    .state('about', { url: "/about", controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'views/article.html' })
+    .state('article', { url: "/article/:articleId", controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'views/article.html' })
+    .state('recipe',  { url: "/recipe/:recipeId",   controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'views/recipe.html' })
+  	.state('signin',  { url: "/signin",  controller: 'LoginController',  controllerAs: 'lc', templateUrl: "views/signin.html" })
+  	.state('signup',  { url: "/signup",  controller: 'LoginController',  controllerAs: 'lc', templateUrl: "views/signup.html" });
 
   $urlRouterProvider.otherwise("/");
 });

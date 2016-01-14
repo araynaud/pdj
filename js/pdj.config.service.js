@@ -7,36 +7,48 @@ angular.module('pdjServices', ['ngResource'])
     window.ConfigService = this;
     this.init = function()
     {
-        this.config = window.pdjConfig;
-
-        this.configResource = $resource('api/config.php');
-        this.loginResource = $resource('api/login' + this.serviceExt());
+        this.config = window.pdjConfig;        
+        this.offline = this.isOffline();
+        this.loginResource = this.getResource("Accounts/SignIn");
     };
+
+    this.getConfig = function(key)
+    {
+        return valueIfDefined(key, service.config);
+    }
+
+    this.getResourceUrl = function(service, qs, offline)
+    {
+        if(offline)
+        {
+            var svc = service.substringBefore("/:")
+            svc = svc.substringAfter("/", false, true);
+            return "json/" + svc + ".json";
+        }
+        var url = String.combine(this.config.pdjApi.proxy, this.config.pdjApi.root, service);
+        if(qs) url+= "?" + qs;
+        return url;
+    };
+
+    this.getResource = function(url, qs)
+    {
+        var url = this.getResourceUrl(url, qs, this.offline);
+        return $resource(url);
+    }
 
     this.isDebug = function()
     {
-        return valueIfDefined('config.debug.angular', service);
+        return !!service.getConfig('debug.angular');
     };
     
     this.isOffline = function()
     {
-        return valueIfDefined('config.debug.offline', service);
+        return !!service.getConfig('debug.offline');
     };
 
     this.serviceExt = function()
     {
-        return this.isOffline() ? '.json' : '.php';
-    };
-
-    this.loadConfig = function()
-    {
-        var deferred = $q.defer();
-        this.configResource.get(function(response)
-        {
-            service.config = response;
-            deferred.resolve(response);
-        });
-        return deferred.promise;
+        return service.isOffline() ? '.json' : '.php';
     };
 
 //User login / logout

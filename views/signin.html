@@ -1,0 +1,22 @@
+<form class="form-signin" name="loginForm">
+<h2 class="form-signin-heading">Please log in</h2>
+
+  <label for="inputUsername">Username
+    <span class="has-error" ng-show="loginForm.username.$error.required">      
+      <span class="control-label">*</span>
+    </span>
+  </label>
+  <input type="text" id="inputUsername" name="username" class="form-control marginB" ng-model="lc.form.username" placeholder="User" required autofocus>
+
+  <label for="inputPassword">Password
+    <span class="has-error" ng-show="loginForm.password.$error.required">
+      <span class="control-label">*</span>
+    </span>
+  </label>
+  <input type="password" id="inputPassword" name="password" class="form-control marginB" ng-model="lc.form.password" placeholder="Password" required>
+
+<button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="lc.login()"
+  ng-disabled="loginForm.user.$dirty && loginForm.username.$invalid || loginForm.password.$dirty && loginForm.password.$invalid">Log in</button>
+
+<p>{{lc.message}}</p>
+</form>
