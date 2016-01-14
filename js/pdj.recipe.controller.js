@@ -120,19 +120,13 @@ function ($scope, $window, $state, $stateParams, RecipeService)
         $scope.hasPhoto = !isEmpty($scope.recipe.pics);
         $scope.$apply();
 
-        albumInstance.setOptions({border:false, margin:false, shadow:false});
-        var options={
-          play: true,
-          interval: 6000,
-          pics: $scope.recipe.pics,
-          alignX:"center",
-          alignY:"center",
-          zoom: 2,
-          type: 2,
-    //        animate: true,
-          elements: {container: "#slideshowContainer"}
-        };
-        var slideshow = new Slideshow(options);
+        var mtOptions = RecipeService.getConfig("MT.album");
+        albumInstance.setOptions(mtOptions);
+
+        mtOptions = RecipeService.getConfig("MT.slideshow") || {}
+        mtOptions.elements = {container: "#slideshowContainer"};
+        mtOptions.pics = $scope.recipe.pics;
+        window.slideshow = new Slideshow(mtOptions);
         slideshow.display();
         $window.addEventListener("resize", function() { slideshow.fitImage() } );
       };

@@ -120,4 +120,8 @@ window.recipeCategories = pdjService.recipeCategories;
         return deferred.promise;
     };
 
+    this.getConfig = function(key)
+    {
+        return ConfigService.getConfig(key);
+    }
 }]);

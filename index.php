@@ -95,6 +95,8 @@ if($recipe)
 <link rel="apple-touch-icon-precomposed" sizes="128x128" href="images/PJgreen128.png">
 
 <script type="text/javascript" src="js/lib/jquery.min.js"></script>
+<script type="text/javascript" src="/mt/js/lib/jquery-ui-1.9.2.custom.min.js"></script>
+
 <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="js/ng14/angular.js"></script>
