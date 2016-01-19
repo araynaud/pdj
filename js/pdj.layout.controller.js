@@ -39,6 +39,17 @@ function ($scope, $window, $state, ConfigService)
         return classes;
     }
 
+    lc.showSidebar = function()
+    {
+        return !lc.wrapper.hasClass("toggled");
+    };
+
+    lc.toggleSidebar = function()
+    {
+        lc.wrapper = angular.element("#wrapper");
+        lc.wrapper.toggleClass("toggled");
+    };
+
     lc.width = function()
     {
       return $window.innerWidth;

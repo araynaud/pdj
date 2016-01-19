@@ -1,21 +1,25 @@
-<div id="menuleft" class="leftSidebar bgwhite boxShadow0 aboveFooter" show="showSearch"
-ng-class="{hidden:!showSearch, slideleft:showSearch}"
->	
-	<img src="images/close_red.gif" ng-click="showSearch=!showSearch"/>
+<div id="wrapper" class="main ease05">
+
+<div id="sidebar-wrapper" class="ease05 noprint">
+<form name="filterForm">
     <div class="input-group">
-      <input type="text" class="form-control" id="inputDescription" ng-model="query" placeholder="Search" />
       <span class="input-group-btn">
+        <button type="button" class="btn btn-default" ng-click="lc.toggleSidebar()">
+          <i class="glyphicon glyphicon-triangle-left"></i>
+        </button> 
+      </span>
+      <input type="text" class="form-control" id="inputDescription" ng-model="query" placeholder="Search" ng-blur="getRecipeList()" />
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-default" ng-hide="!query" ng-click="query=''; getRecipeList();">
+          <i class="glyphicon glyphicon-remove-circle"></i>
+        </button> 
         <button type="button" class="btn btn-default" ng-click="getRecipeList()">
           <i class="glyphicon glyphicon-search"></i>
-        </button> 
-        <button type="button" class="btn btn-default" ng-click="query=''; getRecipeList();">
-          <i class="glyphicon glyphicon-remove-circle"></i>
         </button> 
       </span>
     </div>
 
-
-	<div id="categories" class="scrollY0">
+	<div id="categories" class="scrollY">
 		<div id="categoryType_{{type.ID}}" ng-repeat="type in categoryTypes" class="categoryType">
 			<div class="categoryTypeTitle">
 				<a ng-click="type.show=!type.show">
@@ -31,12 +35,13 @@ ng-class="{hidden:!showSearch, slideleft:showSearch}"
 			</div>
 		</div>
 	</div>
+</form>
 </div>
 
-<div id="contentmain" class="margin center" ng-class="{slideleft:showSearch}">
+<div id="page-content-wrapper" class="center">
 
-	<div class="floatL">
-		<a class="recipeTitle" ng-click="showSearch=!showSearch" ng-show="!showSearch">Search</a>
+	<div class="floatL" ng-if="!lc.showSidebar()">
+	    <a class="btn btn-default menu-toggle glyphicon glyphicon-search" title="Search" ng-click="lc.toggleSidebar()"></a>
 	</div>
 
 	<div class="floatR">
@@ -49,7 +54,7 @@ ng-class="{hidden:!showSearch, slideleft:showSearch}"
 
 	<h2>{{title()}}</h2>
 
-	<div id="item_{{recipe.RecipeID}}" 	class="recipeListItem bgwhite shadow margin inlineBlock photoBorder" ng-repeat="recipe in list">
+	<div id="item_{{recipe.RecipeID}}" 	class="recipeListItem bgwhite shadow margin photoBorder" ng-repeat="recipe in list">
 		<div class="thumbnailContainer floatL">
 			<a ui-sref="recipe({recipeId: recipe.RecipeID})">
 				<img class="thumbnail stretchH" ng-src="{{recipePhotoUrl(recipe,1)}}" />
@@ -71,4 +76,5 @@ ng-class="{hidden:!showSearch, slideleft:showSearch}"
 		</div>
 	</div>
 
+</div>
 </div>
