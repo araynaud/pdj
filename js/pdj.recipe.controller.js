@@ -9,7 +9,6 @@ function ($scope, $window, $state, $stateParams, RecipeService)
     window.RecipeController = this;
     RecipeController.scope = $scope;
     $scope.query="";
-    $scope.showSearch= ($window.innerWidth >= 1000);
     $scope.selectedCategories={};
     $scope.plural = plural;
     $scope.loading = false;
@@ -18,25 +17,11 @@ function ($scope, $window, $state, $stateParams, RecipeService)
     $scope.config = $window.pdjConfig;
     $scope.hasPhoto = false;
 
-    $scope.selectedCategoriesArray= function()
-    {
-      return Object.values($scope.selectedCategories).filter(function(el)
-      { return !!el; });
-    };
-
-    rc.stateIs = function(st)
-    {
-        return $state.is(st);
-    };
-
-    rc.currentState = function()
-    {
-        return $state.current.name;
-    };
-
 
     $scope.init = function()
     {
+      $scope.getCategoryTypes();
+      
       if($stateParams.recipeId)
         return $scope.getRecipe($stateParams.recipeId);
 
@@ -50,7 +35,22 @@ function ($scope, $window, $state, $stateParams, RecipeService)
         $scope.query=$stateParams.search;
 
       return $scope.getRecipeList();
-    } 
+    };
+
+    $scope.selectedCategoriesArray = function()
+    {
+      return Object.values($scope.selectedCategories).filter(function(el) { return !!el; });
+    };
+
+    rc.stateIs = function(st)
+    {
+        return $state.is(st);
+    };
+
+    rc.currentState = function()
+    {
+        return $state.current.name;
+    };
 
     $scope.errorMessage =  function (result)
     {
@@ -218,26 +218,24 @@ function ($scope, $window, $state, $stateParams, RecipeService)
 
     // https://twitter.com/intent/tweet?text=Pasta with Homemade Tomato Sauce&via=Piment Du Jour&url=http://pimentdujour.com/pdj/%23/recipe/1
 
-      $scope.directLinkUrl = function()
-      {
-        var currentUrl = $window.location.href.substringBefore("#").substringBefore("?");
-        if(!$scope.recipe) return currentUrl;
-        var id = ($scope.recipe && $scope.recipe.Recipe) ? $scope.recipe.Recipe.ID : null;
-        if(id)
-          currentUrl += "?recipe=" + id;
-        return currentUrl;
-      };
+    $scope.directLinkUrl = function()
+    {
+      var currentUrl = $window.location.href.substringBefore("#").substringBefore("?");
+      if(!$scope.recipe) return currentUrl;
+      var id = ($scope.recipe && $scope.recipe.Recipe) ? $scope.recipe.Recipe.ID : null;
+      if(id)
+        currentUrl += "?recipe=" + id;
+      return currentUrl;
+    };
 
-      $scope.shareUrl = function(site)
-      {
-        var url = $scope.config.share[site];
-        if(!site || !url) return $scope.directLinkUrl();
+    $scope.shareUrl = function(site)
+    {
+      var url = $scope.config.share[site];
+      if(!site || !url) return $scope.directLinkUrl();
 
-        var currentUrl = $scope.directLinkUrl();
-        return url.format(escape(currentUrl), $scope.title(), "PimentDuJour");
-      };
+      var currentUrl = $scope.directLinkUrl();
+      return url.format(escape(currentUrl), $scope.title(), "PimentDuJour");
+    };
 
-
-    $scope.getCategoryTypes();
     $scope.init();
 }]);

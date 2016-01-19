@@ -176,7 +176,7 @@ if(recipe)
   <div id="main"  class="translucentWhite" ui-view></div>
 
   <footer class="footer container nowrap" ng-if="lc.showDebug">
-    <div class="text-muted"> {{lc.currentState()}} {{lc.windowWidth}} x {{lc.windowHeight}} {{lc.userAgent}}</div>
+    <div class="text-muted"> {{lc.currentState()}} / {{lc.getBootstrapSize()}} {{lc.windowWidth}} x {{lc.windowHeight}} / {{lc.userAgent}}</div>
   </footer>
 </body>
 </html>

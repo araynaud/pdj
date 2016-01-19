@@ -33,7 +33,8 @@ function ($window, $state, ConfigService)
     {
       var postData = {action: "login"};
       postData.username = "araynaud";
-      postData.password = "paxxnehi";
+      postData.password = "!cook4512";
+      postData.rememberMe = true;
       lc.post(postData);
     };
 

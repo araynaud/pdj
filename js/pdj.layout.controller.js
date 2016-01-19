@@ -11,6 +11,7 @@ function ($scope, $window, $state, ConfigService)
 
     lc.init = function()
     {
+        lc.bootstrapSizes = { tn:320, xs:480, sm:768, md:992, lg:1200 };
         $window.addEventListener("load",   lc.getWindowSize);
         $window.addEventListener("resize", lc.getWindowSize);
         
@@ -23,6 +24,14 @@ function ($scope, $window, $state, ConfigService)
 
         ConfigService.user = $window.fpUser;
         if(!ConfigService.user)   $state.go('signin');
+
+        //lc.sidebar = lc.isWider('sm');
+        lc.toggleSidebar(lc.isWider('sm'));
+    };
+
+    lc.apply = function(f)
+    {
+        $scope.$apply(f);
     }
 
     lc.getWindowSize = function()
@@ -34,40 +43,59 @@ function ($scope, $window, $state, ConfigService)
 
     lc.bodyClasses = function()
     {
-        var isSmall = lc.isMobile || $window.innerWidth < 768 ;
-        var classes = { isMobile: isSmall, desktop: !isSmall  };        
+        var isSmall = lc.isMobile || lc.isSmaller("sm");
+        var cl = isSmall ? "isMobile" : "isDesktop"; 
+        var classes= {};
+        classes[cl] = true;
         return classes;
     }
 
-    lc.showSidebar = function()
+    lc.sidebarWrapperClasses = function()
     {
-        return !lc.wrapper.hasClass("toggled");
-    };
+        return {"toggled": lc.sidebar} ;
+    }
 
-    lc.toggleSidebar = function()
-    {
-        lc.wrapper = angular.element("#wrapper");
-        lc.wrapper.toggleClass("toggled");
+    lc.toggleSidebar = function(st)
+    {   
+        return lc.sidebar = valueOrDefault(st, !lc.sidebar);
     };
 
     lc.width = function()
     {
-      return $window.innerWidth;
+      return lc.windowWidth;
     };
 
     lc.height = function()
     {
-      return $window.innerHeight;
+      return lc.windowHeight;
     };
 
     lc.isPortrait = function()
     {
-      return $window.innerWidth <= $window.innerHeight;      
+      return lc.windowWidth <= lc.windowHeight;      
     };
 
     lc.isWider = function(min)
     {
+        if(min && lc.bootstrapSizes[min])
+            min = lc.bootstrapSizes[min];
       return $window.innerWidth >= min;      
+    };
+
+    lc.isSmaller = function(max)
+    {
+        if(max && lc.bootstrapSizes[max])
+            max = lc.bootstrapSizes[max];
+        return $window.innerWidth < max;      
+    };
+
+    lc.getBootstrapSize = function()
+    {
+        var key;
+        for(key in lc.bootstrapSizes)
+            if($window.innerWidth <= lc.bootstrapSizes[key])
+                return key;
+        return key;
     };
 
     lc.userFullName = function()
