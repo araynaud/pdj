@@ -140,7 +140,9 @@ if(recipe)
 
 </head>
 <body class="nomargin bgwhite" ng-class="lc.bodyClasses()" ng-controller="LayoutController as lc">
-	<div class="nomargin bg" ng-style="{ 'background-image': lc.backgroundImage }"></div>
+	<div class="nomargin bg" ng-style="{ 'background-image': lc.backgroundImage }" ng-if="lc.backgroundImage">
+		<div class="translucentWhite stretchH"></div>
+	</div>
 
 	<!-- Static navbar -->
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -173,7 +175,7 @@ if(recipe)
 	</div>
 	</nav>
   
-  <div id="main"  class="translucentWhite" ui-view></div>
+  <div id="main" ui-view></div>
 
   <footer class="footer container nowrap" ng-if="lc.showDebug">
     <div class="text-muted"> {{lc.currentState()}} / {{lc.getBootstrapSize()}} {{lc.windowWidth}} x {{lc.windowHeight}} / {{lc.userAgent}}</div>

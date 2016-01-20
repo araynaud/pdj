@@ -44,10 +44,7 @@ function ($scope, $window, $state, ConfigService)
     lc.bodyClasses = function()
     {
         var isSmall = lc.isMobile || lc.isSmaller("sm");
-        var cl = isSmall ? "isMobile" : "isDesktop"; 
-        var classes= {};
-        classes[cl] = true;
-        return classes;
+        return { isMobile: isSmall, isDesktop: !isSmall, aboveFooter: lc.showDebug };
     }
 
     lc.sidebarWrapperClasses = function()

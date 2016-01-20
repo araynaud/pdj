@@ -41,8 +41,11 @@ a.button
 .recipeListItem
 {
     display: inline-block;
-/*    height: 4cm; */
+    vertical-align: bottom; 
     max-width: 11cm;
+    padding: 10px;
+    border: 1px solid #AAA;
+    border-radius: 10px;
 }
 
 a.recipeTitle
@@ -55,8 +58,8 @@ a.recipeTitle
 
 div.thumbnailContainer
 {
-    height: 3cm;
-    width: 3cm;
+    height: 4cm;
+    width: 4cm;
     overflow: hidden;
     text-align: center;
     vertical-align: center; 
@@ -79,10 +82,10 @@ a.navbar-brand
 /* Sticky footer styles
 -------------------------------------------------- */
 
-body.footer
+body.aboveFooter
 {
   /* Margin bottom by footer height */
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .footer 
@@ -100,16 +103,3 @@ div#main
 {
   margin-top: 50px;
 }
-
-
-/*
-#footer
-{
-    height: 6mm;
-}
-
-.aboveFooter
-{
-    margin-bottom: 6mm;
-}
-*/

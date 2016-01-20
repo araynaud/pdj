@@ -20,13 +20,13 @@
     </div>
 
 	<div id="categories" class="scrollY">
-		<div id="categoryType_{{type.ID}}" ng-repeat="type in categoryTypes" class="categoryType">
+		<div id="categoryType_{{type.ID}}" ng-repeat="type in categoryTypes" class="categoryType ease05">
 			<div class="categoryTypeTitle nowrap">
 				<a ng-click="type.show=!type.show">
 					<img ng-src="images/{{type.show ? 'minus' : 'expand'}}.png"/>{{type.Name}}
 				</a>
 			</div>
-			<div id="category_{{cat.ID}}" class="category nowrap" ng-repeat="cat in type.Categories" ng-show="type.show">
+			<div id="category_{{cat.ID}}" class="category nowrap ease05" ng-repeat="cat in type.Categories" ng-show="type.show">
 				<input type="checkbox" class="chkSearch" id="cb_cat_{{cat.ID}}"
 				 ng-model="selectedCategories[cat.ID]"  ng-true-value="{{cat.ID}}"
 				  ng-change="getRecipeList()" />
@@ -40,7 +40,7 @@
 <div id="page-content-wrapper" class="center ease05">
 
 	<div class="floatL">
-	    <a class="btn btn-default menu-toggle glyphicon glyphicon-search" title="Search" ng-show="!lc.sidebar" ng-click="lc.toggleSidebar(true)"></a>
+	    <a class="btn btn-default menu-toggle glyphicon glyphicon-search" title="Search" ng-hide="lc.sidebar" ng-click="lc.toggleSidebar(true)"></a>
 	</div>
 
 	<div class="floatR">
@@ -53,23 +53,20 @@
 
 	<h2>{{title()}}</h2>
 
-	<div id="item_{{recipe.RecipeID}}" 	class="recipeListItem bgwhite shadow margin photoBorder" ng-repeat="recipe in list">
-		<div class="thumbnailContainer floatL">
+	<div id="item_{{recipe.RecipeID}}" 	class="recipeListItem bgwhite margin shadow" ng-repeat="recipe in list">
+		<div class="thumbnailContainer floatL photoBorder">
 			<a ui-sref="recipe({recipeId: recipe.RecipeID})">
-				<img class="thumbnail stretchH" ng-src="{{recipePhotoUrl(recipe,1)}}" />
+				<img class="stretchH" ng-src="{{recipePhotoUrl(recipe,1)}}" />
 			</a>
 		</div>
 
-		<div>
-			<a class="recipeTitle" ui-sref="recipe({recipeId: recipe.RecipeID})">{{recipe.RecipeName}}</a>
-			<div class="left">
-				{{recipe.RecipeDescription.substringBefore('.', false, true, true)}}
-			</div>
+		<a class="recipeTitle" ui-sref="recipe({recipeId: recipe.RecipeID})">{{recipe.RecipeName}}</a>
+		<div class="left">
+			{{recipe.RecipeDescription.substringBefore('.', false, true, true)}}
 		</div>
-
 		<div class="right small">
 			<div class="floatR equalWidth2" ng-repeat="type in recipe.RecipeCategories">
-				{{categoryTypeNames[type.CategoryTypeID]}}:
+				{{categoryTypeNames[type.CategoryTypeID] + ":"}}
 				<span class="bold" ng-repeat="cat in type.CategoryIDs">{{ ($index ? ", " : "") + categoryNames[cat]}}</span>
 			</div>
 		</div>
