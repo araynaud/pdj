@@ -20,36 +20,32 @@ function ($window, $state, ConfigService)
 
     lc.login = function()
     {
-      var postData = {action: "login"};
-      angular.merge(postData, lc.form);
       if(!lc.form.username || !lc.form.password) 
         return false;
-      if($window.md5)
-        postData.password = md5(lc.form.password);
+
+      var postData = {};
+      angular.merge(postData, lc.form);
+//      if($window.md5)  postData.password = md5(lc.form.password);
       lc.post(postData);
     };
 
     lc.loginTest = function()
     {
-      var postData = {action: "login"};
-      postData.username = "araynaud";
-      postData.password = "!cook4512";
-      postData.rememberMe = true;
-      lc.post(postData);
+        lc.form = { username: "araynaud", password: "!cook4512", rememberMe: true };
     };
 
     lc.signup = function()
     {
-      var postData = {action: "signup"};
-      angular.merge(postData, lc.form);
       if(!lc.form.username || !lc.form.password || !lc.form.password2 || !lc.form.email) 
         return false;
 
       if(lc.form.password != lc.form.password2)
         return lc.message = "Passwords do not match.";
 
-      if($window.md5)
-        postData.password = md5(lc.form.password);
+      var postData = {action: "signup"};
+      angular.merge(postData, lc.form);
+
+//      if($window.md5) postData.password = md5(lc.form.password);
       delete postData.password2;
       lc.post(postData);
     };
@@ -60,11 +56,9 @@ function ($window, $state, ConfigService)
       ConfigService.login(postData).then(function(response) 
       {
           lc.loading = false;
-          lc.user = response.user; 
-          lc.loggedIn = response.success;
-          lc.message = response.message;
+          lc.loggedIn = ConfigService.user;
           if(ConfigService.user)
-            $state.go('main');
+            $state.go('list');
       });
     };
 

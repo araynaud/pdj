@@ -1,9 +1,10 @@
 pdj amazon
 x1 angular 1.4
 x2 bootstrap
-3 convert menus to boostrap
-4 recipe text upload page
-5 login page / JS using existing login service
+x3 convert menus to boostrap
+4 login page / JS using existing login service
+5 register using .net service
+6 recipe text upload page
 
 Amazon
 x1 setup SQL Server instance

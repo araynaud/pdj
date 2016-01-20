@@ -8,19 +8,19 @@
           <i class="glyphicon glyphicon-triangle-left"></i>
         </button> 
       </span>
-      <input type="text" class="form-control" id="inputDescription" ng-model="query" placeholder="Search" ng-blur="getRecipeList()" />
+      <input type="text" class="form-control" id="inputDescription" ng-model="rc.query" placeholder="Search" ng-blur="rc.getRecipeList()" />
       <span class="input-group-btn">
-        <button type="button" class="btn btn-default" ng-hide="!query" ng-click="query=''; getRecipeList();">
+        <button type="button" class="btn btn-default" ng-show="rc.query" ng-click="rc.query=''; rc.getRecipeList();">
           <i class="glyphicon glyphicon-remove-circle"></i>
         </button> 
-        <button type="button" class="btn btn-default" ng-click="getRecipeList()">
+        <button type="button" class="btn btn-default" ng-click="rc.getRecipeList()">
           <i class="glyphicon glyphicon-search"></i>
         </button> 
       </span>
     </div>
 
 	<div id="categories" class="scrollY">
-		<div id="categoryType_{{type.ID}}" ng-repeat="type in categoryTypes" class="categoryType ease05">
+		<div id="categoryType_{{type.ID}}" ng-repeat="type in rc.categoryTypes" class="categoryType ease05">
 			<div class="categoryTypeTitle nowrap">
 				<a ng-click="type.show=!type.show">
 					<img ng-src="images/{{type.show ? 'minus' : 'expand'}}.png"/>{{type.Name}}
@@ -28,8 +28,8 @@
 			</div>
 			<div id="category_{{cat.ID}}" class="category nowrap ease05" ng-repeat="cat in type.Categories" ng-show="type.show">
 				<input type="checkbox" class="chkSearch" id="cb_cat_{{cat.ID}}"
-				 ng-model="selectedCategories[cat.ID]"  ng-true-value="{{cat.ID}}"
-				  ng-change="getRecipeList()" />
+				 ng-model="rc.selectedCategories[cat.ID]"  ng-true-value="{{cat.ID}}"
+				  ng-change="rc.getRecipeList()" />
 				<label for="cb_cat_{{cat.ID}}">{{cat.Name}}</label>
 			</div>
 		</div>
@@ -44,19 +44,19 @@
 	</div>
 
 	<div class="floatR">
-		<img src="images/ajax-loader.gif" ng-show="loading"/>
-		<span id="resultCount" ng-show="!loading">
-			{{list.length ? plural(list.length, "recipe") : "No results found."}}
-			{{status}}
+		<img src="images/ajax-loader.gif" ng-show="rc.loading"/>
+		<span id="resultCount" ng-show0="!rc.loading">
+			{{rc.list.length ? rc.plural(rc.list.length, "recipe") : "No results found."}}
+			{{rc.status}}
 		</span>
 	</div>
 
-	<h2>{{title()}}</h2>
+	<h2>{{rc.title()}}</h2>
 
-	<div id="item_{{recipe.RecipeID}}" 	class="recipeListItem bgwhite margin shadow" ng-repeat="recipe in list">
+	<div id="item_{{recipe.RecipeID}}" 	class="recipeListItem bgwhite margin shadow" ng-repeat="recipe in rc.list">
 		<div class="thumbnailContainer floatL photoBorder">
 			<a ui-sref="recipe({recipeId: recipe.RecipeID})">
-				<img class="stretchH" ng-src="{{recipePhotoUrl(recipe,1)}}" />
+				<img class="stretchH" ng-src="{{rc.recipePhotoUrl(recipe,1)}}" />
 			</a>
 		</div>
 
@@ -66,8 +66,8 @@
 		</div>
 		<div class="right small">
 			<div class="floatR equalWidth2" ng-repeat="type in recipe.RecipeCategories">
-				{{categoryTypeNames[type.CategoryTypeID] + ":"}}
-				<span class="bold" ng-repeat="cat in type.CategoryIDs">{{ ($index ? ", " : "") + categoryNames[cat]}}</span>
+				{{rc.categoryTypeNames[type.CategoryTypeID] + ":"}}
+				<span class="bold" ng-repeat="cat in type.CategoryIDs">{{ ($index ? ", " : "") + rc.categoryNames[cat]}}</span>
 			</div>
 		</div>
 	</div>

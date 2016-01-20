@@ -59,14 +59,18 @@ angular.module('pdjServices', ['ngResource'])
     }
     
     //POST to login.php service
-    this.login = function(formData)
+    this.login = function(postData)
     {
         var deferred = $q.defer();
         //formData.action = "login"; //or register or logout
-        this.loginResource.save(formData, function(response) 
+        this.loginResource.save(postData, function(response) 
         {
-            service.user = response.user;
-            deferred.resolve(response);
+            service.user = null;
+            if(response.$resolved === true)
+                service.user = { username: postData.username };
+            else if(response.$resolved.user)
+                service.user = response.$resolved.user;
+            deferred.resolve(service.user);
         });
         return deferred.promise;
     };
