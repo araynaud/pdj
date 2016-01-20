@@ -25,7 +25,6 @@ function ($scope, $window, $state, ConfigService)
         ConfigService.user = $window.fpUser;
         if(!ConfigService.user)   $state.go('signin');
 
-        //lc.sidebar = lc.isWider('sm');
         lc.toggleSidebar(lc.isWider('sm'));
     };
 

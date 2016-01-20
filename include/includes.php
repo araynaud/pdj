@@ -23,7 +23,6 @@ if(isDebugMode())
 	header("Content-Type: text/plain");
 startTimer();
 
-//$config = $fpConfig = readConfigFile("$APP_DIR/fp.config");
 $config = readConfigFile("$APP_DIR/pdj.config");
 readConfigFile("$APP_DIR/pdj.local.config", $config);
 ?>

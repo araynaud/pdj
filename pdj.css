@@ -78,27 +78,6 @@ a.navbar-brand
     color: white;
 }
 
-
-/* Sticky footer styles
--------------------------------------------------- */
-
-body.aboveFooter
-{
-  /* Margin bottom by footer height */
-  margin-bottom: 20px;
-}
-
-.footer 
-{
-  position: fixed;
-  bottom: 0;
-  max-height: 40px;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  background-color: #f5f5f5;
-  text-align: center;
-}
-
 div#main
 {
   margin-top: 50px;
