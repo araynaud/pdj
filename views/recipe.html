@@ -3,14 +3,14 @@
 	<img id="slide1" class="slide top left" alt="" src="/mt/icons/blank1px.png"/>
 	<div id="videoSlide" class="inlineBlock centered"></div>
 
-	<div class="title captionTop">{{title()}}</div>
+	<div class="title captionTop">{{rc.title()}}</div>
 	<div class="bottomLeftCorner right maxWidthHalf translucent text">{{rc.displayProperty(rc.recipe.Recipe,"CookingTime")}}{{displayProperty(rc.recipe.Recipe,"PrepTime")}}{{rc.displayProperty(rc.recipe.Recipe,"TotalTime")}}</div>
 	<div class="bottomRightCorner maxWidthHalf translucent text">{{rc.displayProperty(rc.recipe.Recipe,"Author")}}{{rc.displayProperty(rc.recipe.Recipe,"Yield")}}</div>
 </div>
 
 <div class="container marginV">
 
-<div class="title" ng-show="!hasPhoto">{{title()}}</div>
+<div class="title" ng-show="!rc.hasPhoto">{{rc.title()}}</div>
 
 <div class="floatR">
 	<a href="{{rc.shareUrl()}}" title="Direct link"><img alt="link" src="images/link.png"/></a>
