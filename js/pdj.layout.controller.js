@@ -22,7 +22,7 @@ function ($scope, $window, $state, ConfigService)
         if(lc.backgroundImage)
             lc.backgroundImage = "url({0})".format(lc.backgroundImage);
 
-        ConfigService.user = $window.fpUser;
+        ConfigService.user = $window.pdjUser;
         if(!ConfigService.user)   $state.go('signin');
 
         lc.toggleSidebar(lc.isWider('sm'));

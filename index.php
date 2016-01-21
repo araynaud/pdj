@@ -5,6 +5,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 ini_set('display_errors', '1');
 
 require_once("include/includes.php");
+session_start();
 
 function getRecipeUrl($id)
 {
@@ -31,6 +32,7 @@ $recipeid = reqParam("recipe");
 $recipe = $image = $json = null;
 $imageDir = $imageUrlPath = "";
 
+$pdjUser = pdjCurrentUser();
 //site title
 $title = getConfig("defaultTitle");
 
@@ -130,10 +132,8 @@ if($recipe)
 <?php if(!$offline)	addJavascript("https://www.youtube.com/iframe_api"); ?>
 
 <script type="text/javascript">
-<?php echoJsVar("pdjConfig"); echoJsVar("url"); echoJsVar("recipe"); 
-echoJsVar("imageUrlPath");
-echoJsVar("imageDir");
-echoJsVar("image");
+<?php echoJsVar("pdjConfig"); echoJsVar("pdjUser"); echoJsVar("url"); echoJsVar("recipe"); 
+
 ?>
 if(recipe)
 	window.location = "./#/recipe/" + recipe.ID;

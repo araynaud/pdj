@@ -3,27 +3,28 @@
 angular.module('pdjServices', ['ngResource'])
 .service('ConfigService', ['$http', '$resource', '$q', function($http, $resource, $q) 
 {
-    var service = this;
+    var svc = this;
     window.ConfigService = this;
     this.init = function()
     {
         this.config = window.pdjConfig;        
         this.offline = this.isOffline();
         this.loginResource = this.getResource("Accounts/SignIn");
+        this.phpLoginResource = $resource("api/login.php");
     };
 
     this.getConfig = function(key)
     {
-        return valueIfDefined(key, service.config);
+        return valueIfDefined(key, svc.config);
     }
 
     this.getResourceUrl = function(service, qs, offline)
     {
         if(offline)
         {
-            var svc = service.substringBefore("/:")
-            svc = svc.substringAfter("/", false, true);
-            return "json/" + svc + ".json";
+            var svcName = service.substringBefore("/:")
+            svcName = svcName.substringAfter("/", false, true);
+            return "json/" + svcName + ".json";
         }
         var url = String.combine(this.config.pdjApi.proxy, this.config.pdjApi.root, service);
         if(qs) url+= "?" + qs;
@@ -32,30 +33,31 @@ angular.module('pdjServices', ['ngResource'])
 
     this.getResource = function(url, qs)
     {
-        var url = this.getResourceUrl(url, qs, this.offline);
+        url = this.getResourceUrl(url, qs, this.offline);
         return $resource(url);
     }
 
     this.isDebug = function()
     {
-        return !!service.getConfig('debug.angular');
+        return !!svc.getConfig('debug.angular');
     };
     
     this.isOffline = function()
     {
-        return !!service.getConfig('debug.offline');
+        return !!svc.getConfig('debug.offline');
     };
 
     this.serviceExt = function()
     {
-        return service.isOffline() ? '.json' : '.php';
+        return svc.isOffline() ? '.json' : '.php';
     };
 
 //User login / logout
 //POST to login.php service
     this.logout = function()
     {
-        return this.login({action: "logout"});    
+        svc.user = null;
+        svc.phpLoginResource.save({action: "logout"});
     }
     
     //POST to login.php service
@@ -65,12 +67,21 @@ angular.module('pdjServices', ['ngResource'])
         //formData.action = "login"; //or register or logout
         this.loginResource.save(postData, function(response) 
         {
-            service.user = null;
             if(response.$resolved === true)
-                service.user = { username: postData.username };
+                svc.user = { username: postData.username };
             else if(response.$resolved.user)
-                service.user = response.$resolved.user;
-            deferred.resolve(service.user);
+                svc.user = response.$resolved.user;
+            else
+                svc.user = null;
+
+            svc.phpLoginResource.save(svc.user);
+            deferred.resolve(svc.user);
+        },
+        function(error)
+        {
+            svc.logout();
+//            deferred.resolve(null);
+            deferred.resolve(error.data);
         });
         return deferred.promise;
     };

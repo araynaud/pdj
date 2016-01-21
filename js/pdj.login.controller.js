@@ -34,6 +34,17 @@ function ($window, $state, ConfigService)
         lc.form = { username: "araynaud", password: "!cook4512", rememberMe: true };
     };
 
+    lc.loggedIn = function()
+    {
+      return !!ConfigService.user;
+    };
+
+    lc.logout = function()
+    {
+        return ConfigService.logout();
+    };
+
+//RegisterModel { UserName; Email; Password; ConfirmPassword; FirstName; LastName; City; StateProvince; Country; }
     lc.signup = function()
     {
       if(!lc.form.username || !lc.form.password || !lc.form.password2 || !lc.form.email) 
@@ -56,9 +67,10 @@ function ($window, $state, ConfigService)
       ConfigService.login(postData).then(function(response) 
       {
           lc.loading = false;
-          lc.loggedIn = ConfigService.user;
           if(ConfigService.user)
             $state.go('list');
+          else
+            lc.message = response.Message;
       });
     };
 
