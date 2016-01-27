@@ -1,0 +1,102 @@
+<form class="file-uploader container" name="uploadForm" novalidate>
+    {{uc.showDebug && uc.form.upload_id}}
+    <div class="col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4" style="float:none" ng-if="uc.newUpload"> 
+        <label for="inputFiles" class="uploadThumbnail shadow">
+          <div ng-show="uc.newUpload && !uc.form.upload_id" class="uploadLabel" >Click to Select Photo<br/>{{uc.progressPercentage}}</div>
+          <img id="thumbnail" ng-src="{{uc.uploadUrl}}" ng-show="uc.newUpload && uc.form.upload_id"/> 
+        </label> 
+    </div>
+       <input type="file" id="inputFiles" ngf-select ng-model="uc.files" name="file" ngf-multiple="true" 
+        accept="image/*" required ngf-change="uc.upload()" style="width: 0px; height: 0px; " />
+
+    <div class="col-sm-12 col-md-8 col-md-offset-2" ng-if="!uc.newUpload && uc.imageUrl"> 
+      <img class="preview img-responsive" ng-class="{portrait: uc.form.image_width < uc.form.image_height}" ng-src="{{uc.imageUrl}}"/> 
+    </div>
+
+    <div class="col-md-6 col-sm-6">
+      <label for="inputDate">Date:</label> 
+      <div class="input-group">
+        <input type="text" id="inputDate" 
+            name="image_date_taken" class="form-control" 
+            ng-model="uc.form.image_date_taken" ng-click="uc.pickDate()"
+            uib-datepicker-popup="{{uc.dateFormat}}" 
+            is-open="uc.datepickerOpen" max-date="uc.today" 
+            uib-datepicker-options="uc.dateOptions" ng-required="true" 
+            close-text="Close" placeholder="Date"/>
+
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="uc.pickDate()">
+            <i class="glyphicon glyphicon-calendar"></i>
+          </button>
+        </span>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-sm-6">
+        <label for="ddMeal">Meal:</label> 
+        <select id="ddMeal" ng-model="uc.form.meal"   class="form-control" name="meal"   ng-options="item for item in uc.meals" required/>
+    </div>
+
+    <div class="col-md-6 col-sm-6">
+      <label for="inputShared">Meal shared with:</label><br/>
+      <spinner value="uc.form.shared_with"  min="1" max="20" loop="true" hold="true"></spinner>&nbsp;persons (including yourself)
+    </div>
+
+    <div class="col-md-6 col-sm-6">
+        <label for="ddCourse">Course:</label> 
+        <select id="ddCourse" ng-model="uc.form.course" class="form-control" name="course" ng-options="item for item in uc.getCourses()" />
+    </div>
+
+    <div class="col-md-12">
+        <label for="inputDescription">Food Description:</label> 
+        <textarea id="inputDescription" name="caption" class="form-control" ng-model="uc.form.caption" placeholder="Description"></textarea>
+    </div>
+
+    <div class="col-md-6">
+        <label for="ddMood">Mood:</label> 
+        <select id="ddMood" ng-model="uc.form.mood" class="form-control" ng-options="item for item in uc.fpConfig.dropdown.mood"/>
+    </div>
+
+    <div class="col-md-6">
+        <label for="inputContext">Meal Context:</label> 
+        <input type="text" id="inputContext" name="context" class="form-control" ng-model="uc.form.context" placeholder="Context"/>
+    </div>
+
+    <div class="col-md-12">
+        <label for="inputLink">Web Link:</label> 
+        <input type="text" id="inputLink" name="link" class="form-control" ng-model="uc.form.link" placeholder="Link URL"/>
+    </div>
+
+    <p class="col-md-6">
+      <br/>
+      <button class="btn btn-primary" type="submit" ng-click="uc.saveUpload()" ng-disabled="uc.validate()">Save</button>
+      <button class="btn" type="button" data-toggle="modal" data-target="#deleteModal" ng-disabled="!uc.form.upload_id && !uc.offline">Delete</button>
+      <button class="btn" type="button" ng-click="uc.cancelUpload()">Cancel</button>
+      <span class="error">{{uc.message}}</span>
+    </p>
+    <div class="col-md-12" ng-if="uc.showDebug">
+      Upload Log:
+      <pre>{{uc.log}}</pre>
+    </div>
+
+</form>
+
+
+<div id="deleteModal" class="modal fade0 bs-example-modal-sm" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Delete File</h4>
+      </div>
+      <div class="modal-body centered">
+       <img class="" ng-class="{portrait: uc.form.image_width < uc.form.image_height}" ng-src="{{uc.uploadUrl}}"/>
+       <br/> Delete {{uc.form.filename}} ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="uc.deleteFile()">OK</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

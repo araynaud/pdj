@@ -121,8 +121,8 @@ function ($scope, $window, $state, ConfigService)
 
     lc.title = function()
     {
-      document.title = ConfigService.title ? ConfigService.title + " - " + lc.config.defaultTitle : lc.config.defaultTitle;
-      return ConfigService.title || lc.config.defaultTitle;
+        var defaultTitle = RecipeService.getConfig("defaultTitle");
+        return document.title = String.append(RecipeService.title, " / ", defaultTitle);
     };
 
     lc.init();

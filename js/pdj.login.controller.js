@@ -15,8 +15,12 @@ function ($window, $state, ConfigService)
     //return user object with name
     var lc = this;
     $window.LoginController = this;
-    this.state = $state;
-    lc.form = { };
+
+    lc.init = function()
+    {
+        lc.form = {};
+        angular.merge(lc.form, ConfigService.getConfig("login"));
+    };
 
     lc.login = function()
     {
@@ -27,11 +31,6 @@ function ($window, $state, ConfigService)
       angular.merge(postData, lc.form);
 //      if($window.md5)  postData.password = md5(lc.form.password);
       lc.post(postData);
-    };
-
-    lc.loginTest = function()
-    {
-        lc.form = { username: "araynaud", password: "!cook4512", rememberMe: true };
     };
 
     lc.loggedIn = function()
@@ -73,5 +72,7 @@ function ($window, $state, ConfigService)
             lc.message = response.Message;
       });
     };
+
+    lc.init();
 
 }]);

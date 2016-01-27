@@ -10,6 +10,7 @@ pdjApp.config(function($stateProvider, $urlRouterProvider)
   $stateProvider
   	.state('list',  { url: "/",                   controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'views/list.html' })
     .state('about', { url: "/about", controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'views/article.html' })
+    .state('upload',  { url: "/upload/:uploadId",  controller: 'UploadController', controllerAs: 'uc', templateUrl: 'views/upload.html' })
     .state('article', { url: "/article/:articleId", controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'views/article.html' })
     .state('recipe',  { url: "/recipe/:recipeId",   controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'views/recipe.html' })
   	.state('signin',  { url: "/signin",  controller: 'LoginController',  controllerAs: 'lc', templateUrl: "views/signin.html" })

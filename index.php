@@ -85,56 +85,29 @@ if($recipe)
 	metaImage($imageUrlPath, $imageDir, $image);
 ?>
 
-<link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
-<link rel="stylesheet" href="/mt/MediaThingy.css"/>
-<link rel="stylesheet" href="../foodportrait/style/common.css"/>
-<link rel="stylesheet" href="../foodportrait/style/sidebar.css"/>
-<link rel="stylesheet" href="../foodportrait/style/signin.css"/>
-<link rel="stylesheet" href="../foodportrait/style/sticky-footer.css"/>
-<link rel="stylesheet" href="pdj.css"/>
-
 <link rel="icon" href="images/PJgreen32.png"/>
 <link rel="icon" sizes="192x192" href="images/PJgreen192.png"/>
 <link rel="icon" sizes="128x128" href="images/PJgreen128.png"/>
 <link rel="apple-touch-icon" sizes="128x128" href="images/PJgreen128.png"/>
 <link rel="apple-touch-icon-precomposed" sizes="128x128" href="images/PJgreen128.png"/>
 
-<script type="text/javascript" src="js/lib/jquery.min.js"></script>
-<script type="text/javascript" src="/mt/js/lib/jquery-ui-1.9.2.custom.min.js"></script>
-
-<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
-
-<script type="text/javascript" src="js/ng14/angular.js"></script>
-<script type="text/javascript" src="js/ng14/angular-resource.min.js"></script>
-<script type="text/javascript" src="js/ng14/angular-sanitize.min.js"></script>
-<script type="text/javascript" src="js/ng14/angular-animate.min.js"></script>
-<script type="text/javascript" src="js/ng14/angular-ui-router.min.js"></script>
-
-<script type="text/javascript" src="js/lib/ui-bootstrap-tpls-0.14.3.min.js"></script>
-<script type="text/javascript" src="js/lib/ng-file-upload.js"></script>
-<script type="text/javascript" src="js/lib/md5.min.js"></script>
-
-<script type="text/javascript" src="js/pdj.app.js"></script>
-<script type="text/javascript" src="js/pdj.config.service.js"></script>
-<script type="text/javascript" src="js/pdj.recipe.service.js"></script>
-<script type="text/javascript" src="js/pdj.recipe.controller.js"></script>
-<script type="text/javascript" src="js/pdj.layout.controller.js"></script>
-<script type="text/javascript" src="js/pdj.login.controller.js"></script>
-
-<script type="text/javascript" src="/mt/js/mt.extensions.js"></script>
-<script type="text/javascript" src="/mt/js/mt.extensions.jquery.js"></script>
-<script type="text/javascript" src="/mt/js/mt.user.js"></script>
-<script type="text/javascript" src="/mt/js/mt.mediafile.js"></script>
-<script type="text/javascript" src="/mt/js/mt.album.js"></script>
-<script type="text/javascript" src="/mt/js/mt.transition.js"></script>
-<script type="text/javascript" src="/mt/js/mt.slideshow.js"></script>
-<script type="text/javascript" src="/mt/js/mt.html5player.js"></script>
-<?php if(!$offline)	addJavascript("https://www.youtube.com/iframe_api"); ?>
+<?php
+	addCssFromConfig("lib.bootstrap"); 
+	addAllCss("../foodportrait/style");
+	addCssFromConfig("MediaThingy", "../MediaThingy.css");
+	addAllCss(".");
+	addScriptFromConfig("lib", "jquery.min.js");
+	addScriptFromConfig("lib.bootstrap");
+	addScriptFromConfig("lib.angular"); 
+	addScriptFromConfig("lib"); 
+	addScriptFromConfig("MediaThingy");
+	addAllScripts("js");
+	if(!$offline)	
+		addJavascript("https://www.youtube.com/iframe_api"); 
+?>
 
 <script type="text/javascript">
-<?php echoJsVar("pdjConfig"); echoJsVar("pdjUser"); echoJsVar("url"); echoJsVar("recipe"); 
-
-?>
+<?php echoJsVar("pdjConfig"); echoJsVar("pdjUser"); echoJsVar("url"); echoJsVar("recipe"); ?>
 if(recipe)
 	window.location = "./#/recipe/" + recipe.ID;
 </script>

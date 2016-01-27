@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('pdjServices', ['ngResource'])
-.service('ConfigService', ['$http', '$resource', '$q', function($http, $resource, $q) 
+.service('ConfigService', ['$http', '$resource', '$state', '$q', function($http, $resource, $state, $q) 
 {
     var svc = this;
     window.ConfigService = this;
@@ -36,6 +36,14 @@ angular.module('pdjServices', ['ngResource'])
         url = this.getResourceUrl(url, qs, this.offline);
         return $resource(url);
     }
+
+//go to default page if not logged in
+    this.requireLogin = function()
+    {
+        if(!svc.user && !svc.isOffline())
+            $state.go('list');
+    };
+
 
     this.isDebug = function()
     {

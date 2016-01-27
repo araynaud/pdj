@@ -8,18 +8,18 @@ function ($scope, $window, $state, $stateParams, RecipeService)
     var rc = this;
     window.RecipeController = this;
     RecipeController.scope = $scope;
-    rc.query="";
-    rc.selectedCategories={};
-    rc.plural = plural;
-    rc.loading = false;
-    rc.recipe = {};
-    rc.article = {};
-    rc.config = $window.pdjConfig;
-    rc.hasPhoto = false;
-
 
     rc.init = function()
     {
+      rc.query="";
+      rc.selectedCategories={};
+      rc.plural = plural;
+      rc.loading = false;
+      rc.recipe = {};
+      rc.article = {};
+      rc.imgConfig = RecipeService.getConfig("images");
+      rc.hasPhoto = false;
+
       rc.getCategoryTypes();
       
       if($stateParams.recipeId)
@@ -102,7 +102,7 @@ function ($scope, $window, $state, $stateParams, RecipeService)
 
       if($window.Album)
       {
-        var path = String.combine(rc.config.MediaThingy.imagesRoot, rc.config.images.dir, id);
+        var path = String.combine( RecipeService.getConfig("MediaThingy.imagesRoot"), RecipeService.getConfig("images.dir"), id);
         Album.getAlbumAjax("album", {path: path }, true);
       }
 
@@ -111,8 +111,8 @@ function ($scope, $window, $state, $stateParams, RecipeService)
     if($window.Album)
     {
       //use proxy script if cross domain
-      Album.serviceUrl = rc.config.MediaThingy.root; 
-      Album.proxy = rc.config.pdjApi.proxy;
+      Album.serviceUrl = RecipeService.getConfig("MediaThingy.root"); 
+      Album.proxy = RecipeService.getConfig("pdjApi.proxy");
 
       Album.onLoad = function (albumInstance) 
       {
@@ -173,14 +173,14 @@ function ($scope, $window, $state, $stateParams, RecipeService)
 
       var id = recipe.RecipeID || recipe.Recipe.ID;
       var imageUrl = id+".jpg";
-      var subdir = rc.config.images.subdirs[size] || "";
+      var subdir = rc.imgConfig.subdirs[size] || "";
       subdir="."+subdir;
       if(!id || !imageUrl)
-        return String.combine(rc.config.images.root, rc.config.images.dir, rc.config.images.default);
+        return String.combine(rc.imgConfig.root, rc.imgConfig.dir, rc.imgConfig.default);
 
-      if(!rc.config.images.idDir) 
+      if(!rc.imgConfig.idDir) 
         id="";
-      return String.combine(rc.config.images.root, rc.config.images.dir, id, subdir, imageUrl);
+      return String.combine(rc.imgConfig.root, rc.imgConfig.dir, id, subdir, imageUrl);
     };
 
     rc.getCategoryTypes = function()
@@ -204,8 +204,8 @@ function ($scope, $window, $state, $stateParams, RecipeService)
 
     rc.title = function()
     {
-      document.title = RecipeService.title ? RecipeService.title + " - " + rc.config.defaultTitle : rc.config.defaultTitle;
-      return RecipeService.title || rc.config.defaultTitle;
+        var defaultTitle = RecipeService.getConfig("defaultTitle");
+        return document.title = String.append(RecipeService.title, " - ", defaultTitle);
     };
 
     rc.displayProperty = function(obj, key, label)
@@ -230,7 +230,7 @@ function ($scope, $window, $state, $stateParams, RecipeService)
 
     rc.shareUrl = function(site)
     {
-      var url = rc.config.share[site];
+      var url = RecipeService.getConfig("share."+site);
       if(!site || !url) return rc.directLinkUrl();
 
       var currentUrl = rc.directLinkUrl();
