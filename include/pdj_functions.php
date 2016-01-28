@@ -119,8 +119,8 @@ function processImage($uploadDir, $filename)
 
     $vars = get_defined_vars();
     $result = array();
-    $exif["meal"] = selectMeal($dateTaken);
-    $result["_exif"] = $exif;
+//    $exif["meal"] = selectMeal($dateTaken);
+//    $result["_exif"] = $exif;
     $result["success"] = true;
     return addVarsToArray($result, "filename filesize mimeType dateTaken description", $vars);
 }

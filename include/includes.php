@@ -15,15 +15,17 @@ require_once("$MT_DIR/include/dir_functions.php");
 require_once("$MT_DIR/include/array_functions.php");
 require_once("$MT_DIR/include/config_functions.php");
 require_once("$MT_DIR/include/file_functions.php");
+require_once("$MT_DIR/include/image_functions.php");
+require_once("$MT_DIR/include/exif_functions.php");
 require_once("$MT_DIR/include/ui_functions.php");
 require_once("$MT_DIR/include/json_xml_functions.php");
 require_once("$MT_DIR/include/ffmpeg_functions.php");
 require_once("$APP_DIR/include/pdj_functions.php");
 
+$config = readConfigFile("$APP_DIR/pdj.config");
+readConfigFile("$APP_DIR/pdj.local.config", $config);
+$pdjConfig = $config;
 if(isDebugMode())
 	header("Content-Type: text/plain");
 startTimer();
-
-$config = readConfigFile("$APP_DIR/pdj.config");
-readConfigFile("$APP_DIR/pdj.local.config", $config);
 ?>

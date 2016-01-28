@@ -26,27 +26,10 @@ $db = NULL;
 $success = true;
 $nbFiles = count($_FILES);
 if($nbFiles)
-	foreach ($_FILES as $file)
-		$result[] = processUpload($file);
-if($nbFiles == 1)
 {
-	$response = reset($result);
-	$success = $response["success"];
-	$exif = $response["_exif"];
-}
-
-if($success)
-{
-	if(!$upload_id) //step 1
-		$upload_id = saveUploadData($db, $exif);
-	else //step 2
-	{
-		$success = saveUploadData($db, $_POST);
-		$message =  "Details saved.";
-	}
-
-	if($upload_id==-1)
-		$message =  "DB offline.";
+	$file = reset($_FILES);
+	$response = processUpload($file);
+	//$exif = $response["_exif"];
 }
 
 $response["post"] = $_POST;

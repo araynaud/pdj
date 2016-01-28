@@ -69,7 +69,6 @@ if($json)
 	$image = findFirstImage($imageDir);
 	$config["image"] = $image;
 }
-$pdjConfig = $config;
 debugText("</div>");
 ?>
 <head>

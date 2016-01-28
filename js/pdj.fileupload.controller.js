@@ -21,7 +21,6 @@ function ($scope, $window, $state, $stateParams, $timeout, Upload, ConfigService
         uc.queued = true;
         this.scope = $scope;
         this.state = $state;
-//        uc.fpConfig = $window.fpConfig;
         uc.logReverse = false;
         uc.form = {};
         uc.loadData();
@@ -109,6 +108,7 @@ function ($scope, $window, $state, $stateParams, $timeout, Upload, ConfigService
     {
         uc.progressPercentage="";
         uc.uploadUrl="";
+//        uc.form.debug=true;
         Upload.upload({ url: 'api/upload.php', fields: uc.form, file: file })
         .progress(function (evt) 
         {
@@ -188,23 +188,10 @@ function ($scope, $window, $state, $stateParams, $timeout, Upload, ConfigService
 
         uc.dateTaken = dt.replace(/-/g, '/');
         uc.form.image_date_taken = new Date(uc.dateTaken);
-//        uc.selectMeal(uc.form.image_date_taken);
         return uc.form.image_date_taken;
     };
 
     //select meal based on photo time
-    uc.selectMeal = function(dt)
-    {
-        if(!dt) return;
-        var hour = dt.getHours();
-        var mealId = 0;
-        var list =  ConfigService.getConfig("dropdown.meal");
-        for(mealId = 0; mealId < list.length; mealId++)
-            if(!list[mealId].start || hour >= list[mealId].start && hour < list[mealId].end) break;
-        uc.mealId = mealId;
-        return uc.form.meal = uc.fpConfig.dropdown.meal[mealId].name;
-    };
-
     uc.getCourses = function()
     {
         var mealId = uc.form.meal; 

@@ -11,7 +11,7 @@ function ($scope, $window, $state, ConfigService)
 
     lc.init = function()
     {
-        lc.bootstrapSizes = { tn:320, xs:480, sm:768, md:992, lg:1200 };
+        lc.bootstrapSizes = ConfigService.getConfig("lib.bootstrap.sizes");
         $window.addEventListener("load",   lc.getWindowSize);
         $window.addEventListener("resize", lc.getWindowSize);
         
