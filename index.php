@@ -4,16 +4,16 @@
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 ini_set('display_errors', '1');
 
+//header("Access-Control-Allow-Origin: *");
 require_once("include/includes.php");
 session_start();
-
 function getRecipeUrl($id)
 {
 	if(!$id) return;
 
 	if(getConfig("debug.offline"))
 	{
-		$url = getConfig("pdjApi.offline.recipeDetails");
+		$url = getConfig("api.pdj.offline.recipeDetails");
 		return toAbsoluteUrl($url);
 	}
 

@@ -9,7 +9,7 @@ angular.module('pdjServices', ['ngResource'])
     {
         this.config = window.pdjConfig;        
         this.offline = this.isOffline();
-        this.loginResource = this.getResource("Accounts/SignIn");
+        this.loginResource = this.getResource("pdj", "Accounts/SignIn");
         this.phpLoginResource = $resource("api/login.php");
     };
 
@@ -18,7 +18,7 @@ angular.module('pdjServices', ['ngResource'])
         return valueIfDefined(key, svc.config);
     }
 
-    this.getResourceUrl = function(service, qs, offline)
+    this.getResourceUrl = function(api, url, qs, offline)
     {
         if(offline)
         {
@@ -26,16 +26,20 @@ angular.module('pdjServices', ['ngResource'])
             svcName = svcName.substringAfter("/", false, true);
             return "json/" + svcName + ".json";
         }
-        var url = String.combine(this.config.pdjApi.proxy, this.config.pdjApi.root, service);
+
+        var baseUrl = this.getConfig("api."+api+".url");
+        var isExternal = baseUrl &&  (baseUrl.startsWith("//") || baseUrl.containsText("://"));
+        var proxy = isExternal ? this.getConfig("api.proxy") : null;
+        var url = String.combine(proxy, baseUrl, url);
         if(qs) url+= "?" + qs;
         return url;
     };
 
-    this.getResource = function(url, qs)
+    this.getResource = function(api, url, qs)
     {
-        url = this.getResourceUrl(url, qs, this.offline);
+        url = this.getResourceUrl(api, url, qs, this.offline);
         return $resource(url);
-    }
+    };
 
 //go to default page if not logged in
     this.requireLogin = function()
@@ -43,7 +47,6 @@ angular.module('pdjServices', ['ngResource'])
         if(!svc.user && !svc.isOffline())
             $state.go('list');
     };
-
 
     this.isDebug = function()
     {

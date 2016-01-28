@@ -112,7 +112,7 @@ function ($scope, $window, $state, $stateParams, RecipeService)
     {
       //use proxy script if cross domain
       Album.serviceUrl = RecipeService.getConfig("MediaThingy.root"); 
-      Album.proxy = RecipeService.getConfig("pdjApi.proxy");
+      Album.proxy = RecipeService.getConfig("api.proxy");
 
       Album.onLoad = function (albumInstance) 
       {

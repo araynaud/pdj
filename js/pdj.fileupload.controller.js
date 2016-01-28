@@ -77,8 +77,7 @@ function ($scope, $window, $state, $stateParams, $timeout, Upload, ConfigService
 
     uc.validate = function()
     {
-        return 
-//        $scope.uploadForm.file.$invalid && !$stateParams.uploadId //file required for new upload || 
+        return false;
         $scope.uploadForm.image_date_taken.$invalid
         || $scope.uploadForm.caption.$invalid
         || $scope.uploadForm.meal.$invalid;

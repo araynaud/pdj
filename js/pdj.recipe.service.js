@@ -13,10 +13,10 @@ angular.module('pdjServices')
     this.categoryNames={};
     this.offline = ConfigService.isOffline();
 
-    this.listResource =         ConfigService.getResource("Recipes/GetRecipeBrowseDetails", "searchText=:search:categories", this.offline);
-    this.recipeResource =       ConfigService.getResource("Recipes/GetRecipeDetails", "recipeId=:id", this.offline);
-    this.articleResource =      ConfigService.getResource("Articles/:article", "", this.offline);
-    this.categoryTypeResource = ConfigService.getResource("Categories/GetAllCategoriesWithDetails", "", this.offline);
+    this.listResource =         ConfigService.getResource("pdj", "Recipes/GetRecipeBrowseDetails", "searchText=:search:categories", this.offline);
+    this.recipeResource =       ConfigService.getResource("pdj", "Recipes/GetRecipeDetails", "recipeId=:id", this.offline);
+    this.articleResource =      ConfigService.getResource("pdj", "Articles/:article", "", this.offline);
+    this.categoryTypeResource = ConfigService.getResource("pdj", "Categories/GetAllCategoriesWithDetails", "", this.offline);
 
     this.getCategoryTypes = function()
     {
