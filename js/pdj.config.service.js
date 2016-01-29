@@ -7,6 +7,7 @@ angular.module('pdjServices', ['ngResource'])
     window.ConfigService = this;
     this.init = function()
     {
+        this.state = $state;
         this.config = window.pdjConfig;        
         this.offline = this.isOffline();
         this.loginResource = this.getResource("pdj", "Account/SignIn");
@@ -48,6 +49,29 @@ angular.module('pdjServices', ['ngResource'])
             $state.go('list');
     };
 
+    this.stateIs = function(st)
+    {
+        return $state.is(st);
+    };
+
+    this.currentState = function()
+    {
+        return $state.current.name;
+    };
+
+    this.goToState = function(st)
+    {
+        $state.go(st); 
+    };
+
+    this.returnToMain = function(delay)
+    {
+        if(!delay)
+            $state.go('list');
+        else
+            $timeout(function() { $state.go('list'); }, delay);
+    };
+
     this.isDebug = function()
     {
         return !!svc.getConfig('debug.angular');
@@ -78,12 +102,16 @@ angular.module('pdjServices', ['ngResource'])
         //formData.action = "login"; //or register or logout
         this.loginResource.save(postData, function(response) 
         {
-            if(response.$resolved === true)
+            if(response.State === "ERROR") 
+            {
+                svc.logout();
+                deferred.resolve(response);
+                return;
+            }
+
+            svc.user = response.Data; //svc.getUser(response.Data);
+            if(!svc.user)
                 svc.user = { username: postData.username };
-            else if(response.$resolved.user)
-                svc.user = response.$resolved.user;
-            else
-                svc.user = null;
 
             svc.phpLoginResource.save(svc.user);
             deferred.resolve(svc.user);
@@ -91,7 +119,6 @@ angular.module('pdjServices', ['ngResource'])
         function(error)
         {
             svc.logout();
-//            deferred.resolve(null);
             deferred.resolve(error.data);
         });
         return deferred.promise;
@@ -99,16 +126,16 @@ angular.module('pdjServices', ['ngResource'])
 
     this.currentUsername = function()
     {
-        return this.user ? this.user.username : null;
+        return this.user ? this.user.Username : null;
     };
 
     this.userFullName = function()
     {
         if(!this.user) return "nobody";
-        if(!this.user.first_name && !this.user.last_name)   return this.user.username;
-        if(!this.user.first_name)   return this.user.last_name;
-        if(!this.user.last_name)    return this.user.first_name;
-        return this.user.first_name + " " + this.user.last_name;
+        if(!this.user.FirstName && !this.user.LastName)   return this.user.Username;
+        if(!this.user.FirstName)   return this.user.LastName;
+        if(!this.user.LastName)    return this.user.FirstName;
+        return this.user.FirstName + " " + this.user.LastName;
     };
 
     this.isMobile = function() 

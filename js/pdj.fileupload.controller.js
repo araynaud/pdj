@@ -3,8 +3,8 @@
 // =========== File Upload Controller ===========
 // handles query and gallery display
 angular.module('pdjControllers')
-.controller('UploadController', ['$scope', '$window', '$state', '$stateParams', '$timeout', 'Upload', 'ConfigService',
-function ($scope, $window, $state, $stateParams, $timeout, Upload, ConfigService)
+.controller('UploadController', ['$scope', '$window', '$stateParams', 'Upload', 'ConfigService',
+function ($scope, $window, $stateParams, Upload, ConfigService)
 {
     var uc = this;
     $window.UploadController = this;
@@ -20,7 +20,6 @@ function ($scope, $window, $state, $stateParams, $timeout, Upload, ConfigService
         uc.newUpload = !$stateParams.uploadId;
         uc.queued = true;
         this.scope = $scope;
-        this.state = $state;
         uc.logReverse = false;
         uc.form = {};
         uc.loadData();
@@ -56,7 +55,7 @@ function ($scope, $window, $state, $stateParams, $timeout, Upload, ConfigService
             if(isEmpty(response))
             {
                 uc.errorMessage(response);
-                uc.returnToMain();
+                ConfigService.returnToMain();
             }
 
             uc.form = response[0];
@@ -207,7 +206,7 @@ function ($scope, $window, $state, $stateParams, $timeout, Upload, ConfigService
         {
             uc.message=data.message;
             if(data.success)
-                uc.returnToMain();
+                ConfigService.returnToMain();
             uc.addLog(data);
         });
     };
@@ -224,25 +223,16 @@ function ($scope, $window, $state, $stateParams, $timeout, Upload, ConfigService
         {
             uc.message=data.message;
             if(data.success)
-                uc.returnToMain();
+                ConfigService.returnToMain();
             uc.addLog(data);
         });
-    };
-
-
-    uc.returnToMain = function(delay)
-    {
-        if(!delay)
-            return $state.go('list');
-
-        $timeout(function() { $state.go('list'); }, delay);
     };
 
     //if upload canceled: delete details
     //delete db record and uploaded file
     uc.cancelUpload = function() 
     {
-        uc.returnToMain();
+        ConfigService.returnToMain();
     };
 
     uc.init();

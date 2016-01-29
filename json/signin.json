@@ -1,0 +1,15 @@
+{
+  "$id": "1",
+  "State": "SUCCESS",
+  "Message": null,
+  "Exception": null,
+  "Data": {
+    "$id": "2",
+    "FirstName": "Amy",
+    "LastName": "Raynaud",
+    "Username": "araynaud",
+    "Location": "Palo Alto, CA",
+    "Email": "amylm41@hotmail.com",
+    "SignUpDate": "2012-10-16T15:41:29.65"
+  }
+}

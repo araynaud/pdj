@@ -2,12 +2,11 @@
 
 // =========== LayoutController ===========
 angular.module('pdjControllers')
-.controller('LayoutController', ['$scope', '$window', '$state', 'ConfigService',
-function ($scope, $window, $state, ConfigService)
+.controller('LayoutController', ['$scope', '$window', 'ConfigService',
+function ($scope, $window, ConfigService)
 {
     var lc = this;
     $window.LayoutController = this;
-    this.state = $state;
 
     lc.init = function()
     {
@@ -23,7 +22,6 @@ function ($scope, $window, $state, ConfigService)
             lc.backgroundImage = "url({0})".format(lc.backgroundImage);
 
         ConfigService.user = $window.pdjUser;
-        if(!ConfigService.user)   $state.go('signin');
 
         lc.toggleSidebar(lc.isWider('sm'));
     };
@@ -111,12 +109,12 @@ function ($scope, $window, $state, ConfigService)
 
     lc.stateIs = function(st)
     {
-        return $state.is(st);
+        return ConfigService.stateIs(st);
     };
 
     lc.currentState = function()
     {
-        return $state.current.name;
+        return ConfigService.currentState();
     };
 
     lc.title = function()
