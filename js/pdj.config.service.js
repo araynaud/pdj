@@ -9,7 +9,7 @@ angular.module('pdjServices', ['ngResource'])
     {
         this.config = window.pdjConfig;        
         this.offline = this.isOffline();
-        this.loginResource = this.getResource("pdj", "Accounts/SignIn");
+        this.loginResource = this.getResource("pdj", "Account/SignIn");
         this.phpLoginResource = $resource("api/login.php");
     };
 

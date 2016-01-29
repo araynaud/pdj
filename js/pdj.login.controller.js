@@ -18,6 +18,7 @@ function ($window, $state, ConfigService)
 
     lc.init = function()
     {
+        lc.showDebug = ConfigService.isDebug();
         lc.form = {};
         angular.merge(lc.form, ConfigService.getConfig("login"));
     };
