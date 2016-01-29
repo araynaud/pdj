@@ -2,15 +2,27 @@ pdj amazon
 x1 angular 1.4
 x2 bootstrap
 x3 convert menus to boostrap
-4 login page / JS using existing login service
+x4 login page / JS using existing login service
+
 5 register using .net service
+Register page:
+Select country from dropdown. id
+Load state/region list for country
+enter city or zip. lookup the other
+
+send to .net api:
+country id or 2-letter code
+region (optional) with types[0]=="administrative_area_level_1"
+district with types[0]=="administrative_area_level_2" if it exists
+send short name + long name 
+city name (usually short name = long name)
+
 6 recipe text upload page
 
 Amazon
 x1 setup SQL Server instance
-2 setup IIS  for .net PDJ app
-
-GoDaddy: point pimentdujour.com to amazon box 52.8.226.210
+x2 setup IIS  for .net PDJ app
+x GoDaddy: point pimentdujour.com to amazon box 52.8.226.210
 
 PDJ
 

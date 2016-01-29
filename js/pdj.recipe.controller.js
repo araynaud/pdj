@@ -150,7 +150,7 @@ function ($scope, $window, $state, $stateParams, RecipeService)
     rc.setTitle = function(t)
     {
       RecipeService.title = t;
-       $scope.$apply();
+//       $scope.$apply();
     };
 
     rc.linkOnClick = function(e)
@@ -205,7 +205,8 @@ function ($scope, $window, $state, $stateParams, RecipeService)
     rc.title = function()
     {
         var defaultTitle = RecipeService.getConfig("defaultTitle");
-        return document.title = String.append(RecipeService.title, " - ", defaultTitle);
+        document.title = String.append(RecipeService.title, " - ", defaultTitle);
+        return RecipeService.title || defaultTitle; 
     };
 
     rc.displayProperty = function(obj, key, label)
