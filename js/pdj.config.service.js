@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('pdjServices', ['ngResource'])
+angular.module('pdjServices')
 .service('ConfigService', ['$http', '$resource', '$state', '$q', function($http, $resource, $state, $q) 
 {
     var svc = this;

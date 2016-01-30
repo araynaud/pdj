@@ -3,8 +3,8 @@
 // =========== LoginController ===========
 // handles login (sign in), register (sign up), logout, 
 angular.module('pdjControllers')
-.controller('LoginController', ['$window', '$state', 'ConfigService', 
-function ($window, $state, ConfigService)
+.controller('LoginController', ['$window', 'ConfigService', 'LocationService',
+function ($window, ConfigService, LocationService)
 {
     //TODO:
     //post login, md5(password)
@@ -19,8 +19,17 @@ function ($window, $state, ConfigService)
     lc.init = function()
     {
         lc.showDebug = ConfigService.isDebug();
+
         lc.form = {};
         angular.merge(lc.form, ConfigService.getConfig("login"));
+
+        if(LocationService.countries)
+          lc.countries = LocationService.countries;
+        else if(ConfigService.stateIs("signup"))
+          LocationService.loadCountries().then(function(response) 
+          {
+            lc.countries = response;
+          });
     };
 
     lc.login = function()
@@ -44,13 +53,28 @@ function ($window, $state, ConfigService)
         return ConfigService.logout();
     };
 
+
+    lc.lookupLocation = function()
+    {
+      var address = String.append(lc.form.location, " ", valueIfDefined("country.country_code", lc.form));
+      LocationService.geocode(address).then(function(response)
+      { 
+        lc.geocode = response;
+        lc.first = response.results[0];
+        lc.geoLocation = LocationService.getLocation(response.results[0]);
+        delete lc.first.address_components;
+        delete lc.first.geometry;
+      });
+    };
+
+
 //RegisterModel { UserName; Email; Password; ConfirmPassword; FirstName; LastName; City; StateProvince; Country; }
     lc.signup = function()
     {
       if(!lc.form.username || !lc.form.password || !lc.form.password2 || !lc.form.email) 
         return false;
 
-      if(lc.form.password != lc.form.password2)
+      if(lc.form.password != lc.form.confirmPassword)
         return lc.message = "Passwords do not match.";
 
       var postData = {action: "signup"};
@@ -68,7 +92,7 @@ function ($window, $state, ConfigService)
       {
           lc.loading = false;
           if(ConfigService.user)
-            $state.go('list');
+              ConfigService.returnToMain();
           else
             lc.message = response.Message;
       });

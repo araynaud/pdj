@@ -1,0 +1,59 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "94301",
+               "short_name" : "94301",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Palo Alto",
+               "short_name" : "Palo Alto",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "California",
+               "short_name" : "CA",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Palo Alto, CA 94301, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 37.4581999,
+                  "lng" : -122.1304251
+               },
+               "southwest" : {
+                  "lat" : 37.42523,
+                  "lng" : -122.171706
+               }
+            },
+            "location" : {
+               "lat" : 37.4457966,
+               "lng" : -122.1575745
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 37.4581999,
+                  "lng" : -122.1304251
+               },
+               "southwest" : {
+                  "lat" : 37.42523,
+                  "lng" : -122.171706
+               }
+            }
+         },
+         "place_id" : "ChIJbfq2kBe7j4ARBzf9LVIpZok",
+         "types" : [ "postal_code" ]
+      }
+   ],
+   "status" : "OK"
+}

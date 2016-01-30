@@ -33,7 +33,7 @@ pdjApp.toJson = function(data, loop)
   {
     data.forEach(function(el)
     {
-      result += app.toJson(el, loop) + '\n';
+      result += pdjApp.toJson(el, loop) + '\n';
     });
     return result;
   }
@@ -49,3 +49,4 @@ pdjApp.toJson = function(data, loop)
 };
 
 pdjApp.filter('toJson', function() { return pdjApp.toJson; });
+pdjApp.filter('plural', function() { return plural; });
