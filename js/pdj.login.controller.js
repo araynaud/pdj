@@ -60,13 +60,17 @@ function ($window, ConfigService, LocationService)
       LocationService.geocode(address).then(function(response)
       { 
         lc.geocode = response;
-        lc.first = response.results[0];
-        lc.geoLocation = LocationService.getLocation(response.results[0]);
-        delete lc.first.address_components;
-        delete lc.first.geometry;
+        lc.choices = lc.geocode.results.distinct("formatted_address");
+        lc.selectedResult = lc.geocode.results[0];
+        lc.selectLocation();
       });
     };
 
+    lc.selectLocation = function()
+    {
+        lc.geoLocation = LocationService.getLocation(lc.selectedResult);
+        angular.merge(lc.form, lc.geoLocation);
+    }
 
 //RegisterModel { UserName; Email; Password; ConfirmPassword; FirstName; LastName; City; StateProvince; Country; }
     lc.signup = function()

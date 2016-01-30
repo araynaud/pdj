@@ -28,19 +28,25 @@
   </div>
 
   <div class="col-xs-6 marginB">
-    <label for="ddlCountries" class0="sr-only">Country</label>
+    <label for="ddlCountries">Country</label>
     <select class="form-control" id="ddlCountries" ng-model="lc.form.country" ng-options="c.common_name for c in lc.countries">
       <option value="">-</option>
     </select>
   </div>
 
   <div class="col-xs-6 marginB">
-    <label for="inputLocation" class0="sr-only">Location</label>
+    <label for="inputLocation">Location</label>
     <input type="text" id="inputLocation" class="form-control last" ng-model="lc.form.location" placeholder="City / Zip code" required>
     <a class="btn btn-default menu-toggle glyphicon glyphicon-search" title="Lookup" ng-click="lc.lookupLocation()"></a>
   </div>
 
-  <div class="col-xs-12">{{lc.geoLocation}}</div>
+  <div class="col-xs-12 marginB">
+  {{lc.geocode.results.length | plural:'result'}}
+  <select class="form-control" id="ddlLocations" ng-model="lc.selectedResult" ng-if="lc.geocode.results" ng-options="c.formatted_address for c in lc.geocode.results" ng-change="lc.selectLocation()">
+  </select>
+  </div>
+
+  <pre class="col-xs-12">{{lc.geoLocation}}</pre>
 
   <div class="col-xs-12">
     <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="lc.signup()">Sign up</button>
@@ -48,7 +54,6 @@
   </div>
 </form>
 
-<pre nf-if="lc.showDebug">{{lc.form|toJson}}</pre>
+<pre ng-if0="lc.showDebug">{{lc.form|toJson}}</pre>
 
-{{lc.geocode.results.length | plural:'result'}}
-<pre>{{lc.geocode.results | toJson:true}}</pre>
+<pre ng-if="lc.showDebug">{{lc.geocode.results | toJson:true}}</pre>

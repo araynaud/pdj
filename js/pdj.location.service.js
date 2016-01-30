@@ -26,10 +26,33 @@ angular.module('pdjServices')
         return deferred.promise;
     };
 
+/*extract fields from geocode data:
 
+"City": "Sunnyvale", 
+"RegionName": "California",
+"RegionCode": "CA",
+"District": "Santa Clara County",
+"CountryCode": "US"
+*/
     this.getLocation = function(geocode)
     {
-        return geocode.address_components.distinct("short_name").join(", ");
+        var locationFields = {};
+        var types = 
+        {
+            locality: "City",
+            administrative_area_level_2: "District",
+            administrative_area_level_1: "RegionCode",
+            country: "CountryCode",
+        };
+        geocode.address_components.forEach(function(el)
+        {
+            var key = el.types[0];
+            var field = types[key];
+            if(field)
+                locationFields[field] = el.short_name; 
+        });
+        return locationFields;
+//        return geocode.address_components.distinct("short_name").join(", ");
     };
 
     this.loadCountries = function()
