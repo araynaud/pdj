@@ -62,22 +62,14 @@ debugText("</div>");
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="mobile-web-app-capable" content="yes" />
-<?php 
-echo metaTagArray($meta);
-if($recipe)
+<?php echo metaTagArray($meta);
+if($recipe) 
 {	
-	metaImage($imageUrlPath, $imageDir, $image);
-// 	return redirectTo("./#recipe/$recipeid");
-?>
-<script type="text/javascript">
-window.location = "./#/recipe/" + <?php echo $recipe['ID'] ?>;
-</script>
+	metaImage($imageUrlPath, $imageDir, $image); ?>
+<script type="text/javascript">window.location = "./#/recipe/" + <?php echo $recipe['ID'] ?>;</script>
 </head>
 </html>
-<?php
-	return;
-}
-?>
+<?php return; }?>
 
 <link rel="icon" href="images/PJgreen32.png"/>
 <link rel="icon" sizes="192x192" href="images/PJgreen192.png"/>

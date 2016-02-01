@@ -41,18 +41,23 @@ angular.module('pdjServices')
         {
             locality: "City",
             administrative_area_level_2: "District",
-            administrative_area_level_1: "RegionCode",
-            country: "CountryCode",
+            administrative_area_level_1: "Region",
+            country: "Country",
         };
-        geocode.address_components.forEach(function(el)
-        {
-            var key = el.types[0];
-            var field = types[key];
-            if(field)
-                locationFields[field] = el.short_name; 
-        });
+        if(geocode && geocode.address_components)
+            geocode.address_components.forEach(function(el)
+            {
+                var key = el.types[0];
+                var field = types[key];
+                if(field && el.long_name === el.short_name)
+                    locationFields[field] = el.long_name;                     
+                else if(field)
+                {
+                    locationFields[field+"Name"] = el.long_name; 
+                    locationFields[field+"Code"] = el.short_name; 
+                }
+            });
         return locationFields;
-//        return geocode.address_components.distinct("short_name").join(", ");
     };
 
     this.loadCountries = function()

@@ -1,30 +1,32 @@
-<form role="form" name="signupForm" class='form-signin form-horizontal'>
-  <h2 class="form-signin-heading">Create your account</h2>
+<form role="form" name="signupForm" class='form-signin container'>
+  <h2 class="form-signin-heading text-center">Create your account</h2>
 
   <div class="col-xs-12 marginB">
-    <label for="inputUsername" class="sr-only">Username</label>
+    <label for="inputUsername" class0="sr-only">User</label>
     <input type="text" id="inputUsername" class="form-control first" placeholder="Username" ng-model="lc.form.username" required autofocus>
-  </div>
-  <div class="col-xs-6 marginB">
-      <label for="inputPassword1" class="sr-only">Password</label>
-      <input type="password" id="inputPassword1" class="form-control" ng-model="lc.form.password" placeholder="Password" required>
-  </div>
-  <div class="col-xs-6 marginB">
-    <label for="inputPassword2" class="sr-only">Confirm Password</label>
-    <input type="password" id="inputPassword2" class="form-control" ng-model="lc.form.confirmPassword" placeholder="Confirm Password" required>
-  </div>
-
-  <div class="col-xs-6 marginB">
-    <label for="inputFirstName" class="sr-only">First name</label>
-    <input type="text" id="inputFirstName" class="form-control" placeholder="First name" ng-model="lc.form.firstName" required>
-  </div>
-  <div class="col-xs-6 marginB">
-    <label for="inputLastName" class="sr-only">Last name</label>
-    <input type="text" id="inputLastName"  class="form-control" placeholder="Last name" ng-model="lc.form.lastName" required>
   </div>
   <div class="col-xs-12 marginB">
     <label for="inputEmail" class="sr-only">Email address</label>
     <input type="email" id="inputEmail" class="form-control last" ng-model="lc.form.email" placeholder="Email address" required>
+  </div>
+  <div class="col-xs-12">
+    <label for="inputPassword1" class0="sr-only">Password</label>
+  </div>
+  <div class="col-xs-6 marginB">
+      <input type="password" id="inputPassword1" class="form-control" ng-model="lc.form.password" placeholder="Password" required>
+  </div>
+  <div class="col-xs-6 marginB">
+    <input type="password" id="inputPassword2" class="form-control" ng-model="lc.form.confirmPassword" placeholder="Confirm Password" required>
+  </div>
+
+  <div class="col-xs-12">
+    <label for="inputFirstName" class0="sr-only">Your name</label>
+  </div>
+  <div class="col-xs-6 marginB">
+    <input type="text" id="inputFirstName" class="form-control" placeholder="First name" ng-model="lc.form.firstName" required>
+  </div>
+  <div class="col-xs-6 marginB">
+    <input type="text" id="inputLastName"  class="form-control" placeholder="Last name" ng-model="lc.form.lastName" required>
   </div>
 
   <div class="col-xs-6 marginB">
@@ -36,24 +38,30 @@
 
   <div class="col-xs-6 marginB">
     <label for="inputLocation">Location</label>
-    <input type="text" id="inputLocation" class="form-control last" ng-model="lc.form.location" placeholder="City / Zip code" required>
-    <a class="btn btn-default menu-toggle glyphicon glyphicon-search" title="Lookup" ng-click="lc.lookupLocation()"></a>
+    <div class="input-group">
+      <input type="text" id="inputLocation" class="form-control" ng-model="lc.form.location" placeholder="City or Zip">
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-default" title="Lookup" ng-click="lc.lookupLocation()">
+          <i class="glyphicon glyphicon-search"></i>
+        </button> 
+      </span>
+    </div>
   </div>
 
   <div class="col-xs-12 marginB">
-  {{lc.geocode.results.length | plural:'result'}}
+  <label for="ddlLocations">{{lc.geocode.results.length | plural:'result'}}</label>
   <select class="form-control" id="ddlLocations" ng-model="lc.selectedResult" ng-if="lc.geocode.results" ng-options="c.formatted_address for c in lc.geocode.results" ng-change="lc.selectLocation()">
   </select>
   </div>
 
-  <pre class="col-xs-12">{{lc.geoLocation}}</pre>
-
   <div class="col-xs-12">
-    <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="lc.signup()">Sign up</button>
+    <button class="btn btn-lg btn-primary btn-block centered narrow" type="submit" ng-click="lc.signup()">Sign up</button>
     <p>{{lc.message}}</p>
   </div>
 </form>
 
-<pre ng-if0="lc.showDebug">{{lc.form|toJson}}</pre>
+<pre class="col-xs-12">{{lc.geoLocation}}</pre>
+
+<pre ng-if="lc.showDebug">{{lc.form|toJson}}</pre>
 
 <pre ng-if="lc.showDebug">{{lc.geocode.results | toJson:true}}</pre>

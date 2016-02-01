@@ -19,18 +19,23 @@ function ($window, ConfigService, LocationService)
     lc.init = function()
     {
         lc.showDebug = ConfigService.isDebug();
-
         lc.form = {};
-        angular.merge(lc.form, ConfigService.getConfig("login"));
 
-        if(LocationService.countries)
-          lc.countries = LocationService.countries;
-        else if(ConfigService.stateIs("signup"))
-          LocationService.loadCountries().then(function(response) 
-          {
-            lc.countries = response;
-          });
+        var defaultLogin = ConfigService.getConfig("login");
+        if(defaultLogin && ConfigService.stateIs("signin"))
+          angular.merge(lc.form, defaultLogin);
+
+        lc.loadCountries();
     };
+
+    lc.loadCountries = function()
+    {
+        if(LocationService.countries)
+          return lc.countries = LocationService.countries;
+
+        if(ConfigService.stateIs("signup"))
+          LocationService.loadCountries().then(function(response) { lc.countries = response; });
+    }
 
     lc.login = function()
     {
