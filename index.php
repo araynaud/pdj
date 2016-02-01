@@ -67,7 +67,13 @@ echo metaTagArray($meta);
 if($recipe)
 {	
 	metaImage($imageUrlPath, $imageDir, $image);
- 	return redirectTo("./#recipe/$recipeid");
+// 	return redirectTo("./#recipe/$recipeid");
+?>
+<script type="text/javascript">
+window.location = './#/recipe/<? echo $recipe["ID"] ?>';
+</script>
+<?php
+	return;
 }
 ?>
 
