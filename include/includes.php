@@ -25,7 +25,7 @@ require_once("$APP_DIR/include/pdj_functions.php");
 $config = readConfigFile("$APP_DIR/pdj.config");
 readConfigFile("$APP_DIR/pdj.local.config", $config);
 $pdjConfig = $config;
-if(isDebugMode())
-	header("Content-Type: text/plain");
+
+//if(isDebugMode()) header("Content-Type: text/plain");
 startTimer();
 ?>

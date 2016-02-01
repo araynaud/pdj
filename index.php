@@ -7,26 +7,9 @@ ini_set('display_errors', '1');
 //header("Access-Control-Allow-Origin: *");
 require_once("include/includes.php");
 session_start();
-function getRecipeUrl($id)
-{
-	if(!$id) return;
-
-	if(getConfig("debug.offline"))
-	{
-		$url = getConfig("api.pdj.offline.recipeDetails");
-		return toAbsoluteUrl($url);
-	}
-
-	$pdjApiRoot = getConfig("pdjApi.root");
-	$proxy = getConfig("pdjApi.proxy");
-	$url = getConfig("pdjApi.recipeDetails") . $id;
-	$url = $pdjApiRoot . "/" . $url;
-//	if($proxy)	$url = combine($proxy, $url);
-	return toAbsoluteUrl($url);
-}
 
 //get recipe id and parameters from query string, 
-debugText("<div id='php_debug' class='footerRightCorner left text controls photoBorder bgwhite'>DEBUG");
+debugText("<div id='php_debug' class='footerLeftCorner left text controls photoBorder bgwhite'>DEBUG");
 $offline = getConfig("debug.offline");
 $recipeid = reqParam("recipe");
 $recipe = $image = $json = null;
@@ -79,9 +62,13 @@ debugText("</div>");
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="mobile-web-app-capable" content="yes" />
-<?php echo metaTagArray($meta);
+<?php 
+echo metaTagArray($meta);
 if($recipe)
+{	
 	metaImage($imageUrlPath, $imageDir, $image);
+ 	return redirectTo("./#recipe/$recipeid");
+}
 ?>
 
 <link rel="icon" href="images/PJgreen32.png"/>
@@ -107,8 +94,7 @@ if($recipe)
 
 <script type="text/javascript">
 <?php echoJsVar("pdjConfig"); echoJsVar("pdjUser"); echoJsVar("url"); echoJsVar("recipe"); ?>
-if(recipe)
-	window.location = "./#/recipe/" + recipe.ID;
+//if(recipe)	window.location = "./#/recipe/" + recipe.ID;
 </script>
 
 </head>

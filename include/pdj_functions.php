@@ -20,6 +20,42 @@ function pdjUserLogout()
     unset($_SESSION["pdj_user"]);
 }
 
+function getRecipeUrl($id)
+{
+    if(!$id) return;
+
+    if(getConfig("debug.offline"))
+    {
+        $url = getConfig("api.pdj.offline.recipeDetails");
+        return toAbsoluteUrl($url);
+    }
+
+    $pdjApiRoot = getConfig("api.pdj.url");
+    $url = getConfig("api.pdj.recipeDetails");
+    $proxy = getConfig("api.proxy");
+    if($proxy && isExternalUrl($pdjApiRoot))
+      $pdjApiRoot = combine($proxy, $pdjApiRoot);
+
+ //   $url = $pdjApiRoot . "/" . $url  . $id;
+    $url = combine($pdjApiRoot, $url) . $id;
+
+//    return $url;
+    return toAbsoluteUrl($url);
+}
+
+function isExternalUrl($url)
+{
+    return startsWith($url, "//") || contains($url, "://");
+}
+
+
+function redirectTo($url)
+{
+    header("Location: $url");
+    return $url;
+}
+
+
 function readJsonFile($filename)
 {
     $postdata = file_get_contents($filename);
