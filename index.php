@@ -70,8 +70,10 @@ if($recipe)
 // 	return redirectTo("./#recipe/$recipeid");
 ?>
 <script type="text/javascript">
-window.location = "./#/recipe/" + <? echo $recipe['ID'] ?>;
+window.location = "./#/recipe/" + <?php echo $recipe['ID'] ?>;
 </script>
+</head>
+</html>
 <?php
 	return;
 }
