@@ -20,6 +20,8 @@ function ($window, ConfigService, LocationService)
     {
         lc.showDebug = ConfigService.isDebug();
         lc.form = {};
+        lc.formFields = "username password confirmPassword email".split(" ");
+        lc.locationFields = "City District RegionName RegionCode CountryName CountryCode".split(" ");
 
         var defaultLogin = ConfigService.getConfig(ConfigService.currentState());
         if(defaultLogin)
@@ -53,10 +55,7 @@ function ($window, ConfigService, LocationService)
 //RegisterModel { UserName; Email; Password; ConfirmPassword; FirstName; LastName; City; StateProvince; Country; }
     lc.register = function()
     {
-      if(!lc.hasAllFields(lc.form, "username password confirmPassword email"))
-        return false;
-
-      if(!lc.hasAllFields(lc.location, "City District RegionName RegionCode CountryName CountryCode"))
+      if(!lc.hasAllFields(lc.form, lc.formFields) || !lc.hasAllFields(lc.location, lc.locationFields))
         return false;
 
       if(lc.form.password != lc.form.confirmPassword)
