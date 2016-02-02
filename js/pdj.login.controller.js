@@ -21,8 +21,8 @@ function ($window, ConfigService, LocationService)
         lc.showDebug = ConfigService.isDebug();
         lc.form = {};
 
-        var defaultLogin = ConfigService.getConfig("login");
-        if(defaultLogin && ConfigService.stateIs("signin"))
+        var defaultLogin = ConfigService.getConfig(ConfigService.currentState());
+        if(defaultLogin)
           angular.merge(lc.form, defaultLogin);
 
         lc.loadCountries();
@@ -56,11 +56,15 @@ function ($window, ConfigService, LocationService)
       if(!lc.hasAllFields(lc.form, "username password confirmPassword email"))
         return false;
 
+      if(!lc.hasAllFields(lc.location, "City District RegionName RegionCode CountryName CountryCode"))
+        return false;
+
       if(lc.form.password != lc.form.confirmPassword)
         return lc.message = "Passwords do not match.";
 
       var postData = {};
       angular.merge(postData, lc.form);
+      angular.merge(postData, lc.location);
 
       lc.post("Register", postData);
     };
@@ -91,29 +95,34 @@ function ($window, ConfigService, LocationService)
 
     lc.lookupLocation = function()
     {
-      var address = String.append(lc.form.location, " ", valueIfDefined("country.common_name", lc.form));
+      //if(!lc.search) return;
+      var countryName =  valueIfDefined("search.country.common_name", lc)
+      var address = valueIfDefined("search.location", lc);
+      address = String.append(address, ", ", countryName);
+//      if(!address) return;
+
       LocationService.geocode(address).then(function(response)
       { 
-        lc.geocode = response;
-        lc.choices = lc.geocode.results.distinct("formatted_address");
-        lc.selectedResult = lc.geocode.results[0];
+        lc.geocodeData = response;
+        lc.selectedResult = lc.geocodeData.results[0];
         lc.selectLocation();
       });
     };
 
     lc.selectLocation = function()
     {
-        lc.geoLocation = LocationService.getLocation(lc.selectedResult);
-        angular.merge(lc.form, lc.geoLocation);
+        lc.location = LocationService.getLocation(lc.selectedResult);
     };
 
-    lc.hasAllFields = function(form, fields)
+    lc.hasAllFields = function(obj, fields)
     {
+        if(!obj) return false;
+
         if(angular.isString(fields))
           fields = fields.split(" ");
 
         for(var i = 0; i < fields.length; i++)
-          if(!form[fields[i]])
+          if(!obj[fields[i]])
             return false;
 
         return true;

@@ -134,9 +134,7 @@ angular.module('pdjServices')
     {
         if(!this.user) return "nobody";
         if(!this.user.FirstName && !this.user.LastName)   return this.user.Username;
-        if(!this.user.FirstName)   return this.user.LastName;
-        if(!this.user.LastName)    return this.user.FirstName;
-        return this.user.FirstName + " " + this.user.LastName;
+        return String.append(this.user.FirstName, " ", this.user.LastName);
     };
 
     this.isMobile = function() 

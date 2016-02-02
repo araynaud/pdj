@@ -42,21 +42,25 @@ angular.module('pdjServices')
         {
             locality: "City",
             administrative_area_level_2: "District",
-            administrative_area_level_1: "Region",
-            country: "Country",
+            administrative_area_level_1: {field: "Region", nameCode: true},
+            country: {field: "Country", nameCode: true} ,
         };
         if(geocode && geocode.address_components)
             geocode.address_components.forEach(function(el)
             {
                 var key = el.types[0];
                 var field = types[key];
-                if(field && el.long_name === el.short_name)
-                    locationFields[field] = el.long_name;                     
-                else if(field)
+                if(!field) return;
+                if(field.nameCode)
                 {
-                    locationFields[field+"Name"] = el.long_name; 
-                    locationFields[field+"Code"] = el.short_name; 
+                    locationFields[field.field+"Name"] = el.long_name; 
+                    locationFields[field.field+"Code"] = el.short_name; 
                 }
+                else if(field.field)
+                    locationFields[field.field] = el.long_name;                     
+                else
+                    locationFields[field] = el.long_name;                     
+
             });
 
         locationFields.type = geocode.types[0];
