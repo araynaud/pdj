@@ -31,7 +31,7 @@
 
   <div class="col-xs-6 marginB">
     <label for="ddlCountries">Country</label>
-    <select class="form-control" id="ddlCountries" ng-model="lc.form.country" ng-options="c.common_name for c in lc.countries">
+    <select class="form-control" id="ddlCountries" ng-model="lc.search.country" ng-options="c.common_name for c in lc.countries">
       <option value="">-</option>
     </select>
   </div>
@@ -39,7 +39,7 @@
   <div class="col-xs-6 marginB">
     <label for="inputLocation">Location</label>
     <div class="input-group">
-      <input type="text" id="inputLocation" class="form-control" ng-model="lc.form.location" placeholder="City or Zip">
+      <input type="text" id="inputLocation" class="form-control" ng-model="lc.search.location" placeholder="City or Zip">
       <span class="input-group-btn">
         <button type="button" class="btn btn-default" title="Lookup" ng-click="lc.lookupLocation()">
           <i class="glyphicon glyphicon-search"></i>
@@ -55,8 +55,8 @@
   </div>
 
   <div class="col-xs-12">
-    <button class="btn btn-lg btn-primary btn-block centered narrow" type="submit" ng-click="lc.signup()">Sign up</button>
-    <p>{{lc.message}}</p>
+    <button class="btn btn-lg btn-primary btn-block centered narrow" type="submit" ng-click="lc.register()">Sign up</button>
+    <p class="has-error"><label>{{lc.message}}</label></p>
   </div>
 </form>
 

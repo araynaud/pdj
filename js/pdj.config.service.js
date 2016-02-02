@@ -10,7 +10,7 @@ angular.module('pdjServices')
         this.state = $state;
         this.config = window.pdjConfig;        
         this.offline = this.isOffline();
-        this.loginResource = this.getResource("pdj", "Account/SignIn");
+        this.loginResource = this.getResource("pdj", "Account/:action");
         this.phpLoginResource = $resource("api/login.php");
     };
 
@@ -19,9 +19,9 @@ angular.module('pdjServices')
         return valueIfDefined(key, svc.config);
     }
 
-    this.getResourceUrl = function(api, url, qs, offline)
+    this.getResourceUrl = function(api, url, qs)
     {
-        if(offline)
+        if(this.offline)
         {
             var svcName = service.substringBefore("/:")
             svcName = svcName.substringAfter("/", false, true);
@@ -36,10 +36,10 @@ angular.module('pdjServices')
         return url;
     };
 
-    this.getResource = function(api, url, qs)
+    this.getResource = function(api, url, qs, defaults)
     {
-        url = this.getResourceUrl(api, url, qs, this.offline);
-        return $resource(url);
+        url = this.getResourceUrl(api, url, qs);
+        return $resource(url, defaults);
     };
 
 //go to default page if not logged in
@@ -92,15 +92,16 @@ angular.module('pdjServices')
     this.logout = function()
     {
         svc.user = null;
-        svc.phpLoginResource.save({action: "logout"});
+        svc.loginResource.save({action: "SignOut"}, {});
+        svc.phpLoginResource.save({action: "SignOut"});
     }
     
     //POST to login.php service
-    this.login = function(postData)
+    this.login = function(method, postData)
     {
         var deferred = $q.defer();
         //formData.action = "login"; //or register or logout
-        this.loginResource.save(postData, function(response) 
+        this.loginResource.save({action: method}, postData, function(response) 
         {
             if(response.State === "ERROR") 
             {
@@ -109,7 +110,7 @@ angular.module('pdjServices')
                 return;
             }
 
-            svc.user = response.Data; //svc.getUser(response.Data);
+            svc.user = response.Data;
             if(!svc.user)
                 svc.user = { username: postData.username };
 

@@ -26,6 +26,7 @@ $response = array();
 switch ($action)
 {
 	case "logout":
+	case "SignOut":
 		pdjUserLogout();
 		$response["message"] = "User logged out.";
 		break;

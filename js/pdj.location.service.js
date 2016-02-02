@@ -37,6 +37,7 @@ angular.module('pdjServices')
     this.getLocation = function(geocode)
     {
         var locationFields = {};
+        if(!geocode) return locationFields;
         var types = 
         {
             locality: "City",
@@ -57,6 +58,8 @@ angular.module('pdjServices')
                     locationFields[field+"Code"] = el.short_name; 
                 }
             });
+
+        locationFields.type = geocode.types[0];
         return locationFields;
     };
 

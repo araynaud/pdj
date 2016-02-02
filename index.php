@@ -66,7 +66,9 @@ debugText("</div>");
 if($recipe) 
 {	
 	metaImage($imageUrlPath, $imageDir, $image); ?>
-<script type="text/javascript">window.location = "./#/recipe/" + <?php echo $recipe['ID'] ?>;</script>
+<script type="text/javascript">
+	window.location = "./#/recipe/" + <?php echo $recipe['ID'] ?>;
+</script>
 </head>
 </html>
 <?php return; }?>
@@ -103,10 +105,9 @@ if($recipe)
 		<div class="translucentWhite stretchH"></div>
 	</div>
 
-	<!-- Static navbar -->
 	<nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
-	    <a class="navbar-brand" ng-class="{active: lc.stateIs('main')}" href="#/main">
+	    <a class="navbar-brand" ng-class="{active: lc.stateIs('main')}" ui-sref="list">
 	      <img class="stretchH" src="images/PimentJourVertOrange200.png" alt="PDJ"/>
 	    </a>
 
@@ -122,13 +123,13 @@ if($recipe)
 	    <ul class="nav navbar-nav">
 	      <li ng-class="{active: lc.stateIs('list')}" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="list">Recipes</a></li>
 	      <li ng-class="{active: lc.stateIs('article')}" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="about">About</a></li>
-	      <li ng-show="lc.loggedIn()" ng-class="{active: lc.stateIs('upload')=='upload'}"  data-toggle="collapse" data-target=".isMobile #navbar"><a href="#/upload/">Upload</a></li>
+	      <li ng-show="lc.loggedIn()" ng-class="{active: lc.stateIs('upload')=='upload'}"  data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="upload">Upload</a></li>
 	    </ul>
 	    <ul class="nav navbar-nav navbar-right">
-	      <li ng-hide="lc.loggedIn()" ng-class="{active: lc.stateIs('signin')}" data-toggle="collapse" data-target=".isMobile #navbar"><a href="#/signin">Log in</a></li>
-	      <li ng-hide="lc.loggedIn()" ng-class="{active: lc.stateIs('signup')}" data-toggle="collapse" data-target=".isMobile #navbar"><a href="#/signup">Sign up</a></li>
-	      <li ng-show="lc.loggedIn()" ng-class="{active: lc.stateIs('user')}"   data-toggle="collapse" data-target=".isMobile #navbar"><a href="#/main">{{lc.userFullName()}}</a></li>
-	      <li ng-show="lc.loggedIn()" data-toggle="collapse" data-target=".isMobile #navbar"><a href="#/login" ng-click="lc.logout()">Sign out</a></li>
+	      <li ng-hide="lc.loggedIn()" ng-class="{active: lc.stateIs('signin')}" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="signin">Log in</a></li>
+	      <li ng-hide="lc.loggedIn()" ng-class="{active: lc.stateIs('signup')}" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="signup">Sign up</a></li>
+	      <li ng-show="lc.loggedIn()" ng-class="{active: lc.stateIs('user')}"   data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="list">{{lc.userFullName()}}</a></li>
+	      <li ng-show="lc.loggedIn()" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="list" ng-click="lc.logout()">Sign out</a></li>
 	    </ul>
 	  </div>
 	</div>
@@ -136,7 +137,7 @@ if($recipe)
   
   <div id="main" ui-view></div>
 
-  <footer class="footer container nowrap" ng-if="lc.showDebug">
+  <footer class="footer nowrap" ng-if="lc.showDebug">
     <div class="text-muted"> {{lc.currentState()}} / {{lc.getBootstrapSize()}} {{lc.windowWidth}} x {{lc.windowHeight}} / {{lc.userAgent}}</div>
   </footer>
 </body>

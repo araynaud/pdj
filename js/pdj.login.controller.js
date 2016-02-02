@@ -39,13 +39,43 @@ function ($window, ConfigService, LocationService)
 
     lc.login = function()
     {
-      if(!lc.form.username || !lc.form.password) 
+      //if(!lc.form.username || !lc.form.password) 
+      if(!lc.hasAllFields(lc.form, "username password"))
         return false;
 
       var postData = {};
       angular.merge(postData, lc.form);
 //      if($window.md5)  postData.password = md5(lc.form.password);
-      lc.post(postData);
+      lc.post("SignIn", postData);
+    };
+
+
+//RegisterModel { UserName; Email; Password; ConfirmPassword; FirstName; LastName; City; StateProvince; Country; }
+    lc.register = function()
+    {
+      if(!lc.hasAllFields(lc.form, "username password confirmPassword email"))
+        return false;
+
+      if(lc.form.password != lc.form.confirmPassword)
+        return lc.message = "Passwords do not match.";
+
+      var postData = {};
+      angular.merge(postData, lc.form);
+
+      lc.post("Register", postData);
+    };
+
+    lc.post = function(method, postData)
+    {
+      lc.loading = true;
+      ConfigService.login(method, postData).then(function(response) 
+      {
+          lc.loading = false;
+          if(ConfigService.user)
+              ConfigService.returnToMain();
+          else
+            lc.message = response.Message;
+      });
     };
 
     lc.loggedIn = function()
@@ -61,7 +91,7 @@ function ($window, ConfigService, LocationService)
 
     lc.lookupLocation = function()
     {
-      var address = String.append(lc.form.location, " ", valueIfDefined("country.country_code", lc.form));
+      var address = String.append(lc.form.location, " ", valueIfDefined("country.common_name", lc.form));
       LocationService.geocode(address).then(function(response)
       { 
         lc.geocode = response;
@@ -75,36 +105,18 @@ function ($window, ConfigService, LocationService)
     {
         lc.geoLocation = LocationService.getLocation(lc.selectedResult);
         angular.merge(lc.form, lc.geoLocation);
-    }
-
-//RegisterModel { UserName; Email; Password; ConfirmPassword; FirstName; LastName; City; StateProvince; Country; }
-    lc.signup = function()
-    {
-      if(!lc.form.username || !lc.form.password || !lc.form.password2 || !lc.form.email) 
-        return false;
-
-      if(lc.form.password != lc.form.confirmPassword)
-        return lc.message = "Passwords do not match.";
-
-      var postData = {action: "signup"};
-      angular.merge(postData, lc.form);
-
-//      if($window.md5) postData.password = md5(lc.form.password);
-      delete postData.password2;
-      lc.post(postData);
     };
 
-    lc.post = function(postData)
+    lc.hasAllFields = function(form, fields)
     {
-      lc.loading = true;
-      ConfigService.login(postData).then(function(response) 
-      {
-          lc.loading = false;
-          if(ConfigService.user)
-              ConfigService.returnToMain();
-          else
-            lc.message = response.Message;
-      });
+        if(angular.isString(fields))
+          fields = fields.split(" ");
+
+        for(var i = 0; i < fields.length; i++)
+          if(!form[fields[i]])
+            return false;
+
+        return true;
     };
 
     lc.init();
