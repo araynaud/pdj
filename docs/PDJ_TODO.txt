@@ -17,7 +17,35 @@ district with types[0]=="administrative_area_level_2" if it exists
 send short name + long name 
 city name (usually short name = long name)
 
-6 recipe text upload page
+6 recipe submit page
+#/recipeEdit/ : new one
+#/recipeEdit/:id : existing one
+
+Validate form
+
+Name/Title 
+Description / Raw Text (Ingredients, Steps, Tips (optional), 
+prepopulate with template: INGREDIENTS STEPS TIPS
+make text area as many rows as needed
+
+Prep Time (optional), Cooking Time (optional), Total Time (optional) 
+Yield Count (int), Yield Unit
+IsPersonal (if checked, source is not required), Author, Source (can contain a link), 
+Link URLs (optional)), 
+Categories (category ID) modify search template
+
+7 After submitting:
+1 store raw text in file
+2 call .net service to store in SQL server, get new ID.
+
+3 go to #/recipe/:id
+view recipe with section titles formatted
+
+link to add images: #/upload/:id 
+verify recipe id is valid
+return to #/recipe/:id
+
+4 #/recipeEdit/:id : add images to steps
 
 Amazon
 x1 setup SQL Server instance
