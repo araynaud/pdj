@@ -23,7 +23,7 @@ angular.module('pdjServices')
     {
         if(this.offline)
         {
-            var svcName = service.substringBefore("/:")
+            var svcName = url.substringBefore("/:")
             svcName = svcName.substringAfter("/", false, true);
             return "json/" + svcName + ".json";
         }

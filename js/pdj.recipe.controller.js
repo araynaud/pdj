@@ -18,6 +18,8 @@ function ($scope, $window, $state, $stateParams, RecipeService)
       rc.recipe = {};
       rc.article = {};
       rc.imgConfig = RecipeService.getConfig("images");
+      rc.dropdown = RecipeService.getConfig("dropdown");
+      rc.showDebug = ConfigService.isDebug();
       rc.hasPhoto = false;
 
       rc.getCategoryTypes();

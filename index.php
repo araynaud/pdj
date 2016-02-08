@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="pdjApp">
+<html ng-app="app">
 <?php
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 ini_set('display_errors', '1');
@@ -82,6 +82,7 @@ if($recipe)
 <?php
 	addCssFromConfig("lib.bootstrap"); 
 	addAllCss("../foodportrait/style");
+	addAllCss("../foodportrait/directives");
 	addCssFromConfig("MediaThingy", "../MediaThingy.css");
 	addAllCss(".");
 	addScriptFromConfig("lib", "jquery.min.js");
@@ -90,6 +91,7 @@ if($recipe)
 	addScriptFromConfig("lib"); 
 	addScriptFromConfig("MediaThingy");
 	addAllScripts("js");
+	addAllScripts("../foodportrait/directives");
 	if(!$offline)	
 		addJavascript("https://www.youtube.com/iframe_api"); 
 ?>
@@ -122,8 +124,9 @@ if($recipe)
 	  <div id="navbar" class="navbar-collapse collapse">
 	    <ul class="nav navbar-nav">
 	      <li ng-class="{active: lc.stateIs('list')}" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="list">Recipes</a></li>
-	      <li ng-class="{active: lc.stateIs('article')}" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="about">About</a></li>
-	      <li ng-show="lc.loggedIn()" ng-class="{active: lc.stateIs('upload')=='upload'}"  data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="upload">Upload</a></li>
+	      <li ng-class="{active: lc.stateIs('about')}" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="about">About</a></li>
+	      <li ng-show="lc.loggedIn()" ng-class="{active: lc.stateIs('submit')}"  data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="submit">Submit Recipe</a></li>
+	      <li ng-show="lc.loggedIn()" ng-class="{active: lc.stateIs('upload')}"  data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="upload">Upload</a></li>
 	    </ul>
 	    <ul class="nav navbar-nav navbar-right">
 	      <li ng-hide="lc.loggedIn()" ng-class="{active: lc.stateIs('signin')}" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="signin">Log in</a></li>
