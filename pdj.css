@@ -68,7 +68,6 @@ div.thumbnailContainer
     overflow: hidden;
     text-align: center;
     vertical-align: center; 
-    text-shadow: black 2px 2px;
 }
 
 /* bootstrap overrides */

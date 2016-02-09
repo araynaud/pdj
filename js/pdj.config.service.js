@@ -59,9 +59,9 @@ angular.module('pdjServices')
         return $state.current.name;
     };
 
-    this.goToState = function(st)
+    this.goToState = function(st, params)
     {
-        $state.go(st); 
+        $state.go(st, params); 
     };
 
     this.returnToMain = function(delay)

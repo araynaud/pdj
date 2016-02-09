@@ -2,8 +2,8 @@
 
 // =========== RecipeController ===========
 angular.module('pdjControllers')
-.controller('RecipeController', ['$scope', '$window', '$state', '$stateParams', 'RecipeService',  
-function ($scope, $window, $state, $stateParams, RecipeService)
+.controller('RecipeController', ['$scope', '$window', '$stateParams', 'RecipeService',  
+function ($scope, $window, $stateParams, RecipeService)
 {
     var rc = this;
     window.RecipeController = this;
@@ -24,11 +24,11 @@ function ($scope, $window, $state, $stateParams, RecipeService)
 
       rc.getCategoryTypes();
       
+      if(RecipeService.stateIs('about'))
+        return rc.getArticle('GetAboutArticle');
+
       if($stateParams.recipeId)
         return rc.getRecipe($stateParams.recipeId);
-
-      if(rc.stateIs('about'))
-        return rc.getArticle('GetAboutArticle');
 
       if($stateParams.articleId)
         return rc.getArticle($stateParams.articleId);
@@ -44,26 +44,22 @@ function ($scope, $window, $state, $stateParams, RecipeService)
       return Object.values(rc.selectedCategories).filter(function(el) { return !!el; });
     };
 
-    rc.stateIs = function(st)
+    //if no image loaded, remove thumbnail container
+    rc.removeImage = function(element)
     {
-        return $state.is(st);
+        element.parent().parent().remove();
     };
 
-    rc.currentState = function()
-    {
-        return $state.current.name;
-    };
-
-    rc.errorMessage =  function (result)
+    rc.errorMessage =  function (response)
     {
       rc.loading = false;
-      rc.status = "Error: No data returned";
+      rc.status = response.Message || "Error: No data returned";
     };
 
-    rc.successMessage =  function (result)
+    rc.successMessage =  function (response)
     {
       rc.loading = false;
-      rc.status = "";
+      rc.status = response ? response.Message : "";
     };
 
     rc.getRecipeList = function(search)
@@ -90,19 +86,23 @@ function ($scope, $window, $state, $stateParams, RecipeService)
     {
       var r = RecipeService.getRecipe(id);
       if(!r.then)
+      {
          rc.recipe = r;    
+         rc.form = rc.recipe.Recipe;
+      }
       else
       {
         rc.loading = true;
         r.then(function(response) 
         {
             rc.recipe = response; 
+            rc.form = rc.recipe.Recipe;
             rc.successMessage();
         }, 
         rc.errorMessage);
       }
 
-      if($window.Album)
+      if(RecipeService.stateIs('recipe') && $window.Album)
       {
         var path = String.combine( RecipeService.getConfig("MediaThingy.imagesRoot"), RecipeService.getConfig("images.dir"), id);
         Album.getAlbumAjax("album", {path: path }, true);
@@ -152,7 +152,6 @@ function ($scope, $window, $state, $stateParams, RecipeService)
     rc.setTitle = function(t)
     {
       RecipeService.title = t;
-//       $scope.$apply();
     };
 
     rc.linkOnClick = function(e)
@@ -239,6 +238,29 @@ function ($scope, $window, $state, $stateParams, RecipeService)
       var currentUrl = rc.directLinkUrl();
       return url.format(escape(currentUrl), rc.title(), "PimentDuJour");
     };
+
+    rc.saveRecipe = function()
+    {
+      rc.form.CategorySelections = rc.selectedCategoriesArray();
+
+      RecipeService.saveRecipe(rc.form).then(function(response) 
+      {
+          if(rc.isError(response))
+            return rc.errorMessage(response);
+
+         var id = response.Data;
+         rc.successMessage();
+         RecipeService.goToState("recipe", {recipeId: id});
+      }, 
+      rc.errorMessage);
+    };
+
+    this.isError = function(response)
+    {
+        return response.State == "ERROR";
+    }
+
+    rc.cancelEdit = RecipeService.returnToMain;
 
     rc.init();
 }]);

@@ -12,10 +12,18 @@ angular.module('pdjServices')
     this.categoryTypeNames={};
     this.categoryNames={};
 
+    this.getConfig    = ConfigService.getConfig;
+    this.stateIs      = ConfigService.stateIs;
+    this.goToState    = ConfigService.goToState;
+    this.currentState = ConfigService.currentState;
+    this.returnToMain = ConfigService.returnToMain;
+
+    //REST Services
+    this.categoryTypeResource = ConfigService.getResource("pdj", "Category/GetAllCategoriesWithDetails");
+    this.articleResource =      ConfigService.getResource("pdj", "Article/:article");
     this.listResource =         ConfigService.getResource("pdj", "Recipe/GetRecipeBrowseDetails", "searchText=:search:categories");
     this.recipeResource =       ConfigService.getResource("pdj", "Recipe/GetRecipeDetails", "recipeId=:id");
-    this.articleResource =      ConfigService.getResource("pdj", "Article/:article");
-    this.categoryTypeResource = ConfigService.getResource("pdj", "Category/GetAllCategoriesWithDetails");
+    this.recipeSaveResource =   ConfigService.getResource("pdj", "Recipe/ImportRawTextRecipe");
 
     this.getCategoryTypes = function()
     {
@@ -29,12 +37,14 @@ angular.module('pdjServices')
             for(var i=0; i<response.Data.length; i++)
             {
                 var type = pdjService.categoryTypes[i];
-                pdjService.categoryTypeNames[type.ID]=type.Name;
+                pdjService.categoryTypeNames[type.ID] = type.Name;
+                if(!type.Categories) continue;
                 for(var j=0; j<type.Categories.length; j++)
                 {
                     var cat=type.Categories[j];
-                    pdjService.categoryNames[cat.ID]=cat.Name;
+                    pdjService.categoryNames[cat.ID] = cat.Name;
                 }                
+                type.Categories.sortObjectsBy("Name");
             }
             deferred.resolve(response.Data);
         });
@@ -119,6 +129,26 @@ window.recipeCategories = pdjService.recipeCategories;
         return deferred.promise;
     };
 
-    this.getConfig =  ConfigService.getConfig;
-    //this.getConfig = function(key) { return ConfigService.getConfig(key); }
+    this.saveRecipe = function(recipe)
+    {
+        var deferred = $q.defer();
+        if(ConfigService.isOffline())
+        {
+            deferred.resolve({Data: 1});
+            return deferred.promise;
+        }
+
+        this.recipeSaveResource.save({  }, recipe, function(response)
+        {
+            var id = response.Data;
+            if(id && response.State == "SUCCESS")
+            {
+                //pdjService.recipes[id] = pdjService.currentRecipe = {Recipe : recipe};
+                pdjService.title = recipe.Name;
+            }
+            deferred.resolve(response);
+        });
+        return deferred.promise;
+    };
+
 }]);
