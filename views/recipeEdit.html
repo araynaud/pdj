@@ -38,7 +38,7 @@ Categories (category ID) modify search template
     <div class="col-xs-6 col-md-3">
       <label for="YieldCount">Yield</label>
       <spinner value="rc.form.YieldCount"  min="1" max="100" loop="true" hold="true"></spinner>
-      <select id="ddMood" ng-model="rc.form.YieldUnit" class="" ng-options="item for item in rc.dropdown.units"/>
+      <select id="ddMood" ng-model="rc.YieldUnit" class="" ng-options="item.AbbrevPluralName for item in rc.units"/>
     </div>
 
     <div class="col-sm-6">

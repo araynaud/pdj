@@ -1,0 +1,14 @@
+ID;Name;PluralName;AbbrevName;AbbrevPluralName;EnumID
+1;ounce;ounces;oz;ozs;1
+2;pound;pounds;lb;lbs;10
+3;bunch;bunches;bunch;bunches;12
+4;milligram;milligrams;mg;mgs;2
+5;pinch;pinches;pinch;piches;11
+6;serving;servings;serving;servings;3
+7;teaspoon;teaspoons;tsp;tsps;4
+8;microgram;micrograms;µg;µgs;5
+9;tablespoon;tablespoons;tbsp;tbsps;6
+10;gram;grams;gm;gms;7
+11;cup;cups;c;c;8
+12;kcal;kcals;kc;kcs;9
+13;sprig;sprigs;sprig;sprigs;13

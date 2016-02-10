@@ -25,6 +25,13 @@ angular.module('pdjServices')
     this.recipeResource =       ConfigService.getResource("pdj", "Recipe/GetRecipeDetails", "recipeId=:id");
     this.recipeSaveResource =   ConfigService.getResource("pdj", "Recipe/ImportRawTextRecipe");
 
+
+    this.loadUnits = function(obj)
+    {
+        if(!obj) obj = pdjService;
+        return ConfigService.loadCsv("api/units.csv", "units", obj);
+    };
+
     this.getCategoryTypes = function()
     {
         if(!isEmpty(this.categoryTypes))

@@ -23,7 +23,8 @@ function ($scope, $window, $stateParams, RecipeService)
       rc.hasPhoto = false;
 
       rc.getCategoryTypes();
-      
+      rc.loadUnits();
+
       if(RecipeService.stateIs('about'))
         return rc.getArticle('GetAboutArticle');
 
@@ -184,6 +185,12 @@ function ($scope, $window, $stateParams, RecipeService)
       return String.combine(rc.imgConfig.root, rc.imgConfig.dir, id, subdir, imageUrl);
     };
 
+    rc.loadUnits = function()
+    { 
+      if(!rc.units)
+        RecipeService.loadUnits(rc).then(function() { rc.YieldUnit = rc.units[5]; });
+    };
+
     rc.getCategoryTypes = function()
     {
       var r = RecipeService.getCategoryTypes();
@@ -242,7 +249,8 @@ function ($scope, $window, $stateParams, RecipeService)
     rc.saveRecipe = function()
     {
       rc.form.CategorySelections = rc.selectedCategoriesArray();
-
+      if(rc.YieldUnit)
+        rc.form.YieldUnitTypeID = rc.YieldUnit.ID;
       RecipeService.saveRecipe(rc.form).then(function(response) 
       {
           if(rc.isError(response))

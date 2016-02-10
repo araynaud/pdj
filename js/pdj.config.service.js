@@ -42,6 +42,21 @@ angular.module('pdjServices')
         return $resource(url, defaults);
     };
 
+    this.loadCsv = function(url, key, obj)
+    {
+        var deferred = $q.defer();
+        if(!obj) obj = this;
+
+        $http.get(url).then(function(response) 
+        {
+            var data = String.parseCsv(response.data, true);
+            if(key)
+                obj[key] = data;
+            deferred.resolve(data);
+        });
+        return deferred.promise;
+    };
+
 //go to default page if not logged in
     this.requireLogin = function()
     {

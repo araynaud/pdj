@@ -69,14 +69,7 @@ angular.module('pdjServices')
 
     this.loadCountries = function()
     {
-        var deferred = $q.defer();
-        $http.get("api/countries.csv").then(function(response) 
-        {
-            svc.countries = String.parseCsv(response.data, true);
-            svc.countries.byCode = svc.countries.indexBy("country_code");
-            deferred.resolve(svc.countries);
-        });
-        return deferred.promise;
+        return ConfigService.loadCsv("api/countries.csv", "countries", svc);
     };
 
     this.init();
