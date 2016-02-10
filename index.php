@@ -39,10 +39,14 @@ if($json)
 	$data = json_decode($json);
 	$data = objToArray($data, false, false, true);
 	$recipe = arrayGet($data, "Data.Recipe");
-	$title = $recipe["Name"] . " - $title";
-
-	$meta["og:title"] = $recipe["Name"] ;
-	$meta["description"] = $meta["og:description"] = cutAfterSentence($recipe["Description"], 300);
+	if($name = arrayGet($recipe, "Name"))
+	{
+		$title = "$name - $title";
+		$meta["og:title"] = $name;
+	}
+	
+	if($desc = arrayGet($recipe, "Description"))
+		$meta["description"] = $meta["og:description"] = cutAfterSentence($desc, 300);
 	$meta["og:url"] = combine(currentUrlDir(), "?recipe=$recipeid");
 
 	//get recipe 1st image according to config
@@ -71,7 +75,8 @@ if($recipe)
 </script>
 </head>
 </html>
-<?php return; }?>
+<?php return; 
+}?>
 
 <link rel="icon" href="images/PJgreen32.png"/>
 <link rel="icon" sizes="192x192" href="images/PJgreen192.png"/>
