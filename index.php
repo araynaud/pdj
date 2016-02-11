@@ -59,20 +59,18 @@ if($json)
 debugText("</div>");
 ?>
 <head>
-<title><?php echo $title?></title>
+<title><?=$title?></title>
 
 <meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="mobile-web-app-capable" content="yes" />
-<?php echo metaTagArray($meta);
+<?=metaTagArray($meta);
 if($recipe) 
 {	
 	metaImage($imageUrlPath, $imageDir, $image); ?>
-<script type="text/javascript">
-	window.location = "./#/recipe/" + <?php echo $recipe['ID'] ?>;
-</script>
+	<script type="text/javascript">window.location = "./#/recipe/<?=$recipeid ?>";</script>
 </head>
 </html>
 <?php return; 
@@ -103,7 +101,6 @@ if($recipe)
 
 <script type="text/javascript">
 <?php echoJsVar("pdjConfig"); echoJsVar("pdjUser"); echoJsVar("url"); echoJsVar("recipe"); ?>
-//if(recipe)	window.location = "./#/recipe/" + recipe.ID;
 </script>
 
 </head>

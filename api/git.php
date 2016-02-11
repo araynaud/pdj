@@ -7,13 +7,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />
 <meta name="mobile-web-app-capable" content="yes" />
-<link rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
+<?php require_once("../include/includes.php");
+addCssFromConfig("lib.bootstrap"); 
+?>
 </head>
 <body class="container">
 <br/>
-<pre><?php
-require_once("../include/includes.php");
-$gitPath = getExePath($exe="GIT", $key="_GIT");
+<pre><?php $gitPath = getExePath($exe="GIT", $key="_GIT");
 if(!$gitPath || !file_exists($gitPath)) 
 	echo "git disabled.";
 else
@@ -24,6 +24,6 @@ else
 	echo execCommand(makeCommand("[0] pull --rebase", $gitPath));
 }
 ?></pre>
-<a href="..">return to application</a>
+<a href="<?=$APP_DIR?>">return to application</a>
 </body>
 </html>
