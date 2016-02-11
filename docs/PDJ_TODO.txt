@@ -120,3 +120,5 @@ public class LogOnModel
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
     }
+
+Test
