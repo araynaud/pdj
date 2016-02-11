@@ -26,14 +26,16 @@
 	</div>
 </div>
 
-<div class="inlineBlock left vtop">
-	<h3>Ingredients ({{rc.recipe.RecipeIngredients.length}})</h3>
+<div class="inlineBlock text" ng-if="rc.recipe.Recipe.RawText">{{rc.recipe.Recipe.RawText}}</div>
+
+<div class="inlineBlock left vtop" ng-if="rc.recipe.RecipeIngredients.length">
+	<h3>Ingredients</h3>
 	<ul class="text inlineBlock nomargin">
 		<li ng-repeat="ingredient in rc.recipe.RecipeIngredients">{{ingredient}}</li>
 	</ul>
 </div>
 
-<div class="inlineBlock left vtop">
+<div class="inlineBlock left vtop" ng-if="rc.recipe.RecipeSteps.length">
 	<h3>Preparation</h3>
 	<ol class="text nomargin">
 		<li ng-repeat="step in rc.recipe.RecipeSteps">{{step}}</li>
