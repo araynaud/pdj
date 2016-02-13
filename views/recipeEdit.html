@@ -22,54 +22,48 @@ Categories (category ID) modify search template
         <textarea id="inputRecipe" name="caption" class="form-control" ng-model="rc.form.Description" placeholder="Brief recipe description" rows="2"></textarea>
     </div>
 
-    <div class="col-xs-6 col-md-3">
-      <label for="inputShared">Preparation time</label>
-      <spinner value="rc.form.PrepTime"  min="1" max="100" loop="true" hold="true"></spinner>
+      
+    <div class="col-sm-6 col-md-3 marginB right">
+      <spinner label="Preparation time" value="rc.form.PrepTime"  min="1" max="120" loop="true" hold="true"></spinner>&nbsp;minutes
     </div>
-    <div class="col-xs-6 col-md-3">
-      <label for="inputShared">Cooking time</label>
-      <spinner value="rc.form.CookingTime"  min="1" max="100" loop="true" hold="true"></spinner>
+      
+    <div class="col-sm-6 col-md-3 marginB right">
+      <spinner label="Cooking time"  value="rc.form.CookingTime"  min="1" max="180" loop="true" hold="true"></spinner>&nbsp;minutes
     </div>
-    <div class="col-xs-6 col-md-3">
-      <label for="inputShared">Total time</label>
-      <spinner value="rc.form.TotalTime"  min="1" max="200" loop="true" hold="true"></spinner>
+      
+    <div class="col-sm-6 col-md-3 marginB right">
+      <spinner label="Total time"  value="rc.form.TotalTime" min="1" max="240" loop="true" hold="true"></spinner>&nbsp;minutes
     </div>
-
-    <div class="col-xs-6 col-md-3">
-      <label for="YieldCount">Yield</label>
-      <spinner value="rc.form.YieldCount"  min="1" max="100" loop="true" hold="true"></spinner>
-      <select id="ddMood" ng-model="rc.YieldUnit" class="" ng-options="item.AbbrevPluralName for item in rc.units"/>
-    </div>
-
-    <div class="col-sm-6">
-      <label for="inputAuthor">Author</label>
-      <input type="text" id="inputAuthor" name="author" class="form-control" ng-model="rc.form.Author" placeholder="Author name"/>
+      
+    <div class="col-sm-6 col-md-3 marginB right">
+      <spinner label="Yield" value="rc.form.YieldCount" min="1" max="100" loop="true" hold="true"></spinner>
+      <select id="ddMood" ng-model="rc.YieldUnit" class="" ng-options="item.AbbrevPluralName for item in rc.units"></select>
     </div>
 
-    <div class="col-sm-6">
-      <label for="cpPersonal">Personal recipe</label><br/>
-      <input type="checkbox" id="cpPersonal" name="personal" ng-model="rc.form.IsPersonal"/>
-      Check this box if this recipe is your own or from a friend/relative (not from a cookbook, magazine or website).
-    </div>
-
-    <div class="col-sm-6">
+    <div class="col-sm-12">
         <label for="inputSource">Source</label> 
         <input type="text" id="inputSource" name="source" class="form-control" ng-model="rc.form.Source" placeholder="Recipe source"/>
     </div>
 
-    <div class="col-sm-6">
-        <label for="inputLink">Source Link</label> 
-        <input type="text" id="inputLink" name="link" class="form-control" ng-model="rc.form.SourceLink" placeholder="link to recipe source"/>
+    <div class="col-sm-4">
+      <label for="inputAuthor">Author</label>
+      <input type="text" id="inputAuthor" name="author" class="form-control" ng-model="rc.form.Author" placeholder="Author name"/>
+    </div>
+
+    <div class="col-sm-8">
+      <label for="cpPersonal">Personal recipe</label><br/>
+      <input type="checkbox" id="cpPersonal" name="personal" ng-model="rc.form.IsPersonal"/>
+      This recipe is my own or from a friend/relative (not from a cookbook, magazine or website).
     </div>
 
     <div class="col-sm-12">
         <label for="inputRecipe">Recipe Text</label> 
-        <textarea id="inputRecipe" name="caption" class="form-control" ng-model="rc.form.RawText" placeholder="" rows="20"></textarea>
+        <textarea id="inputRecipe" name="caption" class="form-control" ng-model="rc.form.RawText" rows="12"></textarea>
     </div>
 
     <div class="col-sm-12">
       <label for="inputLink">Categories</label><br/>
-      <div id="categoryType_{{type.ID}}" ng-repeat="type in rc.categoryTypes" class="col-xs-6 col-sm-4 col-md-3 categoryType0 marginB">
+      <div id="categoryType_{{type.ID}}" ng-repeat="type in rc.categoryTypes" class="col-sm-4 col-md-3 categoryType0 marginB">
         <div class="categoryTypeTitle nowrap rounded">
           <a ng-click="type.show=!type.show">
             <img ng-src="images/{{type.show ? 'minus' : 'expand'}}.png"/>{{type.Name}}

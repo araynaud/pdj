@@ -7,12 +7,12 @@
         <button type="button" class="btn btn-default" ng-click="lc.toggleSidebar(false)">
           <i class="glyphicon glyphicon-triangle-left"></i>
         </button> 
-      </span>
-      <input type="text" class="form-control" id="inputDescription" ng-model="rc.query" placeholder="Search" ng-blur="rc.getRecipeList()" />
-      <span class="input-group-btn">
         <button type="button" class="btn btn-default" ng-show="rc.query" ng-click="rc.query=''; rc.getRecipeList();">
           <i class="glyphicon glyphicon-remove-circle"></i>
         </button> 
+      </span>
+      <input type="text" class="form-control" id="inputDescription" ng-model="rc.query" placeholder="Search" ng-blur="rc.getRecipeList()" />
+      <span class="input-group-btn">
         <button type="button" class="btn btn-default" ng-click="rc.getRecipeList()">
           <i class="glyphicon glyphicon-search"></i>
         </button> 

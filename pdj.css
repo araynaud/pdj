@@ -37,10 +37,15 @@ a.button
 
 .category
 {
-    border-top: 1px solid #AAA;
+    border-bottom: 1px solid #AAA;
     color:#222;
     font-size: 0.9em;
     padding-left: 5px;
+}
+
+.category:last-child
+{
+  border-bottom: none;
 }
 
 .recipeListItem
