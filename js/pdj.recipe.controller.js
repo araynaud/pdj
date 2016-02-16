@@ -48,7 +48,7 @@ function ($scope, $window, $stateParams, RecipeService)
     //if no image loaded, remove thumbnail container
     rc.removeImage = function(element)
     {
-        element.parent().parent().remove();
+        element.parent().remove();
     };
 
     rc.errorMessage =  function (response)

@@ -52,7 +52,7 @@ a.button
 {
     display: inline-block;
     vertical-align: bottom; 
-    max-width: 11cm;
+    width: 10cm;
     padding: 10px;
     border: 1px solid #AAA;
     border-radius: 10px;
