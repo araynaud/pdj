@@ -3,7 +3,7 @@
 angular.module('pdjServices')
 .service('RecipeService', ['$resource', '$q', 'ConfigService',  function($resource, $q, ConfigService) 
 {
-    var pdjService = this;
+    var svc = this;
     window.RecipeService = this;
     this.articles={};
     this.recipes={};
@@ -28,7 +28,7 @@ angular.module('pdjServices')
 
     this.loadUnits = function(obj)
     {
-        if(!obj) obj = pdjService;
+        if(!obj) obj = svc;
         return ConfigService.loadCsv("api/units.csv", "units", obj);
     };
 
@@ -40,16 +40,16 @@ angular.module('pdjServices')
         var deferred = $q.defer();
         this.categoryTypeResource.get({ }, function(response)
         {
-            pdjService.categoryTypes = response.Data;
-            for(var i=0; i<response.Data.length; i++)
+            svc.categoryTypes = response.Data;
+            for(var i=0; i<svc.categoryTypes.length; i++)
             {
-                var type = pdjService.categoryTypes[i];
-                pdjService.categoryTypeNames[type.ID] = type.Name;
+                var type = svc.categoryTypes[i];
+                svc.categoryTypeNames[type.ID] = type.Name;
                 if(!type.Categories) continue;
                 for(var j=0; j<type.Categories.length; j++)
                 {
                     var cat=type.Categories[j];
-                    pdjService.categoryNames[cat.ID] = cat.Name;
+                    svc.categoryNames[cat.ID] = cat.Name;
                 }                
                 type.Categories.sortObjectsBy("Name");
             }
@@ -64,15 +64,14 @@ angular.module('pdjServices')
         var deferred = $q.defer();
 	    this.listResource.get({ search: search, categories: catqs }, function(response)
         {
-            pdjService.title = "";
-            pdjService.currentList = response.Data;
+            svc.title = "";
+            svc.currentList = response.Data;
 
             for(var i=0; i<response.Data.length; i++)
             {
                 var recipe = response.Data[i];
-                pdjService.recipeCategories[recipe.RecipeID] = recipe.RecipeCategories;
+                svc.recipeCategories[recipe.RecipeID] = recipe.RecipeCategories;
             };
-window.recipeCategories = pdjService.recipeCategories;
             deferred.resolve(response.Data);
         });
  		return deferred.promise;
@@ -90,10 +89,10 @@ window.recipeCategories = pdjService.recipeCategories;
     {
         if(!article) article = 'GetAboutArticle';
 
-        if(pdjService.articles[article])
+        if(svc.articles[article])
         {
-            pdjService.title = pdjService.articles[article].title;
-            return pdjService.articles[article];
+            svc.title = svc.articles[article].title;
+            return svc.articles[article];
         }
 
         var deferred = $q.defer();
@@ -104,9 +103,9 @@ window.recipeCategories = pdjService.recipeCategories;
             if(!response.Data.title)
                 response.Data.title = response.Data.Text.substringBefore("!").substringBefore(".");
 
-            pdjService.articles[article] = response.Data;
-            pdjService.currentArticle = response.Data;
-            pdjService.title = response.Data.title;
+            svc.articles[article] = response.Data;
+            svc.currentArticle = response.Data;
+            svc.title = response.Data.title;
 
             deferred.resolve(response.Data);
         });
@@ -115,22 +114,22 @@ window.recipeCategories = pdjService.recipeCategories;
 
     this.getRecipe = function(id)
     {
-        if(pdjService.recipes[id])
+        if(svc.recipes[id])
         {
-            pdjService.title = pdjService.recipes[id].Name;
-            return pdjService.recipes[id];
+            svc.title = svc.recipes[id].Name;
+            return svc.recipes[id];
         }
 
         var deferred = $q.defer();
         this.recipeResource.get({ id: id  }, function(response)
         {
-            pdjService.recipes[id] = response.Data;
-            pdjService.currentRecipe = response.Data;
+            svc.recipes[id] = response.Data;
+            svc.currentRecipe = response.Data;
 
-            if(!pdjService.currentRecipe.RecipeCategories && pdjService.recipeCategories[id])
-                pdjService.currentRecipe.RecipeCategories = pdjService.recipeCategories[id];
+            if(!svc.currentRecipe.RecipeCategories && svc.recipeCategories[id])
+                svc.currentRecipe.RecipeCategories = svc.recipeCategories[id];
 
-            pdjService.title = response.Data.Name;
+            svc.title = response.Data.Name;
             deferred.resolve(response.Data);
         });
         return deferred.promise;
@@ -150,8 +149,8 @@ window.recipeCategories = pdjService.recipeCategories;
             var id = response.Data;
             if(id && response.State == "SUCCESS")
             {
-                //pdjService.recipes[id] = pdjService.currentRecipe = {Recipe : recipe};
-                pdjService.title = recipe.Name;
+                //svc.recipes[id] = svc.currentRecipe = {Recipe : recipe};
+                svc.title = recipe.Name;
             }
             deferred.resolve(response);
         });

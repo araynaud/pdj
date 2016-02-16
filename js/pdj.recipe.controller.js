@@ -190,7 +190,8 @@ function ($scope, $window, $stateParams, RecipeService)
         RecipeService.loadUnits(rc).then(function() 
         { 
           rc.units.byId = rc.units.indexBy("ID");
-          rc.YieldUnit = rc.units[5]; 
+          rc.units.byType = rc.units.groupBy("unitType");
+          rc.YieldUnit = rc.units[0]; 
         });
     };
 

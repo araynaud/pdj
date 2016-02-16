@@ -105,11 +105,16 @@ if($recipe)
 
 </head>
 <body class="nomargin bgwhite" ng-class="lc.bodyClasses()" ng-controller="LayoutController as lc">
-	<div class="nomargin bg" ng-style="{ 'background-image': lc.backgroundImage }" ng-if="lc.backgroundImage">
+	<div class="nomargin bg hidden-print" ng-style="{ 'background-image': lc.backgroundImage }" ng-if="lc.backgroundImage">
 		<div class="translucentWhite stretchH"></div>
 	</div>
 
-	<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="visible-print-block" id="printHeader">
+		<img class="floatL" style="height: 1cm;" src="images/PimentJourVertOrange200.png" alt="PDJ"/>
+		<p class="centered title">{{lc.shortTitle()}}</p>
+	</div>
+
+	<nav class="navbar navbar-default navbar-fixed-top hidden-print">
 	<div class="container">
 	    <a class="navbar-brand" ng-class="{active: lc.stateIs('main')}" ui-sref="list">
 	      <img class="stretchH" src="images/PimentJourVertOrange200.png" alt="PDJ"/>

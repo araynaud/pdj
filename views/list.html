@@ -1,6 +1,6 @@
 <div id="wrapper" class="main ease05"  ng-class="lc.sidebarWrapperClasses()">
 
-<div id="sidebar-wrapper" class="ease05 noprint">
+<div id="sidebar-wrapper" class="ease05 hidden-print">
 <form name="filterForm">
     <div class="input-group">
       <span class="input-group-btn">
@@ -45,25 +45,21 @@
 
 	<div class="floatR">
 		<img src="images/ajax-loader.gif" ng-show="rc.loading"/>
-		<span id="resultCount" ng-show0="!rc.loading">
+		<span id="resultCount" ng-show="!rc.loading">
 			{{rc.list.length ? rc.plural(rc.list.length, "recipe") : "No results found."}}
 			{{rc.status}}
 		</span>
 	</div>
 
-	<h2>{{rc.title()}}</h2>
+	<p class="title hidden-print">{{rc.title()}}</p>
 
-	<div id="item_{{recipe.RecipeID}}" 	class="recipeListItem bgwhite margin shadow" ng-repeat="recipe in rc.list">
-		<div class="thumbnailContainer floatL photoBorder">
-			<a ui-sref="recipe({recipeId: recipe.RecipeID})">
-				<img class="stretchH" ng-src="{{rc.recipePhotoUrl(recipe,1)}}" on-error="rc.removeImage" />
-			</a>
-		</div>
+	<div id="item_{{recipe.ID}}" 	class="recipeListItem bgwhite margin shadow" ng-repeat="recipe in rc.list">
+		<a ui-sref="recipe({recipeId: recipe.ID})">
+			<img class="recipeImage cover floatL" ng-src="{{rc.recipePhotoUrl(recipe,1)}}" on-error="rc.removeImage" />
+		</a>
 
 		<a class="recipeTitle" ui-sref="recipe({recipeId: recipe.ID})">{{recipe.Name}}</a>
-		<div class="left">
-			{{recipe.Description.substringBefore('.', false, true, true)}}
-		</div>
+		<div class="left">{{recipe.Description.substringBefore('.', false, true, true)}}</div>
 		<div class="right small">
 			<div class="floatR equalWidth2" ng-repeat="type in recipe.RecipeCategories">
 				{{rc.categoryTypeNames[type.CategoryTypeID] + ":"}}

@@ -66,13 +66,20 @@ a.recipeTitle
 }
 
 
-div.thumbnailContainer
+.thumbnailContainer
 {
     height: 4cm;
     width: 4cm;
     overflow: hidden;
     text-align: center;
     vertical-align: center; 
+}
+
+.recipeImage
+{
+    height: 4cm;
+    width: 4cm;
+    margin-right: 10px;
 }
 
 /* bootstrap overrides */

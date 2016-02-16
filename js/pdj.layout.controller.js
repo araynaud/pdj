@@ -2,8 +2,8 @@
 
 // =========== LayoutController ===========
 angular.module('pdjControllers')
-.controller('LayoutController', ['$scope', '$window', 'ConfigService',
-function ($scope, $window, ConfigService)
+.controller('LayoutController', ['$scope', '$window', 'ConfigService', 'RecipeService',
+function ($scope, $window, ConfigService, RecipeService)
 {
     var lc = this;
     $window.LayoutController = this;
@@ -119,8 +119,14 @@ function ($scope, $window, ConfigService)
 
     lc.title = function()
     {
-        var defaultTitle = RecipeService.getConfig("defaultTitle");
+        var defaultTitle = ConfigService.getConfig("defaultTitle");
         return document.title = String.append(RecipeService.title, " - ", defaultTitle);
+    };
+
+    lc.shortTitle = function()
+    {
+        var defaultTitle = RecipeService.getConfig("defaultTitle");
+        return RecipeService.title || defaultTitle; 
     };
 
     lc.init();
