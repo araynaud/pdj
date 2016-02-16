@@ -88,16 +88,15 @@ function ($scope, $window, $stateParams, RecipeService)
       var r = RecipeService.getRecipe(id);
       if(!r.then)
       {
-         rc.recipe = r;    
-         rc.form = rc.recipe.Recipe;
+         rc.form = rc.recipe = r;    
       }
       else
       {
         rc.loading = true;
         r.then(function(response) 
         {
-            rc.recipe = response; 
-            rc.form = rc.recipe.Recipe;
+            rc.form = rc.recipe = response;
+            rc.selectedCategories = rc.form.CategoryIDs.toMap();
             rc.successMessage();
         }, 
         rc.errorMessage);
@@ -173,7 +172,7 @@ function ($scope, $window, $stateParams, RecipeService)
       if(!recipe) return null;
       size = valueOrDefault(size, 1);
 
-      var id = recipe.RecipeID || recipe.Recipe.ID;
+      var id = recipe.ID; // || recipe.Recipe.ID;
       var imageUrl = id+".jpg";
       var subdir = rc.imgConfig.subdirs[size] || "";
       subdir="."+subdir;
@@ -188,7 +187,11 @@ function ($scope, $window, $stateParams, RecipeService)
     rc.loadUnits = function()
     { 
       if(!rc.units)
-        RecipeService.loadUnits(rc).then(function() { rc.YieldUnit = rc.units[5]; });
+        RecipeService.loadUnits(rc).then(function() 
+        { 
+          rc.units.byId = rc.units.indexBy("ID");
+          rc.YieldUnit = rc.units[5]; 
+        });
     };
 
     rc.getCategoryTypes = function()
@@ -217,13 +220,24 @@ function ($scope, $window, $stateParams, RecipeService)
         return RecipeService.title || defaultTitle; 
     };
 
-    rc.displayProperty = function(obj, key, label)
+    rc.displayProperty = function(obj, key, unit, label)
     {
-        if(!obj || isMissing(obj[key])) return;
+        if(!obj || !obj[key]) return;
         if(!label) label = String.makeTitle(key);
-        return label + ": " + obj[key] + "\n";
-    }
+        if(unit)
+        {
+          unit = rc.getUnit(unit);
+          return label + ": " + plural(obj[key], unit.Name || unit, unit.PluralName) + "\n";
+        }
 
+        return label + ": " + obj[key] + "\n";
+    };
+
+    rc.getUnit = function(id)
+    {
+      var unit =  rc.units.byId[id];
+      return unit || id;
+    };
 
     // https://twitter.com/intent/tweet?text=Pasta with Homemade Tomato Sauce&via=Piment Du Jour&url=http://pimentdujour.com/pdj/%23/recipe/1
 
@@ -231,7 +245,7 @@ function ($scope, $window, $stateParams, RecipeService)
     {
       var currentUrl = $window.location.href.substringBefore("#").substringBefore("?");
       if(!rc.recipe) return currentUrl;
-      var id = (rc.recipe && rc.recipe.Recipe) ? rc.recipe.Recipe.ID : null;
+      var id = (rc.recipe) ? rc.recipe.ID : null;
       if(id)
         currentUrl += "?recipe=" + id;
       return currentUrl;
@@ -248,7 +262,7 @@ function ($scope, $window, $stateParams, RecipeService)
 
     rc.saveRecipe = function()
     {
-      rc.form.CategorySelections = rc.selectedCategoriesArray();
+      rc.form.CategoryIDs = rc.selectedCategoriesArray();
       if(rc.YieldUnit)
         rc.form.YieldUnitTypeID = rc.YieldUnit.ID;
       RecipeService.saveRecipe(rc.form).then(function(response) 

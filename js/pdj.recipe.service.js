@@ -21,7 +21,7 @@ angular.module('pdjServices')
     //REST Services
     this.categoryTypeResource = ConfigService.getResource("pdj", "Category/GetAllCategoriesWithDetails");
     this.articleResource =      ConfigService.getResource("pdj", "Article/:article");
-    this.listResource =         ConfigService.getResource("pdj", "Recipe/GetRecipeBrowseDetails", "searchText=:search:categories");
+    this.listResource =         ConfigService.getResource("pdj", "Recipe/GetRecipeList", "searchText=:search:categories");
     this.recipeResource =       ConfigService.getResource("pdj", "Recipe/GetRecipeDetails", "recipeId=:id");
     this.recipeSaveResource =   ConfigService.getResource("pdj", "Recipe/ImportRawTextRecipe");
 
@@ -117,7 +117,7 @@ window.recipeCategories = pdjService.recipeCategories;
     {
         if(pdjService.recipes[id])
         {
-            pdjService.title = pdjService.recipes[id].Recipe.Name;
+            pdjService.title = pdjService.recipes[id].Name;
             return pdjService.recipes[id];
         }
 
@@ -130,7 +130,7 @@ window.recipeCategories = pdjService.recipeCategories;
             if(!pdjService.currentRecipe.RecipeCategories && pdjService.recipeCategories[id])
                 pdjService.currentRecipe.RecipeCategories = pdjService.recipeCategories[id];
 
-            pdjService.title = response.Data.Recipe.Name;
+            pdjService.title = response.Data.Name;
             deferred.resolve(response.Data);
         });
         return deferred.promise;
