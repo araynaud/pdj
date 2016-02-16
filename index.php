@@ -38,7 +38,7 @@ if($json)
 {
 	$data = json_decode($json);
 	$data = objToArray($data, false, false, true);
-	$recipe = arrayGet($data, "Data.Recipe");
+	$recipe = arrayGet($data, "Data");
 	if($name = arrayGet($recipe, "Name"))
 	{
 		$title = "$name - $title";
