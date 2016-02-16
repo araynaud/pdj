@@ -21,9 +21,9 @@
 <p class="text bold">{{rc.recipe.Description}}</p>
 
 <div class="inlineBlock right">
-	<div class="" ng-repeat="type in rc.recipe.RecipeCategories">
-		{{rc.categoryTypeNames[type.CategoryTypeID]}}: <span class="bold" ng-repeat="cat in type.CategoryIDs">{{ ($index ? ", " : "") + rc.categoryNames[cat]}}</span>
-	</div>
+	<div ng-repeat="catType in rc.recipe.categories">{{catType.key}}: 
+		<span class="bold">{{catType.allNames}}</span>
+	</div>	
 </div>
 
 <div class="inlineBlock text left vtop" ng-if="rc.recipe.RawText">{{rc.recipe.RawText}}</div>

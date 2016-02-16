@@ -203,6 +203,7 @@ function ($scope, $window, $stateParams, RecipeService)
           rc.categoryTypes = r;
           rc.categoryTypeNames = RecipeService.categoryTypeNames;
           rc.categoryNames = RecipeService.categoryNames;
+          rc.categories = RecipeService.categories;
       }
       else
         r.then(function(response) 
@@ -210,6 +211,7 @@ function ($scope, $window, $stateParams, RecipeService)
             rc.categoryTypes = response; 
             rc.categoryTypeNames = RecipeService.categoryTypeNames;
             rc.categoryNames = RecipeService.categoryNames;
+            rc.categories = RecipeService.categories;
         }, 
         rc.errorMessage);
     };
