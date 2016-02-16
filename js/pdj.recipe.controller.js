@@ -212,6 +212,12 @@ function ($scope, $window, $stateParams, RecipeService)
             rc.categoryTypeNames = RecipeService.categoryTypeNames;
             rc.categoryNames = RecipeService.categoryNames;
             rc.categories = RecipeService.categories;
+
+            if(rc.recipe)
+              RecipeService.refreshRecipeCategories(rc.recipe);
+            if(rc.list)
+              for(var i=0; i<rc.list.length; i++)
+                RecipeService.refreshRecipeCategories(rc.list[i]);
         }, 
         rc.errorMessage);
     };
@@ -238,7 +244,7 @@ function ($scope, $window, $stateParams, RecipeService)
 
     rc.getUnit = function(id)
     {
-      var unit =  rc.units.byId[id];
+      var unit =  rc.units ? rc.units.byId[id] : null;
       return unit || id;
     };
 

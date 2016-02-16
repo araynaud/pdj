@@ -53,6 +53,7 @@ a.button
     display: inline-block;
     vertical-align: bottom; 
     width: 10cm;
+    max-width: 90%;
     padding: 10px;
     border: 1px solid #AAA;
     border-radius: 10px;

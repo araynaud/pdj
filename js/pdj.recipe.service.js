@@ -73,7 +73,7 @@ angular.module('pdjServices')
             for(var i=0; i < svc.currentList.length; i++)
             {
                 var recipe = response.Data[i];
-                recipe.categories = svc.getRecipeCategories(recipe.CategoryIDs);
+                svc.refreshRecipeCategories(recipe);
             };
             deferred.resolve(response.Data);
         });
@@ -88,9 +88,16 @@ angular.module('pdjServices')
         return qs;
     };
 
+    this.refreshRecipeCategories = function(recipe)
+    {
+        return recipe.categories = svc.getRecipeCategories(recipe.CategoryIDs);
+    };
+
     this.getRecipeCategories = function(ids)
     {
         var cats = [];
+        if(!ids) return cats;
+        
         for(var i=0; i<ids.length; i++)
             cats.push(svc.categories[ids[i]]);
 
