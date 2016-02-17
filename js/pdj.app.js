@@ -6,7 +6,8 @@ var app = angular.module('app', ['ui.router', 'ui.bootstrap', 'ngFileUpload', 'p
 app.config(function($stateProvider, $urlRouterProvider)
 {  
   $stateProvider
-  	.state('list',    { url: "/:search",                     controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'views/list.html', params: {'search':null} })
+    .state('list',    { url: "/",                     controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'views/list.html' })
+  	.state('search',  { url: "/search/:search",       controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'views/list.html', params: {'search':null} })
     .state('about',   { url: "/about",                controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'views/article.html' })
     .state('article', { url: "/article/:articleId",   controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'views/article.html' })
     .state('recipe',  { url: "/recipe/:recipeId",     controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'views/recipe.html', params: {'recipeId':null} })

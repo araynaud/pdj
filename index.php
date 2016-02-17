@@ -12,6 +12,7 @@ session_start();
 debugText("<div id='php_debug' class='footerLeftCorner left text controls photoBorder bgwhite'>DEBUG");
 $offline = getConfig("debug.offline");
 $recipeid = reqParam("recipe");
+$search = reqParam("search");
 $recipe = $image = $json = null;
 $imageDir = $imageUrlPath = "";
 
@@ -54,19 +55,20 @@ debugText("</div>");
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="mobile-web-app-capable" content="yes" />
-<?=metaTagArray($meta);
-
-debugVar("json");
-debugVar("recipe");
+<?=metaTagArray($meta);?>
+<?php
 if($recipe) 
 {	
-	metaImage($imageUrlPath, $imageDir, $image); ?>
-	<script type="text/javascript">window.location = "./#/recipe/<?=$recipeid ?>";</script>
-</head>
-</html>
-<?php return; 
-}?>
-
+	metaImage($imageUrlPath, $imageDir, $image); 
+	redirectJs("./#/recipe/$recipeid", true);
+	return;
+} 
+else if($search) 
+{	
+	redirectJs("./#/search/$search", true);
+	return;
+} 
+?>
 <link rel="icon" href="images/PJgreen32.png"/>
 <link rel="icon" sizes="192x192" href="images/PJgreen192.png"/>
 <link rel="icon" sizes="128x128" href="images/PJgreen128.png"/>
