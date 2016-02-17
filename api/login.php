@@ -31,7 +31,8 @@ switch ($action)
 		$response["message"] = "User logged out.";
 		break;
 	default:
-		pdjSetUser($postData);
+		if($postData)
+			pdjSetUser($postData);
 		$response["user"] = pdjCurrentUser();
 		break;
 }

@@ -12,7 +12,19 @@ function pdjCurrentUsername()
 
 function pdjSetUser($user)
 {
-   return $_SESSION["pdj_user"] = $user;
+    $user["ASPXAUTH"] = getAspxAuthCookie();
+    return $_SESSION["pdj_user"] = $user;
+}
+
+function getAspxAuthCookie()
+{
+    $headers = getallheaders();
+    if(!$cookies = @$headers["Cookie"]) return null;
+    
+    $aspxAuth = substringAfter($cookies, ".ASPXAUTH=");
+    $aspxAuth = substringBefore($aspxAuth, ";");
+
+    return $aspxAuth;
 }
 
 function pdjUserLogout()
@@ -36,42 +48,9 @@ function getRecipeUrl($id)
     if($proxy && isExternalUrl($pdjApiRoot))
       $pdjApiRoot = combine($proxy, $pdjApiRoot);
 
- //   $url = $pdjApiRoot . "/" . $url  . $id;
     $url = combine($pdjApiRoot, $url) . $id;
 
-//    return $url;
     return toAbsoluteUrl($url);
-}
-
-function isExternalUrl($url)
-{
-    return startsWith($url, "//") || contains($url, "://");
-}
-
-
-function redirectTo($url)
-{
-    header("Location: $url");
-    return $url;
-}
-
-
-function readJsonFile($filename)
-{
-    $postdata = file_get_contents($filename);
-    if($postdata)
-        $postdata = json_decode($postdata, true);
-    return $postdata;
-}
-
-function getJsonPostData()
-{
-    return readJsonFile("php://input");
-
-    $postdata = file_get_contents("php://input");
-    if($postdata)
-        $postdata = json_decode($postdata, true);
-    return $postdata;
 }
 
 function errorMessage($msg)

@@ -107,8 +107,10 @@ angular.module('pdjServices')
     this.logout = function()
     {
         svc.user = null;
-        svc.loginResource.save({action: "SignOut"}, {});
-        svc.phpLoginResource.save({action: "SignOut"});
+        svc.loginResource.save({action: "SignOut"}, {}, function()
+        {
+            svc.phpLoginResource.save({action: "SignOut"});
+        });
     }
     
     //POST to login.php service
