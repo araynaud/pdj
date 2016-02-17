@@ -52,11 +52,24 @@ a.button
 {
     display: inline-block;
     vertical-align: bottom; 
-    width: 10cm;
+    width: 12cm;
     max-width: 90%;
-    padding: 10px;
+    height: 5cm;
     border: 1px solid #AAA;
     border-radius: 10px;
+    overflow: hidden;
+}
+
+.recipeListItemTop
+{
+    display: inline-block;
+    vertical-align: bottom; 
+    width: 7cm;
+    max-width: 90%;
+    height: 11cm;
+    border: 1px solid #AAA;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 a.recipeTitle
@@ -64,24 +77,27 @@ a.recipeTitle
     font-weight: bold;
     color: orange;
     text-decoration: none;
+    font-size: 14pt;
 }
 
-
-.thumbnailContainer
+.recipeText
 {
-    height: 4cm;
-    width: 4cm;
-    overflow: hidden;
-    text-align: center;
-    vertical-align: center; 
+    padding: 10px;
 }
 
 .recipeImage
 {
-    height: 4cm;
-    width: 4cm;
+    height: 101%;
+    width: 50%;
     margin-right: 10px;
 }
+
+.recipeListItemTop .recipeImage
+{
+    width: 101%;
+    height: 50%;
+}
+
 
 /* bootstrap overrides */
 
