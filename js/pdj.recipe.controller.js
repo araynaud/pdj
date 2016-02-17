@@ -89,6 +89,7 @@ function ($scope, $window, $stateParams, RecipeService)
       if(!r.then)
       {
          rc.form = rc.recipe = r;    
+         rc.selectedCategories = rc.recipe.CategoryIDs.toMap()
       }
       else
       {
@@ -96,7 +97,7 @@ function ($scope, $window, $stateParams, RecipeService)
         r.then(function(response) 
         {
             rc.form = rc.recipe = response;
-            rc.selectedCategories = rc.form.CategoryIDs.toMap();
+            rc.selectedCategories = rc.recipe.CategoryIDs.toMap();
             rc.successMessage();
         }, 
         rc.errorMessage);
