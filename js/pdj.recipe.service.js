@@ -150,11 +150,16 @@ angular.module('pdjServices')
         var deferred = $q.defer();
         this.recipeResource.get({ id: id }, function(response)
         {
-            svc.recipes[id] = response.Data;
-            svc.currentRecipe = response.Data;
-            svc.currentRecipe.categories = svc.getRecipeCategories(svc.currentRecipe.CategoryIDs);
-            svc.title = svc.currentRecipe.Name;
-            deferred.resolve(svc.currentRecipe);
+            if(svc.isError(response))
+                deferred.resolve(response);
+            else
+            {               
+                svc.recipes[id] = response.Data;
+                svc.currentRecipe = response.Data;
+                svc.currentRecipe.categories = svc.getRecipeCategories(svc.currentRecipe.CategoryIDs);
+                svc.title = svc.currentRecipe.Name;
+                deferred.resolve(svc.currentRecipe);
+            }
         });
         return deferred.promise;
     };
@@ -180,5 +185,17 @@ angular.module('pdjServices')
         });
         return deferred.promise;
     };
+
+
+    this.isSuccess = function(response)
+    {
+        return response.State == "SUCCESS";
+    };
+
+    this.isError = function(response)
+    {
+        return response.State == "ERROR";
+    };
+
 
 }]);

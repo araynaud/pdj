@@ -96,6 +96,9 @@ function ($scope, $window, $stateParams, RecipeService)
         rc.loading = true;
         r.then(function(response) 
         {
+            if(rc.isError(response))
+              return rc.errorMessage(response);
+
             rc.form = rc.recipe = response;
             rc.selectedCategories = rc.recipe.CategoryIDs.toMap();
             rc.successMessage();
