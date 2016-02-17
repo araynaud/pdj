@@ -9,8 +9,8 @@
 </div>
 
 <div class="container marginV">
-
 <div class="title hidden-print" ng-show="!rc.hasPhoto">{{rc.title()}}</div>
+<span class="error">{{rc.status}}</span>
 
 <div class="floatR noprint">
 	<a href="{{rc.shareUrl()}}" title="Direct link"><img alt="link" src="images/link.png"/></a>

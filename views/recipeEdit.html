@@ -1,4 +1,5 @@
-<form class="file-uploader container" name="uploadForm" novalidate>
+<span class="error" ng-if="rc.error">{{rc.status}}</span>
+<form class="file-uploader container" name="uploadForm" novalidate ng-if="!rc.error">
 <!--
 Name/Title
 Description / Raw Text (Ingredients, Steps, Tips (optional), 
@@ -101,6 +102,7 @@ Categories (category ID) modify search template
       <button class="btn" type="button" ng-click="rc.cancelEdit()">Cancel</button>
       <span class="error">{{rc.status}}</span>
     </p>
-    <pre ng-if="rc.showDebug">{{rc.form | toJson:true}}</pre>
-    <pre ng-if="rc.showDebug">{{rc.form2 | toJson:true}}</pre>
 </form>
+
+<pre ng-if="rc.showDebug">{{rc.form | toJson:true}}</pre>
+<pre ng-if="rc.showDebug">{{rc.form2 | toJson:true}}</pre>

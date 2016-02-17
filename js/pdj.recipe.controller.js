@@ -21,6 +21,8 @@ function ($scope, $window, $stateParams, RecipeService)
       rc.dropdown = RecipeService.getConfig("dropdown");
       rc.showDebug = ConfigService.isDebug();
       rc.hasPhoto = false;
+      rc.error = false;
+      rc.status = "";
 
       rc.getCategoryTypes();
       rc.loadUnits();
@@ -54,7 +56,7 @@ function ($scope, $window, $stateParams, RecipeService)
     rc.errorMessage =  function (response)
     {
       rc.loading = false;
-      rc.status = response.Message || "Error: No data returned";
+      rc.status = response.Exception ? response.Exception.Message : response.Message || "Error: No data returned";
     };
 
     rc.successMessage =  function (response)
@@ -96,8 +98,11 @@ function ($scope, $window, $stateParams, RecipeService)
         rc.loading = true;
         r.then(function(response) 
         {
-            if(rc.isError(response))
-              return rc.errorMessage(response);
+            if(rc.error = rc.isError(response))
+            {
+              rc.errorMessage(response);
+              return rc.cancelEdit(2000);
+            }
 
             rc.form = rc.recipe = response;
             rc.initEditForm();
@@ -141,7 +146,7 @@ function ($scope, $window, $stateParams, RecipeService)
     //prepare data for edit form
     rc.initEditForm = function()
     {
-      if(RecipeService.stateIs('recipe')) return;
+      //if(RecipeService.stateIs('recipe')) return;
 
       rc.form = rc.recipe;
       rc.selectedCategories = rc.recipe.CategoryIDs.toMap();
