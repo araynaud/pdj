@@ -146,12 +146,19 @@ function ($scope, $window, $stateParams, RecipeService)
       rc.form = rc.recipe;
       rc.selectedCategories = rc.recipe.CategoryIDs.toMap();
       rc.form2 = {};
-      if(!rc.form.RawText)
+      if(!isEmpty(rc.recipe.RecipeIngredients))
       {
         rc.form2.ingredients = rc.recipe.RecipeIngredients.join("\n");
         rc.form2.directions  = rc.recipe.RecipeSteps.join("\n\n");
         rc.form2.tips        = rc.recipe.AllRecipeTips.join("\n");
         rc.form2.links       = rc.recipe.AllRecipeUrls.join("\n");
+      }
+      else if(rc.recipe.RawText)
+      {
+        rc.form2.ingredients = rc.recipe.RawText.substringAfter("INGREDIENTS:").substringBefore("DIRECTIONS:").trim();
+        rc.form2.directions = rc.recipe.RawText.substringAfter("DIRECTIONS:").substringBefore("TIPS:").trim();
+        rc.form2.tips = rc.recipe.RawText.substringAfter("TIPS:").substringBefore("LINKS:").trim();
+        rc.form2.links = rc.recipe.RawText.substringAfter("LINKS:").trim();
       }
     }
 
@@ -299,8 +306,9 @@ function ($scope, $window, $stateParams, RecipeService)
       rc.form.RawText = ""; 
       for(var key in rc.form2)
       {
-        if(key && rc.form2[key])
-          rc.form.RawText += "\n{0}\n{1}\n".format(key.toUpperCase(), rc.form2[key]);        
+        var value = rc.form2[key];
+        if(key && value)
+          rc.form.RawText += "\n{0}:\n{1}\n".format(key.toUpperCase(), value.trim());        
       }
 
       RecipeService.saveRecipe(rc.form).then(function(response) 
