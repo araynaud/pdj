@@ -278,6 +278,14 @@ function ($scope, $window, $stateParams, RecipeService)
       rc.form.CategoryIDs = rc.selectedCategoriesArray();
       if(rc.YieldUnit)
         rc.form.YieldUnitTypeID = rc.YieldUnit.ID;
+
+      rc.form.RawText = ""; 
+      for(var key in rc.form2)
+      {
+        if(key && rc.form2[key])
+          rc.form.RawText += "\n{0}\n{1}\n".format(key.toUpperCase(), rc.form2[key]);        
+      }
+
       RecipeService.saveRecipe(rc.form).then(function(response) 
       {
           if(rc.isError(response))
