@@ -53,6 +53,28 @@ function getRecipeUrl($id)
     return toAbsoluteUrl($url);
 }
 
+function getRecipeDetail($recipeid)
+{
+    if(!$recipeid) return;
+
+    $url = getRecipeUrl($recipeid);
+    debug("getRecipeUrl", $url);
+    $cookie = array();
+    $pdjUser = pdjCurrentUser();
+    if(isset($pdjUser["ASPXAUTH"]))
+        $cookie[".ASPXAUTH"] = $pdjUser["ASPXAUTH"];
+    $json = curlGet($url, null, null, null, $cookie); //TODO: for private recipes: forward .net cookie
+    debug("json", !!$json);
+    if(!$json) return;
+
+    //parse JSON
+    $data = json_decode($json);
+    $data = objToArray($data, false, false, true);
+    $recipe = arrayGet($data, "Data");
+
+    return $recipe;
+}
+
 function errorMessage($msg)
 {
     global $response;

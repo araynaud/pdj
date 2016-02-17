@@ -26,19 +26,9 @@ $meta["og:site_name"] = $title; //get root dir title
 $meta["description"] = $meta["og:description"] = getConfig("description");
 $meta["og:url"] = currentUrlDir(); 
 
-if($recipeid)
+$recipe = getRecipeDetail($recipeid);
+if($recipe)
 {
-	$url = getRecipeUrl($recipeid);
-	debug("getRecipeUrl", $url);
-	$json = curlGet($url);
-	debug("json", !!$json);
-}
-//parse JSON
-if($json)
-{
-	$data = json_decode($json);
-	$data = objToArray($data, false, false, true);
-	$recipe = arrayGet($data, "Data");
 	if($name = arrayGet($recipe, "Name"))
 	{
 		$title = "$name - $title";
@@ -52,9 +42,7 @@ if($json)
 	//get recipe 1st image according to config
 	$imageDir = combine(getConfig("images._rootdir"), getConfig("images.dir"), $recipeid);	
 	$imageUrlPath = combine(getConfig("images.root"), getConfig("images.dir"), $recipeid);	
-	$config["recipeImagesDir"] = $imageDir;
 	$image = findFirstImage($imageDir);
-	$config["image"] = $image;
 }
 debugText("</div>");
 ?>
@@ -67,6 +55,9 @@ debugText("</div>");
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="mobile-web-app-capable" content="yes" />
 <?=metaTagArray($meta);
+
+debugVar("json");
+debugVar("recipe");
 if($recipe) 
 {	
 	metaImage($imageUrlPath, $imageDir, $image); ?>
