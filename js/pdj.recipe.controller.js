@@ -89,7 +89,7 @@ function ($scope, $window, $stateParams, RecipeService)
       if(!r.then)
       {
          rc.form = rc.recipe = r;    
-         rc.selectedCategories = rc.recipe.CategoryIDs.toMap()
+         rc.initEditForm();
       }
       else
       {
@@ -100,7 +100,7 @@ function ($scope, $window, $stateParams, RecipeService)
               return rc.errorMessage(response);
 
             rc.form = rc.recipe = response;
-            rc.selectedCategories = rc.recipe.CategoryIDs.toMap();
+            rc.initEditForm();
             rc.successMessage();
         }, 
         rc.errorMessage);
@@ -136,6 +136,23 @@ function ($scope, $window, $stateParams, RecipeService)
         slideshow.display();
         $window.addEventListener("resize", function() { slideshow.fitImage() } );
       };
+    }
+
+    //prepare data for edit form
+    rc.initEditForm = function()
+    {
+      if(RecipeService.stateIs('recipe')) return;
+
+      rc.form = rc.recipe;
+      rc.selectedCategories = rc.recipe.CategoryIDs.toMap();
+      rc.form2 = {};
+      if(!rc.form.RawText)
+      {
+        rc.form2.ingredients = rc.recipe.RecipeIngredients.join("\n");
+        rc.form2.directions  = rc.recipe.RecipeSteps.join("\n\n");
+        rc.form2.tips        = rc.recipe.AllRecipeTips.join("\n");
+        rc.form2.links       = rc.recipe.AllRecipeUrls.join("\n");
+      }
     }
 
     rc.getArticle = function(id)
