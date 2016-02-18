@@ -8,8 +8,6 @@ angular.module('pdjServices')
     this.articles={};
     this.recipes={};
     this.categoryTypes=[];
-    this.categoryTypeNames={};
-    this.categoryNames={};
     this.categories = {};
 
     this.getConfig    = ConfigService.getConfig;
@@ -44,22 +42,34 @@ angular.module('pdjServices')
             for(var i=0; i<svc.categoryTypes.length; i++)
             {
                 var type = svc.categoryTypes[i];
-                svc.categoryTypeNames[type.ID] = type.Name;
                 if(!type.Categories) continue;
                 for(var j=0; j<type.Categories.length; j++)
                 {
                     var cat = type.Categories[j];
                     cat.typeId = type.ID;
                     cat.type = type.Name;
-                    svc.categoryNames[cat.ID] = cat.Name;
                     svc.categories[cat.ID] = cat;
                 }                
                 type.Categories.sortObjectsBy("Name");
             }
-            deferred.resolve(response.Data);
+
+            svc.categoriesByName = Object.indexBy(svc.categories, svc.nameLower);
+            svc.categoriesByTag  = Object.indexBy(svc.categories, svc.nameToHashtag);
+
+            deferred.resolve(svc.categoryTypes);
         });
         return deferred.promise;
     }
+
+    this.nameLower = function(c)
+    {
+        return c.Name.toLowerCase().replace("'", "").replace(".", "");
+    };
+
+    this.nameToHashtag = function(c)
+    {
+        return "#" + c.Name.replace(" ", "").replace(".", "").replace("'", "");
+    };
 
 	this.getList = function(search, categories)
 	{
@@ -111,6 +121,17 @@ angular.module('pdjServices')
         return cats;
     };
 
+    this.getRecipeTags = function(ids)
+    {
+        var cats = [];
+        if(!ids) return "";
+        
+        for(var i=0; i<ids.length; i++)
+            cats.push(svc.categories[ids[i]]);
+
+        var tags = cats.distinct(svc.nameToHashtag, true, ["#Any", "#Other", "#Unknown"]);
+        return tags;
+    }
 
     this.getArticle = function(article)
     {
