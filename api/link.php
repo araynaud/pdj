@@ -62,6 +62,7 @@ function parseMeta($html)
 debug("meta", $meta);
 		$name = parseAttribute($meta, "name");
 		if(!$name)	$name = parseAttribute($meta, "property");
+		if(!$name)	$name = parseAttribute($meta, "http-equiv");
 		if(!$name)  $name = $firstName;
 debug("name", $name);
 		
@@ -71,7 +72,8 @@ debug("content", $content);
 
 		if($name && $content)
 			$metas[$name] = $content;
-		
+		else
+			$metas[$firstName] = $firstVal;
 		afterSelfCloseElement($html, "meta");
 	}
 	return $metas;
