@@ -7,13 +7,13 @@
         <button type="button" class="btn btn-default" ng-click="lc.toggleSidebar(false)">
           <i class="glyphicon glyphicon-triangle-left"></i>
         </button> 
-        <button type="button" class="btn btn-default" ng-show="rc.query" ng-click="rc.query=''; rc.getRecipeList();">
+        <button type="button" class="btn btn-default" ng-show="rc.query" ng-click="rc.query=''; rc.loadRecipeList();">
           <i class="glyphicon glyphicon-remove-circle"></i>
         </button> 
       </span>
-      <input type="text" class="form-control" id="inputDescription" ng-model="rc.query" placeholder="Search" ng-blur="rc.getRecipeList()" />
+      <input type="text" class="form-control" id="inputDescription" ng-model="rc.query" placeholder="Search" ng-blur="rc.loadRecipeList()" />
       <span class="input-group-btn">
-        <button type="button" class="btn btn-default" ng-click="rc.getRecipeList()">
+        <button type="button" class="btn btn-default" ng-click="rc.loadRecipeList()">
           <i class="glyphicon glyphicon-search"></i>
         </button> 
       </span>
@@ -29,7 +29,7 @@
 			<div id="category_{{cat.ID}}" class="category nowrap ease05" ng-repeat="cat in type.Categories" ng-show="type.show">
 				<input type="checkbox" class="chkSearch" id="cb_cat_{{cat.ID}}"
 				 ng-model="rc.selectedCategories[cat.ID]"  ng-true-value="{{cat.ID}}"
-				  ng-change="rc.getRecipeList()" />
+				  ng-change="rc.loadRecipeList()" />
 				<label for="cb_cat_{{cat.ID}}">{{cat.Name}}</label>
 			</div>
 		</div>

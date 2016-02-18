@@ -23,23 +23,113 @@ function ($scope, $window, $stateParams, RecipeService)
       rc.hasPhoto = false;
       rc.error = false;
       rc.status = "";
+      
+      initAlbum();
 
-      rc.getCategoryTypes();
       rc.loadUnits();
+      rc.loadCategoryTypes();
+      if(rc.categoryTypes)
+        rc.loadData();
+    };
 
+//data load functions
+    rc.loadData = function()
+    {
       if(RecipeService.stateIs('about'))
-        return rc.getArticle('GetAboutArticle');
+        return rc.loadArticle('GetAboutArticle');
 
       if($stateParams.recipeId)
-        return rc.getRecipe($stateParams.recipeId);
+        return rc.loadRecipe($stateParams.recipeId);
 
       if($stateParams.articleId)
-        return rc.getArticle($stateParams.articleId);
+        return rc.loadArticle($stateParams.articleId);
       
-      if($stateParams.search) 
-        rc.query = $stateParams.search;
+      return rc.loadRecipeList($stateParams.search);
 
-      return rc.getRecipeList();
+    };
+
+    rc.loadUnits = function()
+    { 
+      if(!rc.units)
+        RecipeService.loadUnits(rc).then(function() 
+        { 
+          rc.units.byId = rc.units.indexBy("ID");
+          rc.units.byType = rc.units.groupBy("unitType");
+          rc.YieldUnit = rc.units[0]; 
+        });
+    };
+
+    //load CategoryTypes once if needed
+    rc.loadCategoryTypes = function()
+    {
+      rc.categoryTypes = RecipeService.categoryTypes;
+
+      if(!rc.categoryTypes)
+          RecipeService.loadCategoryTypes().then(function(response) 
+          {
+              rc.categoryTypes = response; 
+              rc.loadData();
+          }, 
+          rc.errorMessage);
+    };
+
+    rc.loadRecipeList = function(search)
+    {
+      rc.loading = true;
+      rc.getSearchCategories(search);
+
+      RecipeService.loadRecipeList(rc.query, rc.selectedCategoriesArray()).then(function(response) 
+      {
+          rc.loading = false;
+          rc.list = response; 
+          rc.successMessage();
+      }, 
+      rc.errorMessage);
+    };
+
+    rc.loadArticle = function(id)
+    {
+      rc.loading = true;
+      RecipeService.loadArticle(id).then(function(response) 
+      {
+          rc.loading = false;
+          if(rc.error = rc.isError(response))
+          {
+            rc.errorMessage(response);
+            return RecipeService.returnToMain(2000);
+          }
+
+          rc.article = response; 
+          rc.successMessage();
+      }, 
+      rc.errorMessage);
+    };
+
+    rc.loadRecipe = function(id)
+    {
+      rc.loading = true;
+      RecipeService.loadRecipe(id).then(function(response) 
+      {
+          rc.loading = false;
+          if(rc.error = rc.isError(response))
+          {
+            rc.errorMessage(response);
+            return RecipeService.returnToMain(2000);
+          }
+
+          rc.form = rc.recipe = response;
+          rc.initEditForm();
+          rc.successMessage();
+      }, 
+      rc.errorMessage);
+
+      //load photo slideshow
+      if(RecipeService.stateIs('recipe') && $window.Album)
+      {
+        var path = String.combine( RecipeService.getConfig("MediaThingy.imagesRoot"), RecipeService.getConfig("images.dir"), id);
+        Album.getAlbumAjax("album", {path: path }, true);
+      }
+
     };
 
     rc.selectedCategoriesArray = function()
@@ -65,83 +155,51 @@ function ($scope, $window, $stateParams, RecipeService)
       rc.status = response ? response.Message : "";
     };
 
-    rc.getRecipeList = function(search)
+    rc.getSearchCategories = function(search)
     {
-      rc.loading = true;
-      search = valueOrDefault(search, rc.query);
+        if(!search || !RecipeService.categoriesByName) return search;
 
-      RecipeService.getList(search, rc.selectedCategoriesArray()).then(function(response) 
-      {
-          rc.list = response; 
-          rc.successMessage();
-      }, 
-      rc.errorMessage);
-    };
+        var words = search.toLowerCase().split(" ");
+        var cat = null;
 
-    // Bind the data returned from web service to $scope
-    rc.addData = function(key, data)
-    {
-      rc[key]= data;
-      return data;
-    };
-
-    rc.getRecipe = function(id)
-    {
-      var r = RecipeService.getRecipe(id);
-      if(!r.then)
-      {
-         rc.form = rc.recipe = r;    
-         rc.initEditForm();
-      }
-      else
-      {
-        rc.loading = true;
-        r.then(function(response) 
+        rc.selectedCategories = {};
+        for(var i=0; i<words.length; i++)
         {
-            if(rc.error = rc.isError(response))
-            {
-              rc.errorMessage(response);
-              return rc.cancelEdit(2000);
-            }
-
-            rc.form = rc.recipe = response;
-            rc.initEditForm();
-            rc.successMessage();
-        }, 
-        rc.errorMessage);
-      }
-
-      if(RecipeService.stateIs('recipe') && $window.Album)
-      {
-        var path = String.combine( RecipeService.getConfig("MediaThingy.imagesRoot"), RecipeService.getConfig("images.dir"), id);
-        Album.getAlbumAjax("album", {path: path }, true);
-      }
-
-    };
-
-    if($window.Album)
-    {
-      //use proxy script if cross domain
-      Album.serviceUrl = RecipeService.getConfig("MediaThingy.root"); 
-      Album.proxy = RecipeService.getConfig("api.proxy");
-
-      Album.onLoad = function (albumInstance) 
-      {
-        rc.recipe.pics = albumInstance.selectSlideshowFiles();
-        rc.hasPhoto = !isEmpty(rc.recipe.pics);
-        $scope.$apply();
-
-        var mtOptions = RecipeService.getConfig("MT.album");
-        albumInstance.setOptions(mtOptions);
-
-        mtOptions = RecipeService.getConfig("MT.slideshow") || {}
-        mtOptions.elements = {container: "#slideshowContainer"};
-        mtOptions.pics = rc.recipe.pics;
-        window.slideshow = new Slideshow(mtOptions);
-        slideshow.display();
-        $window.addEventListener("resize", function() { slideshow.fitImage() } );
-      };
+          if(cat = RecipeService.categoriesByName[words[i]])
+          {
+            rc.selectedCategories[cat.ID] = cat.ID;
+            words[i] = "";
+          }
+        }
+        rc.query = words.join(" ");
+        return rc.query;
     }
+
+    function initAlbum()
+    {
+        if(!$window.Album) return;
+
+        //use proxy script if cross domain
+        Album.serviceUrl = RecipeService.getConfig("MediaThingy.root"); 
+        Album.proxy = RecipeService.getConfig("api.proxy");
+
+        Album.onLoad = function (albumInstance) 
+        {
+            rc.recipe.pics = albumInstance.selectSlideshowFiles();
+            rc.hasPhoto = !isEmpty(rc.recipe.pics);
+            $scope.$apply();
+
+            var mtOptions = RecipeService.getConfig("MT.album");
+            albumInstance.setOptions(mtOptions);
+
+            mtOptions = RecipeService.getConfig("MT.slideshow") || {}
+            mtOptions.elements = {container: "#slideshowContainer"};
+            mtOptions.pics = rc.recipe.pics;
+            window.slideshow = new Slideshow(mtOptions);
+            slideshow.display();
+            $window.addEventListener("resize", function() { slideshow.fitImage() } );
+        };
+    };
 
     //prepare data for edit form
     rc.initEditForm = function()
@@ -166,21 +224,6 @@ function ($scope, $window, $stateParams, RecipeService)
         rc.form2.links = rc.recipe.RawText.substringAfter("LINKS:").trim();
       }
     }
-
-    rc.getArticle = function(id)
-    {
-      var r = RecipeService.getArticle(id);
-      if(!r.then)
-          return rc.article = r;
-
-      rc.loading = true;
-      r.then(function(response) 
-      {
-          rc.article = response; 
-          rc.successMessage();
-      }, 
-      rc.errorMessage);
-    };
 
     rc.setTitle = function(t)
     {
@@ -215,44 +258,6 @@ function ($scope, $window, $stateParams, RecipeService)
       if(!rc.imgConfig.idDir) 
         id="";
       return String.combine(rc.imgConfig.root, rc.imgConfig.dir, id, subdir, imageUrl);
-    };
-
-    rc.loadUnits = function()
-    { 
-      if(!rc.units)
-        RecipeService.loadUnits(rc).then(function() 
-        { 
-          rc.units.byId = rc.units.indexBy("ID");
-          rc.units.byType = rc.units.groupBy("unitType");
-          rc.YieldUnit = rc.units[0]; 
-        });
-    };
-
-    rc.getCategoryTypes = function()
-    {
-      var r = RecipeService.getCategoryTypes();
-      if(!r.then)
-      {
-          rc.categoryTypes = r;
-          rc.categoryTypeNames = RecipeService.categoryTypeNames;
-          rc.categoryNames = RecipeService.categoryNames;
-          rc.categories = RecipeService.categories;
-      }
-      else
-        r.then(function(response) 
-        {
-            rc.categoryTypes = response; 
-            rc.categoryTypeNames = RecipeService.categoryTypeNames;
-            rc.categoryNames = RecipeService.categoryNames;
-            rc.categories = RecipeService.categories;
-
-            if(rc.recipe)
-              RecipeService.refreshRecipeCategories(rc.recipe);
-            if(rc.list)
-              for(var i=0; i<rc.list.length; i++)
-                RecipeService.refreshRecipeCategories(rc.list[i]);
-        }, 
-        rc.errorMessage);
     };
 
     rc.title = function()
