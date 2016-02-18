@@ -132,6 +132,50 @@ function ($scope, $window, $stateParams, RecipeService)
 
     };
 
+    rc.loadLinkMetadata = function()
+    {
+      var links = rc.form2.links.split(" ");
+
+      if(!rc.form.parsedLinks)
+        rc.form.parsedLinks = [];
+
+      for(var i=0; i<links.length;i++)
+      {
+        //skip if duplicate URL
+        if(rc.form.parsedLinks[links[i]]) continue;
+
+        RecipeService.loadLinkMetadata(links[i]).then(function(response)
+        {
+            console.log(response);
+            if(!response.title) return;
+
+            if(rc.form.parsedLinks[response.url]) return;
+
+            var pl = { url: response.url, title: response.title };
+            if(response.meta)
+            {
+              pl.description = response.meta["og:description"] || response.meta.description;
+              pl.image = response.meta["twitter:image"]  || response.meta["og:image"];
+            }
+            rc.form.parsedLinks.push(pl);
+            rc.form.parsedLinks[pl.url] = pl; //to test for duplicates
+        });
+      }
+      rc.form2.links = "";
+    };
+
+    rc.removeLink = function(index)
+    {
+      if(!rc.form || !rc.form.parsedLinks) return;
+
+      var pl = rc.form.parsedLinks[index];
+      if(pl)
+      {
+        rc.form.parsedLinks.splice(index, 1);
+        delete rc.form.parsedLinks[pl.url];
+      }
+    };
+
     rc.selectedCategoriesArray = function()
     {
       return Object.values(rc.selectedCategories).filter(function(el) { return !!el; });

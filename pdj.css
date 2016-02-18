@@ -98,6 +98,29 @@ a.recipeTitle
     height: 50%;
 }
 
+div.rlink
+{
+    max-height: 40px;
+    font-weight: bold;
+    vertical-align: middle;  
+    overflow: hidden; 
+    margin-bottom: 2px;
+}
+
+.rlink a
+{
+}
+
+.rlink i
+{
+    font-size: 12pt;
+}
+
+img.linkPreview
+{
+    max-width: 60px; 
+    vertical-align: middle;   
+}
 
 /* bootstrap overrides */
 

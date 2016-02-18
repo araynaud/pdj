@@ -72,8 +72,32 @@ Categories (category ID) modify search template
     </div>
 
     <div class="col-sm-12">
-        <label for="inputTips">Links</label> 
-        <textarea id="inputTips" name="caption" class="form-control" ng-model="rc.form2.links" rows="2"></textarea>
+        <label for="inputLinks">Links</label> 
+
+        <div class="rlink" ng-repeat="link in rc.form.parsedLinks">
+          <i class="glyphicon glyphicon-remove-circle" ng-click="rc.removeLink($index);"></i>
+          <a target="linkPreview" href="{{link.url}}" title="{{link.description}}" ng-if="link.image">
+            <img class="linkPreview cover" ng-src="{{link.image}}"/>
+          </a>
+          <a target="linkPreview" href="{{link.url}}" title="{{link.description}}">{{link.title}}</a> 
+        </div>
+
+        <div class="input-group">
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-show="rc.form2.links" ng-click="rc.form2.links='';">
+              <i class="glyphicon glyphicon-remove-circle"></i>
+            </button> 
+          </span>
+
+          <input type="text" id="inputLinks" name="caption" class="form-control" ng-model="rc.form2.links" placeholder="Paste URL" ng-blur="rc.loadLinkMetadata()"
+          />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="rc.loadLinkMetadata()">
+              <i class="glyphicon glyphicon-search"></i>
+            </button> 
+          </span>
+        </div>
+
     </div>
 
     <div class="col-sm-12">

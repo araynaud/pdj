@@ -24,6 +24,11 @@ function afterSelfCloseElement(&$html, $tag)
 	return $html = substringAfter($html, ">");
 }
 
+function hasAttribute($html, $name)
+{
+	return contains($html, "$name=");
+}
+
 function parseAttribute($html, $name)
 {
 	$sep = substringAfter($html, "$name=");
@@ -62,12 +67,15 @@ function parseMeta($html)
 debug("meta", $meta);
 		$name = parseAttribute($meta, "name");
 		if(!$name)	$name = parseAttribute($meta, "property");
+		if(!$name)	$name = parseAttribute($meta, "itemprop");
 		if(!$name)	$name = parseAttribute($meta, "http-equiv");
 		if(!$name)  $name = $firstName;
 debug("name", $name);
 		
-		$content = parseAttribute($meta, "content");
-		if(!$content) $content = $firstVal;
+		if(hasAttribute($meta, "content")) 
+			$content = parseAttribute($meta, "content");
+		else 
+			$content = $firstVal;
 debug("content", $content);
 
 		if($name && $content)

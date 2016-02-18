@@ -12,6 +12,7 @@ angular.module('pdjServices')
         this.offline = this.isOffline();
         this.loginResource = this.getResource("pdj", "Account/:action");
         this.phpLoginResource = $resource("api/login.php");
+        this.linkResource = $resource("api/link.php/:url");
     };
 
     this.getConfig = function(key)
@@ -104,6 +105,17 @@ angular.module('pdjServices')
 
 //User login / logout
 //POST to login.php service
+
+    this.loadLinkMetadata = function(url)
+    {
+        var deferred = $q.defer();
+        svc.linkResource.get({url:url}, {}, function(response)
+        {
+            deferred.resolve(response);
+        });
+        return deferred.promise;
+    };
+
     this.logout = function()
     {
         svc.user = null;
