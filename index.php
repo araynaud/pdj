@@ -49,7 +49,6 @@ debugText("</div>");
 ?>
 <head>
 <title><?=$title?></title>
-
 <meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -68,34 +67,27 @@ else if($search)
 	redirectJs("./#/search/$search", true);
 	return;
 } 
-?>
-<link rel="icon" href="images/PJgreen32.png"/>
-<link rel="icon" sizes="192x192" href="images/PJgreen192.png"/>
-<link rel="icon" sizes="128x128" href="images/PJgreen128.png"/>
-<link rel="apple-touch-icon" sizes="128x128" href="images/PJgreen128.png"/>
-<link rel="apple-touch-icon-precomposed" sizes="128x128" href="images/PJgreen128.png"/>
 
-<?php
-	addCssFromConfig("lib.bootstrap"); 
-	addAllCss("../foodportrait/style");
-	addAllCss("../foodportrait/directives");
-	addCssFromConfig("MediaThingy", "../MediaThingy.css");
-	addAllCss(".");
-	addScriptFromConfig("lib", "jquery.min.js");
-	addScriptFromConfig("lib.bootstrap");
-	addScriptFromConfig("lib.angular"); 
-	addScriptFromConfig("lib"); 
-	addScriptFromConfig("MediaThingy");
-	addAllScripts("js");
-	addAllScripts("../foodportrait/directives");
-	if(!$offline)	
-		addJavascript("https://www.youtube.com/iframe_api"); 
+addIconsFromConfig();
+addCssFromConfig("lib.bootstrap"); 
+addAllCss("../foodportrait/style");
+addAllCss("../foodportrait/directives");
+addCssFromConfig("MediaThingy", "../MediaThingy.css");
+addAllCss(".");
+addScriptFromConfig("lib", "jquery.min.js");
+addScriptFromConfig("lib.bootstrap");
+addScriptFromConfig("lib.angular"); 
+addScriptFromConfig("lib"); 
+addScriptFromConfig("MediaThingy");
+addAllScripts("js");
+addAllScripts("../foodportrait/directives");
+if(!$offline)	
+	addJavascript("https://www.youtube.com/iframe_api"); 
 ?>
 
 <script type="text/javascript">
 <?php echoJsVar("pdjConfig"); echoJsVar("pdjUser"); echoJsVar("url"); echoJsVar("recipe"); ?>
 </script>
-
 </head>
 <body class="nomargin bgwhite" ng-class="lc.bodyClasses()" ng-controller="LayoutController as lc">
 	<div class="nomargin bg hidden-print" ng-style="{ 'background-image': lc.backgroundImage }" ng-if="lc.backgroundImage">
@@ -103,14 +95,14 @@ else if($search)
 	</div>
 
 	<div class="visible-print-block" id="printHeader">
-		<img class="floatL" style="height: 1cm;" src="images/PimentJourVertOrange200.png" alt="PDJ"/>
+		<img class="floatL" style="height: 1cm;" src="images/<?=getConfig('app.logo.print')?>" alt="PDJ"/>
 		<p class="centered title">{{lc.shortTitle()}}</p>
 	</div>
 
 	<nav class="navbar navbar-default navbar-fixed-top hidden-print">
 	<div class="container">
 	    <a class="navbar-brand" ng-class="{active: lc.stateIs('main')}" ui-sref="list">
-	      <img class="stretchH" src="images/PimentJourVertOrange200.png" alt="PDJ"/>
+	      <img class="stretchH" src="images/<?=getConfig('app.logo.default')?>" alt="PDJ"/>
 	    </a>
 
 	  <div class="navbar-header">
