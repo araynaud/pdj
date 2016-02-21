@@ -25,8 +25,12 @@
 				<a ng-click="type.show=!type.show">
 					<img ng-src="images/{{type.show ? 'minus' : 'expand'}}.png"/>{{type.Name}}
 				</a>
+
+			<a class="category nowrap" ng-repeat="cat in type.Categories" ng-if="rc.selectedCategories[cat.ID]"
+			ng-click="rc.selectedCategories[cat.ID]=false; rc.loadRecipeList();"> {{cat.Name}}</a>
+
 			</div>
-			<div id="category_{{cat.ID}}" class="category nowrap ease05" ng-repeat="cat in type.Categories" ng-show="type.show">
+			<div id="category_{{cat.ID}}" class="category nowrap ease05" ng-repeat="cat in type.Categories" ng-if="type.show">
 				<input type="checkbox" class="chkSearch" id="cb_cat_{{cat.ID}}"
 				 ng-model="rc.selectedCategories[cat.ID]"  ng-true-value="{{cat.ID}}"
 				  ng-change="rc.loadRecipeList()" />
