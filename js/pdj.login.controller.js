@@ -81,15 +81,8 @@ function ($window, ConfigService, LocationService)
       });
     };
 
-    lc.loggedIn = function()
-    {
-      return !!ConfigService.user;
-    };
-
-    lc.logout = function()
-    {
-        return ConfigService.logout();
-    };
+    lc.loggedIn = ConfigService.loggedIn;
+    lc.logout = ConfigService.logout;
 
     lc.lookupLocation = function()
     {

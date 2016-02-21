@@ -92,31 +92,6 @@ function ($scope, $window, ConfigService, RecipeService)
         return key;
     };
 
-    lc.userFullName = function()
-    {
-      return ConfigService.userFullName();
-    };
-
-    lc.loggedIn = function()
-    {
-      return !!ConfigService.user;
-    };
-
-    lc.logout = function()
-    {
-        return ConfigService.logout();
-    }
-
-    lc.stateIs = function(st)
-    {
-        return ConfigService.stateIs(st);
-    };
-
-    lc.currentState = function()
-    {
-        return ConfigService.currentState();
-    };
-
     lc.title = function()
     {
         var defaultTitle = ConfigService.getConfig("defaultTitle");
@@ -128,6 +103,14 @@ function ($scope, $window, ConfigService, RecipeService)
         var defaultTitle = RecipeService.getConfig("defaultTitle");
         return RecipeService.title || defaultTitle; 
     };
+
+//functions from ConfigService
+    lc.userFullName = ConfigService.userFullName;
+    lc.loggedIn = ConfigService.loggedIn;
+    lc.isAdmin = ConfigService.isAdmin;
+    lc.logout = ConfigService.logout;
+    lc.stateIs = ConfigService.stateIs;
+    lc.currentState = ConfigService.currentState;
 
     lc.init();
 }]);

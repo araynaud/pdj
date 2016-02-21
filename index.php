@@ -118,13 +118,20 @@ if(!$offline)
 	      <li ng-class="{active: lc.stateIs('list')}" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="list">Recipes</a></li>
 	      <li ng-class="{active: lc.stateIs('about')}" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="about">About</a></li>
 	      <li ng-show="lc.loggedIn()" ng-class="{active: lc.stateIs('submit')}"  data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="submit">Submit Recipe</a></li>
-	      <li ng-show="lc.loggedIn()" ng-class="{active: lc.stateIs('upload')}"  data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="upload">Upload</a></li>
 	    </ul>
 	    <ul class="nav navbar-nav navbar-right">
 	      <li ng-hide="lc.loggedIn()" ng-class="{active: lc.stateIs('signin')}" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="signin">Log in</a></li>
 	      <li ng-hide="lc.loggedIn()" ng-class="{active: lc.stateIs('signup')}" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="signup">Sign up</a></li>
 	      <li ng-show="lc.loggedIn()" ng-class="{active: lc.stateIs('user')}"   data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="list">{{lc.userFullName()}}</a></li>
 	      <li ng-show="lc.loggedIn()" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="list" ng-click="lc.logout()">Sign out</a></li>
+
+	      <li ng-show="lc.isAdmin()" data-toggle="collapse" data-target=".isMobile #navbar">
+	      <a href="api/git.php">
+	      	<i class="glyphicon glyphicon-refresh" title="Update from github"></i>
+	      </a>
+	      </li>
+
+
 	    </ul>
 	  </div>
 	</div>

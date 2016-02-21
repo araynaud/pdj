@@ -154,6 +154,16 @@ angular.module('pdjServices')
         return deferred.promise;
     };
 
+    this.loggedIn = function()
+    {
+      return !!svc.user;
+    };
+
+    this.isAdmin = function()
+    {
+        return svc.user && svc.user.IsAdmin;
+    };
+
     this.currentUsername = function()
     {
         return svc.user ? svc.user.Username : null;
