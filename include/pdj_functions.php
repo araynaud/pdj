@@ -86,11 +86,8 @@ function errorMessage($msg)
 
 //process uploaded file
 //store in destination
-function processUpload($file, $username=null)
+function processUpload($file, $subdir)
 {
-    if(!$username)
-        $username = pdjCurrentUsername();
-
     $tmpFile = $file["tmp_name"];
     $mimeType = $file["type"];
     $filename = utf8_decode($file["name"]);
@@ -111,9 +108,9 @@ function processUpload($file, $username=null)
     $dataRoot = getConfig("upload._diskPath");
     $dataRootUrl = getConfig("upload.baseUrl");
 
-    createDir($dataRoot, $username);
-    $uploadDir  = combine($dataRoot, $username);
-    $uploadedFile = combine($dataRoot, $username, $filename);
+    createDir($dataRoot, $subdir);
+    $uploadDir  = combine($dataRoot, $subdir);
+    $uploadedFile = combine($dataRoot, $subdir, $filename);
     $filesize = filesize($tmpFile);
     $success = move_uploaded_file($tmpFile, $uploadedFile);
     debug("move to $uploadedFile", $success);

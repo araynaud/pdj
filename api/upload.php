@@ -3,7 +3,7 @@ require_once("../include/includes.php");
 setContentType("text","plain");
 session_start(); 
 //receive file and other form fields
-//move file to temp location:  $BASE_IMAGE_DIR/$username/$filename
+//move file to temp location:  $BASE_IMAGE_DIR/$username/$recipeID/$filename
 //load, resize, crop image.
 //do not keep original file
 //insert into upload table.
@@ -11,7 +11,7 @@ session_start();
 //response: image metadata from EXIF and url.
 
 $username = pdjCurrentUsername();
-$upload_id = postParam("upload_id");
+$recipeId = postParam("recipeid");
 debugVar("username",true);
 debug("Request", $_REQUEST);
 debug("GET request", $_GET);
@@ -25,15 +25,16 @@ $response = $result = array();
 $db = NULL;
 $success = true;
 $nbFiles = count($_FILES);
-if($nbFiles)
+if($nbFiles && $username)
 {
+	$subdir = combine($username, $recipeid)
 	$file = reset($_FILES);
-	$response = processUpload($file);
+	$response = processUpload($file, $subdir);
 	//$exif = $response["_exif"];
 }
 
 $response["post"] = $_POST;
-addVarsToArray($response, "success message nbFiles upload_id dateTaken description");
+addVarsToArray($response, "success message nbFiles recipeid subdir");
 $response["time"] = getTimer(true);
 echo jsValue($response, true, true);
 ?>
