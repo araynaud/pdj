@@ -43,4 +43,18 @@
 	</ol>
 </div>
 
+<div class="inlineBlock left vtop" ng-if="rc.recipe.AllRecipeTips.length">
+	<h3>Tips</h3>
+	<ul class="text inlineBlock nomargin">
+		<li ng-repeat="tip in rc.recipe.AllRecipeTips">{{tip}}</li>
+	</ul>
+</div>
+
+<div class="inlineBlock left vtop" ng-if="rc.recipe.AllRecipeUrls.length">
+	<h3>Links</h3>
+	<p class="nomargin" ng-repeat="link in rc.recipe.AllRecipeUrls">
+		<a href="link.LinkUrl">{{link.LinkTitle || link.LinkUrl}}</a></li>
+	</p>
+</div>
+
 </div>
