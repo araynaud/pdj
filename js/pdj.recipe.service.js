@@ -13,8 +13,9 @@ angular.module('pdjServices')
     this.goToState    = ConfigService.goToState;
     this.currentState = ConfigService.currentState;
     this.returnToMain = ConfigService.returnToMain;
+    this.isMine       = ConfigService.isMine;
     this.loadLinkMetadata = ConfigService.loadLinkMetadata;
-    
+
     //REST Services
     this.categoryTypeResource = ConfigService.getResource("pdj", "Category/GetAllCategoriesWithDetails");
     this.articleResource =      ConfigService.getResource("pdj", "Article/:article");

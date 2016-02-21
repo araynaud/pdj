@@ -9,6 +9,8 @@ function ($window, $stateParams, Upload, ConfigService)
     var uc = this;
     $window.UploadController = this;
     ConfigService.requireLogin();
+    if(!$stateParams.recipeId)
+        return RecipeService.returnToMain(1000);
 
     uc.init = function()
     {
@@ -40,6 +42,9 @@ function ($window, $stateParams, Upload, ConfigService)
             return RecipeService.returnToMain(2000);
           }
           uc.recipe = response;
+
+          if(!uc.isMine(uc.recipe))
+            return RecipeService.returnToMain();
         }, 
         uc.errorMessage);
     };
@@ -48,6 +53,11 @@ function ($window, $stateParams, Upload, ConfigService)
     {
         uc.loading = false;
         uc.status = "Error: No data returned";
+    };
+
+    uc.isMine = function()
+    {
+        return RecipeService.isMine(uc.recipe);
     };
 
     //post file

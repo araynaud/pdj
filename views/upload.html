@@ -13,10 +13,8 @@
     </div>
 
     <p class="col-md-6">
-      <br/>
-      <button class="btn btn-primary" type="submit" ng-click="uc.saveUpload()" ng-disabled="uc.validate()">Save</button>
       <button class="btn" type="button" data-toggle="modal" data-target="#deleteModal" ng-disabled="!uc.form.upload_id && !uc.offline">Delete</button>
-      <button class="btn" type="button" ng-click="uc.cancelUpload()">Cancel</button>
+      <button class="btn" type="button" ui-sref="recipe({recipeId: uc.recipe.ID})">Back to Recipe</button>
       <span class="error">{{uc.message}}</span>
     </p>
     <div class="col-md-12" ng-if="uc.showDebug">

@@ -156,14 +156,24 @@ angular.module('pdjServices')
 
     this.currentUsername = function()
     {
-        return this.user ? this.user.Username : null;
+        return svc.user ? svc.user.Username : null;
+    };
+
+    this.currentUserId = function()
+    {
+        return svc.user ? svc.user.UserID : null;
     };
 
     this.userFullName = function()
     {
-        if(!this.user) return "nobody";
-        if(!this.user.FirstName && !this.user.LastName)   return this.user.Username;
-        return String.append(this.user.FirstName, " ", this.user.LastName);
+        if(!svc.user) return "nobody";
+        if(!svc.user.FirstName && !svc.user.LastName)   return svc.user.Username;
+        return String.append(svc.user.FirstName, " ", svc.user.LastName);
+    };
+
+    this.isMine = function(recipe)
+    {
+      return recipe && svc.user && recipe.UserID == svc.user.UserID;
     };
 
     this.isMobile = function() 

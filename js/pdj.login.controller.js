@@ -91,7 +91,6 @@ function ($window, ConfigService, LocationService)
         return ConfigService.logout();
     };
 
-
     lc.lookupLocation = function()
     {
       //if(!lc.search) return;

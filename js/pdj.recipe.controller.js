@@ -32,6 +32,14 @@ function ($scope, $window, $stateParams, RecipeService)
         rc.loadData();
     };
 
+    rc.isError = RecipeService.isError;
+    rc.cancelEdit = RecipeService.returnToMain;
+
+    rc.isMine = function()
+    {
+        return RecipeService.isMine(rc.recipe);
+    };
+
 //data load functions
     rc.loadData = function()
     {
@@ -118,19 +126,25 @@ function ($scope, $window, $stateParams, RecipeService)
           }
 
           rc.form = rc.recipe = response;
-          rc.initEditForm();
+
+          if(RecipeService.stateIs('recipe'))
+            rc.loadRecipeSlideshow();
+          else
+            rc.initEditForm();
+
           rc.successMessage();
       }, 
       rc.errorMessage);
-
-      //load photo slideshow
-      if(RecipeService.stateIs('recipe') && $window.Album)
-      {
-        var path = String.combine( RecipeService.getConfig("MediaThingy.imagesRoot"), RecipeService.getConfig("images.dir"), id);
-        Album.getAlbumAjax("album", {path: path }, true);
-      }
-
     };
+
+    rc.loadRecipeSlideshow = function()
+    {
+      //load photo slideshow
+      if(!$window.Album) return;
+
+      var path = String.combine(RecipeService.getConfig("MediaThingy.imagesRoot"), RecipeService.getConfig("images.dir"), rc.recipe.UserID, rc.recipe.ID);
+      Album.getAlbumAjax("album", {path: path }, true);
+    }
 
     rc.loadLinkMetadata = function()
     {
@@ -300,9 +314,8 @@ function ($scope, $window, $stateParams, RecipeService)
       if(!id || !imageUrl)
         return String.combine(rc.imgConfig.root, rc.imgConfig.dir, rc.imgConfig.default);
 
-      if(!rc.imgConfig.idDir) 
-        id="";
-      return String.combine(rc.imgConfig.root, rc.imgConfig.dir, id, subdir, imageUrl);
+      if(!rc.imgConfig.idDir) id="";
+      return String.combine(rc.imgConfig.root, rc.imgConfig.dir, recipe.UserID, recipe.ID, subdir, imageUrl);
     };
 
     rc.title = function()
@@ -377,13 +390,6 @@ function ($scope, $window, $stateParams, RecipeService)
       }, 
       rc.errorMessage);
     };
-
-    this.isError = function(response)
-    {
-        return response.State == "ERROR";
-    }
-
-    rc.cancelEdit = RecipeService.returnToMain;
 
     rc.init();
 }]);
