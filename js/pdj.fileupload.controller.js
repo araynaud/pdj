@@ -119,7 +119,7 @@ function ($window, $stateParams, Upload, ConfigService)
 
     uc.getImageUrl = function (data, subdir)
     {
-        var url = String.combine(uc.baseUrl, ConfigService.user.username, subdir, data.filename);
+        var url = String.combine(uc.baseUrl, ConfigService.currentUserId(), uc.recipeId, subdir, data.filename);
         if(!data.exists && uc.baseServer) url = uc.baseServer + url;
         return url;
     };
