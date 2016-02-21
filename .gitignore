@@ -6,3 +6,4 @@ recipes/
 index-pdj.php
 pdj.local.config
 unused/
+*.lnk

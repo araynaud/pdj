@@ -123,8 +123,9 @@ angular.module('pdjServices')
         var deferred = $q.defer();
         if(svc.recipes[id])
         {
-            svc.title = svc.recipes[id].Name;
-            deferred.resolve(svc.recipes[id]);
+            svc.recipe = svc.recipes[id]; 
+            svc.title = svc.recipe.Name;
+            deferred.resolve(svc.recipe);
         }
         else
             this.recipeResource.get({ id: id }, function(response)
@@ -133,11 +134,10 @@ angular.module('pdjServices')
                     deferred.resolve(response);
                 else
                 {               
-                    svc.recipes[id] = response.Data;
-                    svc.currentRecipe = response.Data;
-                    svc.currentRecipe.categories = svc.getRecipeCategories(svc.currentRecipe.CategoryIDs);
-                    svc.title = svc.currentRecipe.Name;
-                    deferred.resolve(svc.currentRecipe);
+                    svc.recipes[id] = svc.recipe = response.Data;
+                    svc.refreshRecipeCategories(svc.recipe);
+                    svc.title = svc.recipe.Name;
+                    deferred.resolve(svc.recipe);
                 }
             });
         return deferred.promise;
@@ -157,7 +157,8 @@ angular.module('pdjServices')
             var id = response.Data;
             if(id && response.State == "SUCCESS")
             {
-                //svc.recipes[id] = svc.currentRecipe = {Recipe : recipe};
+                recipe.ID = id;
+                svc.addToCache(recipe);
                 svc.title = recipe.Name;
             }
             deferred.resolve(response);
@@ -165,6 +166,11 @@ angular.module('pdjServices')
         return deferred.promise;
     };
 
+    this.addToCache = function(recipe)
+    {
+        svc.recipes[recipe.ID] = svc.recipe = recipe;
+        return recipe;
+    };
 
     this.getCategoriesQS = function(categories)
     {
@@ -176,6 +182,7 @@ angular.module('pdjServices')
 
     this.refreshRecipeCategories = function(recipe)
     {
+        if(isEmpty(svc.categoryTypes)) return;
         return recipe.categories = svc.getRecipeCategories(recipe.CategoryIDs);
     };
 

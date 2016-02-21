@@ -13,6 +13,7 @@
 <span class="error">{{rc.status}}</span>
 
 <div class="floatR noprint">
+	<i ui-sref="upload({recipeId: rc.recipe.ID})" class="glyphicon glyphicon-camera" title="Add photos"></i>
 	<a href="{{rc.shareUrl()}}" title="Direct link"><img alt="link" src="images/link.png"/></a>
 	<a target="facebook" href="{{rc.shareUrl('facebook')}}" title="share on Facebook"><img alt="facebook" src="images/facebook.png"/></a>
 	<a target="twitter" href="{{rc.shareUrl('twitter')}}" title="tweet"><img alt="twitter" src="images/twitter.png"/></a>

@@ -229,6 +229,7 @@ function ($scope, $window, $stateParams, RecipeService)
 
         Album.onLoad = function (albumInstance) 
         {
+            rc.recipe.album = albumInstance;
             rc.recipe.pics = albumInstance.selectSlideshowFiles();
             rc.hasPhoto = !isEmpty(rc.recipe.pics);
             $scope.$apply();

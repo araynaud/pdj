@@ -7,7 +7,12 @@ function pdjCurrentUser()
 
 function pdjCurrentUsername()
 {
-    return arrayGet($_SESSION, "pdj_user.username");
+    return arrayGet($_SESSION, "pdj_user.Username");
+}
+
+function pdjCurrentUserId()
+{
+    return arrayGet($_SESSION, "pdj_user.UserID");
 }
 
 function pdjSetUser($user)

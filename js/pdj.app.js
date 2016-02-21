@@ -13,7 +13,7 @@ app.config(function($stateProvider, $urlRouterProvider)
     .state('recipe',  { url: "/recipe/:recipeId",     controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'views/recipe.html', params: {'recipeId':null} })
     .state('submit',  { url: "/recipeedit",           controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'views/recipeEdit.html' })
     .state('edit',    { url: "/recipeedit/:recipeId", controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'views/recipeEdit.html' })
-    .state('upload',  { url: "/upload/:uploadId",     controller: 'UploadController', controllerAs: 'uc', templateUrl: 'views/upload.html' })
+    .state('upload',  { url: "/upload/:recipeId",     controller: 'UploadController', controllerAs: 'uc', templateUrl: 'views/upload.html' })
   	.state('signin',  { url: "/signin",  controller: 'LoginController',  controllerAs: 'lc', templateUrl: "views/signin.html" })
   	.state('signup',  { url: "/signup",  controller: 'LoginController',  controllerAs: 'lc', templateUrl: "views/signup.html" });
 

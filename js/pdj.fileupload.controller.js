@@ -3,8 +3,8 @@
 // =========== File Upload Controller ===========
 // handles query and gallery display
 angular.module('pdjControllers')
-.controller('UploadController', ['$scope', '$window', '$stateParams', 'Upload', 'ConfigService',
-function ($scope, $window, $stateParams, Upload, ConfigService)
+.controller('UploadController', ['$window', '$stateParams', 'Upload', 'ConfigService',
+function ($window, $stateParams, Upload, ConfigService)
 {
     var uc = this;
     $window.UploadController = this;
@@ -17,53 +17,29 @@ function ($scope, $window, $stateParams, Upload, ConfigService)
         uc.baseUrl =    ConfigService.getConfig("upload.baseUrl");
         uc.baseServer = ConfigService.getConfig("upload.server");
 
-        uc.newUpload = !$stateParams.uploadId;
+        uc.recipeId = $stateParams.recipeId;
         uc.queued = true;
-        this.scope = $scope;
         uc.logReverse = false;
-        uc.form = {};
+        uc.form = { recipeid: uc.recipeId };
         uc.loadData();
-        uc.form.shared_with = 1;
         uc.resetLog();
-
-    //date picker options
-        uc.datepickerOpen=false;
-        uc.dateFormat = 'MMMM dd, yyyy';
-        uc.dateOptions = { formatYear: 'yy', startingDay: 1 };
-        uc.today = new Date();
-        uc.pickDate = function() { uc.datepickerOpen = true; };
-        uc.setToday = function() { return uc.form.image_date_taken = uc.today; };
-        uc.setToday();
-    // end date picker options
-
-        var meals = ConfigService.getConfig("dropdown.meal");
-        if(meals)
-        {
-            uc.meals = meals.distinct("name");
-            uc.meals.byName = meals.indexBy("name");
-        }
     };
 
-//load existing image info from DB
+//load existing recipe info from DB
+//check if user has access to it.
     uc.loadData = function()
     {
-        if(uc.newUpload) return;
+        if(!uc.recipeId) return;
 
-        var params = { upload_id: $stateParams.uploadId };
-        QueryService.loadQuery(params).then(function(response) 
+        RecipeService.loadRecipe(uc.recipeId).then(function(response) 
         {
-            if(isEmpty(response))
-            {
-                uc.errorMessage(response);
-                ConfigService.returnToMain();
-            }
-
-            uc.form = response[0];
-            uc.imageUrl =  uc.getImageUrl(uc.form, ".ss");
-            uc.uploadUrl = uc.getImageUrl(uc.form, ".tn");
-            delete uc.form.exists; 
-            delete uc.form.searchText; 
-            uc.users = QueryService.users;
+          uc.loading = false;
+          if(uc.error = RecipeService.isError(response))
+          {
+            uc.errorMessage(response);
+            return RecipeService.returnToMain(2000);
+          }
+          uc.recipe = response;
         }, 
         uc.errorMessage);
     };
@@ -72,14 +48,6 @@ function ($scope, $window, $stateParams, Upload, ConfigService)
     {
         uc.loading = false;
         uc.status = "Error: No data returned";
-    };
-
-    uc.validate = function()
-    {
-        return false;
-        $scope.uploadForm.image_date_taken.$invalid
-        || $scope.uploadForm.caption.$invalid
-        || $scope.uploadForm.meal.$invalid;
     };
 
     //post file
@@ -91,7 +59,6 @@ function ($scope, $window, $stateParams, Upload, ConfigService)
         uc.resetLog();
         if(isEmpty(uc.files)) return false;
 
-        delete uc.form.upload_id;
         if(!angular.isArray(uc.files))
             return uc.uploadFile(uc.files);
 
@@ -125,9 +92,8 @@ function ($scope, $window, $stateParams, Upload, ConfigService)
             uc.progressPercentage="";
             data.exists=true;
             uc.uploadUrl = uc.getImageUrl(data, ".tn");
-            uc.form.upload_id = data.upload_id;
             uc.parseDate(data.dateTaken);
-            uc.message=data.message;
+            uc.message = data.message;
             //TODO: message ng-class depending on data.success
             if(data.description)
                 uc.form.caption = data.description;
@@ -176,7 +142,7 @@ function ($scope, $window, $stateParams, Upload, ConfigService)
         var file = uc.files[uc.index];
         uc.addLog();
         uc.addLog("uploadNextFile {0}/{1}: {2} ".format(uc.index+1, uc.files.length, file.name));
-        delete uc.form.upload_id;
+//        delete uc.form.upload_id;
         uc.uploadFile(file);
     };
 

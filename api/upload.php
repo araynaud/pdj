@@ -11,30 +11,29 @@ session_start();
 //response: image metadata from EXIF and url.
 
 $username = pdjCurrentUsername();
-$recipeId = postParam("recipeid");
-debugVar("username",true);
+$userId = pdjCurrentUserId();
+$recipeId = reqParam("recipeid");
 debug("Request", $_REQUEST);
 debug("GET request", $_GET);
 debug("POST request", $_POST);
 debug("POST files", $_FILES, true);
+debugVar("subdir",true);
 
-if(empty($_FILES) && !$upload_id)
-	return errorMessage("No File uploaded.");		
-
-$response = $result = array();
-$db = NULL;
-$success = true;
 $nbFiles = count($_FILES);
-if($nbFiles && $username)
-{
-	$subdir = combine($username, $recipeid)
-	$file = reset($_FILES);
+
+if(!$username)	return errorMessage("No User logged in.");		
+if(!$nbFiles)	return errorMessage("No file uploaded.");		
+if(!$recipeId)	return errorMessage("No recipe specified.");		
+
+$response = array();
+$success = true;
+$file = reset($_FILES);
+$subdir = combine($userId, $recipeId);
+if($file && $recipeId)
 	$response = processUpload($file, $subdir);
-	//$exif = $response["_exif"];
-}
 
 $response["post"] = $_POST;
-addVarsToArray($response, "success message nbFiles recipeid subdir");
+addVarsToArray($response, "success username message nbFiles recipeId subdir");
 $response["time"] = getTimer(true);
 echo jsValue($response, true, true);
 ?>
