@@ -12,11 +12,11 @@
 <div class="title hidden-print" ng-show="!rc.hasPhoto">{{rc.title()}}</div>
 <span class="error">{{rc.status}}</span>
 
-<div class="floatR noprint">
+<div class="floatR hidden-print">
 	<i ui-sref="upload({recipeId: rc.recipe.ID})" class="glyphicon glyphicon-camera" title="Add photos" style="font-size: 32px;" ng-if="rc.isMine(rc.recipe)"></i>
-	<a href="{{rc.shareUrl()}}" title="Direct link"><img alt="link" src="images/link.png"/></a>
-	<a target="facebook" href="{{rc.shareUrl('facebook')}}" title="share on Facebook"><img alt="facebook" src="images/facebook.png"/></a>
-	<a target="twitter" href="{{rc.shareUrl('twitter')}}" title="tweet"><img alt="twitter" src="images/twitter.png"/></a>
+	<a href="{{rc.shareUrl()}}" title="Direct link" ng-if="rc.recipe.IsPublic"><img alt="link" src="images/link.png"/></a>
+	<a target="facebook" href="{{rc.shareUrl('facebook')}}" title="share on Facebook" ng-if="rc.recipe.IsPublic"><img alt="facebook" src="images/facebook.png"/></a>
+	<a target="twitter" href="{{rc.shareUrl('twitter')}}" title="tweet" ng-if="rc.recipe.IsPublic"><img alt="twitter" src="images/twitter.png"/></a>
 </div>
 
 <p class="text bold">{{rc.recipe.Description}}</p>

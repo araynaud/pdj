@@ -112,9 +112,17 @@ function processUpload($file, $subdir)
     //move file to destination dir
     $dataRoot = getConfig("upload._diskPath");
     $dataRootUrl = getConfig("upload.baseUrl");
+    $uploadDir  = combine($dataRoot, $subdir);
+    
+    //first image uploaded in dir will be called id.jpg
+    if(!is_dir($uploadDir)) 
+    {
+        $id = substringAfterLast($subdir, "/");
+        $ext = getFilenameExtension($filename);
+        $filename = "$id.$ext";
+    }
 
     createDir($dataRoot, $subdir);
-    $uploadDir  = combine($dataRoot, $subdir);
     $uploadedFile = combine($dataRoot, $subdir, $filename);
     $filesize = filesize($tmpFile);
     $success = move_uploaded_file($tmpFile, $uploadedFile);
