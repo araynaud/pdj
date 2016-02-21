@@ -1,0 +1,33 @@
+{
+  "$id": "1",
+  "State": "SUCCESS",
+  "Message": null,
+  "UserFriendlyMessage": null,
+  "Exception": null,
+  "Data": {
+    "$id": "2",
+    "RecipeIngredients": [],
+    "RecipeSteps": [],
+    "AllRecipeTips": [],
+    "AllRecipeUrls": [],
+    "CategoryIDs": [
+      31,
+      49
+    ],
+    "ID": 49,
+    "Name": "Sweet Hot Mustard Chicken Thighs",
+    "Description": "When it comes to mustard, sweet-hot works amazingly well, especially as a glaze for chicken. Even though we are using skin-on bone-in chicken thighs, I'm sure it will work with any cut of chicken. By the time this is done, it doesn't have a super-strong mustard flavor. It gets mellowed out by the brown sugar and spices. The old saying 'The closer the bone, the sweeter the meat' really is true. Leaving in the bones adds a lot of flavor and juiciness.",
+    "Author": "Chef John",
+    "PrepTime": 20,
+    "CookingTime": 40,
+    "TotalTime": 60,
+    "YieldCount": 4.000000,
+    "YieldUnitTypeID": 6,
+    "Source": "Allrecipes",
+    "IsPersonal": false,
+    "IsPublic": false,
+    "IsImported": false,
+    "RawText": "\nINGREDIENTS:\n8 large bone-in, skin-on chicken thighs\nChicken Thighs \n1 lb For $4.99 - Expires in 6 days\n 1/2 cup Dijon mustard 1/4 cup packed brown sugar 1/4 cup red wine vinegar 1 teaspoon dry mustard powder 1 teaspoon salt 1 teaspoon freshly ground black pepper 1/2 teaspoon ground dried chipotle pepper 1 pinch cayenne pepper, or to taste 4 cloves garlic, minced 1 onion, sliced into rings 2 teaspoons vegetable oil, or as needed\n\nDIRECTIONS:\nMake 2 slashes crosswise into the skin and meat of each chicken thigh with a sharp knife, cutting to the bone. Cuts should be about 1 inch apart. Transfer thighs into a heavy resealable plastic bag.\nWhisk Dijon mustard, brown sugar, red wine vinegar, mustard powder, salt, black pepper, ground chipotle pepper, and cayenne pepper in a bowl until smooth. Whisk garlic into marinade.\nPour marinade into bag over chicken thighs and massage marinade into chicken, coating each thigh thoroughly and working the marinade into the cuts. Seal bag and refrigerate at least 4 hours (or overnight for best flavor).\nMove a rack to the center position in oven. Preheat oven to 450 degrees F (230 degrees C). Line a baking sheet with aluminum foil and lightly oil the foil.\nScatter onion rings onto prepared baking sheet. Place chicken thighs on top of onion rings. Spray or brush thighs with vegetable oil; sprinkle thighs with additional salt and cayenne pepper if desired.\nRoast chicken in preheated oven until the skin is browned, meat is tender, and the juices run clear, 35 to 45 minutes.\nTransfer chicken and onions onto a serving platter. Pour pan drippings into a saucepan, bring to a boil, and continue boiling, stirring often, until drippings are reduced by half, 3 to 4 minutes. Skim excess fat from pan sauce.\nSpoon reduced pan sauce over each chicken thigh and serve.\n",
+    "UserID": 1
+  }
+}

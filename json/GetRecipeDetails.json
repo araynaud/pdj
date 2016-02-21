@@ -2,30 +2,20 @@
   "$id": "1",
   "State": "SUCCESS",
   "Message": null,
+  "UserFriendlyMessage": null,
   "Exception": null,
   "Data": {
     "$id": "2",
-    "Recipe": {
-      "$id": "3",
-      "ID": 12,
-      "Name": "Pan Seared Scallops with Saffron Beurre Blanc",
-      "Description": "These succulent scallops with a delicate saffron beurre blanc sauce are great as a starter or first course.",
-      "Author": "Amy Raynaud",
-      "PrepTime": "10 minutes",
-      "CookingTime": "15 minutes",
-      "TotalTime": "25 minutes",
-      "Yield": "2 servings"
-    },
     "RecipeIngredients": [
       "4 sea scallops, cleaned",
       "1 tablespoon extra-virgin olive oil",
       "1 small shallot, finely diced",
       "4 ounces dry white wine",
-      "1 pinch of saffron threads",
+      "pinch of saffron thread",
       "1 ounce lemon juice",
       "1 tablespoon heavy whipping cream",
       "6 tablespoons cold unsalted butter, cubed",
-      "1 tablespoon finely chopped chives",
+      "1 tablespoon finely chopped chive",
       "salt and pepper, to taste"
     ],
     "RecipeSteps": [
@@ -41,72 +31,36 @@
     ],
     "AllRecipeUrls": [
       {
-        "$id": "4",
+        "$id": "3",
         "LinkTitle": "The Spanish Table",
         "LinkUrl": "http://www.thespanishtable.com/"
       }
     ],
-
-    "RecipeCategories":
-    [
-      {
-        "$id": "3",
-        "CategoryTypeID": 6,
-        "CategoryIDs": [
-          49,
-          132
-        ]
-      },
-      {
-        "$id": "4",
-        "CategoryTypeID": 8,
-        "CategoryIDs": [
-          23,
-          31
-        ]
-      },
-      {
-        "$id": "5",
-        "CategoryTypeID": 7,
-        "CategoryIDs": [
-          15
-        ]
-      },
-      {
-        "$id": "6",
-        "CategoryTypeID": 3,
-        "CategoryIDs": [
-          89
-        ]
-      },
-      {
-        "$id": "7",
-        "CategoryTypeID": 4,
-        "CategoryIDs": [
-          83
-        ]
-      },
-      {
-        "$id": "8",
-        "CategoryTypeID": 2,
-        "CategoryIDs": [
-          116
-        ]
-      },
-      {
-        "$id": "9",
-        "CategoryTypeID": 1,
-        "CategoryIDs": [
-          56
-        ]
-      },
-      {
-        "$id": "10",
-        "CategoryTypeID": 5,
-        "CategoryIDs": [
-          78
-        ]
-      }
-    ]
+    "CategoryIDs": [
+      116,
+      12,
+      128,
+      78,
+      60,
+      27,
+      89,
+      31,
+      45
+    ],
+    "ID": 12,
+    "Name": "Pan Seared Scallops with Saffron Beurre Blanc",
+    "Description": "These succulent scallops with a delicate saffron beurre blanc sauce are great as a starter or first course.",
+    "Author": "Amy Raynaud",
+    "PrepTime": 10,
+    "CookingTime": 15,
+    "TotalTime": 25,
+    "YieldCount": 2.000000,
+    "YieldUnitTypeID": 6,
+    "Source": "",
+    "IsPersonal": true,
+    "IsPublic": true,
+    "IsImported": true,
+    "RawText": null,
+    "UserID": 1
   }
 }
