@@ -136,7 +136,10 @@ function ($scope, $window, $stateParams, RecipeService)
              rc.recipe.RecipeLinks = rc.recipe.AllRecipeUrls;
 
           if(RecipeService.stateIs('recipe'))
+          {
+            rc.parseRawText();
             rc.loadRecipeSlideshow();
+          }
           else
             rc.initEditForm();
 
@@ -144,6 +147,27 @@ function ($scope, $window, $stateParams, RecipeService)
       }, 
       rc.errorMessage);
     };
+
+
+    //for RawText recipes only: split into ingredients, directions, tips 
+    rc.parseRawText = function()
+    {
+      if(!rc.recipe.RawText) return rc.recipe;          
+
+      var ingredients = rc.recipe.RawText.substringAfter("INGREDIENTS:").substringBefore("DIRECTIONS:").trim();
+      if(ingredients)
+        rc.recipe.RecipeIngredients = ingredients.split("\n");
+
+      var directions = rc.recipe.RawText.substringAfter("DIRECTIONS:").substringBefore("TIPS:").trim();
+      if(directions)
+        rc.recipe.RecipeSteps = directions.split("\n\n");
+
+      var tips = rc.recipe.RawText.substringAfter("TIPS:").trim();
+      if(tips)
+        rc.recipe.AllRecipeTips = tips.split("\n");
+
+      return rc.recipe;
+    }
 
     rc.loadRecipeSlideshow = function()
     {
@@ -177,7 +201,6 @@ function ($scope, $window, $stateParams, RecipeService)
         rc.form2.tips = rc.recipe.RawText.substringAfter("TIPS:").trim();
       }
     }
-
 
     rc.loadLinkMetadata = function()
     {

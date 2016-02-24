@@ -36,8 +36,6 @@
 	</div>	
 </div>
 
-<div class="inlineBlock text left vtop" ng-if="rc.recipe.RawText">{{rc.recipe.RawText}}</div>
-
 <div class="inlineBlock left vtop" ng-if="rc.recipe.RecipeIngredients.length">
 	<h3>Ingredients</h3>
 	<ul class="text inlineBlock nomargin">
@@ -65,5 +63,8 @@
 		<a target="linkPreview" href="{{link.LinkUrl}}">{{link.LinkTitle || link.LinkUrl}}</a></li>
 	</p>
 </div>
+
+<!--pre class="text" ng-if="rc.recipe.RawText">{{rc.recipe.RawText}}</pre-->
+
 
 </div>
