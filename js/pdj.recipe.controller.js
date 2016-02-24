@@ -33,13 +33,7 @@ function ($scope, $window, $stateParams, RecipeService)
     };
 
     rc.isError = RecipeService.isError;
-    rc.cancelEdit = function()
-    { 
-      if(rc.recipe.ID)
-        RecipeService.goToState("recipe", {recipeId: rc.recipe.ID});
-      else
-        RecipeService.returnToMain();
-    }
+
     rc.isMine = function()
     {
         return RecipeService.isMine(rc.recipe);
@@ -133,7 +127,7 @@ function ($scope, $window, $stateParams, RecipeService)
           rc.recipe = response;
 
           if(!rc.recipe.RecipeLinks)
-             rc.recipe.RecipeLinks = rc.recipe.AllRecipeUrls;
+            rc.renameField(rc.recipe, "AllRecipeUrls", "RecipeLinks");
 
           if(RecipeService.stateIs('recipe'))
           {
@@ -148,26 +142,34 @@ function ($scope, $window, $stateParams, RecipeService)
       rc.errorMessage);
     };
 
+    rc.renameField = function(obj, from, to)
+    {
+      obj[to] = obj[from];
+      obj[from] = null;
+      delete obj[from];
+    };
 
     //for RawText recipes only: split into ingredients, directions, tips 
     rc.parseRawText = function()
     {
       if(!rc.recipe.RawText) return rc.recipe;          
 
-      var ingredients = rc.recipe.RawText.substringAfter("INGREDIENTS:").substringBefore("DIRECTIONS:").trim();
-      if(ingredients)
-        rc.recipe.RecipeIngredients = ingredients.split("\n");
+      var ingredients = rc.recipe.RawText.substringAfter("INGREDIENTS:").substringBefore("DIRECTIONS:");
+      rc.recipe.RecipeIngredients = rc.splitLines(ingredients);
 
-      var directions = rc.recipe.RawText.substringAfter("DIRECTIONS:").substringBefore("TIPS:").trim();
-      if(directions)
-        rc.recipe.RecipeSteps = directions.split("\n\n");
+      var directions = rc.recipe.RawText.substringAfter("DIRECTIONS:").substringBefore("TIPS:");
+      rc.recipe.RecipeSteps = rc.splitLines(directions);
 
-      var tips = rc.recipe.RawText.substringAfter("TIPS:").trim();
-      if(tips)
-        rc.recipe.AllRecipeTips = tips.split("\n");
-
-      return rc.recipe;
+      var tips = rc.recipe.RawText.substringAfter("TIPS:");
+      rc.recipe.AllRecipeTips = rc.splitLines(tips);
     }
+
+    //split and filter blank lines
+    rc.splitLines = function(s)
+    {
+      if(!s) return [];
+      return s.trim().split("\n").filter(function(s) { return s.trim(); });
+    };
 
     rc.loadRecipeSlideshow = function()
     {
@@ -191,7 +193,7 @@ function ($scope, $window, $stateParams, RecipeService)
       if(!isEmpty(rc.recipe.RecipeIngredients))
       {
         rc.form2.ingredients = rc.recipe.RecipeIngredients.join("\n");
-        rc.form2.directions  = rc.recipe.RecipeSteps.join("\n\n");
+        rc.form2.directions  = rc.recipe.RecipeSteps.join("\n");
         rc.form2.tips        = rc.recipe.AllRecipeTips.join("\n");
       }
       else if(rc.recipe.RawText)
@@ -301,7 +303,7 @@ function ($scope, $window, $stateParams, RecipeService)
 
         Album.onLoad = function (albumInstance) 
         {
-            rc.recipe.album = albumInstance;
+            rc.album = albumInstance;
             rc.recipe.pics = albumInstance.selectSlideshowFiles();
             rc.hasPhoto = !isEmpty(rc.recipe.pics);
             $scope.$apply();
@@ -423,6 +425,18 @@ function ($scope, $window, $stateParams, RecipeService)
          RecipeService.goToState("recipe", {recipeId: id});
       }, 
       rc.errorMessage);
+    };
+
+
+    rc.cancelEdit = function()
+    { 
+      if(rc.recipe.ID)
+      {
+        RecipeService.removeFromCache(rc.recipe.ID); //reload to undo edit changes 
+        RecipeService.goToState("recipe", {recipeId: rc.recipe.ID});
+      }
+      else
+        RecipeService.returnToMain();
     };
 
     rc.init();

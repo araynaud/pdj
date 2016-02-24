@@ -175,7 +175,6 @@ angular.module('pdjServices')
 
     this.removeFromCache = function(id)
     {
-        var id = id.ID || recipe;
         delete svc.recipes[id];
     };
 
