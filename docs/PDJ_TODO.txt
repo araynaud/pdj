@@ -52,13 +52,21 @@ return to #/recipe/:id
 
 9 #/recipeEdit/:id : add images to steps
 
+10: user can upload images to any public recipe from another user
+how to structure dirs
+
+
+
+
 Amazon
 x1 setup SQL Server instance
 x2 setup IIS  for .net PDJ app
-x GoDaddy: point pimentdujour.com to amazon box 52.8.226.210
+x3 GoDaddy: point pimentdujour.com to amazon box 52.8.226.210
+
+
+
 
 PDJ
-
 PHP: recipe.php
 list .txt files
 with their name, title, file date

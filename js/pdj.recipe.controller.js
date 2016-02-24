@@ -126,6 +126,10 @@ function ($scope, $window, $stateParams, RecipeService)
           }
 
           rc.form = rc.recipe = response;
+          if(!rc.recipe.AllRecipeUrls)
+            rc.recipe.AllRecipeUrls = rc.recipe.recipeLinks;
+          else if(!rc.recipe.recipeLinks)
+            rc.recipe.recipeLinks = rc.recipe.AllRecipeUrls;
 
           if(RecipeService.stateIs('recipe'))
             rc.loadRecipeSlideshow();
@@ -150,29 +154,29 @@ function ($scope, $window, $stateParams, RecipeService)
     {
       var links = rc.form2.links.split(" ");
 
-      if(!rc.form.parsedLinks)
-        rc.form.parsedLinks = [];
+      if(!rc.form.recipeLinks)
+        rc.form.recipeLinks = [];
 
       for(var i=0; i<links.length;i++)
       {
         //skip if duplicate URL
-        if(rc.form.parsedLinks[links[i]]) continue;
+        if(rc.form.recipeLinks[links[i]]) continue;
 
         RecipeService.loadLinkMetadata(links[i]).then(function(response)
         {
             console.log(response);
             if(!response.title) return;
 
-            if(rc.form.parsedLinks[response.url]) return;
+            if(rc.form.recipeLinks[response.url]) return;
 
-            var pl = { url: response.url, title: response.title };
+            var pl = { LinkUrl: response.url, LinkTitle: response.title };
             if(response.meta)
             {
               pl.description = response.meta["og:description"] || response.meta.description;
               pl.image = response.meta["twitter:image"]  || response.meta["og:image"];
             }
-            rc.form.parsedLinks.push(pl);
-            rc.form.parsedLinks[pl.url] = pl; //to test for duplicates
+            rc.form.recipeLinks.push(pl);
+            rc.form.recipeLinks[pl.LinkUrl] = pl; //to test for duplicates
         });
       }
       rc.form2.links = "";
@@ -180,13 +184,13 @@ function ($scope, $window, $stateParams, RecipeService)
 
     rc.removeLink = function(index)
     {
-      if(!rc.form || !rc.form.parsedLinks) return;
+      if(!rc.form || !rc.form.recipeLinks) return;
 
-      var pl = rc.form.parsedLinks[index];
+      var pl = rc.form.recipeLinks[index];
       if(pl)
       {
-        rc.form.parsedLinks.splice(index, 1);
-        delete rc.form.parsedLinks[pl.url];
+        rc.form.recipeLinks.splice(index, 1);
+        delete rc.form.recipeLinks[pl.LinkUrl];
       }
     };
 

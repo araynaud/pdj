@@ -53,7 +53,7 @@
 <div class="inlineBlock left vtop" ng-if="rc.recipe.AllRecipeUrls.length">
 	<h3>Links</h3>
 	<p class="nomargin" ng-repeat="link in rc.recipe.AllRecipeUrls">
-		<a href="link.LinkUrl">{{link.LinkTitle || link.LinkUrl}}</a></li>
+		<a target="linkPreview" href="{{link.LinkUrl}}">{{link.LinkTitle || link.LinkUrl}}</a></li>
 	</p>
 </div>
 

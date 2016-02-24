@@ -21,7 +21,7 @@ angular.module('pdjServices')
     this.articleResource =      ConfigService.getResource("pdj", "Article/:article");
     this.listResource =         ConfigService.getResource("pdj", "Recipe/GetRecipeList", "searchText=:search:categories");
     this.recipeResource =       ConfigService.getResource("pdj", "Recipe/GetRecipeDetails", "recipeId=:id");
-    this.recipeSaveResource =   ConfigService.getResource("pdj", "Recipe/ImportRawTextRecipe");
+    this.recipeSaveResource =   ConfigService.getResource("pdj", "Recipe/SaveRecipe");
 
 //Data load functions
     this.loadUnits = function(obj)
