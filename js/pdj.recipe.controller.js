@@ -33,8 +33,13 @@ function ($scope, $window, $stateParams, RecipeService)
     };
 
     rc.isError = RecipeService.isError;
-    rc.cancelEdit = RecipeService.returnToMain;
-
+    rc.cancelEdit = function()
+    { 
+      if(rc.recipe.ID)
+        RecipeService.goToState("recipe", {recipeId: rc.recipe.ID});
+      else
+        RecipeService.returnToMain();
+    }
     rc.isMine = function()
     {
         return RecipeService.isMine(rc.recipe);
@@ -177,7 +182,7 @@ function ($scope, $window, $stateParams, RecipeService)
     rc.loadLinkMetadata = function()
     {
       if(!rc.form2.links) return;
-      
+
       var links = rc.form2.links.split(" ");
 
       if(!rc.form.RecipeLinks)
