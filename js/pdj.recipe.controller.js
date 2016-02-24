@@ -125,11 +125,10 @@ function ($scope, $window, $stateParams, RecipeService)
             return RecipeService.returnToMain(2000);
           }
 
-          rc.form = rc.recipe = response;
-          if(!rc.recipe.AllRecipeUrls)
-            rc.recipe.AllRecipeUrls = rc.recipe.recipeLinks;
-          else if(!rc.recipe.recipeLinks)
-            rc.recipe.recipeLinks = rc.recipe.AllRecipeUrls;
+          rc.recipe = response;
+
+          if(!rc.recipe.RecipeLinks)
+             rc.recipe.RecipeLinks = rc.recipe.AllRecipeUrls;
 
           if(RecipeService.stateIs('recipe'))
             rc.loadRecipeSlideshow();
@@ -150,24 +149,51 @@ function ($scope, $window, $stateParams, RecipeService)
       Album.getAlbumAjax("album", {path: path }, true);
     }
 
+    //prepare data for edit form
+    rc.initEditForm = function()
+    {
+      rc.form = rc.recipe;
+
+      if(rc.recipe.ID) //for update
+        rc.form.recipeID = rc.recipe.ID;
+
+      rc.selectedCategories = rc.recipe.CategoryIDs.toMap();
+      rc.form2 = { ingredients: "", directions: "", tips: "" };
+      if(!isEmpty(rc.recipe.RecipeIngredients))
+      {
+        rc.form2.ingredients = rc.recipe.RecipeIngredients.join("\n");
+        rc.form2.directions  = rc.recipe.RecipeSteps.join("\n\n");
+        rc.form2.tips        = rc.recipe.AllRecipeTips.join("\n");
+      }
+      else if(rc.recipe.RawText)
+      {
+        rc.form2.ingredients = rc.recipe.RawText.substringAfter("INGREDIENTS:").substringBefore("DIRECTIONS:").trim();
+        rc.form2.directions = rc.recipe.RawText.substringAfter("DIRECTIONS:").substringBefore("TIPS:").trim();
+        rc.form2.tips = rc.recipe.RawText.substringAfter("TIPS:").trim();
+      }
+    }
+
+
     rc.loadLinkMetadata = function()
     {
+      if(!rc.form2.links) return;
+      
       var links = rc.form2.links.split(" ");
 
-      if(!rc.form.recipeLinks)
-        rc.form.recipeLinks = [];
+      if(!rc.form.RecipeLinks)
+        rc.form.RecipeLinks = [];
 
       for(var i=0; i<links.length;i++)
       {
         //skip if duplicate URL
-        if(rc.form.recipeLinks[links[i]]) continue;
+        if(rc.form.RecipeLinks[links[i]]) continue;
 
         RecipeService.loadLinkMetadata(links[i]).then(function(response)
         {
             console.log(response);
             if(!response.title) return;
 
-            if(rc.form.recipeLinks[response.url]) return;
+            if(rc.form.RecipeLinks[response.url]) return;
 
             var pl = { LinkUrl: response.url, LinkTitle: response.title };
             if(response.meta)
@@ -175,8 +201,8 @@ function ($scope, $window, $stateParams, RecipeService)
               pl.description = response.meta["og:description"] || response.meta.description;
               pl.image = response.meta["twitter:image"]  || response.meta["og:image"];
             }
-            rc.form.recipeLinks.push(pl);
-            rc.form.recipeLinks[pl.LinkUrl] = pl; //to test for duplicates
+            rc.form.RecipeLinks.push(pl);
+            rc.form.RecipeLinks[pl.LinkUrl] = pl; //to test for duplicates
         });
       }
       rc.form2.links = "";
@@ -184,13 +210,13 @@ function ($scope, $window, $stateParams, RecipeService)
 
     rc.removeLink = function(index)
     {
-      if(!rc.form || !rc.form.recipeLinks) return;
+      if(!rc.form || !rc.form.RecipeLinks) return;
 
-      var pl = rc.form.recipeLinks[index];
+      var pl = rc.form.RecipeLinks[index];
       if(pl)
       {
-        rc.form.recipeLinks.splice(index, 1);
-        delete rc.form.recipeLinks[pl.LinkUrl];
+        rc.form.RecipeLinks.splice(index, 1);
+        delete rc.form.RecipeLinks[pl.LinkUrl];
       }
     };
 
@@ -263,30 +289,6 @@ function ($scope, $window, $stateParams, RecipeService)
             $window.addEventListener("resize", function() { slideshow.fitImage() } );
         };
     };
-
-    //prepare data for edit form
-    rc.initEditForm = function()
-    {
-      //if(RecipeService.stateIs('recipe')) return;
-
-      rc.form = rc.recipe;
-      rc.selectedCategories = rc.recipe.CategoryIDs.toMap();
-      rc.form2 = {};
-      if(!isEmpty(rc.recipe.RecipeIngredients))
-      {
-        rc.form2.ingredients = rc.recipe.RecipeIngredients.join("\n");
-        rc.form2.directions  = rc.recipe.RecipeSteps.join("\n\n");
-        rc.form2.tips        = rc.recipe.AllRecipeTips.join("\n");
-        rc.form2.links       = rc.recipe.AllRecipeUrls.join("\n");
-      }
-      else if(rc.recipe.RawText)
-      {
-        rc.form2.ingredients = rc.recipe.RawText.substringAfter("INGREDIENTS:").substringBefore("DIRECTIONS:").trim();
-        rc.form2.directions = rc.recipe.RawText.substringAfter("DIRECTIONS:").substringBefore("TIPS:").trim();
-        rc.form2.tips = rc.recipe.RawText.substringAfter("TIPS:").substringBefore("LINKS:").trim();
-        rc.form2.links = rc.recipe.RawText.substringAfter("LINKS:").trim();
-      }
-    }
 
     rc.setTitle = function(t)
     {

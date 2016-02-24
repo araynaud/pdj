@@ -12,8 +12,9 @@
 <div class="title hidden-print" ng-show="!rc.hasPhoto">{{rc.title()}}</div>
 <span class="error">{{rc.status}}</span>
 
-<div class="floatR hidden-print">
-	<i ui-sref="upload({recipeId: rc.recipe.ID})" class="glyphicon glyphicon-camera" title="Add photos" style="font-size: 32px;" ng-if="rc.isMine(rc.recipe)"></i>
+<div class="floatR hidden-print" style="font-size: 32px;">
+	<i ui-sref="edit({recipeId: rc.recipe.ID})" class="glyphicon glyphicon-edit"   title="Edit Recipe" ng-if="rc.isMine(rc.recipe)"></i>
+	<i ui-sref="upload({recipeId: rc.recipe.ID})" class="glyphicon glyphicon-camera" title="Add photos"  ng-if="rc.isMine(rc.recipe)"></i>
 	<a href="{{rc.shareUrl()}}" title="Direct link" ng-if="rc.recipe.IsPublic"><img alt="link" src="images/link.png"/></a>
 	<a target="facebook" href="{{rc.shareUrl('facebook')}}" title="share on Facebook" ng-if="rc.recipe.IsPublic"><img alt="facebook" src="images/facebook.png"/></a>
 	<a target="twitter" href="{{rc.shareUrl('twitter')}}" title="tweet" ng-if="rc.recipe.IsPublic"><img alt="twitter" src="images/twitter.png"/></a>
@@ -50,9 +51,9 @@
 	</ul>
 </div>
 
-<div class="inlineBlock left vtop" ng-if="rc.recipe.AllRecipeUrls.length">
+<div class="inlineBlock left vtop" ng-if="rc.recipe.RecipeLinks.length">
 	<h3>Links</h3>
-	<p class="nomargin" ng-repeat="link in rc.recipe.AllRecipeUrls">
+	<p class="nomargin" ng-repeat="link in rc.recipe.RecipeLinks">
 		<a target="linkPreview" href="{{link.LinkUrl}}">{{link.LinkTitle || link.LinkUrl}}</a></li>
 	</p>
 </div>

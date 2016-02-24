@@ -74,7 +74,7 @@ Categories (category ID) modify search template
     <div class="col-sm-12">
         <label for="inputLinks">Links</label> 
 
-        <div class="rlink" ng-repeat="link in rc.form.recipeLinks">
+        <div class="rlink" ng-repeat="link in rc.form.RecipeLinks">
           <i class="glyphicon glyphicon-remove-circle" ng-click="rc.removeLink($index);"></i>
           <a target="linkPreview" href="{{link.LinkUrl}}" title="{{link.description}}" ng-if="link.image">
             <img class="linkPreview cover" ng-src="{{link.image}}"/>
