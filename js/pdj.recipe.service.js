@@ -135,7 +135,7 @@ angular.module('pdjServices')
                     deferred.resolve(response);
                 else
                 {               
-                    svc.recipes[id] = svc.recipe = response.Data;
+                    svc.addToCache(response.Data);
                     svc.refreshRecipeCategories(svc.recipe);
                     svc.title = svc.recipe.Name;
                     deferred.resolve(svc.recipe);
@@ -159,7 +159,7 @@ angular.module('pdjServices')
             if(id && response.State == "SUCCESS")
             {
                 recipe.ID = id;
-                svc.addToCache(recipe);
+                svc.removeFromCache(id);
                 svc.title = recipe.Name;
             }
             deferred.resolve(response);
@@ -172,6 +172,13 @@ angular.module('pdjServices')
         svc.recipes[recipe.ID] = svc.recipe = recipe;
         return recipe;
     };
+
+    this.removeFromCache = function(id)
+    {
+        var id = id.ID || recipe;
+        delete svc.recipes[id];
+    };
+
 
     this.getCategoriesQS = function(categories)
     {

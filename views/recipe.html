@@ -10,6 +10,14 @@
 
 <div class="container marginV">
 <div class="title hidden-print" ng-show="!rc.hasPhoto">{{rc.title()}}</div>
+
+<div class="" ng-show="!rc.hasPhoto">
+	<div class="floatL right text">{{rc.displayProperty(rc.recipe,"CookingTime", "minute")}}{{displayProperty(rc.recipe,"PrepTime", "minute")}}{{rc.displayProperty(rc.recipe,"TotalTime", "minute")}}</div>
+	<div class="floatR right text">{{rc.displayProperty(rc.recipe,"Author")}}{{rc.displayProperty(rc.recipe,"YieldCount", rc.recipe.YieldUnitTypeID , "Yield")}}</div>
+	<br/>
+</div>
+
+
 <span class="error">{{rc.status}}</span>
 
 <div class="floatR hidden-print" style="font-size: 32px;">
