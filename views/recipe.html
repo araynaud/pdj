@@ -1,13 +1,14 @@
 <div class="container marginV">
 
 <div class="noscroll">
-<div class="title hidden-print textWhiteOutline2">{{rc.title()}}</div>
+<div class="title hidden-print textWhiteOutline">{{rc.title()}}</div>
 
-<div id="slideshowContainer" class="centered shrinkW" style="height: 10cm; position: relative;" ng-show="rc.hasPhoto">
-	<img id="slide0" class="slide bottom right" style="z-index: -2" alt="" src="/mt/icons/blank1px.png"/>
-	<img id="slide1" class="slide top left" style="z-index: -2" alt="" src="/mt/icons/blank1px.png"/>
-	<div id="videoSlide" class="inlineBlock centered"></div>
+<div id="slideshowContainer" class="centered shrinkW" style="height: 8cm; position: relative;" ng-show="rc.hasPhoto">
+	<img id="slide0" class="hidden-print slide bottom right" style="z-index: -2" alt="" src="/mt/icons/blank1px.png"/>
+	<img id="slide1" class="hidden-print slide top left" style="z-index: -2" alt="" src="/mt/icons/blank1px.png"/>
+	<div id="videoSlide" class="hidden-print inlineBlock centered"></div>
 
+	<img id="printImage" class="visible-print-block centered stretchH" ng-src="{{rc.mainImage}}" ng-if="{{rc.mainImage}}">
 
 	<div class="headerLeftCorner hidden-print">
 		<a id="zoomButton" class="icon32 glyphicon glyphicon-zoom-in textOutline" title="zoom" ng-click="rc.slideshow.toggleZoom()"></a>

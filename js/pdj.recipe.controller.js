@@ -317,6 +317,8 @@ function ($scope, $window, $stateParams, RecipeService)
             rc.album = albumInstance;
             rc.pics = albumInstance.selectSlideshowFiles();
             rc.hasPhoto = !isEmpty(rc.pics);
+            if(rc.hasPhoto)
+              rc.mainImage = rc.pics[0].getThumbnailUrl(2);
             $scope.$apply();
 
             var mtOptions = RecipeService.getConfig("MT.album");
@@ -325,6 +327,7 @@ function ($scope, $window, $stateParams, RecipeService)
             mtOptions = RecipeService.getConfig("MT.slideshow") || {}
             mtOptions.elements = {container: "#slideshowContainer"};
             mtOptions.pics = rc.pics;
+
             rc.slideshow = new Slideshow(mtOptions);
             rc.slideshow.display();
             $window.addEventListener("resize", function() { rc.slideshow.fitImage(); } );
