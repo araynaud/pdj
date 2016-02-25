@@ -152,16 +152,20 @@ function ($scope, $window, $stateParams, RecipeService)
     //for RawText recipes only: split into ingredients, directions, tips 
     rc.parseRawText = function()
     {
-      if(!rc.recipe.RawText) return rc.recipe;          
+      if(!rc.recipe.RawText) return;
 
-      var ingredients = rc.recipe.RawText.substringAfter("INGREDIENTS:").substringBefore("DIRECTIONS:");
-      rc.recipe.RecipeIngredients = rc.splitLines(ingredients);
+      var rawText = rc.recipe.RawText;
 
-      var directions = rc.recipe.RawText.substringAfter("DIRECTIONS:").substringBefore("TIPS:");
-      rc.recipe.RecipeSteps = rc.splitLines(directions);
-
-      var tips = rc.recipe.RawText.substringAfter("TIPS:");
+      var tips = rawText.substringAfter("TIPS:");
       rc.recipe.AllRecipeTips = rc.splitLines(tips);
+      rawText = rawText.substringBefore("TIPS:");
+
+      var directions = rawText.substringAfter("DIRECTIONS:");
+      rc.recipe.RecipeSteps = rc.splitLines(directions);
+      rawText = rawText.substringBefore("DIRECTIONS:");
+
+      var ingredients = rawText.substringAfter("INGREDIENTS:");
+      rc.recipe.RecipeIngredients = rc.splitLines(ingredients);
     }
 
     //split and filter blank lines

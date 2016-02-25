@@ -154,6 +154,34 @@ angular.module('pdjServices')
         return deferred.promise;
     };
 
+    this.getCurrentUser = function()
+    {
+        var deferred = $q.defer();
+        //formData.action = "login"; //or register or logout
+        this.loginResource.get({action: "GetCurrentUser"}, function(response) 
+        {
+            if(response.State === "ERROR") 
+            {
+                svc.logout();
+                deferred.resolve(response);
+                return;
+            }
+
+            svc.user = response.Data;
+            if(!svc.user)
+                svc.user = { username: postData.username };
+
+            svc.phpLoginResource.save(svc.user);
+            deferred.resolve(svc.user);
+        },
+        function(error)
+        {
+            svc.logout();
+            deferred.resolve(error.data);
+        });
+        return deferred.promise;
+    };
+
     this.loggedIn = function()
     {
       return !!svc.user;
