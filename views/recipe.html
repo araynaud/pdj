@@ -20,9 +20,9 @@
 
 <span class="error">{{rc.status}}</span>
 
-<div class="floatR hidden-print" style="margin-left: 10px; font-size: 32px;">
-	<i ui-sref="edit({recipeId: rc.recipe.ID})" class="glyphicon glyphicon-edit"   title="Edit Recipe" ng-if="rc.isMine(rc.recipe)"></i>
-	<i ui-sref="upload({recipeId: rc.recipe.ID})" class="glyphicon glyphicon-camera" title="Add photos"  ng-if="rc.isMine(rc.recipe)"></i>
+<div class="floatR hidden-print" style="margin-left: 10px;">
+	<a ui-sref="edit({recipeId: rc.recipe.ID})"   class="glyphicon glyphicon-edit icon32"   title="Edit Recipe" ng-if="rc.isMine(rc.recipe)"></a>
+	<a ui-sref="upload({recipeId: rc.recipe.ID})" class="glyphicon glyphicon-camera icon32" title="Add photos"  ng-if="rc.isMine(rc.recipe)"></a>
 	<a href="{{rc.shareUrl()}}" title="Direct link" ng-if="rc.recipe.IsPublic"><img alt="link" src="images/link.png"/></a>
 	<a target="facebook" href="{{rc.shareUrl('facebook')}}" title="share on Facebook" ng-if="rc.recipe.IsPublic"><img alt="facebook" src="images/facebook.png"/></a>
 	<a target="twitter" href="{{rc.shareUrl('twitter')}}" title="tweet" ng-if="rc.recipe.IsPublic"><img alt="twitter" src="images/twitter.png"/></a>

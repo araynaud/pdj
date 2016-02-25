@@ -107,18 +107,16 @@ div.rlink
     margin-bottom: 2px;
 }
 
-.rlink a
+.rlink .glyphicon
 {
-}
-
-.rlink i
-{
-    font-size: 12pt;
+    font-size: 14pt;
+    cursor: pointer;
 }
 
 img.linkPreview
 {
     max-width: 60px; 
+    max-height: 40px;
     vertical-align: middle;   
 }
 
@@ -134,6 +132,17 @@ div#main
 
 /* bootstrap overrides */
 
+a.glyphicon
+{
+    text-decoration: none;
+}
+
+.icon32
+{
+    color: #6EAC2C;
+    font-size: 32px;
+}
+
 a.navbar-brand
 {
     padding: 2px;
@@ -143,6 +152,7 @@ a.navbar-brand
 {
   background-color: #6EAC2C;
   border-color: #2EA46D;
+  font-weight: bold;
 }
 
 .btn-primary:focus, .btn-primary.focus 
