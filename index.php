@@ -41,8 +41,8 @@ if($recipe)
 	$meta["og:url"] = combine(currentUrlDir(), "?recipe=$recipeid");
 
 	//get recipe 1st image according to config
-	$imageDir = combine(getConfig("images._rootdir"), getConfig("images.dir"), $recipeid);	
-	$imageUrlPath = combine(getConfig("images.root"), getConfig("images.dir"), $recipeid);	
+	$imageDir = combine(getConfig("images._rootdir"), getConfig("images.dir"), $recipe["UserID"], $recipeid);	
+	$imageUrlPath = combine(getConfig("images.root"), getConfig("images.dir"), $recipe["UserID"], $recipeid);	
 	$image = findFirstImage($imageDir);
 }
 debugText("</div>");
