@@ -9,15 +9,15 @@
 	<div id="videoSlide" class="inlineBlock centered"></div>
 
 
-	<div class="headerLeftCorner hidden-print" ng-if="rc.pics.length > 1">
-		<a id="prevButton" class="icon32 glyphicon glyphicon-step-backward textOutline" title="previous" ng-click="rc.slideshow.showNextImage(-1)"></a>
-		<br/>
+	<div class="headerLeftCorner hidden-print">
 		<a id="zoomButton" class="icon32 glyphicon glyphicon-zoom-in textOutline" title="zoom" ng-click="rc.slideshow.toggleZoom()"></a>
+		<br/>
+		<a id="prevButton" class="icon32 glyphicon glyphicon-step-backward textOutline" title="previous" ng-click="rc.slideshow.showNextImage(-1)" ng-if="rc.pics.length > 1"></a>
 	</div>
 	<div class="headerRightCorner hidden-print" ng-if="rc.pics.length > 1">
-		<a id="nextButton" class="icon32 glyphicon glyphicon-step-forward textOutline" title="next"  ng-click="rc.slideshow.showNextImage(+1)"></a>
-		<br/>
 		<a id="playButton" class="icon32 glyphicon glyphicon-pause textOutline" title="play/pause" ng-click="rc.slideshow.togglePlay()"></a>
+		<br/>
+		<a id="nextButton" class="icon32 glyphicon glyphicon-step-forward textOutline" title="next"  ng-click="rc.slideshow.showNextImage(+1)"></a>
 	</div>
 
 	<div class="bottomLeftCorner right maxWidthHalf translucentWhite text bold" style="padding:2px;">{{rc.displayProperty(rc.recipe,"CookingTime", "minute")}}{{displayProperty(rc.recipe,"PrepTime", "minute")}}{{rc.displayProperty(rc.recipe,"TotalTime", "minute")}}</div>
