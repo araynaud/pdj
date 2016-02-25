@@ -314,8 +314,8 @@ function ($scope, $window, $stateParams, RecipeService)
         Album.onLoad = function (albumInstance) 
         {
             rc.album = albumInstance;
-            rc.recipe.pics = albumInstance.selectSlideshowFiles();
-            rc.hasPhoto = !isEmpty(rc.recipe.pics);
+            rc.pics = albumInstance.selectSlideshowFiles();
+            rc.hasPhoto = !isEmpty(rc.pics);
             $scope.$apply();
 
             var mtOptions = RecipeService.getConfig("MT.album");
@@ -323,10 +323,10 @@ function ($scope, $window, $stateParams, RecipeService)
 
             mtOptions = RecipeService.getConfig("MT.slideshow") || {}
             mtOptions.elements = {container: "#slideshowContainer"};
-            mtOptions.pics = rc.recipe.pics;
-            window.slideshow = new Slideshow(mtOptions);
-            slideshow.display();
-            $window.addEventListener("resize", function() { slideshow.fitImage() } );
+            mtOptions.pics = rc.pics;
+            rc.slideshow = new Slideshow(mtOptions);
+            rc.slideshow.display();
+            //$window.addEventListener("resize", function() { slideshow.fitImage() } );
         };
     };
 
