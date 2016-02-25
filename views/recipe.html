@@ -3,12 +3,12 @@
 <div class="noscroll">
 <div class="title hidden-print textWhiteOutline">{{rc.title()}}</div>
 
-<div id="slideshowContainer" class="centered shrinkW" style="height: 8cm; position: relative;" ng-show="rc.hasPhoto">
+<div id="slideshowContainer" class="centered shrinkW" style="height: 8cm; position: relative;" ng-if="rc.hasPhoto">
 	<img id="slide0" class="hidden-print slide bottom right" style="z-index: -2" alt="" src="/mt/icons/blank1px.png"/>
 	<img id="slide1" class="hidden-print slide top left" style="z-index: -2" alt="" src="/mt/icons/blank1px.png"/>
 	<div id="videoSlide" class="hidden-print inlineBlock centered"></div>
 
-	<img id="printImage" class="visible-print-block centered stretchH" ng-src="{{rc.mainImage}}" ng-if="{{rc.mainImage}}">
+	<img id="printImage" class="visible-print-block centered stretchH" ng-src="{{rc.mainImage}}" ng-if="rc.mainImage">
 
 	<div class="headerLeftCorner hidden-print">
 		<a id="zoomButton" class="icon32 glyphicon glyphicon-zoom-in textOutline" title="zoom" ng-click="rc.slideshow.toggleZoom()"></a>
@@ -25,7 +25,7 @@
 	<div class="bottomRightCorner maxWidthHalf translucentWhite text bold" style="padding:2px;">{{rc.displayProperty(rc.recipe,"Author")}}{{rc.displayProperty(rc.recipe,"YieldCount", rc.recipe.YieldUnitTypeID , "Yield")}}</div>
 </div>
 
-<div class="" ng-show="!rc.hasPhoto">
+<div class="" ng-if="!rc.hasPhoto">
 	<div class="floatL right text">{{rc.displayProperty(rc.recipe,"CookingTime", "minute")}}{{displayProperty(rc.recipe,"PrepTime", "minute")}}{{rc.displayProperty(rc.recipe,"TotalTime", "minute")}}</div>
 	<div class="floatR right text">{{rc.displayProperty(rc.recipe,"Author")}}{{rc.displayProperty(rc.recipe,"YieldCount", rc.recipe.YieldUnitTypeID , "Yield")}}</div>
 	<br/>
