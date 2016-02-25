@@ -1,15 +1,26 @@
-<div id="slideshowContainer" class="centered container noscroll shrinkW90" style="height: 10cm; max-width: 1000px;" ng-show="rc.hasPhoto">
+<div class="container marginV">
+
+<div class="title hidden-print">{{rc.title()}}</div>
+
+<div id="slideshowContainer" class="centered noscroll shrinkW" style="height: 500px; position: relative;" ng-show="rc.hasPhoto">
 	<img id="slide0" class="slide bottom right" alt="" src="/mt/icons/blank1px.png"/>
 	<img id="slide1" class="slide top left" alt="" src="/mt/icons/blank1px.png"/>
 	<div id="videoSlide" class="inlineBlock centered"></div>
 
-	<div class="title hidden-print captionTop">{{rc.title()}}</div>
-	<div class="bottomLeftCorner right maxWidthHalf translucent text">{{rc.displayProperty(rc.recipe,"CookingTime", "minute")}}{{displayProperty(rc.recipe,"PrepTime", "minute")}}{{rc.displayProperty(rc.recipe,"TotalTime", "minute")}}</div>
-	<div class="bottomRightCorner maxWidthHalf translucent text">{{rc.displayProperty(rc.recipe,"Author")}}{{rc.displayProperty(rc.recipe,"YieldCount", rc.recipe.YieldUnitTypeID , "Yield")}}</div>
-</div>
 
-<div class="container marginV">
-<div class="title hidden-print" ng-show="!rc.hasPhoto">{{rc.title()}}</div>
+	<div class="headerLeftCorner" ng-if="rc.pics.length>1">
+		<a id="prevButton" class="icon32 glyphicon glyphicon-step-backward textOutline" title="previous" ng-click="rc.slideshow.showNextImage(-1)"></a>
+	</div>
+	<div class="headerRightCorner" ng-if="rc.pics.length>1">
+		<a id="nextButton" class="icon32 glyphicon glyphicon-step-forward textOutline" title="next"  ng-click="rc.slideshow.showNextImage(+1)"></a>
+		<br/>
+		<a id="playButton" class="icon32 glyphicon glyphicon-pause textOutline" title="play/pause" ng-click="rc.slideshow.togglePlay()"></a>
+	</div>
+
+
+	<div class="bottomLeftCorner right maxWidthHalf translucentWhite text" style="padding:2px;">{{rc.displayProperty(rc.recipe,"CookingTime", "minute")}}{{displayProperty(rc.recipe,"PrepTime", "minute")}}{{rc.displayProperty(rc.recipe,"TotalTime", "minute")}}</div>
+	<div class="bottomRightCorner maxWidthHalf translucentWhite text" style="padding:2px;">{{rc.displayProperty(rc.recipe,"Author")}}{{rc.displayProperty(rc.recipe,"YieldCount", rc.recipe.YieldUnitTypeID , "Yield")}}</div>
+</div>
 
 <div class="" ng-show="!rc.hasPhoto">
 	<div class="floatL right text">{{rc.displayProperty(rc.recipe,"CookingTime", "minute")}}{{displayProperty(rc.recipe,"PrepTime", "minute")}}{{rc.displayProperty(rc.recipe,"TotalTime", "minute")}}</div>
@@ -63,8 +74,5 @@
 		<a target="linkPreview" href="{{link.LinkUrl}}">{{link.LinkTitle || link.LinkUrl}}</a></li>
 	</p>
 </div>
-
-<!--pre class="text" ng-if="rc.recipe.RawText">{{rc.recipe.RawText}}</pre-->
-
 
 </div>

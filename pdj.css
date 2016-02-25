@@ -135,6 +135,7 @@ div#main
 a.glyphicon
 {
     text-decoration: none;
+    cursor: pointer;
 }
 
 .icon32

@@ -327,7 +327,7 @@ function ($scope, $window, $stateParams, RecipeService)
             mtOptions.pics = rc.pics;
             rc.slideshow = new Slideshow(mtOptions);
             rc.slideshow.display();
-            //$window.addEventListener("resize", function() { slideshow.fitImage() } );
+            $window.addEventListener("resize", function() { rc.slideshow.fitImage(); } );
         };
     };
 
