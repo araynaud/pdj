@@ -125,11 +125,8 @@ if(!$offline)
 	      <li ng-show="lc.loggedIn()" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="list" ng-click="lc.logout()">Sign out</a></li>
 
 	      <li ng-show="lc.isAdmin()" data-toggle="collapse" data-target=".isMobile #navbar">
-	      <a href="api/git.php">
-	      	<i class="glyphicon glyphicon-refresh" title="Update from github"></i>
-	      </a>
+		      <a href="api/git.php" class="glyphicon glyphicon-refresh" title="Update from github"></a>
 	      </li>
-
 
 	    </ul>
 	  </div>
