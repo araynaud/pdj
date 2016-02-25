@@ -62,7 +62,11 @@ function ($scope, $window, $stateParams, RecipeService)
         { 
           rc.units.byId = rc.units.indexBy("ID");
           rc.units.byType = rc.units.groupBy("unitType");
-          rc.YieldUnit = rc.units[0]; 
+
+          if(rc.recipe)
+            rc.YieldUnit = rc.units.byId[rc.recipe.YieldUnitTypeID];
+          else
+            rc.YieldUnit = rc.units[0]; 
         });
     };
 
@@ -125,6 +129,8 @@ function ($scope, $window, $stateParams, RecipeService)
           }
 
           rc.recipe = response;
+          if(rc.units)
+            rc.YieldUnit = rc.units.byId[rc.recipe.YieldUnitTypeID];
 
           if(!rc.recipe.RecipeLinks)
             rc.renameField(rc.recipe, "AllRecipeUrls", "RecipeLinks");
