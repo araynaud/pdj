@@ -8,7 +8,7 @@ a.button
 {
 	font-weight: bold;
     text-decoration: none;
-    color:#6EAC2C;    
+    color: #6EAC2C;    
     background-color: #DDD;
     border:1px solid #6d6d6d;
     padding: 1mm;
@@ -19,13 +19,13 @@ a.button
     border-radius: 12px;
     border: 1px solid #AAA;
     margin-top: 5px;
-    background-color:#F8F8F8;
+    background-color: #F8F8F8;
     overflow: hidden;
 }
 
 .categoryTypeTitle
 {
-    background-color:#6EAC2C;
+    background-color: #6EAC2C;
     color:#FFF;
     font-weight: bold;
 }
@@ -38,7 +38,7 @@ a.button
 .category
 {
     border-bottom: 1px solid #AAA;
-    color:#222;
+    color: #222;
     font-size: 0.9em;
     padding-left: 5px;
 }
@@ -122,13 +122,6 @@ img.linkPreview
     vertical-align: middle;   
 }
 
-/* bootstrap overrides */
-
-a.navbar-brand
-{
-    padding: 2px;
-}
-
 .categoryTypeTitle > a
 {
     color: white;
@@ -137,4 +130,45 @@ a.navbar-brand
 div#main
 {
   margin-top: 50px;
+}
+
+/* bootstrap overrides */
+
+a.navbar-brand
+{
+    padding: 2px;
+}
+
+.btn-primary 
+{
+  background-color: #6EAC2C;
+  border-color: #2EA46D;
+}
+
+.btn-primary:focus, .btn-primary.focus 
+{
+  background-color: #5E9C1C;
+  border-color: #12402B;
+}
+
+.btn-primary:hover {
+  background-color: #5E9C1C;
+  border-color: #20744D;
+}
+
+.btn-primary:active, .btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+  background-color: #5E9C1C;
+  border-color: #20744D;
+}
+
+.btn-primary:active:hover, .btn-primary.active:hover,
+.open > .dropdown-toggle.btn-primary:hover,
+.btn-primary:active:focus, .btn-primary.active:focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.btn-primary:active.focus, .btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary.focus 
+{
+  background-color: #20744D;
+  border-color: #12402B;
 }
