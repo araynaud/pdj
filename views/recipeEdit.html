@@ -107,6 +107,10 @@ Categories (category ID) modify search template
           <a ng-click="type.show=!type.show">
             <img ng-src="images/{{type.show ? 'minus' : 'expand'}}.png"/>{{type.Name}}
           </a>
+
+          <a class="category nowrap" ng-repeat="cat in type.Categories" ng-if="rc.selectedCategories[cat.ID]"
+          ng-click="rc.selectedCategories[cat.ID]=false; rc.loadRecipeList();"> {{cat.Name}}</a>
+
         </div>
 
         <div class="scrollY" style="max-height: 140px;">
