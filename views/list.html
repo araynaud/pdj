@@ -64,7 +64,7 @@
 
 		<div class="recipeText">
 			<a class="recipeTitle" ui-sref="recipe({recipeId: recipe.ID})">{{recipe.Name}}</a>
-			<div class="left">{{recipe.Description.substringBefore('.', false, true, true)}}</div>
+			<div class="left">{{rc.firstSentence(recipe.Description)}}</div>
 			<div class="right small">
 				<div class="floatR equalWidth2" ng-repeat="catType in recipe.categories" ng-if="catType.names">
 					{{catType.key}}: 

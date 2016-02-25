@@ -23,9 +23,10 @@ function ($scope, $window, $stateParams, RecipeService)
       rc.hasPhoto = false;
       rc.error = false;
       rc.status = "";
-      
-      initAlbum();
-
+      rc.isNew = RecipeService.stateIs("submit");    
+      rc.isEdit = RecipeService.stateIs("edit");    
+      rc.isView = RecipeService.stateIs("recipe");   
+      rc.initAlbum();
       rc.loadUnits();
       rc.loadCategoryTypes();
       if(rc.categoryTypes)
@@ -63,9 +64,9 @@ function ($scope, $window, $stateParams, RecipeService)
           rc.units.byId = rc.units.indexBy("ID");
           rc.units.byType = rc.units.groupBy("unitType");
 
-          if(rc.recipe)
+          if(rc.isEdit)
             rc.YieldUnit = rc.units.byId[rc.recipe.YieldUnitTypeID];
-          else
+          else if(rc.isNew)
             rc.YieldUnit = rc.units[0]; 
         });
     };
@@ -135,7 +136,7 @@ function ($scope, $window, $stateParams, RecipeService)
           if(!rc.recipe.RecipeLinks)
             rc.renameField(rc.recipe, "AllRecipeUrls", "RecipeLinks");
 
-          if(RecipeService.stateIs('recipe'))
+          if(rc.isView)
           {
             rc.parseRawText();
             rc.loadRecipeSlideshow();
@@ -172,7 +173,7 @@ function ($scope, $window, $stateParams, RecipeService)
 
       var ingredients = rawText.substringAfter("INGREDIENTS:");
       rc.recipe.RecipeIngredients = rc.splitLines(ingredients);
-    }
+    };
 
     //split and filter blank lines
     rc.splitLines = function(s)
@@ -212,7 +213,7 @@ function ($scope, $window, $stateParams, RecipeService)
         rc.form2.directions = rc.recipe.RawText.substringAfter("DIRECTIONS:").substringBefore("TIPS:").trim();
         rc.form2.tips = rc.recipe.RawText.substringAfter("TIPS:").trim();
       }
-    }
+    };
 
     rc.loadLinkMetadata = function()
     {
@@ -303,7 +304,7 @@ function ($scope, $window, $stateParams, RecipeService)
         return rc.query;
     }
 
-    function initAlbum()
+    rc.initAlbum = function()
     {
         if(!$window.Album) return;
 
@@ -363,6 +364,11 @@ function ($scope, $window, $stateParams, RecipeService)
       if(!rc.imgConfig.idDir) id="";
       return String.combine(rc.imgConfig.root, rc.imgConfig.dir, recipe.UserID, recipe.ID, subdir, imageUrl);
     };
+
+    rc.firstSentence = function(str)
+    {
+        return str.substringBefore(".", false, false, true); // || str;
+    }
 
     rc.title = function()
     {
@@ -436,7 +442,6 @@ function ($scope, $window, $stateParams, RecipeService)
       }, 
       rc.errorMessage);
     };
-
 
     rc.cancelEdit = function()
     { 
