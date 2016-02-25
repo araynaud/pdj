@@ -84,9 +84,8 @@ addAllScripts("../foodportrait/directives");
 if(!$offline)	
 	addJavascript("https://www.youtube.com/iframe_api"); 
 ?>
-
 <script type="text/javascript">
-<?php echoJsVar("pdjConfig"); echoJsVar("pdjUser"); echoJsVar("url"); echoJsVar("recipe"); ?>
+<?php echoJsVar("pdjConfig");?>
 </script>
 </head>
 <body class="nomargin bgwhite" ng-class="lc.bodyClasses()" ng-controller="LayoutController as lc">

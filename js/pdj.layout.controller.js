@@ -20,9 +20,7 @@ function ($scope, $window, ConfigService, RecipeService)
         lc.backgroundImage = ConfigService.getConfig("images.background");
         if(lc.backgroundImage)
             lc.backgroundImage = "url({0})".format(lc.backgroundImage);
-
-        ConfigService.user = $window.pdjUser;
-
+        
         lc.toggleSidebar(lc.isWider('sm'));
     };
 

@@ -13,6 +13,8 @@ angular.module('pdjServices')
         this.loginResource = this.getResource("pdj", "Account/:action");
         this.phpLoginResource = $resource("api/login.php");
         this.linkResource = $resource("api/link.php/:url");
+        this.user = window.pdjUser;
+        this.getCurrentUser();
     };
 
     this.getConfig = function(key)
