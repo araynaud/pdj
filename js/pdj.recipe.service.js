@@ -190,6 +190,7 @@ angular.module('pdjServices')
     this.refreshRecipeCategories = function(recipe)
     {
         if(isEmpty(svc.categoryTypes)) return;
+        recipe.tags = svc.getRecipeTags(recipe.CategoryIDs);
         return recipe.categories = svc.getRecipeCategories(recipe.CategoryIDs);
     };
 
@@ -212,6 +213,18 @@ angular.module('pdjServices')
     };
 
     this.getRecipeTags = function(ids)
+    {
+        var cats = [];
+        if(!ids) return "";
+        
+        for(var i=0; i<ids.length; i++)
+            cats.push(svc.categories[ids[i]]);
+
+        var tags = cats.distinct("Name", true, ["Any", "Other", "Unknown"]);
+        return tags;
+    }
+
+    this.getRecipeHashtags = function(ids)
     {
         var cats = [];
         if(!ids) return "";

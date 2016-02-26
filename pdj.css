@@ -145,6 +145,21 @@ div#main
     font-size: 32px;
 }
 
+.recipeTag
+{
+    display: inline-block;
+    min-width: 60px;
+    text-align: center; 
+    margin-left: 5px;
+    margin-top: 5px;
+    background-color: #6EAC2C;
+    color: white;
+    border: 1px solid #1E543D; 
+    font-weight: bold;
+    font-size: .9em;
+    border-radius: 15px;
+}
+
 a.navbar-brand
 {
     padding: 2px;
