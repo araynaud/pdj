@@ -14,6 +14,9 @@ angular.module('pdjServices')
     this.currentState = ConfigService.currentState;
     this.returnToMain = ConfigService.returnToMain;
     this.isMine       = ConfigService.isMine;
+    this.isDebug      = ConfigService.isDebug;
+    this.isMobile     = ConfigService.isMobile;
+
     this.loadLinkMetadata = ConfigService.loadLinkMetadata;
 
     //REST Services

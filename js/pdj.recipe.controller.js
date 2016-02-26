@@ -19,13 +19,14 @@ function ($scope, $window, $stateParams, RecipeService)
       rc.article = {};
       rc.imgConfig = RecipeService.getConfig("images");
       rc.dropdown = RecipeService.getConfig("dropdown");
-      rc.showDebug = ConfigService.isDebug();
+      rc.showDebug = RecipeService.isDebug();
       rc.hasPhoto = false;
       rc.error = false;
       rc.status = "";
       rc.isNew = RecipeService.stateIs("submit");    
       rc.isEdit = RecipeService.stateIs("edit");    
       rc.isView = RecipeService.stateIs("recipe");   
+      rc.isMobile = RecipeService.isMobile();
       rc.initAlbum();
       rc.loadUnits();
       rc.loadCategoryTypes();
