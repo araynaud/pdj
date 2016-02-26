@@ -3,9 +3,9 @@
 <div class="noscroll">
 <div class="title hidden-print textWhiteOutline">{{rc.title()}}</div>
 
-<div id="slideshowContainer" class="centered shrinkW" style="height: 8cm; position: relative;" ng-if="rc.hasPhoto">
-	<img id="slide0" class="hidden-print slide bottom right" style="z-index: -2" alt="" src="/mt/icons/blank1px.png"/>
-	<img id="slide1" class="hidden-print slide top left" style="z-index: -2" alt="" src="/mt/icons/blank1px.png"/>
+<div id="slideshowContainer" class="centered shrinkW" ng-if="rc.hasPhoto">
+	<img id="slide0" class="hidden-print slide bottom right z-2" alt="" src="/mt/icons/blank1px.png"/>
+	<img id="slide1" class="hidden-print slide top left z-2" alt="" src="/mt/icons/blank1px.png"/>
 	<div id="videoSlide" class="hidden-print inlineBlock centered"></div>
 
 	<img id="printImage" class="visible-print-block centered stretchH" ng-src="{{rc.mainImage}}" ng-if="rc.mainImage">
@@ -21,8 +21,8 @@
 		<a id="nextButton" class="icon32 glyphicon glyphicon-step-forward textOutline" title="next"  ng-click="rc.slideshow.showNextImage(+1)"></a>
 	</div>
 
-	<div class="bottomLeftCorner right maxWidthHalf translucentWhite text bold" style="padding:2px;">{{rc.displayProperty(rc.recipe,"CookingTime", "minute")}}{{displayProperty(rc.recipe,"PrepTime", "minute")}}{{rc.displayProperty(rc.recipe,"TotalTime", "minute")}}</div>
-	<div class="bottomRightCorner maxWidthHalf translucentWhite text bold" style="padding:2px;">{{rc.displayProperty(rc.recipe,"Author")}}{{rc.displayProperty(rc.recipe,"YieldCount", rc.recipe.YieldUnitTypeID , "Yield")}}</div>
+	<div class="bottomLeftCorner right maxWidthHalf translucentWhite text pad2">{{rc.displayProperty(rc.recipe,"CookingTime", "minute")}}{{displayProperty(rc.recipe,"PrepTime", "minute")}}{{rc.displayProperty(rc.recipe,"TotalTime", "minute")}}</div>
+	<div class="bottomRightCorner maxWidthHalf translucentWhite text pad2">{{rc.displayProperty(rc.recipe,"Author")}}{{rc.displayProperty(rc.recipe,"YieldCount", rc.recipe.YieldUnitTypeID , "Yield")}}</div>
 </div>
 
 <div class="" ng-if="!rc.hasPhoto">
@@ -34,46 +34,48 @@
 
 <span class="error">{{rc.status}}</span>
 
-<div class="floatR hidden-print" style="margin-left: 10px;">
-	<a ui-sref="edit({recipeId: rc.recipe.ID})"   class="glyphicon glyphicon-edit icon32"   title="Edit Recipe" ng-if="rc.isMine(rc.recipe)"></a>
-	<a ui-sref="upload({recipeId: rc.recipe.ID})" class="glyphicon glyphicon-camera icon32" title="Add photos"  ng-if="rc.isMine(rc.recipe)"></a>
-	<a href="{{rc.shareUrl()}}" title="Direct link" ng-if="rc.recipe.IsPublic"><img alt="link" src="images/link.png"/></a>
-	<a target="facebook" href="{{rc.shareUrl('facebook')}}" title="share on Facebook" ng-if="rc.recipe.IsPublic"><img alt="facebook" src="images/facebook.png"/></a>
-	<a target="twitter" href="{{rc.shareUrl('twitter')}}" title="tweet" ng-if="rc.recipe.IsPublic"><img alt="twitter" src="images/twitter.png"/></a>
-</div>
-
 <p class="text bold">{{rc.recipe.Description}}</p>
+
+<div class="floatR right spaceLeft" style="margin-left: 10px;">
+	<div class="hidden-print" id="recipeIcons">
+		<a ui-sref="edit({recipeId: rc.recipe.ID})"   class="glyphicon glyphicon-edit icon32 spaceLeft"   title="Edit Recipe" ng-if="rc.isMine(rc.recipe)"></a>
+		<a ui-sref="upload({recipeId: rc.recipe.ID})" class="glyphicon glyphicon-camera icon32 spaceLeft" title="Add photos"  ng-if="rc.isMine(rc.recipe)"></a>
+		<a class="spaceLeft" href="{{rc.shareUrl()}}" title="Direct link" ng-if="rc.recipe.IsPublic"><img alt="link" src="images/link.png"/></a>
+		<a class="spaceLeft" target="facebook" href="{{rc.shareUrl('facebook')}}" title="share on Facebook" ng-if="rc.recipe.IsPublic"><img alt="facebook" src="images/facebook.png"/></a>
+		<a class="spaceLeft" target="twitter" href="{{rc.shareUrl('twitter')}}" title="tweet" ng-if="rc.recipe.IsPublic"><img alt="twitter" src="images/twitter.png"/></a>
+	</div>
 <br/>
-<div class="floatR right">
-	<div ng-repeat="catType in rc.recipe.categories">{{catType.key}}: 
-		<span class="bold">{{catType.allNames}}</span>
-	</div>	
+	<div class="bordered pad5">
+		<div ng-repeat="catType in rc.recipe.categories">{{catType.key}}: 
+			<span class="bold">{{catType.allNames}}</span>
+		</div>	
+	</div>
 </div>
 
-<div class="left" ng-if="rc.recipe.RecipeIngredients.length">
+<div class="" ng-if="rc.recipe.RecipeIngredients.length">
 	<h3>Ingredients</h3>
-	<ul class="text inlineBlock nomargin">
+	<ul class="">
 		<li ng-repeat="ingredient in rc.recipe.RecipeIngredients">{{ingredient}}</li>
 	</ul>
 </div>
 
-<div class="left" ng-if="rc.recipe.RecipeSteps.length">
+<div class="" ng-if="rc.recipe.RecipeSteps.length">
 	<h3>Preparation</h3>
-	<ol class="text nomargin">
+	<ol class="">
 		<li ng-repeat="step in rc.recipe.RecipeSteps">{{step}}</li>
 	</ol>
 </div>
 
-<div class="left" ng-if="rc.recipe.AllRecipeTips.length">
+<div class="" ng-if="rc.recipe.AllRecipeTips.length">
 	<h3>Tips</h3>
-	<ul class="text inlineBlock nomargin">
+	<ul class="">
 		<li ng-repeat="tip in rc.recipe.AllRecipeTips">{{tip}}</li>
 	</ul>
 </div>
 
-<div class="left" ng-if="rc.recipe.RecipeLinks.length">
+<div class="" ng-if="rc.recipe.RecipeLinks.length">
 	<h3>Links</h3>
-	<p class="nomargin" ng-repeat="link in rc.recipe.RecipeLinks">
+	<p class="" ng-repeat="link in rc.recipe.RecipeLinks">
 		<a target="linkPreview" href="{{link.LinkUrl}}">{{link.LinkTitle || link.LinkUrl}}</a></li>
 	</p>
 </div>

@@ -48,6 +48,12 @@ a.button
   border-bottom: none;
 }
 
+.bordered
+{
+    border: 1px solid #444;
+    border-radius: 10px;
+}
+
 .recipeListItem
 {
     display: inline-block;
@@ -55,8 +61,6 @@ a.button
     width: 12cm;
     max-width: 90%;
     height: 5cm;
-    border: 1px solid #444;
-    border-radius: 10px;
     overflow: hidden;
 }
 
@@ -64,11 +68,9 @@ a.button
 {
     display: inline-block;
     vertical-align: bottom; 
-    width: 7cm;
+    width: 8cm;
     max-width: 90%;
-    height: 11cm;
-    border: 1px solid #444;
-    border-radius: 10px;
+    height: 10cm;
     overflow: hidden;
 }
 
@@ -78,11 +80,6 @@ a.recipeTitle
     color: orange;
     text-decoration: none;
     font-size: 14pt;
-}
-
-.recipeText
-{
-    padding: 10px;
 }
 
 .recipeImage
@@ -130,13 +127,17 @@ div#main
   margin-top: 50px;
 }
 
-/* bootstrap overrides */
-
-a.glyphicon
+#slideshowContainer
 {
-    text-decoration: none;
-    cursor: pointer;
+    height: 400px; position: relative;
 }
+
+.isMobile #slideshowContainer
+{
+    height: 6cm;
+}
+
+/* bootstrap overrides */
 
 .icon32
 {

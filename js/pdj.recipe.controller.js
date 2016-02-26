@@ -318,7 +318,7 @@ function ($scope, $window, $stateParams, RecipeService)
             rc.pics = albumInstance.selectSlideshowFiles();
             rc.hasPhoto = !isEmpty(rc.pics);
             if(rc.hasPhoto)
-              rc.mainImage = rc.pics[0].getThumbnailUrl(2);
+              rc.mainImage = rc.pics[0].getThumbnailUrl(1);
             $scope.$apply();
 
             var mtOptions = RecipeService.getConfig("MT.album");
