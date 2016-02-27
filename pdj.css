@@ -122,11 +122,6 @@ img.linkPreview
     color: white;
 }
 
-div#main
-{
-  margin-top: 50px;
-}
-
 #slideshowContainer
 {
     height: 400px; position: relative;
@@ -157,11 +152,6 @@ div#main
     font-weight: bold;
     font-size: .8em;
     border-radius: 15px;
-}
-
-a.navbar-brand
-{
-    padding: 2px;
 }
 
 .btn-primary 
