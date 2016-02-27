@@ -32,10 +32,9 @@ angular.module('pdjServices')
         }
 
         var baseUrl = this.getConfig("api."+api+".url");
-        var isExternal = baseUrl &&  (baseUrl.startsWith("//") || baseUrl.containsText("://"));
-        var proxy = isExternal ? this.getConfig("api.proxy") : null;
+        var proxy = String.isExternalUrl(baseUrl) ? this.getConfig("api.proxy") : null;
         var url = String.combine(proxy, baseUrl, url);
-        if(qs) url+= "?" + qs;
+        if(qs) url += "?" + qs;
         return url;
     };
 
