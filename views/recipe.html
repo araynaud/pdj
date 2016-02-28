@@ -18,8 +18,8 @@
 			<a id="nextButton" class="icon32 glyphicon glyphicon-step-forward textOutline" title="next"  ng-click="rc.slideshow.showNextImage(+1)"></a>
 		</div>
 
-		<div class="bottomLeftCorner right maxWidthHalf translucentWhite text pad2">{{rc.displayProperty(rc.recipe,"CookingTime", "minute")}}{{displayProperty(rc.recipe,"PrepTime", "minute")}}{{rc.displayProperty(rc.recipe,"TotalTime", "minute")}}</div>
-		<div class="bottomRightCorner maxWidthHalf translucentWhite text pad2">{{rc.displayProperty(rc.recipe,"Author")}}{{rc.displayProperty(rc.recipe,"YieldCount", rc.recipe.YieldUnitTypeID , "Yield")}}</div>
+		<div class="bottomLeftCorner right maxWidthHalf translucentWhite text pad2 bold">{{rc.displayProperty(rc.recipe,"CookingTime", "minute")}}{{displayProperty(rc.recipe,"PrepTime", "minute")}}{{rc.displayProperty(rc.recipe,"TotalTime", "minute")}}</div>
+		<div class="bottomRightCorner maxWidthHalf translucentWhite text pad2 bold">{{rc.displayProperty(rc.recipe,"Author")}}{{rc.displayProperty(rc.recipe,"YieldCount", rc.recipe.YieldUnitTypeID , "Yield")}}</div>
 	</div>
 
 	<div class="" ng-if="!rc.hasPhoto">
@@ -42,7 +42,7 @@
 			<a class="spaceLeft" target="twitter" href="{{rc.shareUrl('twitter')}}" title="tweet" ng-if="rc.recipe.IsPublic"><img alt="twitter" src="images/twitter.png"/></a>
 		</div>
 		<br/>
-		<div class="bordered pad5">
+		<div class="bordered pad5 bgwhite">
 			<div ng-repeat="catType in rc.recipe.categories">{{catType.key}}: 
 				<span class="bold">{{catType.allNames}}</span>
 			</div>	

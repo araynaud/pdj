@@ -17,9 +17,17 @@ function ($scope, $window, ConfigService, RecipeService)
         lc.showDebug = ConfigService.isDebug();
         lc.userAgent = navigator.userAgent.substringAfter(")", true);
         lc.isMobile = ConfigService.isMobile();
+
         lc.backgroundImage = ConfigService.getConfig("images.background");
         if(lc.backgroundImage)
             lc.backgroundImage = "url({0})".format(lc.backgroundImage);
+
+        lc.overlay = lc.overlayStyle();
+
+        lc.footer = ConfigService.getConfig("footer");
+        if(lc.footer && lc.footer.copyright)
+            lc.footer.copyright = new Date().getFullYear() + " " + lc.footer.copyright;
+
         
         lc.toggleSidebar(lc.isWider('sm'));
     };
@@ -27,7 +35,7 @@ function ($scope, $window, ConfigService, RecipeService)
     lc.apply = function(f)
     {
         $scope.$apply(f);
-    }
+    };
 
     lc.getWindowSize = function()
     {
@@ -40,7 +48,22 @@ function ($scope, $window, ConfigService, RecipeService)
     {
         var isSmall = lc.isMobile || lc.isSmaller("sm");
         return { isMobile: isSmall, isDesktop: !isSmall, aboveFooter: lc.showDebug };
-    }
+    };
+
+    lc.overlayStyle = function()
+    {
+        var overlayColor = ConfigService.getConfig("images.overlay");
+        if(!overlayColor) return;
+
+        if(angular.isArray(overlayColor))
+        {
+            var prefix = "rgb";
+            if(overlayColor.length == 4) prefix="rgba";
+            overlayColor = "{0}({1})".format(prefix, overlayColor.join(","));
+        }
+
+        return { "background-color": overlayColor };
+    };
 
     lc.sidebarWrapperClasses = function()
     {

@@ -89,8 +89,8 @@ if(!$offline)
 </script>
 </head>
 <body class="nomargin bgwhite" ng-class="lc.bodyClasses()" ng-controller="LayoutController as lc">
-	<div class="nomargin bg hidden-print" ng-style="{ 'background-image': lc.backgroundImage }" ng-if="lc.backgroundImage">
-		<div class="translucentWhite stretchH"></div>
+	<div id="background" class="nomargin bg hidden-print" ng-style="{ 'background-image': lc.backgroundImage }" ng-if="lc.backgroundImage">
+		<div id="backgroundOverlay" class="stretchH" ng-style="lc.overlay" ng-if="lc.overlay"></div>
 	</div>
 
 	<div class="visible-print-block" id="printHeader">
@@ -135,8 +135,9 @@ if(!$offline)
   
   <div id="main" ui-view></div>
 
-  <footer class="footer nowrap" ng-if="lc.showDebug">
-    <div class="text-muted"> {{lc.currentState()}} / {{lc.getBootstrapSize()}} {{lc.windowWidth}} x {{lc.windowHeight}} / {{lc.userAgent}}</div>
+  <footer class="nowrap" ng-if="lc.showDebug || lc.footer">
+    <div class="text-muted" ng-if="lc.showDebug">{{lc.currentState()}} / {{lc.getBootstrapSize()}} {{lc.windowWidth}} x {{lc.windowHeight}} / {{lc.userAgent}}</div>
+    <div class="text-muted textWhiteOutline" ng-if="lc.footer.copyright">&copy; {{lc.footer.copyright}} {{lc.footer.message}}</div>
   </footer>
 </body>
 </html>
