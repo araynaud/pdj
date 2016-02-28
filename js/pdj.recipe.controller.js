@@ -15,7 +15,7 @@ function ($scope, $window, $stateParams, RecipeService)
       rc.selectedCategories={};
       rc.plural = plural;
       rc.loading = false;
-      rc.recipe = {};
+      //rc.recipe = {};
       rc.article = {};
       rc.imgConfig = RecipeService.getConfig("images");
       rc.dropdown = RecipeService.getConfig("dropdown");
@@ -131,8 +131,15 @@ function ($scope, $window, $stateParams, RecipeService)
           }
 
           rc.recipe = response;
+console.log("recipe loaded " + response.ID);
           if(rc.units)
             rc.YieldUnit = rc.units.byId[rc.recipe.YieldUnitTypeID];
+
+rc.formatProperty(rc.recipe, "CookingTime", "minute");
+rc.formatProperty(rc.recipe, "PrepTime", "minute");
+rc.formatProperty(rc.recipe, "TotalTime", "minute");
+rc.formatProperty(rc.recipe, "Author");
+rc.formatProperty(rc.recipe, "YieldCount", rc.recipe.YieldUnitTypeID , "Yield");
 
           if(!rc.recipe.RecipeLinks)
             rc.renameField(rc.recipe, "AllRecipeUrls", "RecipeLinks");
@@ -381,17 +388,33 @@ function ($scope, $window, $stateParams, RecipeService)
         return RecipeService.title || defaultTitle; 
     };
 
-    rc.displayProperty = function(obj, key, unit, label)
+    rc.displayProperty = function(key)
+    {
+        if(!rc.props || !rc.props[key]) return;
+        var prop=rc.props[key];
+
+        if(!prop.label) prop.label = String.makeTitle(prop.key);
+        return prop.label + ": <b>" + prop.value + "</b>";
+    };
+
+    rc.formatProperty = function(obj, key, unit, label)
     {
         if(!obj || !obj[key]) return;
         if(!label) label = String.makeTitle(key);
+
+        var value = obj[key];
+        if(!value) return;
+
         if(unit)
         {
           unit = rc.getUnit(unit);
-          return label + ": " + plural(obj[key], unit.Name || unit, unit.PluralName) + "\n";
+          value = plural(obj[key], unit.Name || unit, unit.PluralName) 
         }
 
-        return label + ": " + obj[key] + "\n";
+        if(!rc.props) rc.props = [];
+        var prop = {key: key, label: label, value: value};
+        rc.props.push(prop);
+        rc.props[key] = prop;
     };
 
     rc.getUnit = function(id)
