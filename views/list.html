@@ -60,16 +60,20 @@
 	<div id="item_{{recipe.ID}}" class="recipeListItemTop bordered bgwhite margin shadow" ng-repeat="recipe in rc.list">
 
 		<a ui-sref="recipe({recipeId: recipe.ID})">
-			<img class="recipeImage cover" ng-src="{{rc.recipePhotoUrl(recipe,1)}}" on-error="rc.removeImage" />
+			<crop-image class="recipeImage" src="{{rc.recipePhotoUrl(recipe,1)}}" on-error="rc.removeImage"></crop-image>
 		</a>
 
-		<div class="pad10 bottomLeftCorner0 bgwhite0">
+		<div class="pad10 bgwhite">
 			<div class="centered">
-			<a class="recipeTitle textWhiteOutline" ui-sref="recipe({recipeId: recipe.ID})">{{recipe.Name}}</a>
+				<a class="recipeTitle textWhiteOutline" ui-sref="recipe({recipeId: recipe.ID})">{{recipe.Name}}</a>
 			</div>
 			<div class="left">{{rc.firstSentence(recipe.Description)}}</div>
+		</div>
+
+		<div class="pad5 bottomLeftCorner0 centered">
 			<span class="recipeTag pad2 nowrap" ng-repeat="tag in recipe.tags">{{tag}}</span>
 		</div>
+
 	</div>
 
 </div>
