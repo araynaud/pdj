@@ -18,12 +18,12 @@
 			<a id="nextButton" class="icon32 glyphicon glyphicon-step-forward textOutline" title="next"  ng-click="rc.slideshow.showNextImage(+1)"></a>
 		</div>
 
-		<div class="bottomLeftCorner right maxWidthHalf translucentWhite text pad2 bold">{{rc.displayProperty(rc.recipe,"CookingTime", "minute")}}{{displayProperty(rc.recipe,"PrepTime", "minute")}}{{rc.displayProperty(rc.recipe,"TotalTime", "minute")}}</div>
+		<div class="bottomLeftCorner right maxWidthHalf translucentWhite text pad2 bold">{{rc.displayProperty(rc.recipe,"CookingTime", "minute")}}{{rc.displayProperty(rc.recipe,"PrepTime", "minute")}}{{rc.displayProperty(rc.recipe,"TotalTime", "minute")}}</div>
 		<div class="bottomRightCorner maxWidthHalf translucentWhite text pad2 bold">{{rc.displayProperty(rc.recipe,"Author")}}{{rc.displayProperty(rc.recipe,"YieldCount", rc.recipe.YieldUnitTypeID , "Yield")}}</div>
 	</div>
 
 	<div class="" ng-if="!rc.hasPhoto">
-		<div class="floatL right text">{{rc.displayProperty(rc.recipe,"CookingTime", "minute")}}{{displayProperty(rc.recipe,"PrepTime", "minute")}}{{rc.displayProperty(rc.recipe,"TotalTime", "minute")}}</div>
+		<div class="floatL right text">{{rc.displayProperty(rc.recipe,"CookingTime", "minute")}}{{rc.displayProperty(rc.recipe,"PrepTime", "minute")}}{{rc.displayProperty(rc.recipe,"TotalTime", "minute")}}</div>
 		<div class="floatR right text">{{rc.displayProperty(rc.recipe,"Author")}}{{rc.displayProperty(rc.recipe,"YieldCount", rc.recipe.YieldUnitTypeID , "Yield")}}</div>
 		<br/>
 	</div>
