@@ -60,8 +60,9 @@ function ($scope, $window, $stateParams, RecipeService)
     rc.loadUnits = function()
     { 
       if(!rc.units)
-        RecipeService.loadUnits(rc).then(function() 
+        RecipeService.loadUnits().then(function(response) 
         { 
+          rc.units = response;
           rc.units.byId = rc.units.indexBy("ID");
           rc.units.byType = rc.units.groupBy("unitType");
 

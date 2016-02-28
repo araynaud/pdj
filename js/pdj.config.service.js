@@ -49,13 +49,16 @@ angular.module('pdjServices')
         var deferred = $q.defer();
         if(!obj) obj = this;
 
-        $http.get(url).then(function(response) 
-        {
-            var data = String.parseCsv(response.data, true);
-            if(key)
-                obj[key] = data;
-            deferred.resolve(data);
-        });
+        if(obj[key])
+            deferred.resolve(obj[key]);
+        else
+            $http.get(url).then(function(response) 
+            {
+                var data = String.parseCsv(response.data, true);
+                if(key)
+                    obj[key] = data;
+                deferred.resolve(data);
+            });
         return deferred.promise;
     };
 
