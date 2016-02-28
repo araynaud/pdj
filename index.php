@@ -137,7 +137,7 @@ if(!$offline)
 
   <footer class="nowrap" ng-if="lc.showDebug || lc.footer">
     <div class="text-muted" ng-if="lc.showDebug">{{lc.currentState()}} / {{lc.getBootstrapSize()}} {{lc.windowWidth}} x {{lc.windowHeight}} / {{lc.userAgent}}</div>
-    <div class="text-muted textWhiteOutline2" ng-if="lc.footer.copyright">&copy; {{lc.footer.copyright}} {{lc.footer.message}}</div>
+    <div class="text-muted textWhiteOutline" ng-if="lc.footer.copyright">&copy; {{lc.footer.copyright}} {{lc.footer.message}}</div>
   </footer>
 </body>
 </html>

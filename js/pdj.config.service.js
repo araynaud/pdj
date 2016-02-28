@@ -220,19 +220,19 @@ angular.module('pdjServices')
 
     this.isMobile = function() 
     { 
-        return !!navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|Phone|mobile/i);
-    }
+        return svc.clientIs("Android|webOS|iPhone|iPad|iPod|BlackBerry|Phone|mobile");
+    };
 
     this.clientIs = function(str) 
     { 
         var reg = new RegExp(str, "i");
         return !!navigator.userAgent.match(reg);
-    }
+    };
 
     this.clientIsIE = function() 
     { 
-        return this.clientIs("MSIE|Trident");
-    }
+        return svc.clientIs("MSIE|Trident");
+    };
 
     this.init();
 }]);

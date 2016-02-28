@@ -68,10 +68,11 @@ a.button
 {
     display: inline-block;
     vertical-align: bottom; 
-    width: 8cm;
+    width: 7cm;
     max-width: 90%;
     height: 10cm;
     overflow: hidden;
+    position: relative;
 }
 
 a.recipeTitle
@@ -82,7 +83,7 @@ a.recipeTitle
     font-size: 14pt;
 }
 
-.recipeImage
+.recipeListItem .recipeImage
 {
     height: 100%;
     width: 50%;
