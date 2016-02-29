@@ -14,7 +14,7 @@ $offline = getConfig("debug.offline");
 $recipeid = reqParam("recipe");
 $search = reqParam("search");
 $recipe = $image = $json = null;
-$imageDir = $imageUrlPath = "";
+$name = $imageDir = $imageUrlPath = "";
 
 $pdjUser = pdjCurrentUser();
 //site title
@@ -46,6 +46,12 @@ if($recipe)
 	$image = findFirstImage($imageDir);
 }
 debugText("</div>");
+
+//twitter tags;
+$meta["twitter:card"] = $image ? "photo" : "summary";
+$meta["twitter:site"] = $meta["og:site_name"];
+$meta["twitter:url"]  = $meta["og:url"];
+$meta["twitter:title"] = $name;
 ?>
 <head>
 <title><?=$title?></title>
