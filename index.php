@@ -48,10 +48,11 @@ if($recipe)
 debugText("</div>");
 
 //twitter tags;
-$meta["twitter:card"] = $image ? "photo" : "summary";
+$meta["twitter:card"] = $image ? "summary_large_image" : "summary";
 $meta["twitter:site"] = $meta["og:site_name"];
 $meta["twitter:url"]  = $meta["og:url"];
-$meta["twitter:title"] = $name;
+$meta["twitter:title"] = $meta["og:title"];
+$meta["twitter:description"] = $meta["description"];
 ?>
 <head>
 <title><?=$title?></title>
