@@ -66,7 +66,7 @@ function ($scope, $window, $stateParams, RecipeService)
           rc.units.byId = rc.units.indexBy("ID");
           rc.units.byType = rc.units.groupBy("unitType");
 
-          if(rc.isEdit)
+          if(rc.isEdit && rc.recipe)
             rc.YieldUnit = rc.units.byId[rc.recipe.YieldUnitTypeID];
           else if(rc.isNew)
             rc.YieldUnit = rc.units[0]; 
