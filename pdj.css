@@ -128,11 +128,11 @@ img.linkPreview
     height: 400px; position: relative;
 }
 
-.isMobile #slideshowContainer
+/*.isMobile #slideshowContainer
 {
-    height: 6cm;
+    height: 8cm;
 }
-
+*/
 /* bootstrap overrides */
 
 .icon32

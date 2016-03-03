@@ -20,7 +20,10 @@ function ($scope, $window, ConfigService, RecipeService)
 
         lc.backgroundImage = ConfigService.getConfig("images.background");
         if(lc.backgroundImage)
+        {
             lc.backgroundImage = "url({0})".format(lc.backgroundImage);
+            lc.backgroundImage = { 'background-image': lc.backgroundImage, 'z-index': -30 }
+        }
 
         lc.overlay = lc.overlayStyle();
 

@@ -1,11 +1,11 @@
+<div class="title hidden-print textWhiteOutline">{{rc.title()}}</div>
 <div class="noscroll" ng-class="{container: !rc.isMobile}">
-	<div class="title hidden-print textWhiteOutline">{{rc.title()}}</div>
 
 	<div id="slideshowContainer" class="centered shrinkW" ng-if="rc.hasPhoto">
 		<img id="printImage" class="visible-print-block centered stretchH" ng-src="{{rc.mainImage}}" ng-if="rc.mainImage"/>
 
-		<img id="slide0" class="hidden-print slide bottom right z-2" alt="" src="/mt/icons/blank1px.png"/>
-		<img id="slide1" class="hidden-print slide top left z-2" alt="" src="/mt/icons/blank1px.png"/>
+		<img id="slide0" class="hidden-print slide bottom right" alt="" src="/mt/icons/blank1px.png"/>
+		<img id="slide1" class="hidden-print slide top left" alt="" src="/mt/icons/blank1px.png"/>
 
 		<div class="headerLeftCorner hidden-print">
 			<a id="zoomButton" class="icon32 glyphicon glyphicon-zoom-in textOutline" title="zoom" ng-click="rc.slideshow.toggleZoom()"></a>
