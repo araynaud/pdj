@@ -125,14 +125,14 @@ img.linkPreview
 
 #slideshowContainer
 {
-    height: 400px; position: relative;
+    height: 500px; position: relative;
 }
 
-/*.isMobile #slideshowContainer
+.isMobile #slideshowContainer
 {
-    height: 8cm;
+    height: 300px;
 }
-*/
+
 /* bootstrap overrides */
 
 .icon32
