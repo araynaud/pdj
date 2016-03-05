@@ -2,8 +2,8 @@
 
 // =========== RecipeController ===========
 angular.module('pdjControllers')
-.controller('RecipeController', ['$scope', '$window', '$stateParams', 'RecipeService',  
-function ($scope, $window, $stateParams, RecipeService)
+.controller('RecipeController', ['$scope', '$window', '$stateParams', 'RecipeService',  'AlbumService',
+function ($scope, $window, $stateParams, RecipeService, AlbumService)
 {
     var rc = this;
     window.RecipeController = this;
@@ -27,7 +27,6 @@ function ($scope, $window, $stateParams, RecipeService)
       rc.isEdit = RecipeService.stateIs("edit");    
       rc.isView = RecipeService.stateIs("recipe");   
       rc.isMobile = RecipeService.isMobile();
-      rc.initAlbum();
       rc.loadUnits();
       rc.loadCategoryTypes();
       if(rc.categoryTypes)
@@ -136,11 +135,11 @@ console.log("recipe loaded " + response.ID);
           if(rc.units)
             rc.YieldUnit = rc.units.byId[rc.recipe.YieldUnitTypeID];
 
-rc.formatProperty(rc.recipe, "CookingTime", "minute");
-rc.formatProperty(rc.recipe, "PrepTime", "minute");
-rc.formatProperty(rc.recipe, "TotalTime", "minute");
-rc.formatProperty(rc.recipe, "Author");
-rc.formatProperty(rc.recipe, "YieldCount", rc.recipe.YieldUnitTypeID , "Yield");
+          rc.formatProperty(rc.recipe, "CookingTime", "minute");
+          rc.formatProperty(rc.recipe, "PrepTime", "minute");
+          rc.formatProperty(rc.recipe, "TotalTime", "minute");
+          rc.formatProperty(rc.recipe, "Author");
+          rc.formatProperty(rc.recipe, "YieldCount", rc.recipe.YieldUnitTypeID , "Yield");
 
           if(!rc.recipe.RecipeLinks)
             rc.renameField(rc.recipe, "AllRecipeUrls", "RecipeLinks");
@@ -191,14 +190,38 @@ rc.formatProperty(rc.recipe, "YieldCount", rc.recipe.YieldUnitTypeID , "Yield");
       return s.trim().split("\n").filter(function(s) { return s.trim(); });
     };
 
+    rc.getRecipeAlbumPath = function()
+    {
+       if(!rc.recipe) return null;
+       return String.combine(RecipeService.getConfig("MediaThingy.imagesRoot"), RecipeService.getConfig("images.dir"), rc.recipe.UserID, rc.recipe.ID);
+    }
+
     rc.loadRecipeSlideshow = function()
     {
       //load photo slideshow
       if(!$window.Album) return;
 
-      var path = String.combine(RecipeService.getConfig("MediaThingy.imagesRoot"), RecipeService.getConfig("images.dir"), rc.recipe.UserID, rc.recipe.ID);
-      Album.getAlbumAjax("album", {path: path }, true);
-    }
+      var path = rc.getRecipeAlbumPath();
+      if(!path) return;
+
+      AlbumService.loadAlbum(path).then(function(albumInstance)
+      {
+          rc.hasPhoto = AlbumService.hasPhoto();
+          if(!rc.hasPhoto) return;
+
+          rc.pics = AlbumService.pics;
+          rc.mainImage = AlbumService.mainImage();
+
+          var mtOptions = RecipeService.getConfig("MT.slideshow") || {};
+          mtOptions.pics = rc.pics;
+//          $scope.$apply();
+
+          rc.slideshow = new Slideshow(mtOptions, albumInstance);
+          rc.slideshow.setContainer("#slideshowContainer");
+          rc.slideshow.display();
+          $window.addEventListener("resize", function() { rc.slideshow.fitImage(); } );
+      });
+    };
 
     //prepare data for edit form
     rc.initEditForm = function()
@@ -312,36 +335,6 @@ rc.formatProperty(rc.recipe, "YieldCount", rc.recipe.YieldUnitTypeID , "Yield");
         rc.query = words.join(" ");
         return rc.query;
     }
-
-    rc.initAlbum = function()
-    {
-        if(!$window.Album) return;
-
-        //use proxy script if cross domain
-        Album.serviceUrl = RecipeService.getConfig("MediaThingy.root"); 
-        Album.proxy = RecipeService.getConfig("api.proxy");
-
-        Album.onLoad = function (albumInstance) 
-        {
-            rc.album = albumInstance;
-            rc.pics = albumInstance.selectSlideshowFiles();
-            rc.hasPhoto = !isEmpty(rc.pics);
-            if(rc.hasPhoto)
-              rc.mainImage = rc.pics[0].getThumbnailUrl(1);
-            $scope.$apply();
-
-            var mtOptions = RecipeService.getConfig("MT.album");
-            albumInstance.setOptions(mtOptions);
-
-            mtOptions = RecipeService.getConfig("MT.slideshow") || {}
-            mtOptions.elements = {container: "#slideshowContainer"};
-            mtOptions.pics = rc.pics;
-
-            rc.slideshow = new Slideshow(mtOptions);
-            rc.slideshow.display();
-            $window.addEventListener("resize", function() { rc.slideshow.fitImage(); } );
-        };
-    };
 
     rc.setTitle = function(t)
     {

@@ -9,8 +9,8 @@
     <input type="file" id="inputFiles" ngf-select ng-model="uc.files" name="file" ngf-multiple="true" 
         accept="image/*" required ngf-change="uc.upload()" style="width: 0px; height: 0px; " />
 
-    <div class="col-sm-12 col-md-8 col-md-offset-2" ng-if="uc.imageUrl"> 
-      <img class="preview img-responsive" ng-class="{portrait: uc.form.image_width < uc.form.image_height}" ng-src="{{uc.imageUrl}}"/> 
+    <div class="col-sm-12 col-md-8 col-md-offset-2" ng-repeat="mf in uc.pics"> {{mf.name}}
+      <img class="preview img-responsive" ng-class="" ng-src="{{mf.getThumbnailUrl()}}"/> 
     </div>
 
     <p class="col-md-6">

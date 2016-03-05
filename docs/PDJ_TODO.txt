@@ -2,6 +2,8 @@
 -- try angular bootstrap typeahead
 -- display parsed/unparsed recipes the same way: split rawText
 
+new Recipe: use localStorage.recipe when field on change or every minute
+
 pdj amazon
 x1 angular 1.4
 x2 bootstrap

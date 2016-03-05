@@ -65,8 +65,11 @@ angular.module('pdjServices')
 //go to default page if not logged in
     this.requireLogin = function()
     {
-        if(!svc.user && !svc.isOffline())
-            $state.go('list');
+        this.getCurrentUser().then(function()
+        {
+            if(!svc.user && !svc.isOffline())
+                $state.go('list');
+        });
     };
 
     this.stateIs = function(st)
