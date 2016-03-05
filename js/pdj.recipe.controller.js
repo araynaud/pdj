@@ -2,12 +2,11 @@
 
 // =========== RecipeController ===========
 angular.module('pdjControllers')
-.controller('RecipeController', ['$scope', '$window', '$stateParams', 'RecipeService',  'AlbumService',
-function ($scope, $window, $stateParams, RecipeService, AlbumService)
+.controller('RecipeController', ['$window', '$stateParams', '$timeout', 'RecipeService',  'AlbumService',
+function ($window, $stateParams, $timeout, RecipeService, AlbumService)
 {
     var rc = this;
     window.RecipeController = this;
-    RecipeController.scope = $scope;
 
     rc.init = function()
     {
@@ -214,11 +213,12 @@ console.log("recipe loaded " + response.ID);
 
           var mtOptions = RecipeService.getConfig("MT.slideshow") || {};
           mtOptions.pics = rc.pics;
-//          $scope.$apply();
 
           rc.slideshow = new Slideshow(mtOptions, albumInstance);
           rc.slideshow.setContainer("#slideshowContainer");
           rc.slideshow.display();
+
+          $timeout(function() { rc.slideshow.fitImage() }, 0);
           $window.addEventListener("resize", function() { rc.slideshow.fitImage(); } );
       });
     };
