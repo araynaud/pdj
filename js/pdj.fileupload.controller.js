@@ -3,8 +3,8 @@
 // =========== File Upload Controller ===========
 // handles query and gallery display
 angular.module('pdjControllers')
-.controller('UploadController', ['$window', '$stateParams', 'Upload', 'ConfigService',
-function ($window, $stateParams, Upload, ConfigService)
+.controller('UploadController', ['$window', '$stateParams', 'Upload', 'ConfigService', 'AlbumService',
+function ($window, $stateParams, Upload, ConfigService, AlbumService)
 {
     var uc = this;
     $window.UploadController = this;
@@ -29,6 +29,13 @@ function ($window, $stateParams, Upload, ConfigService)
 
 //load existing recipe info from DB
 //check if user has access to it.
+
+    uc.getRecipeAlbumPath = function()
+    {
+       if(!uc.recipe) return null;
+       return String.combine(RecipeService.getConfig("MediaThingy.imagesRoot"), RecipeService.getConfig("images.dir"), uc.recipe.UserID, uc.recipe.ID);
+    }
+
     uc.loadData = function()
     {
         if(!uc.recipeId) return;
@@ -42,12 +49,34 @@ function ($window, $stateParams, Upload, ConfigService)
             return RecipeService.returnToMain(2000);
           }
           uc.recipe = response;
+          uc.loadRecipeImages();
 
           if(!uc.isMine(uc.recipe))
             return RecipeService.returnToMain();
         }, 
         uc.errorMessage);
     };
+
+    uc.loadRecipeImages = function()
+    {
+      //load photo slideshow
+      if(!$window.Album) return;
+
+      var path = uc.getRecipeAlbumPath();
+      if(!path) return;
+
+      AlbumService.loadAlbum(path).then(function(albumInstance)
+      {
+          uc.hasPhoto = AlbumService.hasPhoto();
+          if(!uc.hasPhoto) return;
+
+          uc.pics = AlbumService.pics;
+          uc.mainImage = AlbumService.mainImage();
+
+      });
+    };
+
+
 
     uc.errorMessage =  function (result)
     {
