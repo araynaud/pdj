@@ -172,4 +172,47 @@ function processImage($uploadDir, $filename)
     return addVarsToArray($result, "filename filesize mimeType dateTaken description", $vars);
 }
 
+
+//is current user owner of recipe
+function isOwner($path)
+{
+    // /RecipeImages/1/34/34.jpg
+    $patharr = explode("/", $path);
+    $recipeId = array_pop($patharr);
+    $recipeUserId = array_pop($patharr);
+
+    $pdjUser = pdjCurrentUser();
+    return $pdjUser["UserID"] == $recipeUserId;
+}
+
+function deleteImage($relPath, $file)
+{
+    $message = "deleting file $relPath/$file";
+    $result = deleteFile($relPath, $file);
+
+    //delete thumbnails
+    $tnsizes = getConfig("thumbnails.sizes");
+    foreach($tnsizes as $dir => $size)
+    {
+        $message .= " deleting file .$dir/$file";
+        $result += deleteFile("$relPath/.$dir", $file);
+    }
+    return $result;
+}
+
+function renameImage($relPath, $file, $newName)
+{
+    $message = " Renaming file $relPath/$file to $newName.";
+    $result = renameFile($relPath, $file, $newName);
+
+    //rename thumbnails
+    $tnsizes = getConfig("thumbnails.sizes");
+    foreach($tnsizes as $dir => $size)
+    {
+        $message .= " renaming file .$dir/$file";
+        $result += renameFile("$relPath/.$dir", $file, $newName);
+    }
+    return $result;
+}
+
 ?>
