@@ -41,7 +41,6 @@ else if($action == "rename")
 else if($action == "main")
 {
 	$newName = $recipeId;
-//	$result = renameImage($relPath, $file, $recipeId);
 	$result = setImageAsMain($relPath, $file, $newName);
 }
 

@@ -52,7 +52,6 @@ angular.module('pdjServices')
         return isEmpty(svc.pics) ? null : svc.pics[0].getThumbnailUrl(1);
     };
 
-
     svc.deleteImage = function(path, file)
     {
         var startTime = new Date();

@@ -1,5 +1,7 @@
-    <br/>
+<div class="title hidden-print textWhiteOutline">{{rc.title()}}</div>
+
 <form class="file-uploader container" name="uploadForm">
+<h3>Add new images</h3>
     <div class="col-sm-4 col-sm-offset-4"> 
         <label for="inputFiles" class="uploadThumbnail shadow">
           <div class="uploadLabel" ng-if="!uc.uploadUrl">Click to Select Photo<br/>{{uc.progressPercentage}}</div>
@@ -10,9 +12,16 @@
         accept="image/*" required ngf-change="uc.upload()" style="width: 0px; height: 0px; " />
 <br/>
 
-<h3>Current recipe images</h3>
-<div ng-repeat="mf in uc.pics" class="inlineBlock">  
-    <crop-image classs="recipeThumb" title="{{mf.name}}" ng-src="{{mf.getThumbnailUrl()}}"></crop-image>
+<h3>Main image</h3>
+<div ng-repeat="mf in uc.pics" ng-if="mf.name == uc.recipe.ID" class="inlineBlock">  
+    <crop-image class="recipeThumb bordered" title="{{mf.name}}" ng-src="{{ uc.thumbnailUrl(mf) }}"></crop-image>
+    {{mf.filename}}
+    <a ng-click="uc.deleteImage(mf)">Delete</a>
+</div>
+
+<h3>Other images</h3>
+<div ng-repeat="mf in uc.pics" ng-if="mf.name != uc.recipe.ID" class="inlineBlock">  
+    <crop-image class="recipeThumb" title="{{mf.name}}" ng-src="{{ uc.thumbnailUrl(mf) }}"></crop-image>
     {{mf.filename}}
     <a ng-click="uc.deleteImage(mf)">Delete</a>
     <a ng-click="uc.setMainImage(mf)">Main</a>

@@ -115,12 +115,7 @@ function processUpload($file, $subdir)
     $uploadDir  = combine($dataRoot, $subdir);
     
     //first image uploaded in dir will be called id.jpg
-    if(!is_dir($uploadDir)) 
-    {
-        $id = substringAfterLast($subdir, "/");
-        $ext = getFilenameExtension($filename);
-        $filename = "$id.$ext";
-    }
+    $setMain = !is_dir($uploadDir);
 
     createDir($dataRoot, $subdir);
     $uploadedFile = combine($dataRoot, $subdir, $filename);
@@ -130,7 +125,14 @@ function processUpload($file, $subdir)
     if(!$success)
         return errorMessage("Cannot move file into target dir.");
 
-    return processImage($uploadDir, $filename);
+    $result = processImage($uploadDir, $filename);
+
+    if($setMain)
+    {
+        $recipeId = substringAfterLast($subdir, "/");
+        $result["main"] = setImageAsMain($uploadDir, $filename, $recipeId);
+    }
+    return $result;
 }
 
 //process image in data folder: extract metadata, resize

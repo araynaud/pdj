@@ -131,7 +131,6 @@ function ($window, $stateParams, Upload, ConfigService, AlbumService)
             uc.progressPercentage="";
             data.exists=true;
             uc.uploadUrl = uc.getImageUrl(data, ".tn");
-            uc.parseDate(data.dateTaken);
             uc.message = data.message;
             //TODO: message ng-class depending on data.success
             if(data.description)
@@ -177,6 +176,8 @@ function ($window, $stateParams, Upload, ConfigService, AlbumService)
     uc.uploadNextFile = function()
     {
         uc.index++;
+        uc.loadRecipeImages();
+
         if(isEmpty(uc.files) || uc.index >= uc.files.length) return;
         var file = uc.files[uc.index];
         uc.addLog();
@@ -190,16 +191,8 @@ function ($window, $stateParams, Upload, ConfigService, AlbumService)
         var path = uc.getRecipeAlbumPath();
         AlbumService.deleteImage(path, mf.filename).then(function(response)
         {
-            alert(app.toJson(response,true));
-        });
-    };
-
-    uc.renameImage = function(mf)
-    {
-        var path = uc.getRecipeAlbumPath();
-        AlbumService.renameImage(path, mf.filename).then(function(response)
-        {
-            alert(app.toJson(response,true));
+//            alert(app.toJson(response,true));
+          uc.loadRecipeImages();
         });
     };
 
@@ -208,8 +201,17 @@ function ($window, $stateParams, Upload, ConfigService, AlbumService)
         var path = uc.getRecipeAlbumPath();
         AlbumService.renameImage(path, mf.filename).then(function(response)
         {
-            alert(app.toJson(response,true));
+//            alert(app.toJson(response,true));
+          uc.loadRecipeImages();
         });
+    };
+
+
+    //append current time to avoid image caching
+    uc.thumbnailUrl =  function(mf, tnindex)
+    {
+        if(!mf) return null;
+        return mf.getThumbnailUrl(tnindex) + '?t=' + (+new Date());
     };
 
 
