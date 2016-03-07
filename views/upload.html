@@ -12,21 +12,22 @@
         accept="image/*" required ngf-change="uc.upload()" style="width: 0px; height: 0px; " />
 <br/>
 
+<a ng-click="uc.loadRecipeImages()">refresh</a>
+{{uc.lastUpdate}}
 <h3>Main image</h3>
 <div ng-repeat="mf in uc.pics" ng-if="mf.name == uc.recipe.ID" class="inlineBlock">  
-    <crop-image class="recipeThumb bordered" title="{{mf.name}}" ng-src="{{ uc.thumbnailUrl(mf) }}"></crop-image>
+    <crop-image class="recipeThumb bordered" title="{{mf.name}}" ng-src="{{ uc.thumbnailUrl(mf, true) }}"></crop-image>
     {{mf.filename}}
     <a ng-click="uc.deleteImage(mf)">Delete</a>
 </div>
 
 <h3>Other images</h3>
 <div ng-repeat="mf in uc.pics" ng-if="mf.name != uc.recipe.ID" class="inlineBlock">  
-    <crop-image class="recipeThumb" title="{{mf.name}}" ng-src="{{ uc.thumbnailUrl(mf) }}"></crop-image>
+    <crop-image class="recipeThumb bordered" title="{{mf.name}}" ng-src="{{ uc.thumbnailUrl(mf) }}"></crop-image>
     {{mf.filename}}
     <a ng-click="uc.deleteImage(mf)">Delete</a>
     <a ng-click="uc.setMainImage(mf)">Main</a>
 </div>
-
 <br/>
 
     <p class="col-md-6">

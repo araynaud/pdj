@@ -72,11 +72,10 @@ function ($window, $stateParams, Upload, ConfigService, AlbumService)
 
           uc.pics = AlbumService.pics;
           uc.mainImage = AlbumService.mainImage();
+          uc.lastUpdate = +(new Date());
 
       });
     };
-
-
 
     uc.errorMessage =  function (result)
     {
@@ -192,7 +191,8 @@ function ($window, $stateParams, Upload, ConfigService, AlbumService)
         AlbumService.deleteImage(path, mf.filename).then(function(response)
         {
 //            alert(app.toJson(response,true));
-          uc.loadRecipeImages();
+            uc.loadRecipeImages();  
+            uc.lastUpdate = +(new Date());
         });
     };
 
@@ -202,18 +202,19 @@ function ($window, $stateParams, Upload, ConfigService, AlbumService)
         AlbumService.renameImage(path, mf.filename).then(function(response)
         {
 //            alert(app.toJson(response,true));
-          uc.loadRecipeImages();
+            uc.loadRecipeImages();
+            uc.lastUpdate = +(new Date());
         });
     };
 
 
     //append current time to avoid image caching
-    uc.thumbnailUrl =  function(mf, tnindex)
+    uc.thumbnailUrl =  function(mf, update)
     {
         if(!mf) return null;
-        return mf.getThumbnailUrl(tnindex) + '?t=' + (+new Date());
+        if(!update || !uc.lastUpdate) return mf.getThumbnailUrl();
+        return mf.getThumbnailUrl() + '?t=' + uc.lastUpdate;
     };
-
 
     uc.confirmDelete = function () 
     {

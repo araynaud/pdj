@@ -47,7 +47,7 @@ else if($action == "main")
 if(!$result) $newName="";
 
 $response = array();
-addVarsToArray($response, "recipeId recipeUserId message result newName");
+addVarsToArray($response, "recipeId recipeUserId message result relPath newName");
 $response["time"] = getTimer(true);
 echo jsValue($response, true, true);
 ?>
