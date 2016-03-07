@@ -215,4 +215,20 @@ function renameImage($relPath, $file, $newName)
     return $result;
 }
 
+function setImageAsMain($relPath, $file, $newName)
+{
+    $message = " Copying file $relPath/$file to $newName.";
+    $result = copyFile($relPath, $file, $relPath, $newName);
+
+    //rename thumbnails
+    $tnsizes = getConfig("thumbnails.sizes");
+    foreach($tnsizes as $dir => $size)
+    {
+        $message .= " renaming file .$dir/$file";
+        $result += copyFile("$relPath/.$dir", $file, "$relPath/.$dir", $newName);
+    }
+    return $result;
+}
+
+
 ?>

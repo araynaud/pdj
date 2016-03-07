@@ -185,36 +185,33 @@ function ($window, $stateParams, Upload, ConfigService, AlbumService)
         uc.uploadFile(file);
     };
 
-    uc.parseDate = function(dt)
+    uc.deleteImage = function(mf)
     {
-        if(!dt) return; // uc.dateTaken = uc.form.image_date_taken = null;
-
-        uc.dateTaken = dt.replace(/-/g, '/');
-        uc.form.image_date_taken = new Date(uc.dateTaken);
-        return uc.form.image_date_taken;
-    };
-
-    //select meal based on photo time
-    uc.getCourses = function()
-    {
-        var mealId = uc.form.meal; 
-        if(!mealId) return [];
-        return uc.meals.byName[mealId].courses || [];
-    };
-
-    //post details
-    //update db record
-    uc.saveUpload = function () 
-    {
-        //file is already uploaded: post only form data to upload api
-        Upload.upload({ url: 'api/upload.php', fields: uc.form }).success(function (data, status, headers, config) 
+        var path = uc.getRecipeAlbumPath();
+        AlbumService.deleteImage(path, mf.filename).then(function(response)
         {
-            uc.message=data.message;
-            if(data.success)
-                ConfigService.returnToMain();
-            uc.addLog(data);
+            alert(app.toJson(response,true));
         });
     };
+
+    uc.renameImage = function(mf)
+    {
+        var path = uc.getRecipeAlbumPath();
+        AlbumService.renameImage(path, mf.filename).then(function(response)
+        {
+            alert(app.toJson(response,true));
+        });
+    };
+
+    uc.setMainImage = function(mf)
+    {
+        var path = uc.getRecipeAlbumPath();
+        AlbumService.renameImage(path, mf.filename).then(function(response)
+        {
+            alert(app.toJson(response,true));
+        });
+    };
+
 
     uc.confirmDelete = function () 
     {

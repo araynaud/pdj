@@ -4,7 +4,7 @@ require_once("../include/includes.php");
 session_start(); 
 
 // 1 check if current user is owner of this recipe / dir
-$path = getPath();
+$path = reqPath();
 $relPath = getDiskPath($path);
 $pdjUser = pdjCurrentUser();
 $username = pdjCurrentUsername();
@@ -13,9 +13,9 @@ $patharr = explode("/", $path);
 $recipeId = array_pop($patharr);
 $recipeUserId = array_pop($patharr);
 
-$file = getParam("file");
-$action = getParam("action");
-$newName = getParam("to");
+$file = reqParam("file");
+$action = reqParam("action");
+$newName = reqParam("to");
 $result=false;
 $message="";
 debugVar("filePath");
@@ -40,11 +40,15 @@ else if($action == "rename")
 }
 else if($action == "main")
 {
-	$result = renameImage($relPath, $file, $recipeId);
+	$newName = $recipeId;
+//	$result = renameImage($relPath, $file, $recipeId);
+	$result = setImageAsMain($relPath, $file, $newName);
 }
 
+if(!$result) $newName="";
+
 $response = array();
-addVarsToArray($response, "username pdjUser recipeId recipeUserId message result");
+addVarsToArray($response, "recipeId recipeUserId message result newName");
 $response["time"] = getTimer(true);
 echo jsValue($response, true, true);
 ?>

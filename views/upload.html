@@ -11,7 +11,12 @@
 <br/>
 
 <h3>Current recipe images</h3>
-    <crop-image ng-repeat="mf in uc.pics" class="inlineBlock recipeThumb" title="{{mf.name}}" ng-src="{{mf.getThumbnailUrl()}}"></crop-image>
+<div ng-repeat="mf in uc.pics" class="inlineBlock">  
+    <crop-image classs="recipeThumb" title="{{mf.name}}" ng-src="{{mf.getThumbnailUrl()}}"></crop-image>
+    {{mf.filename}}
+    <a ng-click="uc.deleteImage(mf)">Delete</a>
+    <a ng-click="uc.setMainImage(mf)">Main</a>
+</div>
 
 <br/>
 

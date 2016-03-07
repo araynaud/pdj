@@ -22,6 +22,7 @@ angular.module('pdjServices')
         svc.defaults = { data: "album", config: true, details: 3 };
         svc.albumResource =  $resource(svc.serviceUrl, svc.defaults);
 
+        svc.actionResource =  $resource("api/action.php", svc.defaults);
         svc.options = svc.getConfig("MT.album");        
     };
 
@@ -50,6 +51,33 @@ angular.module('pdjServices')
     {
         return isEmpty(svc.pics) ? null : svc.pics[0].getThumbnailUrl(1);
     };
+
+
+    svc.deleteImage = function(path, file)
+    {
+        var startTime = new Date();
+        var deferred = $q.defer();
+        svc.actionResource.get({path: path, file: file, action: "delete"}, function(response)
+        {
+            response.requestTime = new Date() - startTime;
+            deferred.resolve(response);
+        });
+        return deferred.promise;
+    };
+
+    svc.renameImage = function(path, file, to)
+    {
+        var startTime = new Date();
+        var deferred = $q.defer();
+        var action = to ? "rename" : "main";
+        svc.actionResource.get({path: path, file: file, to: to, action: action}, function(response)
+        {
+            response.requestTime = new Date() - startTime;
+            deferred.resolve(response);
+        });
+        return deferred.promise;
+    };
+
 
     svc.init();
 }]);
