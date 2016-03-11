@@ -3,8 +3,8 @@
 // =========== LoginController ===========
 // handles login (sign in), register (sign up), logout, 
 angular.module('pdjControllers')
-.controller('LoginController', ['$window', 'ConfigService', 'LocationService',
-function ($window, ConfigService, LocationService)
+.controller('LoginController', ['$scope', '$window', 'ConfigService', 'LocationService',
+function ($scope, $window, ConfigService, LocationService)
 {
     //TODO:
     //post login, md5(password)
@@ -14,13 +14,14 @@ function ($window, ConfigService, LocationService)
     //else : unset session["username"]
     //return user object with name
     var lc = this;
+    lc.scope = $scope;
     $window.LoginController = this;
 
     lc.init = function()
     {
         lc.showDebug = ConfigService.isDebug();
         lc.form = {};
-        lc.formFields = "username password confirmPassword email".split(" ");
+        lc.formFields = "username email password confirmPassword firstName lastName".split(" ");
         lc.locationFields = "City District RegionName RegionCode CountryName CountryCode".split(" ");
 
         var defaultLogin = ConfigService.getConfig(ConfigService.currentState());
@@ -56,7 +57,7 @@ function ($window, ConfigService, LocationService)
     lc.register = function()
     {
       if(!lc.hasAllFields(lc.form, lc.formFields) || !lc.hasAllFields(lc.location, lc.locationFields))
-        return false;
+        return lc.message = "Please fill all required fields.";
 
       if(lc.form.password != lc.form.confirmPassword)
         return lc.message = "Passwords do not match.";
