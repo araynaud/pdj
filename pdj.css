@@ -193,6 +193,7 @@ img.linkPreview
 div.recipeThumb
 {
     height: 4cm;
+    width: 4cm;
     margin: 5px;
     border-color: #12402B;
 }

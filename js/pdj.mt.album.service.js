@@ -35,8 +35,8 @@ angular.module('pdjServices')
             response.requestTime = new Date() - startTime;
             svc.album = new Album(response);
             svc.album.setOptions(svc.options);
+            svc.dirName = svc.album.path.substringAfter('/', true);
             svc.pics = svc.album.selectSlideshowFiles();
-
             deferred.resolve(svc.album);
         });
         return deferred.promise;
@@ -47,9 +47,20 @@ angular.module('pdjServices')
         return !isEmpty(svc.pics);
     };
 
-    svc.mainImage = function()
+    svc.getByName = function(name)
     {
-        return isEmpty(svc.pics) ? null : svc.pics[0].getThumbnailUrl(1);
+        return svc.album && svc.album.getMediaFileByName(name);
+    };
+
+    svc.getMainImage = function()
+    {
+        return svc.getByName(svc.dirName);
+    };
+
+    svc.mainImageUrl = function()
+    {
+        var mi = svc.getMainImage();
+        return mi && mi.getThumbnailUrl(1);
     };
 
     svc.deleteImage = function(path, file)
@@ -76,7 +87,6 @@ angular.module('pdjServices')
         });
         return deferred.promise;
     };
-
 
     svc.init();
 }]);

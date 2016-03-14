@@ -208,8 +208,9 @@ console.log("recipe loaded " + response.ID);
           rc.hasPhoto = AlbumService.hasPhoto();
           if(!rc.hasPhoto) return;
 
-          rc.pics = AlbumService.pics;
-          rc.mainImage = AlbumService.mainImage();
+          rc.mainImage = AlbumService.getMainImage();
+          rc.mainImageUrl = AlbumService.mainImageUrl();
+          rc.pics = rc.removeDuplicates(AlbumService.pics);
 
           var mtOptions = RecipeService.getConfig("MT.slideshow") || {};
           mtOptions.pics = rc.pics;
@@ -222,6 +223,22 @@ console.log("recipe loaded " + response.ID);
           $window.addEventListener("resize", function() { rc.slideshow.fitImage(); } );
       });
     };
+
+    rc.removeDuplicates = function(pics)
+    {
+      if(!pics || !rc.mainImage) return pics;
+
+      for(var i=0; i<pics.length; i++)
+      {
+        if(pics[i] == rc.mainImage) continue;
+        if(pics[i].size[0] == rc.mainImage.size[0])
+        {
+          pics.remove(rc.mainImage)
+          break;
+        }
+      }
+      return pics;
+    }
 
     //prepare data for edit form
     rc.initEditForm = function()

@@ -71,9 +71,11 @@ function ($window, $stateParams, Upload, ConfigService, AlbumService)
           if(!uc.hasPhoto) return;
 
           uc.pics = AlbumService.pics;
-          uc.mainImage = AlbumService.mainImage();
+          uc.mainImage = AlbumService.getMainImage();
+          if(uc.mainImage)
+            uc.pics.remove(uc.mainImage);
+          uc.mainImageUrl = AlbumService.mainImageUrl();
           uc.lastUpdate = +(new Date());
-
       });
     };
 
@@ -185,6 +187,11 @@ function ($window, $stateParams, Upload, ConfigService, AlbumService)
         uc.uploadFile(file);
     };
 
+    uc.selectImage = function(mf)
+    {
+        uc.selectedImage = mf;
+    }
+
     uc.deleteImage = function(mf)
     {
         var path = uc.getRecipeAlbumPath();
@@ -207,7 +214,6 @@ function ($window, $stateParams, Upload, ConfigService, AlbumService)
         });
     };
 
-
     //append current time to avoid image caching
     uc.thumbnailUrl =  function(mf, update)
     {
@@ -219,18 +225,6 @@ function ($window, $stateParams, Upload, ConfigService, AlbumService)
     uc.confirmDelete = function () 
     {
         uc.showConfirm = true;
-    };
-
-    uc.deleteFile = function () 
-    {
-        if(!uc.form.upload_id) return;
-        Upload.upload({ url: 'api/delete.php', fields: {upload_id: uc.form.upload_id} }).success(function (data, status, headers, config) 
-        {
-            uc.message=data.message;
-            if(data.success)
-                ConfigService.returnToMain();
-            uc.addLog(data);
-        });
     };
 
     //if upload canceled: delete details

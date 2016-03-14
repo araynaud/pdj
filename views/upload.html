@@ -14,33 +14,33 @@
 
 <a ng-click="uc.loadRecipeImages()">refresh</a>
 {{uc.lastUpdate}}
-<h3>Main image</h3>
-<div ng-repeat="mf in uc.pics" ng-if="mf.name == uc.recipe.ID" class="inlineBlock">  
-    <crop-image class="recipeThumb bordered" title="{{mf.name}}" ng-src="{{ uc.thumbnailUrl(mf, true) }}"></crop-image>
-    {{mf.filename}}
-    <a ng-click="uc.deleteImage(mf)">Delete</a>
+
+<div ng-if="uc.mainImage">
+    <h3>Main image</h3>
+    <crop-image class="recipeThumb bordered" title="{{uc.mainImage.name}}" ng-src="{{uc.thumbnailUrl(uc.mainImage, true)}}"></crop-image>
+    {{uc.mainImage.filename}}
+    <button class="btn" type="button" ng-click="uc.selectImage(uc.mainImage)" data-toggle="modal" data-target="#deleteModal">Delete</button>
 </div>
 
 <h3>Other images</h3>
-<div ng-repeat="mf in uc.pics" ng-if="mf.name != uc.recipe.ID" class="inlineBlock">  
-    <crop-image class="recipeThumb bordered" title="{{mf.name}}" ng-src="{{ uc.thumbnailUrl(mf) }}"></crop-image>
-    {{mf.filename}}
-    <a ng-click="uc.deleteImage(mf)">Delete</a>
-    <a ng-click="uc.setMainImage(mf)">Main</a>
+<div ng-repeat="mf in uc.pics" class="inlineBlock marginH">  
+    <crop-image class="recipeThumb bordered" title="{{mf.filename}}" ng-src="{{uc.thumbnailUrl(mf)}}"></crop-image>
+    <button class="btn btn-primary" type="button" ng-click="uc.setMainImage(mf)">Main</button>
+    <button class="btn" type="button" ng-click="uc.selectImage(mf)" data-toggle="modal" data-target="#deleteModal">Delete</button>
 </div>
-<br/>
 
-    <p class="col-md-6">
-      <button class="btn" type="button" data-toggle="modal" data-target="#deleteModal" ng-disabled="!uc.form.upload_id && !uc.offline">Delete</button>
-      <button class="btn" type="button" ui-sref="recipe({recipeId: uc.recipe.ID})">Back to Recipe</button>
-      <span class="error">{{uc.message}}</span>
-    </p>
-    <div class="col-md-12" ng-if="uc.showDebug"
-      Upload Log:
-      <pre>{{uc.log}}</pre>
-    </div>
+<br/>
+<br/>
+<p>
+  <button class="btn" type="button" ui-sref="recipe({recipeId: uc.recipe.ID})">Back to Recipe</button>
+  <span class="error">{{uc.message}}</span>
+</p>
 </form>
 
+<div class="col-md-12" ng-if="uc.showDebug"
+  Upload Log:
+  <pre>{{uc.log}}</pre>
+</div>
 
 <div id="deleteModal" class="modal fade0 bs-example-modal-sm" role="dialog">
   <div class="modal-dialog">
@@ -50,11 +50,11 @@
         <h4 class="modal-title">Delete File</h4>
       </div>
       <div class="modal-body centered">
-       <img class="" ng-class="{portrait: uc.form.image_width < uc.form.image_height}" ng-src="{{uc.uploadUrl}}"/>
-       <br/> Delete {{uc.form.filename}} ?
+       Delete {{uc.selectedImage.filename}} ?
+        <crop-image class="stretch" title="{{uc.selectedImage.name}}" ng-src="{{ uc.selectedImage.getThumbnailUrl(1) }}"></crop-image>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="uc.deleteFile()">OK</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="uc.deleteImage(uc.selectedImage)">OK</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
