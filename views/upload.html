@@ -22,8 +22,8 @@
     <button class="btn" type="button" ng-click="uc.selectImage(uc.mainImage)" data-toggle="modal" data-target="#deleteModal">Delete</button>
 </div>
 
-<h3>Other images</h3>
-<div ng-repeat="mf in uc.pics" class="inlineBlock marginH">  
+<h3 ng-if="uc.pics.length">Other images</h3>
+<div ng-repeat="mf in uc.pics" class="inlineBlock centered">  
     <crop-image class="recipeThumb bordered" title="{{mf.filename}}" ng-src="{{uc.thumbnailUrl(mf)}}"></crop-image>
     <button class="btn btn-primary" type="button" ng-click="uc.setMainImage(mf)">Main</button>
     <button class="btn" type="button" ng-click="uc.selectImage(mf)" data-toggle="modal" data-target="#deleteModal">Delete</button>
