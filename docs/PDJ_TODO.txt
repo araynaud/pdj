@@ -1,5 +1,27 @@
+Ratings
+
+RecipeReview
+RecipeID UserID Score (1-5) i made this recipe, i would like to have it again
+
+Bookmark recipe to try it
+RecipeId UserId 
+
+when user signed in
+review and bookmark icons available from list and from recipe page.
+show average score and vote
+score widget: 1 PPP-- 5  offIcon, onIcon, + 2 checkboxes: i made it, i'd make it again
+score directive
+
+Publish:
+when user saves a recipe: display message 
+"This recipe is currently private. Other users cannot see it yet. Click Publish so that we review and publish it."
+
+Admin: can publish
+
+--------------
+
 -- link.php : use get_headers to verify url / curl: set user agent and getinfo
--- try angular bootstrap typeahead
+-- try angular bootstrap typeahead https://angular-ui.github.io/bootstrap/
 -- display parsed/unparsed recipes the same way: split rawText
 
 new Recipe: use localStorage.recipe when field on change or every minute
