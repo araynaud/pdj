@@ -1,4 +1,5 @@
 docs/*.jpg
+docs/*.png
 *.mp4
 web.config
 json/old
