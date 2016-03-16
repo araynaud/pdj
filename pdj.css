@@ -123,14 +123,24 @@ img.linkPreview
     color: white;
 }
 
-#slideshowContainer
+@media screen
 {
-    height: 500px; position: relative;
+    #slideshowContainer
+    {
+        height: 500px; 
+        position: relative;
+    }
+
+    #slideshowContainer.split
+    {
+        height: 300px; 
+    }
 }
 
-.isMobile #slideshowContainer
+#slideshowContainer
 {
-    height: 300px;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 /* bootstrap overrides */

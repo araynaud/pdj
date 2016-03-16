@@ -14,6 +14,7 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
       rc.selectedCategories={};
       rc.plural = plural;
       rc.loading = false;
+      rc.split = true;
       //rc.recipe = {};
       rc.article = {};
       rc.imgConfig = RecipeService.getConfig("images");
@@ -218,8 +219,7 @@ console.log("recipe loaded " + response.ID);
           rc.slideshow = new Slideshow(mtOptions, albumInstance);
           rc.slideshow.setContainer("#slideshowContainer");
           rc.slideshow.display();
-
-          $timeout(function() { rc.slideshow.fitImage() }, 0);
+          rc.fitImage();
           $window.addEventListener("resize", function() { rc.slideshow.fitImage(); } );
       });
     };
@@ -370,6 +370,19 @@ console.log("recipe loaded " + response.ID);
        angular.element("a.piment").unbind("click").bind("click", rc.linkOnClick);
        return rc.articleHtml;
     }
+
+    rc.toggleSplit = function(split)
+    {
+      rc.split = valueOrDefault(split, !rc.split);
+      rc.fitImage();
+    };
+
+    rc.fitImage = function(delay)
+    {
+      var delay = valueOrDefault(delay, 0);
+      if(rc.slideshow)
+        $timeout(function() { rc.slideshow.fitImage() }, delay);
+    };
 
     rc.recipePhotoUrl = function(recipe, size)
     {
