@@ -1,6 +1,5 @@
 <div class="title hidden-print textWhiteOutline">{{rc.title()}}</div>
 <div class="noscroll container">
-
 	<div id="slideshowContainer" class="col-sm-6 noscroll" ng-show="rc.hasPhoto" ng-class="{'col-sm-6': rc.split, 'split': rc.split}">
 		<img id="printImage" class="visible-print-block centered stretchH" ng-src="{{rc.mainImageUrl}}" ng-if="rc.mainImageUrl"/>
 
@@ -17,19 +16,6 @@
 			<br/>
 			<a id="nextButton" class="icon32 glyphicon glyphicon-step-forward textOutline" title="next"  ng-click="rc.slideshow.showNextImage(+1)"></a>
 		</div>
-
-		<div class="bottomLeftCorner hidden-print" ng-if="rc.hasPhoto">
-			<a class="spaceLeft" href="{{rc.shareUrl()}}" title="Direct link" ng-if="rc.recipe.IsPublic"><img alt="link" src="images/link.png"/></a>
-			<a class="spaceLeft" target="facebook" href="{{rc.shareUrl('facebook')}}" title="share on Facebook" ng-if="rc.recipe.IsPublic"><img alt="facebook" src="images/facebook.png"/></a>
-			<a class="spaceLeft" target="twitter" href="{{rc.shareUrl('twitter')}}" title="tweet" ng-if="rc.recipe.IsPublic"><img alt="twitter" src="images/twitter.png"/></a>
-		</div>
-
-		<div class="bottomRightCorner hidden-print" ng-if="rc.hasPhoto">
-			<a ui-sref="edit({recipeId: rc.recipe.ID})"   class="glyphicon glyphicon-edit icon32 textOutline"   title="Edit Recipe" ng-if="rc.isMine(rc.recipe)"></a>
-			<a ui-sref="upload({recipeId: rc.recipe.ID})" class="glyphicon glyphicon-camera icon32 spaceLeft textOutline" title="Add photos"  ng-if="rc.isMine(rc.recipe)"></a>
-			<a onclick="print()" class="glyphicon glyphicon-print icon32 spaceLeft textOutline" title="Print"></a>
-		</div>
-
 	</div>
 
 	<div ng-class="{'col-sm-6': rc.hasPhoto && rc.split}">
@@ -37,33 +23,34 @@
 		<p ng-bind-html="rc.displayProperty('Author')"></p>
 		<p class="text bold">{{rc.recipe.Description}}</p>
 
-		<div class="right">
-			<div class="col-xs-6" ng-bind-html="rc.displayProperty('YieldCount')"></div>
-			<div class="col-xs-6" ng-bind-html="rc.displayProperty('PrepTime')"></div>
-			<div class="col-xs-6" ng-bind-html="rc.displayProperty('CookingTime')"></div>
-			<div class="col-xs-6" ng-bind-html="rc.displayProperty('TotalTime')"></div>
+		<div class="hidden-print" id="recipeIcons">
+			<div class="floatR">
+				<a class="spaceLeft" href="{{rc.shareUrl()}}" title="Direct link" ng-if="rc.recipe.IsPublic"><img alt="link" src="images/link.png"/></a>
+				<a class="spaceLeft" target="facebook" href="{{rc.shareUrl('facebook')}}" title="share on Facebook" ng-if="rc.recipe.IsPublic"><img alt="facebook" src="images/facebook.png"/></a>
+				<a class="spaceLeft" target="twitter" href="{{rc.shareUrl('twitter')}}" title="tweet" ng-if="rc.recipe.IsPublic"><img alt="twitter" src="images/twitter.png"/></a>
+			</div>
+			<a ui-sref="edit({recipeId: rc.recipe.ID})"   class="glyphicon glyphicon-edit icon32 textOutline"   title="Edit Recipe" ng-if="rc.isMine(rc.recipe)"></a>
+			<a ui-sref="upload({recipeId: rc.recipe.ID})" class="glyphicon glyphicon-camera icon32 textOutline spaceLeft" title="Add photos"  ng-if="rc.isMine(rc.recipe)"></a>
+			<a onclick="print()" class="glyphicon glyphicon-print icon32 textOutline spaceLeft" title="Print"></a>
 		</div>
-		<div class="bordered floatR pad5 bgwhite">
+
+		<div class="borderH margin pad5 right inlineBlock">
+			<span class="spaceLeft nowrap" ng-bind-html="rc.displayProperty('YieldCount')"></span>
+			<span class="spaceLeft nowrap" ng-bind-html="rc.displayProperty('TotalTime')"></span>
+			<span class="spaceLeft nowrap" ng-bind-html="rc.displayProperty('PrepTime')"></span>
+			<span class="spaceLeft nowrap" ng-bind-html="rc.displayProperty('CookingTime')"></span>
+			<span class="spaceLeft nowrap" ng-bind-html="rc.displayProperty('RestTime')"></span>
+		</div>
+
+		<div class="bordered marginH pad5 bgwhite inlineBlock">
 			<div ng-repeat="catType in rc.recipe.categories">{{catType.key}}: 
 				<span class="bold">{{catType.allNames}}</span>
 			</div>	
 		</div>
-	</div>
-</div>
 
-<div class="container" ng-if="!rc.hasPhoto">
-		<div class="hidden-print floatR" id="recipeIcons">
-			<a ui-sref="edit({recipeId: rc.recipe.ID})"   class="glyphicon glyphicon-edit icon32 spaceLeft"   title="Edit Recipe" ng-if="rc.isMine(rc.recipe)"></a>
-			<a ui-sref="upload({recipeId: rc.recipe.ID})" class="glyphicon glyphicon-camera icon32 spaceLeft" title="Add photos"  ng-if="rc.isMine(rc.recipe)"></a>
-			<a onclick="print()" class="glyphicon glyphicon-print icon32 spaceLeft" title="Print"></a>
-		</div>
-		<a class="spaceLeft" href="{{rc.shareUrl()}}" title="Direct link" ng-if="rc.recipe.IsPublic"><img alt="link" src="images/link.png"/></a>
-		<a class="spaceLeft" target="facebook" href="{{rc.shareUrl('facebook')}}" title="share on Facebook" ng-if="rc.recipe.IsPublic"><img alt="facebook" src="images/facebook.png"/></a>
-		<a class="spaceLeft" target="twitter" href="{{rc.shareUrl('twitter')}}" title="tweet" ng-if="rc.recipe.IsPublic"><img alt="twitter" src="images/twitter.png"/></a>
 </div>
-
+<br/>
 <div class="container">
-
 	<div class="col-sm-4">
 
 	<h3 ng-if="rc.recipe.RecipeIngredients.length">Ingredients</h3>
