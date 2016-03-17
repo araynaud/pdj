@@ -1,0 +1,17 @@
+Welcome to Piment du Jour!
+
+The idea behind Piment du Jour goes far back in history. From the age of 5 my mother got me involved with both cooking and baking. Every year we would bake different types of cookies for Christmas. This is when my passion for baking started.
+While I was busy practicing my baking skills, I was equally busy playing games on the computer.
+
+At the age of 14, I decided to pursue a career in software engineering. At the time I never even thought about the possibility of a career in the culinary arts.
+Years after working in the software field I began to question if I had chosen the right career.
+
+I wasn't excited about software engineering anymore and felt as if I had lost my passion for programming. I made a decision to go to an open house at a local culinary school. I must say I was seriously considering changing careers before that. I was very excited about the presentation until they explained that you will often have to work evenings and holidays. After hearing this I was uncertain whether this was the right career for me. I started to think about all the hard work I put into getting my degree in computer science and I realized that I didn't want to throw all of that away. While finding a way to be content with my career I continued to learn more about cooking and baking.
+
+I got this idea in my head to connect to countries around the world through food. I started buying different world cuisine cookbooks. This gave me more confidence with cooking which allowed me to host more parties to showcase my skills. The only problem was that the menu planning for parties would take forever. I had a similar problem every year when planning my annual Christmas cookie collection. I needed a way to optimize my menu planning to create a balanced set of dishes.
+
+Further, I needed to find ways to use up leftover ingredients from these parties to reduce food wastage. I had finally figured out a way to combine my passion for software engineering and cooking and this is when the idea of Piment du Jour was born. The "piment" part of the name means a chile pepper or to spice it up. With the built in menu planning, Piment du Jour creates weekly menus with a variety of different balanced ingredients. The "du jour" part of the name is inspired from the "menu du jour" idea in French restaurants.
+
+Piment du Jour's menu planning takes into consideration ingredients you may have left over from the week before. Typically the "menu du jour" (or daily specials as we know it in the US) use ingredients that are still good, but may go bad soon. Therefore, the end result is an application with smart menu planning that gives you variety in recipes and also helps to reduce food wastage.
+
+I hope you enjoy using Piment du Jour!

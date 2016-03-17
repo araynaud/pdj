@@ -35,9 +35,10 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
 
     rc.isError = RecipeService.isError;
 
-    rc.isMine = function()
+    rc.isMine = function(recipe)
     {
-        return RecipeService.isMine(rc.recipe);
+        recipe = valueOrDefault(recipe, rc.recipe);
+        return RecipeService.isMine(recipe);
     };
 
 //data load functions

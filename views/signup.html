@@ -1,5 +1,5 @@
 <form role="form" name="signupForm" class='form-signin container'>
-  <h2 class="form-signin-heading text-center">Create your account</h2>
+  <h2 class="form-signin-heading text-center">{{lc.title}}</h2>
 
   <div class="col-xs-6 marginB" ng-class="{'has-error': signupForm.username.$invalid }">
     <label for="inputUsername">Username</label>
@@ -12,11 +12,13 @@
 
   <div class="col-xs-6 marginB" ng-class="{'has-error': signupForm.password.$invalid }">
       <label for="inputPassword1">Password</label>
-      <input type="password" id="inputPassword1" name="password" class="form-control" ng-model="lc.form.password" placeholder="Password" required>
+      <input type="password" id="inputPassword1" name="password" class="form-control" ng-model="lc.form.password" placeholder="Password" ng-if="lc.stateIs('profile')">
+      <input type="password" id="inputPassword1" name="password" class="form-control" ng-model="lc.form.password" placeholder="Password" required ng-if="lc.stateIs('signup')">
   </div>
   <div class="col-xs-6 marginB" ng-class="{'has-error': signupForm.confirmPassword.$invalid }">
     <label for="inputPassword2">Confirm</label>
-    <input type="password" id="inputPassword2" name="confirmPassword" class="form-control" ng-model="lc.form.confirmPassword" placeholder="Confirm Password" required>
+    <input type="password" id="inputPassword2" name="confirmPassword" class="form-control" ng-model="lc.form.confirmPassword" placeholder="Confirm Password" ng-if="lc.stateIs('profile')">
+    <input type="password" id="inputPassword2" name="confirmPassword" class="form-control" ng-model="lc.form.confirmPassword" placeholder="Confirm Password" required ng-if="lc.stateIs('signup')">
   </div>
 
   <div class="col-xs-6 marginB" ng-class="{'has-error': signupForm.firstName.$invalid }">

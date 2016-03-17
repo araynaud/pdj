@@ -15,7 +15,8 @@ app.config(function($stateProvider, $urlRouterProvider)
     .state('edit',    { url: "/recipeedit/:recipeId", controller: 'RecipeController', controllerAs: 'rc', templateUrl: 'views/recipeEdit.html' })
     .state('upload',  { url: "/upload/:recipeId",     controller: 'UploadController', controllerAs: 'uc', templateUrl: 'views/upload.html' })
   	.state('signin',  { url: "/signin",  controller: 'LoginController',  controllerAs: 'lc', templateUrl: "views/signin.html" })
-  	.state('signup',  { url: "/signup",  controller: 'LoginController',  controllerAs: 'lc', templateUrl: "views/signup.html" });
+  	.state('signup',  { url: "/signup",  controller: 'LoginController',  controllerAs: 'lc', templateUrl: "views/signup.html" })
+    .state('profile', { url: "/profile", controller: 'LoginController',  controllerAs: 'lc', templateUrl: "views/signup.html" });
 
   $urlRouterProvider.otherwise("/");
 });

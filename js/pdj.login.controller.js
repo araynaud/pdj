@@ -21,23 +21,41 @@ function ($scope, $window, ConfigService, LocationService)
     {
         lc.showDebug = ConfigService.isDebug();
         lc.form = {};
+        lc.currentState = ConfigService.currentState();
+        lc.stateIs = ConfigService.stateIs;
+        lc.titles = {signup: "Create your account", profile: "Update your profile", signin: "Please log in"};
+        lc.title = lc.titles[lc.currentState];
+
         lc.formFields = "username email password confirmPassword firstName lastName".split(" ");
         lc.locationFields = "City District RegionName RegionCode CountryName CountryCode".split(" ");
 
         var defaultLogin = ConfigService.getConfig(ConfigService.currentState());
         if(defaultLogin)
           angular.merge(lc.form, defaultLogin);
-
         lc.loadCountries();
+        lc.loadUserProfile();
     };
+
+    lc.loadUserProfile = function()
+    {
+        var fieldMap = { Username: "username", Email: "email",  FirstName: "firstName", LastName: "lastName", UserID: "userId" };
+        ConfigService.getCurrentUser().then(function(user)
+        {
+          if(!user) return;
+
+          lc.form   = Object.remap(user, fieldMap);
+          lc.search = { location: user.Location};
+          lc.lookupLocation();
+        });
+    }
 
     lc.loadCountries = function()
     {
         if(LocationService.countries)
           return lc.countries = LocationService.countries;
 
-        if(ConfigService.stateIs("signup"))
-          LocationService.loadCountries().then(function(response) { lc.countries = response; });
+        //if(ConfigService.stateIs("signup"))
+        LocationService.loadCountries().then(function(response) { lc.countries = response; });
     }
 
     lc.login = function()
