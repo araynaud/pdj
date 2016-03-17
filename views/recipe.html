@@ -1,5 +1,5 @@
 <div class="title hidden-print textWhiteOutline">{{rc.title()}}</div>
-<div class="noscroll container">
+<div ng-class="{container: !rc.isMobile}">
 	<div id="slideshowContainer" class="col-sm-6 noscroll" ng-show="rc.hasPhoto" ng-class="{'col-sm-6': rc.split, 'split': rc.split}">
 		<img id="printImage" class="visible-print-block centered stretchH" ng-src="{{rc.mainImageUrl}}" ng-if="rc.mainImageUrl"/>
 
@@ -35,11 +35,11 @@
 		</div>
 
 		<div class="borderH margin pad5 right inlineBlock">
-			<span class="spaceLeft nowrap" ng-bind-html="rc.displayProperty('YieldCount')"></span>
-			<span class="spaceLeft nowrap" ng-bind-html="rc.displayProperty('TotalTime')"></span>
-			<span class="spaceLeft nowrap" ng-bind-html="rc.displayProperty('PrepTime')"></span>
-			<span class="spaceLeft nowrap" ng-bind-html="rc.displayProperty('CookingTime')"></span>
-			<span class="spaceLeft nowrap" ng-bind-html="rc.displayProperty('RestTime')"></span>
+			<span class="nowrap" ng-bind-html="rc.displayProperty('YieldCount')"></span>
+			<span class="nowrap" ng-bind-html="rc.displayProperty('TotalTime')"></span>
+			<span class="nowrap" ng-bind-html="rc.displayProperty('PrepTime')"></span>
+			<span class="nowrap" ng-bind-html="rc.displayProperty('CookingTime')"></span>
+			<span class="nowrap" ng-bind-html="rc.displayProperty('RestTime')"></span>
 		</div>
 
 		<div class="bordered marginH pad5 bgwhite inlineBlock">
