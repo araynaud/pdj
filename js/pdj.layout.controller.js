@@ -32,7 +32,7 @@ function ($scope, $window, ConfigService, RecipeService)
             lc.footer.copyright = new Date().getFullYear() + " " + lc.footer.copyright;
 
         
-        lc.toggleSidebar(lc.isWider('sm'));
+        lc.toggleSidebar(lc.loggedIn() && lc.isWider('sm'));
     };
 
     lc.apply = function(f)
@@ -127,6 +127,16 @@ function ($scope, $window, ConfigService, RecipeService)
         var defaultTitle = RecipeService.getConfig("defaultTitle");
         return RecipeService.title || defaultTitle; 
     };
+
+    lc.logoutRefresh = function()
+    {
+        lc.logout().then(function() 
+        { 
+            lc.toggleSidebar(false);
+            if(window.RecipeController)
+                RecipeController.loadRecipeList(); 
+        });
+    }
 
 //functions from ConfigService
     lc.userFullName = ConfigService.userFullName;

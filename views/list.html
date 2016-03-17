@@ -44,7 +44,7 @@
 <div id="page-content-wrapper" class="center ease05">
 
 	<div class="floatL hidden-print">
-	    <a class="btn btn-default menu-toggle glyphicon glyphicon-search" title="Search" ng-hide="lc.sidebar" ng-click="lc.toggleSidebar(true)"></a>
+	    <a class="btn btn-default menu-toggle glyphicon glyphicon-search" title="Search" ng-hide="lc.sidebar || !lc.loggedIn()" ng-click="lc.toggleSidebar(true)"></a>
 	</div>
 
 	<div class="floatR hidden-print">
@@ -56,6 +56,9 @@
 	</div>
 
 	<p class="title hidden-print">{{rc.title()}}</p>
+
+	<p ng-if="!lc.loggedIn()">Welcome! Here are some of our latest recipes.<br/>
+	You can <a class="btn btn-primary" ui-sref="signin">Log in</a> or <a class="btn btn-primary" ui-sref="signup">Sign up</a> to discover more content, and submit your own recipes!</p>
 
 	<div id="item_{{recipe.ID}}" class="recipeListItemTop bordered bgwhite margin shadow" ng-repeat="recipe in rc.list">
 

@@ -129,7 +129,7 @@ if(!$offline)
 	      <li ng-hide="lc.loggedIn()" ng-class="{active: lc.stateIs('signin')}" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="signin">Log in</a></li>
 	      <li ng-hide="lc.loggedIn()" ng-class="{active: lc.stateIs('signup')}" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="signup">Sign up</a></li>
 	      <li ng-show="lc.loggedIn()" ng-class="{active: lc.stateIs('user')}"   data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="profile">{{lc.userFullName()}}</a></li>
-	      <li ng-show="lc.loggedIn()" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="list" ng-click="lc.logout()">Sign out</a></li>
+	      <li ng-show="lc.loggedIn()" data-toggle="collapse" data-target=".isMobile #navbar"><a ui-sref="list" ng-click="lc.logoutRefresh()">Sign out</a></li>
 
 	      <li ng-show="lc.isAdmin()" data-toggle="collapse" data-target=".isMobile #navbar">
 		      <a href="api/git.php" class="glyphicon glyphicon-refresh" title="Update from github"></a>

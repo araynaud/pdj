@@ -125,11 +125,14 @@ angular.module('pdjServices')
 
     this.logout = function()
     {
+        var deferred = $q.defer();
         svc.user = null;
         svc.loginResource.save({action: "SignOut"}, {}, function()
         {
             svc.phpLoginResource.save({action: "SignOut"});
+            deferred.resolve(svc.user);
         });
+        return deferred.promise;
     }
     
     //POST to login.php service
