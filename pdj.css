@@ -129,18 +129,15 @@ img.linkPreview
     color: white;
 }
 
-@media screen
+#slideshowContainer
 {
-    #slideshowContainer
-    {
-        height: 500px; 
-        position: relative;
-    }
+    height: 500px; 
+    position: relative;
+}
 
-    #slideshowContainer.split
-    {
-        height: 300px; 
-    }
+#slideshowContainer.split
+{
+    height: 300px; 
 }
 
 #slideshowContainer
@@ -151,10 +148,25 @@ img.linkPreview
 
 /* bootstrap overrides */
 
-.icon32
+.icon-large
 {
     color: #6EAC2C;
     font-size: 32px;
+    height: 32px;
+}
+
+.icon-medium
+{
+    color: #6EAC2C;
+    font-size: 24px;
+    height: 24px;
+}
+
+.icon-small
+{
+    color: #6EAC2C;
+    font-size: 16px;
+    height: 16px;
 }
 
 .recipeTag

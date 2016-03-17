@@ -50,7 +50,7 @@ function ($scope, $window, ConfigService, RecipeService)
     lc.bodyClasses = function()
     {
         var isSmall = lc.isMobile || lc.isSmaller("sm");
-        return { isMobile: isSmall, isDesktop: !isSmall, aboveFooter: lc.showDebug };
+        return { isMobile: isSmall, isDesktop: !isSmall, aboveFooter: true };
     };
 
     lc.overlayStyle = function()

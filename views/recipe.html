@@ -7,14 +7,14 @@
 		<img id="slide1" class="hidden-print slide top left" alt="" src="/mt/icons/blank1px.png"/>
 
 		<div class="headerLeftCorner hidden-print">
-			<a id="zoomButton" class="icon32 glyphicon glyphicon-zoom-in textOutline" title="zoom" ng-click="rc.toggleSplit()"></a>
+			<a id="zoomButton" class="icon-medium glyphicon glyphicon-zoom-in textOutline" title="zoom" ng-click="rc.toggleSplit()"></a>
 			<br/>
-			<a id="prevButton" class="icon32 glyphicon glyphicon-step-backward textOutline" title="previous" ng-click="rc.slideshow.showNextImage(-1)" ng-if="rc.pics.length > 1"></a>
+			<a id="prevButton" class="icon-medium glyphicon glyphicon-step-backward textOutline" title="previous" ng-click="rc.slideshow.showNextImage(-1)" ng-if="rc.pics.length > 1"></a>
 		</div>
 		<div class="headerRightCorner hidden-print" ng-if="rc.pics.length > 1">
-			<a id="playButton" class="icon32 glyphicon glyphicon-pause textOutline" title="play/pause" ng-click="rc.slideshow.togglePlay()"></a>
+			<a id="playButton" class="icon-medium glyphicon glyphicon-pause textOutline" title="play/pause" ng-click="rc.slideshow.togglePlay()"></a>
 			<br/>
-			<a id="nextButton" class="icon32 glyphicon glyphicon-step-forward textOutline" title="next"  ng-click="rc.slideshow.showNextImage(+1)"></a>
+			<a id="nextButton" class="icon-medium glyphicon glyphicon-step-forward textOutline" title="next"  ng-click="rc.slideshow.showNextImage(+1)"></a>
 		</div>
 	</div>
 
@@ -25,13 +25,13 @@
 
 		<div class="hidden-print" id="recipeIcons">
 			<div class="floatR">
-				<a class="spaceLeft" href="{{rc.shareUrl()}}" title="Direct link" ng-if="rc.recipe.IsPublic"><img alt="link" src="images/link.png"/></a>
-				<a class="spaceLeft" target="facebook" href="{{rc.shareUrl('facebook')}}" title="share on Facebook" ng-if="rc.recipe.IsPublic"><img alt="facebook" src="images/facebook.png"/></a>
-				<a class="spaceLeft" target="twitter" href="{{rc.shareUrl('twitter')}}" title="tweet" ng-if="rc.recipe.IsPublic"><img alt="twitter" src="images/twitter.png"/></a>
+				<a class="spaceLeft" href="{{rc.shareUrl()}}" title="Direct link" ng-if="rc.recipe.IsPublic"><img alt="link" class="icon-medium" src="images/link.png"/></a>
+				<a class="spaceLeft" target="facebook" href="{{rc.shareUrl('facebook')}}" title="share on Facebook" ng-if="rc.recipe.IsPublic"><img alt="facebook" class="icon-medium" src="images/facebook.png"/></a>
+				<a class="spaceLeft" target="twitter" href="{{rc.shareUrl('twitter')}}" title="tweet" ng-if="rc.recipe.IsPublic"><img alt="twitter" class="icon-medium" src="images/twitter.png"/></a>
 			</div>
-			<a ui-sref="edit({recipeId: rc.recipe.ID})"   class="glyphicon glyphicon-edit icon32 textOutline"   title="Edit Recipe" ng-if="rc.isMine(rc.recipe)"></a>
-			<a ui-sref="upload({recipeId: rc.recipe.ID})" class="glyphicon glyphicon-camera icon32 textOutline spaceLeft" title="Add photos"  ng-if="rc.isMine(rc.recipe)"></a>
-			<a onclick="print()" class="glyphicon glyphicon-print icon32 textOutline spaceLeft" title="Print"></a>
+			<a ui-sref="edit({recipeId: rc.recipe.ID})"   class="glyphicon glyphicon-edit icon-medium textOutline"   title="Edit Recipe" ng-if="rc.isMine(rc.recipe)"></a>
+			<a ui-sref="upload({recipeId: rc.recipe.ID})" class="glyphicon glyphicon-camera icon-medium textOutline spaceLeft" title="Add photos"  ng-if="rc.isMine(rc.recipe)"></a>
+			<a onclick="print()" class="glyphicon glyphicon-print icon-medium textOutline spaceLeft" title="Print"></a>
 		</div>
 
 		<div class="borderH margin pad5 right inlineBlock">
