@@ -11,24 +11,21 @@
     <input type="file" id="inputFiles" ngf-select ng-model="uc.files" name="file" ngf-multiple="true" 
         accept="image/*" required ngf-change="uc.upload()" style="width: 0px; height: 0px; " />
 <br/>
-
-<a ng-click="uc.loadRecipeImages()">refresh</a>
-{{uc.lastUpdate}}
-
-<div ng-if="uc.mainImage">
-    <h3>Main image</h3>
+<div class="inlineBlock" ng-if="uc.mainImage">
+    <h4>Main image</h3>
     <crop-image class="recipeThumb bordered" title="{{uc.mainImage.name}}" ng-src="{{uc.thumbnailUrl(uc.mainImage, true)}}"></crop-image>
     {{uc.mainImage.filename}}
     <button class="btn" type="button" ng-click="uc.selectImage(uc.mainImage)" data-toggle="modal" data-target="#deleteModal">Delete</button>
 </div>
 
-<h3 ng-if="uc.pics.length">Other images</h3>
-<div ng-repeat="mf in uc.pics" class="inlineBlock centered">  
-    <crop-image class="recipeThumb bordered" title="{{mf.filename}}" ng-src="{{uc.thumbnailUrl(mf)}}"></crop-image>
-    <button class="btn btn-primary" type="button" ng-click="uc.setMainImage(mf)">Main</button>
-    <button class="btn" type="button" ng-click="uc.selectImage(mf)" data-toggle="modal" data-target="#deleteModal">Delete</button>
+<div class="inlineBlock" ng-if="uc.pics.length">
+  <h4>Other images</h3>
+  <div ng-repeat="mf in uc.pics" class="inlineBlock centered">  
+      <crop-image class="recipeThumb bordered" title="{{mf.filename}}" ng-src="{{uc.thumbnailUrl(mf)}}"></crop-image>
+      <button class="btn btn-primary" type="button" ng-click="uc.setMainImage(mf)">Main</button>
+      <button class="btn" type="button" ng-click="uc.selectImage(mf)" data-toggle="modal" data-target="#deleteModal">Delete</button>
+  </div>
 </div>
-
 <br/>
 <br/>
 <p>
