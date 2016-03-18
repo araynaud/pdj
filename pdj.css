@@ -35,6 +35,13 @@ a.button
     border-radius: 12px;
 }
 
+.fixedTopLeft
+{
+    position: fixed;
+    top: 60px;
+    left: 10px;
+}
+
 .category
 {
     border-bottom: 1px solid #AAA;

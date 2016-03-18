@@ -22,14 +22,13 @@ function ($scope, $window, ConfigService, LocationService)
         lc.showDebug = ConfigService.isDebug();
         lc.form = {};
         lc.currentState = ConfigService.currentState();
-        lc.stateIs = ConfigService.stateIs;
         lc.titles = {signup: "Create your account", profile: "Update your profile", signin: "Please log in"};
         lc.title = lc.titles[lc.currentState];
 
         lc.formFields = "username email password confirmPassword firstName lastName".split(" ");
         lc.locationFields = "City District RegionName RegionCode CountryName CountryCode".split(" ");
 
-        var defaultLogin = ConfigService.getConfig(ConfigService.currentState());
+        var defaultLogin = ConfigService.getConfig(lc.currentState);
         if(defaultLogin)
           angular.merge(lc.form, defaultLogin);
         lc.loadCountries();
@@ -54,8 +53,8 @@ function ($scope, $window, ConfigService, LocationService)
         if(LocationService.countries)
           return lc.countries = LocationService.countries;
 
-        //if(ConfigService.stateIs("signup"))
-        LocationService.loadCountries().then(function(response) { lc.countries = response; });
+        if(ConfigService.stateIs("signup") || ConfigService.stateIs("profile"))
+          LocationService.loadCountries().then(function(response) { lc.countries = response; });
     }
 
     lc.login = function()
@@ -100,9 +99,6 @@ function ($scope, $window, ConfigService, LocationService)
       });
     };
 
-    lc.loggedIn = ConfigService.loggedIn;
-    lc.logout = ConfigService.logout;
-
     lc.lookupLocation = function()
     {
       //if(!lc.search) return;
@@ -137,6 +133,10 @@ function ($scope, $window, ConfigService, LocationService)
 
         return true;
     };
+
+    lc.isLoggedIn = ConfigService.isLoggedIn;
+    lc.stateIs    = ConfigService.stateIs;
+    lc.logout     = ConfigService.logout;
 
     lc.init();
 

@@ -14,9 +14,9 @@ function ($scope, $window, ConfigService, RecipeService)
         $window.addEventListener("load",   lc.getWindowSize);
         $window.addEventListener("resize", lc.getWindowSize);
         
-        lc.showDebug = ConfigService.isDebug();
         lc.userAgent = navigator.userAgent.substringAfter(")", true);
-        lc.isMobile = ConfigService.isMobile();
+        lc.showDebug = ConfigService.isDebug();
+        lc.isMobile  = ConfigService.isMobile();
 
         lc.backgroundImage = ConfigService.getConfig("images.background");
         if(lc.backgroundImage)
@@ -30,9 +30,6 @@ function ($scope, $window, ConfigService, RecipeService)
         lc.footer = ConfigService.getConfig("footer");
         if(lc.footer && lc.footer.copyright)
             lc.footer.copyright = new Date().getFullYear() + " " + lc.footer.copyright;
-
-        
-        lc.toggleSidebar(lc.loggedIn() && lc.isWider('sm'));
     };
 
     lc.apply = function(f)
@@ -70,12 +67,14 @@ function ($scope, $window, ConfigService, RecipeService)
 
     lc.sidebarWrapperClasses = function()
     {
-        return {"toggled": lc.sidebar} ;
-    }
+        var autoSidebar = ConfigService.loggedIn && lc.isWider('sm');
+        lc.sidebar = valueOrDefault(ConfigService.sidebar, autoSidebar);
+        return {"toggled": lc.sidebar };
+    };
 
     lc.toggleSidebar = function(st)
     {   
-        return lc.sidebar = valueOrDefault(st, !lc.sidebar);
+        return ConfigService.sidebar = valueOrDefault(st, !ConfigService.sidebar);
     };
 
     lc.width = function()
@@ -140,10 +139,10 @@ function ($scope, $window, ConfigService, RecipeService)
 
 //functions from ConfigService
     lc.userFullName = ConfigService.userFullName;
-    lc.loggedIn = ConfigService.loggedIn;
-    lc.isAdmin = ConfigService.isAdmin;
-    lc.logout = ConfigService.logout;
-    lc.stateIs = ConfigService.stateIs;
+    lc.isLoggedIn   = ConfigService.isLoggedIn;
+    lc.isAdmin      = ConfigService.isAdmin;
+    lc.logout       = ConfigService.logout;
+    lc.stateIs      = ConfigService.stateIs;
     lc.currentState = ConfigService.currentState;
 
     lc.init();

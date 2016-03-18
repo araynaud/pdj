@@ -13,7 +13,6 @@ angular.module('pdjServices')
         this.loginResource = this.getResource("pdj", "Account/:action");
         this.phpLoginResource = $resource("api/login.php");
         this.linkResource = $resource("api/link.php/:url");
-        this.user = window.pdjUser;
         this.getCurrentUser();
     };
 
@@ -127,6 +126,7 @@ angular.module('pdjServices')
     {
         var deferred = $q.defer();
         svc.user = null;
+        svc.onUserChange();
         svc.loginResource.save({action: "SignOut"}, {}, function()
         {
             svc.phpLoginResource.save({action: "SignOut"});
@@ -153,6 +153,7 @@ angular.module('pdjServices')
             if(!svc.user)
                 svc.user = { username: postData.username };
 
+            svc.onUserChange();
             svc.phpLoginResource.save(svc.user);
             deferred.resolve(svc.user);
         },
@@ -183,6 +184,7 @@ angular.module('pdjServices')
                 if(!svc.user)
                     svc.user = { username: postData.username };
 
+                svc.onUserChange();
                 svc.phpLoginResource.save(svc.user);
                 deferred.resolve(svc.user);
             },
@@ -195,7 +197,15 @@ angular.module('pdjServices')
         return deferred.promise;
     };
 
-    this.loggedIn = function()
+    this.onUserChange = function()
+    {
+        svc.loggedIn  = svc.isLoggedIn();
+        svc.admin     = svc.isAdmin();
+        svc.sidebar   = null; //reset
+        console.log("user change: loggedIn = " + svc.loggedIn);
+    };
+
+    this.isLoggedIn = function()
     {
       return !!svc.user;
     };
