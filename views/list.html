@@ -60,17 +60,16 @@
 			<crop-image class="recipeImage" src="{{rc.recipePhotoUrl(recipe,2)}}" on-error="rc.removeImage"></crop-image>
 		</a>
 
-		<div class="pad10 bgwhite">
+		<div class="pad5">
 			<div class="centered">
 				<a class="recipeTitle textWhiteOutline" ui-sref="recipe({recipeId: recipe.ID})">{{recipe.Name}}</a>
 			</div>
 			<div class="left">{{rc.firstSentence(recipe.Description)}}</div>
 		</div>
 
-		<div class="pad5 bottomLeftCorner0 centered">
-			<span class="recipeTag pad2 nowrap" ng-repeat="tag in recipe.tags">{{tag}}</span>
+		<div class="pad5 bottomLeftCorner stretchW centered">
+			<a class="recipeTag pad2 nowrap" ng-click="rc.selectCategory(cat.ID, true); rc.loadRecipeList()" ng-repeat="cat in recipe.categories">{{cat.Name}}</a>
 		</div>
-
 	</div>
 
 	<div class="fixedTopLeft hidden-print">

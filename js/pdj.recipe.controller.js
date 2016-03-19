@@ -311,6 +311,12 @@ console.log("recipe loaded " + response.ID);
       }
     };
 
+    rc.selectCategory = function(id, clear)
+    {
+      if(clear) rc.selectedCategories = {};
+      rc.selectedCategories[id] = id;
+    };
+
     rc.selectedCategoriesArray = function()
     {
       return Object.values(rc.selectedCategories).filter(function(el) { return !!el; });

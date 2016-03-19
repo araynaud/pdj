@@ -179,7 +179,7 @@ img.linkPreview
 .recipeTag
 {
     display: inline-block;
-    min-width: 60px;
+    min-width: 50px;
     text-align: center; 
     margin-left: 5px;
     margin-top: 5px;
@@ -188,6 +188,11 @@ img.linkPreview
     font-weight: bold;
     font-size: .8em;
     border-radius: 15px;
+}
+
+a.recipeTag:hover
+{
+    color: white;
 }
 
 .btn-primary 

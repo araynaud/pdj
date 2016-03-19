@@ -26,6 +26,10 @@ angular.module('pdjServices')
     this.recipeResource =       ConfigService.getResource("pdj", "Recipe/GetRecipeDetails", "recipeId=:id");
     this.recipeSaveResource =   ConfigService.getResource("pdj", "Recipe/SaveRecipe");
 
+
+    svc.hideKeywords = ["Any", "Other", "Unknown"];
+
+
 //Data load functions
     this.loadUnits = function(obj)
     {
@@ -73,6 +77,7 @@ angular.module('pdjServices')
 
     this.nameToHashtag = function(c)
     {
+        if(svc.hideKeywords.indexOf(c.Name) >= 0) return null;
         return "#" + c.Name.replace(" ", "").replace(".", "").replace("'", "");
     };
 
@@ -181,7 +186,6 @@ angular.module('pdjServices')
         delete svc.recipes[id];
     };
 
-
     this.getCategoriesQS = function(categories)
     {
         var qs="";
@@ -192,9 +196,12 @@ angular.module('pdjServices')
 
     this.refreshRecipeCategories = function(recipe)
     {
-        if(isEmpty(svc.categoryTypes)) return;
-        recipe.tags = svc.getRecipeTags(recipe.CategoryIDs);
-        return recipe.categories = svc.getRecipeCategories(recipe.CategoryIDs);
+        if(!recipe || isEmpty(svc.categoryTypes)) return;
+
+        recipe.categories = svc.getRecipeCategories(recipe.CategoryIDs);
+        recipe.tags = svc.getRecipeTags(recipe.categories);
+        recipe.hashtags = svc.getRecipeHashtags(recipe.categories);
+        return recipe.categoryTypes = svc.getRecipeCategoryTypes(recipe.categories);
     };
 
     this.getRecipeCategories = function(ids)
@@ -203,39 +210,36 @@ angular.module('pdjServices')
         if(!ids) return cats;
         
         for(var i=0; i<ids.length; i++)
-            cats.push(svc.categories[ids[i]]);
-
-        cats = Object.toArray(cats.groupBy("type")).sortObjectsBy("key");
-        for(var i=0; i<cats.length; i++)
         {
-            var catType = cats[i];
-            catType.allNames = catType.value.distinct("Name").join(", ");
-            catType.names = catType.value.distinct("Name", true, ["Any", "Other", "Unknown"]).join(", ");
+            var cat = svc.categories[ids[i]];
+            if(cat && svc.hideKeywords.indexOf(cat.Name) == -1)
+                cats.push(cat);
         }
-        return cats;
+
+        return cats.sortObjectsBy("type");
     };
 
-    this.getRecipeTags = function(ids)
+    this.getRecipeCategoryTypes = function(cats)
     {
-        var cats = [];
-        if(!ids) return "";
-        
-        for(var i=0; i<ids.length; i++)
-            cats.push(svc.categories[ids[i]]);
+        var catTypes = Object.toArray(cats.groupBy("type"));
+        for(var i=0; i<catTypes.length; i++)
+        {
+            var catType = catTypes[i];
+            catType.allNames = catType.value.distinct("Name").join(", ");
+            catType.names = catType.value.distinct("Name", true, svc.hideKeywords).join(", ");
+        }
+        return catTypes;
+    };
 
-        var tags = cats.distinct("Name", true, ["Any", "Other", "Unknown"]);
+    this.getRecipeTags = function(cats)
+    {
+        var tags = cats.distinct("Name", true, svc.hideKeywords);
         return tags;
     }
 
-    this.getRecipeHashtags = function(ids)
+    this.getRecipeHashtags = function(cats)
     {
-        var cats = [];
-        if(!ids) return "";
-        
-        for(var i=0; i<ids.length; i++)
-            cats.push(svc.categories[ids[i]]);
-
-        var tags = cats.distinct(svc.nameToHashtag, true, ["#Any", "#Other", "#Unknown"]);
+        var tags = cats.distinct(svc.nameToHashtag, true);
         return tags;
     }
 
