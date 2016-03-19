@@ -88,6 +88,11 @@ a.button
     position: relative;
 }
 
+.shadow, .margin.shadow 
+{
+    box-shadow: 2px 2px 3px #777;
+}
+
 a.recipeTitle
 {
     font-weight: bold;
