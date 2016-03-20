@@ -16,25 +16,32 @@ angular.module('pdjServices')
     this.isMine       = ConfigService.isMine;
     this.isDebug      = ConfigService.isDebug;
     this.isMobile     = ConfigService.isMobile;
-
+    this.isOffline    = ConfigService.isOffline;
     this.loadLinkMetadata = ConfigService.loadLinkMetadata;
 
     //REST Services
     this.categoryTypeResource = ConfigService.getResource("pdj", "Category/GetAllCategoriesWithDetails");
-    this.articleResource =      ConfigService.getResource("pdj", "Article/:article");
-    this.listResource =         ConfigService.getResource("pdj", "Recipe/GetRecipeList", "searchText=:search:categories");
-    this.recipeResource =       ConfigService.getResource("pdj", "Recipe/GetRecipeDetails", "recipeId=:id");
-    this.recipeSaveResource =   ConfigService.getResource("pdj", "Recipe/SaveRecipe");
+    this.articleResource      = ConfigService.getResource("pdj", "Article/:article");
+    this.listResource         = ConfigService.getResource("pdj", "Recipe/GetRecipeList", "searchText=:search:categories");
+    this.recipeResource       = ConfigService.getResource("pdj", "Recipe/GetRecipeDetails", "recipeId=:id");
+    this.recipeSaveResource   = ConfigService.getResource("pdj", "Recipe/SaveRecipe");
+    this.unitResource         = ConfigService.getResource("pdj", "Unit/GetYieldUnits");
 
-
-    svc.hideKeywords = ["Any", "Other", "Unknown"];
-
+    svc.hideKeywords = svc.getConfig("recipe.tags.hide") || [];
 
 //Data load functions
     this.loadUnits = function(obj)
     {
         if(!obj) obj = svc;
         return ConfigService.loadCsv("api/units.csv", "units", obj);
+
+        var deferred = $q.defer();
+        this.unitResource.get({ }, function(response)
+        { 
+            svc.units = response.Data;
+            deferred.resolve(svc.units);
+        });
+        return deferred.promise;
     };
 
     this.loadCategoryTypes = function()
@@ -77,7 +84,7 @@ angular.module('pdjServices')
 
     this.nameToHashtag = function(c)
     {
-        if(svc.hideKeywords.indexOf(c.Name) >= 0) return null;
+        if(svc.hideKeywords && svc.hideKeywords.indexOf(c.Name) >= 0) return null;
         return "#" + c.Name.replace(" ", "").replace(".", "").replace("'", "");
     };
 

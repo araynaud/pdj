@@ -43,6 +43,36 @@ angular.module('pdjServices')
         return $resource(url, defaults);
     };
 
+    this.getFromResource = function(resource, params, key, obj)
+    {
+        if(!obj) obj = this;
+        if(!params) params={ };
+
+        var deferred = $q.defer();
+        resource.get(params, function(response)
+        { 
+            if(key)
+                obj[key] = response.Data;
+            deferred.resolve(response.Data);
+        });
+        return deferred.promise;
+    };
+
+    this.postToResource = function(res, params, key, obj)
+    {
+        if(!obj) obj = this;
+        if(!params) params={ };
+
+        resource.save(params, function(response)
+        { 
+            if(key)
+                obj[key] = response.Data;
+            deferred.resolve(response.Data);
+        });
+        return deferred.promise;
+    };
+
+
     this.loadCsv = function(url, key, obj)
     {
         var deferred = $q.defer();
