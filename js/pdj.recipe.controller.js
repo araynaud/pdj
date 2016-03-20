@@ -317,6 +317,11 @@ console.log("recipe loaded " + response.ID);
       rc.selectedCategories[id] = id;
     };
 
+    rc.isCategorySelected = function(id)
+    {
+      return !!rc.selectedCategories[id];
+    };
+
     rc.selectedCategoriesArray = function()
     {
       return Object.values(rc.selectedCategories).filter(function(el) { return !!el; });

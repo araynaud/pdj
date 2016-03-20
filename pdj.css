@@ -42,6 +42,13 @@ a.button
     left: 10px;
 }
 
+.fixedTopRight
+{
+    position: fixed;
+    top: 60px;
+    right: 10px;
+}
+
 .category
 {
     border-bottom: 1px solid #AAA;

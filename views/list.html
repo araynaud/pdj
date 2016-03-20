@@ -42,13 +42,6 @@
 </div>
 
 <div id="page-content-wrapper" class="center ease05">
-
-	<div class="floatR hidden-print right">
-		<img src="images/ajax-loader.gif" ng-show="rc.loading"/>
-		<span id="resultCount" ng-show="!rc.loading">{{rc.list.length ? rc.plural(rc.list.length, "recipe") : "No results found."}}</span>
-		{{rc.status}}
-	</div>
-
 	<p class="title hidden-print">{{rc.title()}}</p>
 
 	<p ng-if="!lc.isLoggedIn()">Welcome! Here are some of our latest recipes.<br/>
@@ -74,6 +67,13 @@
 
 	<div class="fixedTopLeft hidden-print">
 	    <a class="btn btn-default menu-toggle glyphicon glyphicon-search" title="Search" ng-show="!lc.sidebar && lc.isLoggedIn()" ng-click="lc.toggleSidebar(true)"></a>
+	</div>
+
+	<div class="fixedTopRight hidden-print">
+		<img src="images/ajax-loader.gif" ng-show="rc.loading"/>
+		<div class="title textWhiteOutline" ng-show="!rc.loading && rc.list.length">{{rc.list.length}}</div>
+		<div class="small bold textWhiteOutline"  ng-show="!rc.loading">{{rc.list.length ? rc.plural(rc.list.length>1, "recipe") : "No results found."}}</div>
+		{{rc.status}}
 	</div>
 
 </div>
