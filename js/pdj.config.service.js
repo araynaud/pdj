@@ -287,9 +287,9 @@ angular.module('pdjServices')
     { 
         if(!y) y = 0;
         if(!time)
-            $("body").scrollTop(y);
+            $("html,body").scrollTop(y);
         else
-            $("body").animate({scrollTop: y}, time);
+            $("html,body").animate({scrollTop: y}, time);
     };
 
     this.init();

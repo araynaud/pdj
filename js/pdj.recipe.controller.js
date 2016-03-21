@@ -97,7 +97,7 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
           rc.loading = false;
           rc.list = response; 
           rc.successMessage();
-          RecipeService.scrollTop(500);
+          RecipeService.scrollTop();
       }, 
       rc.errorMessage);
     };
