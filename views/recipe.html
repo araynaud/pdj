@@ -1,6 +1,6 @@
 <div class="title hidden-print textWhiteOutline">{{rc.title()}}</div>
 <div ng-class="{container: !rc.isMobile}">
-	<div id="slideshowContainer" class="col-sm-6 noscroll" ng-show="rc.hasPhoto" ng-class="{'col-sm-6': rc.split, 'split': rc.split}">
+	<div id="slideshowContainer" class="noscroll" ng-class="{'col-xs-6': rc.split && !rc.isMobile, 'split': rc.split}" ng-show="rc.hasPhoto" ng-class="{'col-sm-6': rc.split, 'split': rc.split}">
 		<img id="printImage" class="visible-print-block centered shrinkW" ng-src="{{rc.mainImageUrl}}" ng-if="rc.mainImageUrl"/>
 
 		<img id="slide0" class="hidden-print slide bottom right" alt="" src="/mt/icons/blank1px.png"/>
@@ -18,7 +18,7 @@
 		</div>
 	</div>
 
-	<div ng-class="{'col-sm-6': rc.hasPhoto && rc.split}">
+	<div ng-class="{'col-xs-6': rc.hasPhoto && rc.split && !rc.isMobile}">
 		<span class="error">{{rc.status}}</span>
 		<p ng-bind-html="rc.displayProperty('Author')"></p>
 		<p class="text bold">{{rc.recipe.Description}}</p>
@@ -34,7 +34,7 @@
 			<a onclick="print()" class="glyphicon glyphicon-print icon-medium textOutline spaceLeft" title="Print"></a>
 		</div>
 
-		<div class="borderH margin pad5 right inlineBlock">
+		<div class="borderH pad5 right" ng-class="{'col-xs-5': true || !rc.split || rc.isMobile}">
 			<span class="nowrap" ng-bind-html="rc.displayProperty('YieldCount')"></span>
 			<span class="nowrap" ng-bind-html="rc.displayProperty('TotalTime')"></span>
 			<span class="nowrap" ng-bind-html="rc.displayProperty('PrepTime')"></span>
@@ -42,7 +42,7 @@
 			<span class="nowrap" ng-bind-html="rc.displayProperty('RestTime')"></span>
 		</div>
 
-		<div class="bordered marginH pad5 bgwhite inlineBlock">
+		<div class="pad5 borderHB" ng-class="{'col-xs-5 col-xs-offset-2 borderH': true || !rc.split || rc.isMobile}">
 			<div ng-repeat="catType in rc.recipe.categoryTypes">{{catType.key}}: 
 				<span class="bold">{{catType.allNames}}</span>
 			</div>	

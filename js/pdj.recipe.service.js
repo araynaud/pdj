@@ -17,8 +17,11 @@ angular.module('pdjServices')
     this.isDebug      = ConfigService.isDebug;
     this.isMobile     = ConfigService.isMobile;
     this.isOffline    = ConfigService.isOffline;
+    this.isLoggedIn   = ConfigService.isLoggedIn;
+    this.isAdmin      = ConfigService.isAdmin;
     this.loadLinkMetadata = ConfigService.loadLinkMetadata;
-
+    this.scrollTop = ConfigService.scrollTop;
+    
     //REST Services
     this.categoryTypeResource = ConfigService.getResource("pdj", "Category/GetAllCategoriesWithDetails");
     this.articleResource      = ConfigService.getResource("pdj", "Article/:article");

@@ -97,6 +97,7 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
           rc.loading = false;
           rc.list = response; 
           rc.successMessage();
+          RecipeService.scrollTop(500);
       }, 
       rc.errorMessage);
     };
@@ -313,6 +314,7 @@ console.log("recipe loaded " + response.ID);
 
     rc.selectCategory = function(id, clear)
     {
+      if(!RecipeService.isLoggedIn()) return;
       if(clear) rc.selectedCategories = {};
       rc.selectedCategories[id] = id;
     };
@@ -325,6 +327,18 @@ console.log("recipe loaded " + response.ID);
     rc.selectedCategoriesArray = function()
     {
       return Object.values(rc.selectedCategories).filter(function(el) { return !!el; });
+    };
+
+    rc.selectedCategoryTitles = function()
+    {
+      var selectedIds = rc.selectedCategoriesArray();
+      var titles= [];
+      for (var i = 0; i< selectedIds.length; i++)
+      {
+        var cat = RecipeService.categories[selectedIds[i]]
+        titles.push(cat.Name);
+      }
+      return titles.join(", ");
     };
 
     //if no image loaded, remove thumbnail container
@@ -420,6 +434,11 @@ console.log("recipe loaded " + response.ID);
     rc.title = function()
     {
         var defaultTitle = RecipeService.getConfig("defaultTitle");
+
+        var selectedTitles = rc.selectedCategoryTitles();
+        if(selectedTitles)
+          RecipeService.title = String.append(selectedTitles, " ", "recipes");
+
         document.title = String.append(RecipeService.title, " - ", defaultTitle);
         return RecipeService.title || defaultTitle; 
     };

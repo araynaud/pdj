@@ -283,5 +283,14 @@ angular.module('pdjServices')
         return svc.clientIs("MSIE|Trident");
     };
 
+    this.scrollTop = function(time, y)    
+    { 
+        if(!y) y = 0;
+        if(!time)
+            $("body").scrollTop(y);
+        else
+            $("body").animate({scrollTop: y}, time);
+    };
+
     this.init();
 }]);

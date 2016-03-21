@@ -68,9 +68,13 @@ a.button
     border-radius: 10px;
 }
 
-.borderH
+.borderH, .borderHT
 {
     border-top: 2px solid #444;
+}
+
+.borderH, .borderHB
+{
     border-bottom: 2px solid #444;
 }
 
@@ -158,6 +162,7 @@ img.linkPreview
 {
     height: 300px; 
 }
+
 
 #slideshowContainer
 {
