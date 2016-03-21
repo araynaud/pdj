@@ -21,7 +21,9 @@ angular.module('pdjServices')
     this.isAdmin      = ConfigService.isAdmin;
     this.loadLinkMetadata = ConfigService.loadLinkMetadata;
     this.scrollTop = ConfigService.scrollTop;
-    
+    this.getFromResource = ConfigService.getFromResource;
+    this.postToResource = ConfigService.postToResource;
+
     //REST Services
     this.categoryTypeResource = ConfigService.getResource("pdj", "Category/GetAllCategoriesWithDetails");
     this.articleResource      = ConfigService.getResource("pdj", "Article/:article");
@@ -36,15 +38,8 @@ angular.module('pdjServices')
     this.loadUnits = function(obj)
     {
         if(!obj) obj = svc;
-        return ConfigService.loadCsv("api/units.csv", "units", obj);
-
-        var deferred = $q.defer();
-        this.unitResource.get({ }, function(response)
-        { 
-            svc.units = response.Data;
-            deferred.resolve(svc.units);
-        });
-        return deferred.promise;
+        //return ConfigService.loadCsv("api/units.csv", "units", obj);
+        return svc.getFromResource(svc.unitResource, null, "units", obj);
     };
 
     this.loadCategoryTypes = function()
