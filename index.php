@@ -77,9 +77,10 @@ else if($search)
 
 addIconsFromConfig();
 addCssFromConfig("lib.bootstrap"); 
+addCssFromConfig("MediaThingy", "../MediaThingy.css");
 addAllCss("../foodportrait/style");
 addAllCss("../foodportrait/directives");
-addCssFromConfig("MediaThingy", "../MediaThingy.css");
+addAllCss("directives");
 addAllCss(".");
 addScriptFromConfig("lib", "jquery.min.js");
 addScriptFromConfig("lib.bootstrap");
@@ -88,6 +89,8 @@ addScriptFromConfig("lib");
 addScriptFromConfig("MediaThingy");
 addAllScripts("js");
 addAllScripts("../foodportrait/directives");
+addAllScripts("directives"); 
+
 if(!$offline)	
 	addJavascript("https://www.youtube.com/iframe_api"); 
 ?>

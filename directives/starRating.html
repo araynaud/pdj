@@ -1,0 +1,7 @@
+<span class="star-rating">
+	<label ng-if="vm.label" class="noselect">{{vm.label}}: {{vm.value}}</label>
+	<span class="score noselect" title="{{vm.min}} - {{vm.max}}">
+	    <a ng-repeat="s in vm.stars track by $index" class="star glyphicon" ng-class="vm.starClasses($index)" ng-click="vm.setValue($index)"
+	    title="{{vm.min + $index}}"></a>
+	</span>
+</span>
