@@ -1,4 +1,4 @@
-angular.module('app').directive('starRating', [ "$timeout", function ($timeout) 
+angular.module('app').directive('starRating', function () 
 {
     return {
         scope: { label: "@", value: "=", min: "=", max: "=", readonly: "=", change: "=" },
@@ -40,4 +40,4 @@ angular.module('app').directive('starRating', [ "$timeout", function ($timeout)
             vm.init();
         }
     };
-}]);
+});
