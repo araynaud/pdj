@@ -58,12 +58,14 @@ angular.module('pdjServices')
         return deferred.promise;
     };
 
-    this.postToResource = function(res, params, key, obj)
+    this.postToResource = function(resource, params, post, key, obj)
     {
         if(!obj) obj = this;
-        if(!params) params={ };
+        if(!params) params = { };
+        if(!post)   post = { };
 
-        resource.save(params, function(response)
+        var deferred = $q.defer();
+        resource.save(params, post, function(response)
         { 
             if(key)
                 obj[key] = response.Data;

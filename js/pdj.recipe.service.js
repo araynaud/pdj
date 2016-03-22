@@ -31,7 +31,7 @@ angular.module('pdjServices')
     this.recipeResource       = ConfigService.getResource("pdj", "Recipe/GetRecipeDetails", "recipeId=:id");
     this.recipeSaveResource   = ConfigService.getResource("pdj", "Recipe/SaveRecipe");
     this.unitResource         = ConfigService.getResource("pdj", "Unit/GetYieldUnits");
-
+    this.ratingResource       = ConfigService.getResource("pdj", "RecipeRating/:action");
     svc.hideKeywords = svc.getConfig("recipe.tags.hide") || [];
 
 //Data load functions
@@ -156,6 +156,12 @@ angular.module('pdjServices')
             });
         return deferred.promise;
     };
+
+    this.loadRatings = function(id, obj)
+    {        
+        svc.getFromResource(svc.ratingResource, {action: "GetRecipeRating", recipeID: id}, "globalRating", obj);
+        svc.getFromResource(svc.ratingResource, {action: "GetCurrentUserRating", recipeID: id}, "userRating", obj);
+    }
 
     this.saveRecipe = function(recipe)
     {

@@ -27,6 +27,7 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
       rc.isEdit = RecipeService.stateIs("edit");    
       rc.isView = RecipeService.stateIs("recipe");   
       rc.isMobile = RecipeService.isMobile();
+      rc.isLoggedIn = RecipeService.isLoggedIn;
       rc.loadUnits();
       rc.loadCategoryTypes();
       if(rc.categoryTypes)
@@ -54,7 +55,6 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
         return rc.loadArticle($stateParams.articleId);
       
       return rc.loadRecipeList($stateParams.search);
-
     };
 
     rc.loadUnits = function()
@@ -133,14 +133,15 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
           }
 
           rc.recipe = response;
-console.log("recipe loaded " + response.ID);
+          console.log("recipe loaded " + response.ID);
+
           if(rc.units)
             rc.YieldUnit = rc.units.byId[rc.recipe.YieldUnitTypeID];
 
           rc.formatProperty(rc.recipe, "CookingTime", "minute");
           rc.formatProperty(rc.recipe, "PrepTime", "minute");
           rc.formatProperty(rc.recipe, "TotalTime", "minute");
-          rc.formatProperty(rc.recipe, "Author");
+          rc.formatProperty(rc.recipe, "Author", null, "Recipe by");
           rc.formatProperty(rc.recipe, "YieldCount", rc.recipe.YieldUnitTypeID , "Yield");
 
           if(!rc.recipe.RecipeLinks)
@@ -157,6 +158,9 @@ console.log("recipe loaded " + response.ID);
           rc.successMessage();
       }, 
       rc.errorMessage);
+
+      RecipeService.loadRatings(id, rc);
+
     };
 
     rc.renameField = function(obj, from, to)
@@ -463,7 +467,7 @@ console.log("recipe loaded " + response.ID);
         if(unit)
         {
           unit = rc.getUnit(unit);
-          value = plural(obj[key], unit.Name || unit, unit.PluralName) 
+          value = rc.plural(obj[key], unit.Name || unit, unit.PluralName) 
         }
 
         if(!rc.props) rc.props = [];
@@ -525,9 +529,23 @@ console.log("recipe loaded " + response.ID);
       rc.errorMessage);
     };
 
+    rc.rateRecipe = function()
+    {
+      if(!rc.recipe) return;
+
+//      rc.globalRating = RecipeService.globalRating;
+//      rc.userRating = RecipeService.userRating;
+
+      $timeout(function() 
+      { 
+          rc.userRating.recipeID = rc.recipe.ID;
+          RecipeService.postToResource(RecipeService.ratingResource, {action: "SetUserRating" }, rc.userRating, "globalRating", rc);
+      }, 0);        
+    };
+
     rc.cancelEdit = function()
     { 
-      if(rc.recipe.ID)
+      if(rc.recipe && rc.recipe.ID)
       {
         RecipeService.removeFromCache(rc.recipe.ID); //reload to undo edit changes 
         RecipeService.goToState("recipe", {recipeId: rc.recipe.ID});

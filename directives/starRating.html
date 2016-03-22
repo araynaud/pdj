@@ -1,7 +1,22 @@
-<span class="star-rating">
-	<label ng-if="vm.label" class="noselect">{{vm.label}}: {{vm.value}}</label>
-	<span class="score noselect" title="{{vm.min}} - {{vm.max}}">
-	    <a ng-repeat="s in vm.stars track by $index" class="star glyphicon" ng-class="vm.starClasses($index)" ng-click="vm.setValue($index)"
-	    title="{{vm.min + $index}}"></a>
+<div class="star-rating" class="noselect">
+	<label ng-if="vm.label">{{vm.label}}</label>
+    <a class="bold" ng-click="vm.edit()" title="{{vm.global.NumberOfRatings | plural:'rating'}}">{{(vm.global.AverageRating || 0) | roundDigits:1  || "none"}}</a>
+	<a class="glyphicon glyphicon-star" ng-click="vm.edit()"></a>
+
+    <label ng-if="vm.user.Score" ng-click="vm.edit()">{{vm.userLabel}}</label>
+    <a class="bold" ng-if="vm.user.Score" ng-click="vm.edit()">{{vm.user.Score || "none"}}</a>
+	<a class="glyphicon glyphicon-star" ng-click="vm.edit()" ng-hide="vm.editing || vm.readOnly"></a>
+
+	<span class="score noselect nowrap" title="{{vm.min}} - {{vm.max}}" ng-if="vm.editing">
+	    <a ng-repeat="s in vm.stars track by $index" class="star glyphicon" ng-class="vm.starClasses($index)" ng-click="vm.setValue($index)"></a>
 	</span>
-</span>
+</div>
+
+<div ng-if="vm.editing">
+    <input type="checkbox" id="cbMadeIt" name="personal" ng-model="vm.user.MadeIt" ng-change="vm.change()"/>
+	<label for="cbMadeIt">I have made this recipe.</a>
+</div>
+<div ng-if="vm.editing">
+    <input type="checkbox" id="cbMakeAgain" name="personal" ng-model="vm.user.MakeItAgain" ng-change="vm.change()"/>
+	<label for="cbMakeAgain">I would like to make it again.</a>
+</div>

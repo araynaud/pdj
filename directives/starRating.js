@@ -1,7 +1,7 @@
 angular.module('app').directive('starRating', function () 
 {
     return {
-        scope: { label: "@", value: "=", min: "=", max: "=", readonly: "=", change: "=" },
+        scope: { label: "@", userLabel: "@", global: "=", user: "=", readOnly:"=", min: "=", max: "=", readonly: "=", change: "=" },
         templateUrl: './directives/starRating.html',
         controllerAs: 'vm',
         bindToController: true,
@@ -14,11 +14,24 @@ angular.module('app').directive('starRating', function ()
             window.starRating = this;
             vm.init = function()
             {
+                vm.plural = plural;
                 vm.min   = valueOrDefault(vm.min, 1);
                 vm.max   = valueOrDefault(vm.max, 5);
-                vm.value = valueOrDefault(vm.value, 0);
+                if(!vm.global) vm.global = {};
+                if(!vm.user)   vm.user   = {};
+                vm.user.Score = valueOrDefault(vm.user.Score, 0);
                 vm.stars = vm.getStars(vm.max - vm.min + 1);
             };
+
+            vm.edit = function()
+            {
+                vm.editing = !vm.readOnly;
+            }
+
+            vm.stopEdit = function()
+            {
+                vm.editing = false;
+            }
 
             vm.getStars = function(n)
             {
@@ -27,12 +40,21 @@ angular.module('app').directive('starRating', function ()
 
             vm.setValue = function(n)
             {
-                vm.value = n + vm.min;
+                if(vm.readOnly) return;
+
+                vm.oldValue = vm.user ? vm.user.Score : 0;
+                if(!vm.user)   vm.user   = {};
+                vm.user.Score = n + vm.min;
+
+                if(angular.isFunction(vm.change))
+                    vm.change(vm.user.Score, vm.oldValue);
+
+                vm.editing = false;
             };
 
             vm.starClasses = function(n)
             {
-                var cls = (n + vm.min > vm.value) ? "glyphicon-star-empty" : "glyphicon-star";
+                var cls = (!vm.user || (n + vm.min > vm.user.Score)) ? "glyphicon-star-empty" : "glyphicon-star";
                 var classes = {};
                 classes[cls] = true;
                 return classes;

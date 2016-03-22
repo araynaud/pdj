@@ -57,3 +57,5 @@ app.toJson = function(data, loop)
 app.filter('toJson', function() { return app.toJson; });
 app.filter('plural', function() { return window.plural; });
 app.filter('escape', function() { return window.escape; });
+app.filter('roundMultiple', function() { return Math.roundMultiple; });
+app.filter('roundDigits', function() { return Math.roundDigits; });

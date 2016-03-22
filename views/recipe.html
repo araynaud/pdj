@@ -22,7 +22,6 @@
 		<span class="error">{{rc.status}}</span>
 		<p ng-bind-html="rc.displayProperty('Author')"></p>
 		<p class="text bold">{{rc.recipe.Description}}</p>
-
 		<div class="hidden-print" id="recipeIcons">
 			<div class="floatR">
 				<a class="spaceLeft" href="{{rc.shareUrl()}}" title="Direct link" ng-if="rc.recipe.IsPublic"><img alt="link" class="icon-medium" src="images/link.png"/></a>
@@ -47,6 +46,9 @@
 				<span class="bold">{{catType.allNames}}</span>
 			</div>	
 		</div>
+		<br/>
+		<br/>
+		<star-rating label="Global rating:" user-label="Rate this recipe:" user="rc.userRating" global="rc.globalRating" read-only="!rc.isLoggedIn()" change="rc.rateRecipe"></star-rating>
 
 </div>
 <br/>
@@ -62,10 +64,10 @@
 
 	<div class="col-sm-8">
 
-	<h3 ng-if="rc.recipe.RecipeSteps.length">Preparation</h3>
-	<ol ng-if="rc.recipe.RecipeSteps.length">
+	<h3 ng-if="rc.recipe.RecipeSteps.length">Directions</h3>
+	<ul ng-class="{ steps: rc.recipe.RecipeSteps.length > 1, none: rc.recipe.RecipeSteps.length <= 1 }" ng-if="rc.recipe.RecipeSteps.length">
 		<li ng-repeat="step in rc.recipe.RecipeSteps">{{step}}</li>
-	</ol>
+	</ul>
 
 	<h3 ng-if="rc.recipe.AllRecipeTips.length">Tips</h3>
 	<ul ng-if="rc.recipe.AllRecipeTips.length">
