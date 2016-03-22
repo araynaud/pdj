@@ -292,5 +292,9 @@ ul, ol
     clear: both;
     counter-increment: step;
     position: relative;
+}
+
+.none li, .steps li
+{
     margin-top: 5px;
 }
