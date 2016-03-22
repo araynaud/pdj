@@ -56,7 +56,7 @@
 	<div class="col-sm-4">
 
 	<h3 ng-if="rc.recipe.RecipeIngredients.length">Ingredients</h3>
-	<ul ng-if="rc.recipe.RecipeIngredients.length">
+	<ul class="none" ng-if="rc.recipe.RecipeIngredients.length">
 		<li ng-repeat="ingredient in rc.recipe.RecipeIngredients">{{ingredient}}</li>
 	</ul>
 
