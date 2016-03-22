@@ -254,15 +254,20 @@ div.recipeThumb
     border-color: #12402B;
 }
 
+ul, ol
+{
+    margin-left: -20px;
+}
+
 .none
 {
     list-style-type: none;
-    -webkit-padding-start: 30px;
+    margin-left: -40px;
 }
 
 .steps 
 {
-    -webkit-padding-start: 30px;
+    margin-left: -10px;
     counter-reset: li;
     list-style: outside none none;
 }
@@ -272,15 +277,14 @@ div.recipeThumb
     background-color: orange;
     color: white;
     content: counter(step);
-    left: -40px;
-    padding: 0px 5px;
-    width: 20px;
+    left: -30px;
+    top: 0;
+    width: 22px;
     border-radius: 20px;
     border: 1px solid #e68a00;
     position: absolute;
     font-weight: bold;
     text-align: center;
-    top: 0;
 }
 
 .steps li 
