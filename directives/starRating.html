@@ -7,13 +7,13 @@
 	</span>
 
 	<span class="nowrap">
-	    <a ng-if="!vm.readOnly" ng-click="vm.edit()">{{vm.userLabel}}</a>
-	    <a class="bold" ng-if="vm.user.Score" ng-click="vm.edit()">: {{vm.user.Score || "none"}}</a>
+	    <a ng-if="!vm.readOnly" ng-click="vm.edit()">{{vm.userLabel}}</a><span ng-if="vm.user.Score">:</span>
+	    <a class="bold" ng-if="vm.user.Score" ng-click="vm.edit()">{{vm.user.Score || "none"}}</a>
 		<a class="glyphicon glyphicon-star" ng-click="vm.edit()" ng-if="vm.user.Score && !vm.editing"></a>
 	</span>
 
 	<span class="score noselect nowrap" ng-if="vm.editing">
-	    <a ng-repeat="s in vm.stars track by $index" class="star glyphicon" ng-class="vm.starClasses($index)" ng-click="vm.setValue($index)"></a>
+	    <a ng-repeat="s in vm.stars track by $index" class="star glyphicon" title="{{$index + vm.min}}" ng-class="vm.starClasses($index)" ng-click="vm.setValue($index)"></a>
 	</span>
 </div>
 
