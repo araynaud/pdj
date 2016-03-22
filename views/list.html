@@ -50,7 +50,7 @@
 	<div id="item_{{recipe.ID}}" class="recipeListItemTop bordered bgwhite margin shadow" ng-repeat="recipe in rc.list">
 
 		<a ui-sref="recipe({recipeId: recipe.ID})">
-			<crop-image class="recipeImage" src="{{rc.recipePhotoUrl(recipe,2)}}" on-error="rc.removeImage"></crop-image>
+			<crop-image class="recipeImage" src="{{rc.recipePhotoUrl(recipe,2)}}" model="recipe" on-error="rc.removeImage"></crop-image>
 		</a>
 
 		<div class="pad5">
