@@ -367,7 +367,7 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
     {
         if(!search || !RecipeService.categoriesByName) return search;
 
-        var words = search.toLowerCase().split(" ");
+        var words = search.toLowerCase().split(",");
         var cat = null;
 
         rc.selectedCategories = {};

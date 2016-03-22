@@ -45,7 +45,10 @@
 
 		<div class="pad5 borderHB" ng-class="{'col-xs-5 col-xs-offset-2 borderH': true || !rc.split || rc.isMobile}">
 			<div ng-repeat="catType in rc.recipe.categoryTypes">{{catType.key}}: 
-				<span class="bold">{{catType.allNames}}</span>
+				<span ng-repeat="cat in catType.value">
+					<span ng-if="$index">/</span>
+					<a class="bold" ui-sref="search({search: cat.Name})">{{cat.Name}}</a>
+				</span>
 			</div>	
 		</div>
 

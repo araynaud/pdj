@@ -80,10 +80,16 @@ angular.module('pdjServices')
         return c.Name.toLowerCase().replace("'", "").replace(".", "");
     };
 
-    this.nameToHashtag = function(c)
+    this.nameToTag = function(c)
     {
         if(svc.hideKeywords && svc.hideKeywords.indexOf(c.Name) >= 0) return null;
-        return "#" + c.Name.replace(" ", "").replace(".", "").replace("'", "");
+        return c.Name.replace(" ", "").replace(".", "").replace("'", "");
+    };
+
+    this.nameToHashtag = function(c)
+    {
+        var tag = svc.nameToTag(c);
+        return tag ? "#" + tag : tag;
     };
 
 	this.loadRecipeList = function(search, categories)
