@@ -59,18 +59,22 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
 
     rc.loadUnits = function()
     { 
-      if(!rc.units)
-        RecipeService.loadUnits().then(function(response) 
-        { 
-          rc.units = response;
-          rc.units.byId = rc.units.indexBy("ID");
-          rc.units.byType = rc.units.groupBy("unitType");
+      if(!RecipeService.units)
+        RecipeService.loadUnits().then(rc.getUnits);
+      else
+        rc.getUnits(RecipeService.units);
+    };
 
-          if(rc.isEdit && rc.recipe)
-            rc.YieldUnit = rc.units.byId[rc.recipe.YieldUnitTypeID];
-          else if(rc.isNew)
-            rc.YieldUnit = rc.units[0]; 
-        });
+    rc.getUnits = function(units) 
+    { 
+      if(units) rc.units = units;
+      if(!rc.units.byId)   rc.units.byId   = rc.units.indexBy("ID");
+      if(!rc.units.byType) rc.units.byType = rc.units.groupBy("unitType");
+
+      if(rc.isEdit && rc.recipe)
+        rc.YieldUnit = rc.units.byId[rc.recipe.YieldUnitTypeID];
+      else if(rc.isNew)
+        rc.YieldUnit = rc.units[0]; 
     };
 
     //load CategoryTypes once if needed
