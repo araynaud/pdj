@@ -1,22 +1,27 @@
 <div class="star-rating" class="noselect">
-	<label ng-if="vm.label">{{vm.label}}</label>
-    <a class="bold" ng-click="vm.edit()" title="{{vm.global.NumberOfRatings | plural:'rating'}}">{{(vm.global.AverageRating || 0) | roundDigits:1  || "none"}}</a>
-	<a class="glyphicon glyphicon-star" ng-click="vm.edit()"></a>
 
-    <label ng-if="vm.user.Score" ng-click="vm.edit()">{{vm.userLabel}}</label>
-    <a class="bold" ng-if="vm.user.Score" ng-click="vm.edit()">{{vm.user.Score || "none"}}</a>
-	<a class="glyphicon glyphicon-star" ng-click="vm.edit()" ng-hide="vm.editing || vm.readOnly"></a>
+	<span class="nowrap">
+		<span ng-if="vm.label">{{vm.label}}</span>
+	    <span class="bold" title="{{vm.global.NumberOfRatings | plural:'rating'}}">{{ vm.global.AverageRating ? (vm.global.AverageRating|roundDigits:1) : "none"}}</span>
+		<i class="glyphicon glyphicon-star" ng-if="vm.global.AverageRating"></i>
+	</span>
 
-	<span class="score noselect nowrap" title="{{vm.min}} - {{vm.max}}" ng-if="vm.editing">
+	<span class="nowrap">
+	    <a ng-if="!vm.readOnly" ng-click="vm.edit()">{{vm.userLabel}}:</a>
+	    <a class="bold" ng-if="vm.user.Score" ng-click="vm.edit()">{{vm.user.Score || "none"}}</a>
+		<a class="glyphicon glyphicon-star" ng-click="vm.edit()" ng-if="vm.user.Score && !vm.editing"></a>
+	</span>
+	
+	<span class="score noselect nowrap" ng-if="vm.editing">
 	    <a ng-repeat="s in vm.stars track by $index" class="star glyphicon" ng-class="vm.starClasses($index)" ng-click="vm.setValue($index)"></a>
 	</span>
 </div>
 
 <div ng-if="vm.editing">
-    <input type="checkbox" id="cbMadeIt" name="MadeIt" ng-model="vm.user.MadeIt" ng-change="vm.change()"/>
 	<label for="cbMadeIt">I have made this recipe.</a>
+    <input type="checkbox" id="cbMadeIt" name="MadeIt" ng-model="vm.user.MadeIt" ng-change="vm.change()"/>
 </div>
 <div ng-if="vm.editing">
+	<label for="cbMakeAgain">I would like to make this recipe.</a>
     <input type="checkbox" id="cbMakeAgain" name="MakeItAgain" ng-model="vm.user.MakeItAgain" ng-change="vm.change()"/>
-	<label for="cbMakeAgain">I would like to make it again.</a>
 </div>

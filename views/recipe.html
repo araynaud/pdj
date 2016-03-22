@@ -39,6 +39,8 @@
 			<span class="nowrap" ng-bind-html="rc.displayProperty('PrepTime')"></span>
 			<span class="nowrap" ng-bind-html="rc.displayProperty('CookingTime')"></span>
 			<span class="nowrap" ng-bind-html="rc.displayProperty('RestTime')"></span>
+			<star-rating label="Recipe rating:" user-label="Rate it" user="rc.userRating" global="rc.globalRating" read-only="!rc.isLoggedIn()" change="rc.rateRecipe"></star-rating>
+
 		</div>
 
 		<div class="pad5 borderHB" ng-class="{'col-xs-5 col-xs-offset-2 borderH': true || !rc.split || rc.isMobile}">
@@ -46,9 +48,6 @@
 				<span class="bold">{{catType.allNames}}</span>
 			</div>	
 		</div>
-		<br/>
-		<br/>
-		<star-rating label="Global rating:" user-label="Rate this recipe:" user="rc.userRating" global="rc.globalRating" read-only="!rc.isLoggedIn()" change="rc.rateRecipe"></star-rating>
 
 </div>
 <br/>

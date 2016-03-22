@@ -25,7 +25,7 @@ angular.module('app').directive('starRating', function ()
 
             vm.edit = function()
             {
-                vm.editing = !vm.readOnly;
+                vm.editing = !vm.readOnly && !vm.editing;
             }
 
             vm.stopEdit = function()
