@@ -36,7 +36,7 @@ angular.module('app').directive('categorySelect', function ()
 
             vm.clear = function()
             {
-                vm.selected = {};
+                Object.clear(vm.selected);
                 vm.selectedArray.splice(0); //clear all but keep same array instance
                 if(angular.isFunction(vm.change))
                     vm.change();                
