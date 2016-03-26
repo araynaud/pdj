@@ -97,8 +97,7 @@
 	</div>
 
 	<div id="item_{{recipe.ID}}" class="recipeListItemLarge bordered bgwhite margin shadow" ng-repeat="recipe in rc.filteredList" ng-if="rc.filters.size=='large'">
-		<crop-image class="recipeImage"
-ng-class="{'col-sm-6': recipe.hasPhoto && !rc.isMobile}"
+		<crop-image class="recipeImage" ng-class="{'col-sm-6': recipe.hasPhoto && !rc.isMobile}"
 		 src="{{rc.recipePhotoUrl(recipe,3)}}" model="recipe" on-error="rc.removeImage" ui-sref="recipe({recipeId: recipe.ID})"></crop-image>
 
 		<div class="pad5" ng-class="{'col-sm-6': recipe.hasPhoto && !rc.isMobile}">
