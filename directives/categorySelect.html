@@ -1,0 +1,14 @@
+<div>
+	<span class="bold">Categories:</span>
+	<button ng-click="vm.clear()" class="btn btn-default btn-primary pad2" ng-if="vm.selectedArray.length" title="clear category filters">Clear</button>
+
+	<div id="categoryType_{{type.ID}}" ng-repeat="type in vm.types" class="categoryType">
+		<div class="categoryTypeTitle nowrap">
+			<img ng-src="images/{{type.show ? 'minus' : 'expand'}}.png" ng-click="type.show=!type.show"/>
+			<a ng-click="type.show=!type.show">{{type.Name}}</a>
+			<a class="category nowrap" ng-repeat="cat in type.Categories" ng-if="vm.isSelected(cat.ID)" ng-click="vm.toggle(cat.ID, false)"> {{cat.Name}}</a>
+		</div>
+
+		<button id="category_{{cat.ID}}" class="category col-xs-6 btn" ng-repeat="cat in type.Categories" ng-click="vm.toggle(cat.ID)" ng-class="{'btn-primary': vm.isSelected(cat.ID), 'btn-default': !vm.isSelected(cat.ID)}" ng-if="type.show">{{cat.Name}}</button>
+	</div>
+</div>

@@ -57,7 +57,8 @@
 
 
 	<div id="categories" class="scrollY">
-		<div id="categoryType_{{type.ID}}" ng-repeat="type in rc.categoryTypes" class="categoryType ease05">
+		<category-select types="rc.categoryTypes" selected="rc.selectedCategories" selected-array="rc.selectedArray" change="rc.loadRecipeList"></category-select>
+		<!--div id="categoryType_{{type.ID}}" ng-repeat="type in rc.categoryTypes" class="categoryType ease05">
 			<div class="categoryTypeTitle nowrap">
 				<a ng-click="type.show=!type.show">
 					<img ng-src="images/{{type.show ? 'minus' : 'expand'}}.png"/>{{type.Name}}
@@ -73,7 +74,7 @@
 				  ng-change="rc.loadRecipeList()" />
 				<label for="cb_cat_{{cat.ID}}">{{cat.Name}}</label>
 			</div>
-		</div>
+		</div-->
 	</div>
 </form>
 </div>
