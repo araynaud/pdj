@@ -23,7 +23,7 @@ angular.module('pdjServices')
 
     this.getResourceUrl = function(api, url, qs)
     {
-        if(this.offline)
+        if(svc.offline)
         {
             var svcName = url.substringBefore("/:")
             svcName = svcName.substringAfter("/", false, true);
@@ -39,7 +39,7 @@ angular.module('pdjServices')
 
     this.getResource = function(api, url, qs, defaults)
     {
-        url = this.getResourceUrl(api, url, qs);
+        url = svc.getResourceUrl(api, url, qs);
         return $resource(url, defaults);
     };
 
@@ -294,5 +294,5 @@ angular.module('pdjServices')
             $("html,body").animate({scrollTop: y}, time);
     };
 
-    this.init();
+    svc.init();
 }]);

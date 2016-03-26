@@ -18,6 +18,40 @@
         </button> 
       </span>
     </div>
+<br/>
+    <div class="input-group">
+      <span class="input-group-btn">
+         <button type="button" class="btn btn-default"><label for="dd_size">Display</label></button> 
+      </span>
+      <select id="dd_size" ng-model="rc.filters.size" name="hasPhoto" class="form-control" ng-options="item for item in rc.dropdown.size" ng-change="rc.filterRecipeList()">
+        </select>
+    </div>
+
+    <div class="input-group">
+      <span class="input-group-btn">
+         <button type="button" class="btn btn-default"><label for="dd_hasPhoto">Photo</label></button> 
+      </span>
+      <select id="dd_hasPhoto" ng-model="rc.filters.hasPhoto" name="hasPhoto" class="form-control" ng-options="item for item in rc.dropdown.yesno" ng-change="rc.filterRecipeList()">
+      	<option value="">All</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+      <span class="input-group-btn">
+         <button type="button" class="btn btn-default"><label for="dd_from">From</label></button> 
+      </span>
+      <select id="dd_from" ng-model="rc.filters.from" name="from" class="form-control" ng-options="item for item in rc.dropdown.from" ng-change="rc.filterRecipeList()">
+      	<option value="">All</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+      <span class="input-group-btn">
+         <button type="button" class="btn btn-default"><label for="dd_sort">Order</label></button> 
+      </span>
+      <select id="dd_sort" ng-model="rc.filters.sort" name="from" class="form-control" ng-options="item for item in rc.dropdown.sort" ng-change="rc.filterRecipeList()">
+        </select>
+    </div>
 
 	<div id="categories" class="scrollY">
 		<div id="categoryType_{{type.ID}}" ng-repeat="type in rc.categoryTypes" class="categoryType ease05">
@@ -47,11 +81,8 @@
 	<p ng-if="!lc.isLoggedIn()">Welcome! Here are some of our latest recipes.<br/>
 	You can <a class="btn btn-primary" ui-sref="signin">Log in</a> or <a class="btn btn-primary" ui-sref="signup">Sign up</a> to discover more content, and submit your own recipes!</p>
 
-	<div id="item_{{recipe.ID}}" class="recipeListItemTop bordered bgwhite margin shadow" ng-repeat="recipe in rc.list">
-
-		<a ui-sref="recipe({recipeId: recipe.ID})">
-			<crop-image class="recipeImage" src="{{rc.recipePhotoUrl(recipe,2)}}" model="recipe" on-error="rc.removeImage"></crop-image>
-		</a>
+	<div id="item_{{recipe.ID}}" class="recipeListItemSmall bordered bgwhite margin shadow" ng-repeat="recipe in rc.filteredList" ng-if="rc.filters.size=='small'">
+		<crop-image class="recipeImage" src="{{rc.recipePhotoUrl(recipe,2)}}" model="recipe" on-error="rc.removeImage" ui-sref="recipe({recipeId: recipe.ID})"></crop-image>
 
 		<div class="pad5">
 			<div class="centered">
@@ -60,8 +91,22 @@
 			<div class="left">{{rc.firstSentence(recipe.Description)}}</div>
 		</div>
 
-		<div class="pad5 bottomLeftCorner stretchW centered">
-			<a class="recipeTag pad2 nowrap" ng-click="rc.selectCategory(cat.ID, true); rc.loadRecipeList()" ng-repeat="cat in recipe.categories">{{cat.Name}}</a>
+		<div class="bottomLeftCorner stretchW centered">
+			<a class="recipeTag small pad2 nowrap" ng-click="rc.selectCategory(cat.ID, true); rc.loadRecipeList()" ng-repeat="cat in recipe.categories">{{cat.Name}}</a>
+		</div>
+	</div>
+
+	<div id="item_{{recipe.ID}}" class="recipeListItemLarge bordered bgwhite margin shadow" ng-repeat="recipe in rc.filteredList" ng-if="rc.filters.size=='large'">
+		<crop-image class="recipeImage"
+ng-class="{'col-sm-6': recipe.hasPhoto && !rc.isMobile}"
+		 src="{{rc.recipePhotoUrl(recipe,3)}}" model="recipe" on-error="rc.removeImage" ui-sref="recipe({recipeId: recipe.ID})"></crop-image>
+
+		<div class="pad5" ng-class="{'col-sm-6': recipe.hasPhoto && !rc.isMobile}">
+			<div class="centered">
+				<a class="recipeTitle textWhiteOutline" ui-sref="recipe({recipeId: recipe.ID})">{{recipe.Name}}</a>
+				<p class="margin left">{{recipe.Description}}</p>
+				<a class="recipeTag pad2 nowrap" ng-click="rc.selectCategory(cat.ID, true); rc.loadRecipeList()" ng-repeat="cat in recipe.categories">{{cat.Name}}</a>
+			</div>
 		</div>
 	</div>
 
@@ -71,8 +116,8 @@
 
 	<div class="fixedTopRight hidden-print">
 		<img src="images/ajax-loader.gif" ng-show="rc.loading"/>
-		<div class="title textWhiteOutline" ng-show="!rc.loading && rc.list.length">{{rc.list.length}}</div>
-		<div class="small bold textWhiteOutline"  ng-show="!rc.loading">{{rc.list.length ? rc.plural(rc.list.length>1, "recipe") : "No results found."}}</div>
+		<div class="title textWhiteOutline" ng-show="!rc.loading && rc.filteredList.length">{{rc.filteredList.length}}</div>
+		<div class="small bold textWhiteOutline"  ng-show="!rc.loading">{{rc.filteredList.length ? rc.plural(rc.filteredList.length>1, "recipe") : "No results found."}}</div>
 		{{rc.status}}
 	</div>
 

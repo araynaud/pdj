@@ -17,6 +17,7 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
       rc.split = true;
       //rc.recipe = {};
       rc.article = {};
+      rc.filters = RecipeService.filters;
       rc.imgConfig = RecipeService.getConfig("images");
       rc.dropdown = RecipeService.getConfig("dropdown");
       rc.showDebug = RecipeService.isDebug();
@@ -100,11 +101,29 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
       {
           rc.loading = false;
           rc.list = response; 
+          rc.filterRecipeList();
           rc.successMessage();
           RecipeService.scrollTop();
       }, 
       rc.errorMessage);
     };
+
+    rc.filterRecipeList = function()
+    {
+      rc.filteredList = rc.list; 
+      if(!rc.filters) return rc.filteredList;
+
+      if(rc.filters.hasPhoto)
+        rc.filteredList = rc.filteredList .filterBy("hasPhoto", rc.filters.hasPhoto == "Yes")
+
+      if(rc.filters.from)
+        rc.filteredList = rc.filteredList.filterBy(rc.isMine, rc.filters.from == "Me")
+
+      if(rc.filters.sort)
+        rc.filteredList.sortObjectsBy(rc.filters.sort, rc.filters.reverse);
+
+      return rc.filteredList;
+    }
 
     rc.loadArticle = function(id)
     {

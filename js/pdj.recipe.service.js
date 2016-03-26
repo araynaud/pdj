@@ -5,34 +5,30 @@ angular.module('pdjServices')
 {
     var svc = this;
     window.RecipeService = this;
-    this.articles={};
-    this.recipes={};
 
-    this.getConfig    = ConfigService.getConfig;
-    this.stateIs      = ConfigService.stateIs;
-    this.goToState    = ConfigService.goToState;
-    this.currentState = ConfigService.currentState;
-    this.returnToMain = ConfigService.returnToMain;
-    this.isMine       = ConfigService.isMine;
-    this.isDebug      = ConfigService.isDebug;
-    this.isMobile     = ConfigService.isMobile;
-    this.isOffline    = ConfigService.isOffline;
-    this.isLoggedIn   = ConfigService.isLoggedIn;
-    this.isAdmin      = ConfigService.isAdmin;
-    this.loadLinkMetadata = ConfigService.loadLinkMetadata;
-    this.scrollTop = ConfigService.scrollTop;
-    this.getFromResource = ConfigService.getFromResource;
-    this.postToResource = ConfigService.postToResource;
+    svc.init = function()
+    {
+        svc.articles={};
+        svc.recipes={};
 
-    //REST Services
-    this.categoryTypeResource = ConfigService.getResource("pdj", "Category/GetAllCategoriesWithDetails");
-    this.articleResource      = ConfigService.getResource("pdj", "Article/:article");
-    this.listResource         = ConfigService.getResource("pdj", "Recipe/GetRecipeList", "searchText=:search:categories");
-    this.recipeResource       = ConfigService.getResource("pdj", "Recipe/GetRecipeDetails", "recipeId=:id");
-    this.recipeSaveResource   = ConfigService.getResource("pdj", "Recipe/SaveRecipe");
-    this.unitResource         = ConfigService.getResource("pdj", "Unit/GetYieldUnits");
-    this.ratingResource       = ConfigService.getResource("pdj", "RecipeRating/:action");
-    svc.hideKeywords = svc.getConfig("recipe.tags.hide") || [];
+        Object.copyProperty(ConfigService, svc, "getConfig stateIs goToState currentState returnToMain");
+        Object.copyProperty(ConfigService, svc, "isMine isDebug isMobile isOffline isLoggedIn isAdmin");
+        Object.copyProperty(ConfigService, svc, "loadLinkMetadata scrollTop getResource getFromResource postToResource");
+
+        //REST Services
+        svc.categoryTypeResource = svc.getResource("pdj", "Category/GetAllCategoriesWithDetails");
+        svc.articleResource      = svc.getResource("pdj", "Article/:article");
+        svc.listResource         = svc.getResource("pdj", "Recipe/GetRecipeList", "searchText=:search:categories");
+        svc.recipeResource       = svc.getResource("pdj", "Recipe/GetRecipeDetails", "recipeId=:id");
+        svc.recipeSaveResource   = svc.getResource("pdj", "Recipe/SaveRecipe");
+        svc.unitResource         = svc.getResource("pdj", "Unit/GetYieldUnits");
+        svc.ratingResource       = svc.getResource("pdj", "RecipeRating/:action");
+
+        //values from config file
+        svc.hideKeywords = svc.getConfig("recipe.tags.hide") || [];
+        svc.filters = svc.getConfig("filters") || {};
+
+    };
 
 //Data load functions
     this.loadUnits = function(obj)
@@ -270,5 +266,6 @@ angular.module('pdjServices')
         return response.State == "ERROR";
     };
 
+    svc.init();
 
 }]);

@@ -70,24 +70,51 @@ a.button
 .borderH, .borderHT
 {
     border-top: 2px solid #444;
+    page-break-inside: avoid;
 }
 
 .borderH, .borderHB
 {
     border-bottom: 2px solid #444;
+    page-break-inside: avoid;
 }
 
-.recipeListItem
+.recipeListItemLarge
 {
-    display: inline-block;
-    vertical-align: bottom; 
-    width: 12cm;
-    max-width: 90%;
-    height: 5cm;
     overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    page-break-after: avoid;
+    page-break-inside: avoid;
 }
 
-.recipeListItemTop
+.recipeListItemLarge .recipeImage
+{
+    height: 100%;
+    height: 300px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+@media screen
+{
+    .recipeListItemLarge .recipeImage
+    {
+        max-width: 480px;
+    }
+}
+
+/*
+@media print
+{
+    .recipeListItemLarge .recipeImage
+    {
+        max-width: 50%;
+    }
+}
+*/
+
+.recipeListItemSmall
 {
     display: inline-block;
     vertical-align: bottom; 
@@ -95,7 +122,14 @@ a.button
     max-width: 90%;
     height: 10cm;
     overflow: hidden;
+    text-overflow: ellipsis;
     position: relative;
+}
+
+.recipeListItemSmall .recipeImage
+{
+    width: 100%;
+    height: 50%;
 }
 
 .shadow, .margin.shadow 
@@ -109,19 +143,6 @@ a.recipeTitle
     color: orange;
     text-decoration: none;
     font-size: 14pt;
-}
-
-.recipeListItem .recipeImage
-{
-    height: 100%;
-    width: 50%;
-    margin-right: 10px;
-}
-
-.recipeListItemTop .recipeImage
-{
-    width: 100%;
-    height: 50%;
 }
 
 div.rlink
@@ -169,8 +190,26 @@ img.linkPreview
     padding-right: 0px;
 }
 
-/* bootstrap overrides */
+.recipeTag
+{
+    display: inline-block;
+    min-width: 50px;
+    text-align: center; 
+    margin-left: 5px;
+    margin-bottom: 5px;
+    background-color: #6EAC2C;
+    color: white;
+    font-weight: bold;
+    border-radius: 15px;
+    border: 1px solid #2EA46D;
+}
 
+a.recipeTag:hover
+{
+    color: white;
+}
+
+/* ============ Bootstrap overrides ============ */
 .icon-large
 {
     color: #6EAC2C;
@@ -190,25 +229,6 @@ img.linkPreview
     color: #6EAC2C;
     font-size: 16px;
     height: 16px;
-}
-
-.recipeTag
-{
-    display: inline-block;
-    min-width: 50px;
-    text-align: center; 
-    margin-left: 5px;
-    margin-top: 5px;
-    background-color: #6EAC2C;
-    color: white;
-    font-weight: bold;
-    font-size: .8em;
-    border-radius: 15px;
-}
-
-a.recipeTag:hover
-{
-    color: white;
 }
 
 .btn-primary 
