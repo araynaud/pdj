@@ -108,6 +108,11 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
       rc.errorMessage);
     };
 
+    rc.orderArrow = function()
+    {
+        return rc.filters.reverse ? 'glyphicon-arrow-down': 'glyphicon-arrow-up';
+    };
+
     rc.filterRecipeList = function()
     {
       rc.filteredList = rc.list; 
@@ -119,8 +124,11 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
       if(rc.filters.from)
         rc.filteredList = rc.filteredList.filterBy(rc.isMine, rc.filters.from == "Me")
 
-      if(rc.filters.sort)
-        rc.filteredList.sortObjectsBy(rc.filters.sort, rc.filters.reverse);
+      if(rc.filters.order)
+      {        
+        var field = rc.dropdown.sort[rc.filters.order];
+        rc.filteredList.sortObjectsBy(field, rc.filters.reverse);
+      }
 
       return rc.filteredList;
     }

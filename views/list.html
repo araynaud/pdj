@@ -47,11 +47,14 @@
 
     <div class="input-group">
       <span class="input-group-btn">
-         <button type="button" class="btn btn-default"><label for="dd_sort">Order</label></button> 
+        <button type="button" class="btn btn-default" ng-click="rc.filters.reverse = !rc.filters.reverse; rc.filterRecipeList()">
+          <label for="dd_order">Order <i class="glyphicon" ng-class="rc.orderArrow()"></i></label>
+        </button> 
       </span>
-      <select id="dd_sort" ng-model="rc.filters.sort" name="from" class="form-control" ng-options="item for item in rc.dropdown.sort" ng-change="rc.filterRecipeList()">
-        </select>
+      <select id="dd_order" ng-model="rc.filters.order" name="order" class="form-control" ng-options="item for item in rc.dropdown.sort.order" ng-change="rc.filterRecipeList()">
+      </select>
     </div>
+
 
 	<div id="categories" class="scrollY">
 		<div id="categoryType_{{type.ID}}" ng-repeat="type in rc.categoryTypes" class="categoryType ease05">

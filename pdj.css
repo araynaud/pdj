@@ -103,16 +103,6 @@ a.button
     }
 }
 
-/*
-@media print
-{
-    .recipeListItemLarge .recipeImage
-    {
-        max-width: 50%;
-    }
-}
-*/
-
 .recipeListItemSmall
 {
     display: inline-block;
