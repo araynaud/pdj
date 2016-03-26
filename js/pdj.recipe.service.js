@@ -234,7 +234,7 @@ angular.module('pdjServices')
 
     this.getRecipeCategoryTypes = function(cats)
     {
-        var catTypes = Object.toArray(cats.groupBy("type"));
+        var catTypes = cats.groupBy("type", true);
         for(var i=0; i<catTypes.length; i++)
         {
             var catType = catTypes[i];

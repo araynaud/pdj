@@ -97,13 +97,13 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
       rc.loading = true;
       rc.getSearchCategories(search);
 
+      if(rc.filters) rc.filters.hasPhoto=null;
       RecipeService.loadRecipeList(rc.query, rc.selectedCategoriesArray()).then(function(response) 
       {
           rc.loading = false;
           rc.list = response; 
           rc.filterRecipeList();
           rc.successMessage();
-          RecipeService.scrollTop();
       }, 
       rc.errorMessage);
     };
@@ -119,7 +119,8 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
       if(!rc.filters) return rc.filteredList;
 
       if(rc.filters.hasPhoto)
-        rc.filteredList = rc.filteredList .filterBy("hasPhoto", rc.filters.hasPhoto == "Yes")
+        if(isDefined("filteredList.0.hasPhoto", rc))
+          rc.filteredList = rc.filteredList.filterBy("hasPhoto", rc.filters.hasPhoto == "Yes")
 
       if(rc.filters.from)
         rc.filteredList = rc.filteredList.filterBy(rc.isMine, rc.filters.from == "Me")
@@ -130,6 +131,7 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
         rc.filteredList.sortObjectsBy(field, rc.filters.reverse);
       }
 
+      RecipeService.scrollTop();
       return rc.filteredList;
     }
 
