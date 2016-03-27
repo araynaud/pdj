@@ -7,11 +7,11 @@
         <button type="button" class="btn btn-default" ng-click="lc.toggleSidebar(false)">
           <i class="glyphicon glyphicon-triangle-left"></i>
         </button> 
-        <button type="button" class="btn btn-default" ng-show="rc.query" ng-click="rc.query=''; rc.loadRecipeList();">
+        <button type="button" class="btn btn-default" ng-show="rc.filters.query" ng-click="rc.filters.query=''; rc.loadRecipeList();">
           <i class="glyphicon glyphicon-remove-circle"></i>
         </button> 
       </span>
-      <input type="text" class="form-control" id="inputDescription" ng-model="rc.query" placeholder="Search" ng-blur="rc.loadRecipeList()" />
+      <input type="text" class="form-control" id="inputDescription" ng-model="rc.filters.query" placeholder="Search" ng-blur="rc.loadRecipeList()" />
       <span class="input-group-btn">
         <button type="button" class="btn btn-default" ng-click="rc.loadRecipeList()">
           <i class="glyphicon glyphicon-search"></i>
@@ -57,24 +57,7 @@
 
 
 	<div id="categories" class="scrollY">
-		<category-select types="rc.categoryTypes" selected="rc.selectedCategories" selected-array="rc.selectedArray" change="rc.loadRecipeList"></category-select>
-		<!--div id="categoryType_{{type.ID}}" ng-repeat="type in rc.categoryTypes" class="categoryType ease05">
-			<div class="categoryTypeTitle nowrap">
-				<a ng-click="type.show=!type.show">
-					<img ng-src="images/{{type.show ? 'minus' : 'expand'}}.png"/>{{type.Name}}
-				</a>
-
-			<a class="category nowrap" ng-repeat="cat in type.Categories" ng-if="rc.selectedCategories[cat.ID]"
-			ng-click="rc.selectedCategories[cat.ID]=false; rc.loadRecipeList();"> {{cat.Name}}</a>
-
-			</div>
-			<div id="category_{{cat.ID}}" class="category nowrap ease05" ng-repeat="cat in type.Categories" ng-if="type.show">
-				<input type="checkbox" class="chkSearch" id="cb_cat_{{cat.ID}}"
-				 ng-model="rc.selectedCategories[cat.ID]"  ng-true-value="{{cat.ID}}"
-				  ng-change="rc.loadRecipeList()" />
-				<label for="cb_cat_{{cat.ID}}">{{cat.Name}}</label>
-			</div>
-		</div-->
+		<category-select types="rc.categoryTypes" selected="rc.filters.selectedCategories" change="rc.loadRecipeList"></category-select>
 	</div>
 </form>
 </div>

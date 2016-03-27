@@ -10,8 +10,6 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
 
     rc.init = function()
     {
-      rc.query="";
-      rc.selectedCategories={};
       rc.plural = plural;
       rc.loading = false;
       rc.split = true;
@@ -98,7 +96,7 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
       rc.getSearchCategories(search);
 
       if(rc.filters) rc.filters.hasPhoto=null;
-      RecipeService.loadRecipeList(rc.query, rc.selectedCategoriesArray()).then(function(response) 
+      RecipeService.loadRecipeList().then(function(response) 
       {
           rc.loading = false;
           rc.list = response; 
@@ -133,7 +131,7 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
 
       RecipeService.scrollTop();
       return rc.filteredList;
-    }
+    };
 
     rc.loadArticle = function(id)
     {
@@ -269,7 +267,7 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
 
       for(var i=0; i<pics.length; i++)
       {
-        if(pics[i] == rc.mainImage) continue;
+        if(pics[i] == rc.mainImage || !pics[i].size) continue;
         if(pics[i].size[0] == rc.mainImage.size[0])
         {
           pics.remove(rc.mainImage)
@@ -352,8 +350,8 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
     rc.selectCategory = function(id, clear)
     {
       if(!RecipeService.isLoggedIn()) return;
-      if(clear) rc.selectedCategories = {};
-      rc.selectedCategories[id] = id;
+      if(clear) rc.filters.selectedCategories = {};
+      rc.filters.selectedCategories[id] = id;
     };
 
     rc.isCategorySelected = function(id)
@@ -361,18 +359,19 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
       return !!rc.selectedCategories[id];
     };
 
+/*
     rc.selectedCategoriesArray = function()
     {
       return Object.values(rc.selectedCategories).filter(function(el) { return !!el; });
     };
+*/
 
     rc.selectedCategoryTitles = function()
     {
-      var selectedIds = rc.selectedCategoriesArray();
-      var titles= [];
-      for (var i = 0; i< selectedIds.length; i++)
+      var titles = [];
+      for (var id in rc.filters.selectedCategories)
       {
-        var cat = RecipeService.categories[selectedIds[i]]
+        var cat = RecipeService.categories[id];
         titles.push(cat.Name);
       }
       return titles.join(", ");
@@ -403,17 +402,17 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
         var words = search.toLowerCase().split(",");
         var cat = null;
 
-        rc.selectedCategories = {};
+        rc.filters.selectedCategories = {};
         for(var i=0; i<words.length; i++)
         {
           if(cat = RecipeService.categoriesByName[words[i]])
           {
-            rc.selectedCategories[cat.ID] = cat.ID;
+            rc.selectCategory(cat.ID);
             words[i] = "";
           }
         }
-        rc.query = words.join(" ");
-        return rc.query;
+        rc.filters.query = words.join(" ");
+        return rc.filters.query;
     }
 
     rc.setTitle = function(t)
@@ -538,7 +537,7 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
 
     rc.saveRecipe = function()
     {
-      rc.form.CategoryIDs = rc.selectedCategoriesArray();
+      rc.form.CategoryIDs = Object.keys(rc.selectedCategories);
       if(rc.YieldUnit)
         rc.form.YieldUnitTypeID = rc.YieldUnit.ID;
 

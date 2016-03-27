@@ -27,7 +27,7 @@ angular.module('pdjServices')
         //values from config file
         svc.hideKeywords = svc.getConfig("recipe.tags.hide") || [];
         svc.filters = svc.getConfig("filters") || {};
-
+        svc.filters.selectedCategories = {};
     };
 
 //Data load functions
@@ -88,16 +88,16 @@ angular.module('pdjServices')
         return tag ? "#" + tag : tag;
     };
 
-	this.loadRecipeList = function(search, categories)
+	this.loadRecipeList = function()
 	{
-        var catqs = this.getCategoriesQS(categories);
+        svc.filters
+        var catqs = this.getCategoriesQS(svc.filters.selectedCategories);
         var deferred = $q.defer();
-	    this.listResource.get({ search: search, categories: catqs }, function(response)
+	    this.listResource.get({ search: svc.filters.query, categories: catqs }, function(response)
         {
             svc.title = "";
-            svc.currentList = response.Data;
-
-            for(var i=0; i < svc.currentList.length; i++)
+            svc.recipeList = response.Data;
+            for(var i=0; i < svc.recipeList.length; i++)
             {
                 var recipe = response.Data[i];
                 svc.refreshRecipeCategories(recipe);
@@ -201,9 +201,15 @@ angular.module('pdjServices')
 
     this.getCategoriesQS = function(categories)
     {
+        var i = 0;
         var qs="";
-        for(var i=0; i<categories.length; i++)
-            qs+="&categoryIDs[{0}]={1}".format(i, categories[i]);
+        if(angular.isArray(categories))
+            for(var i=0; i<categories.length; i++)
+                qs += "&categoryIDs[{0}]={1}".format(i, categories[i]);
+        else
+            for(var key in categories)
+                qs += "&categoryIDs[{0}]={1}".format(i++, key);
+
         return qs;
     };
 

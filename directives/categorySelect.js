@@ -6,18 +6,15 @@ angular.module('app').directive('categorySelect', function ()
         controllerAs: 'vm',
         bindToController: true,
         replace: true,
-        controller: function ($scope)
+        controller: function($timeout)
         {
             var vm = this; 
             window.categorySelect = vm;
+            vm.selectedArray = Object.keys(vm.selected);
+
             vm.isSelected = function(id)
             {
                 return vm.selected && !!vm.selected[id];
-            };
-
-            vm.selectedToArray = function()
-            {
-                return Object.keys(vm.selected);
             };
 
             vm.toggle = function(id, st)
@@ -28,9 +25,9 @@ angular.module('app').directive('categorySelect', function ()
                 else 
                     delete vm.selected[id];
 
-                vm.selectedArray = vm.selectedToArray();
+                vm.selectedArray = Object.keys(vm.selected);
                 if(angular.isFunction(vm.change))
-                    vm.change();
+                    $timeout(vm.change, 0);
                 return vm.selected;
             };
 
@@ -39,7 +36,7 @@ angular.module('app').directive('categorySelect', function ()
                 Object.clear(vm.selected);
                 vm.selectedArray.splice(0); //clear all but keep same array instance
                 if(angular.isFunction(vm.change))
-                    vm.change();                
+                     $timeout(vm.change, 0);             
             }
         }         
     }
