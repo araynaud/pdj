@@ -18,6 +18,8 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
       rc.filters = RecipeService.filters;
       rc.imgConfig = RecipeService.getConfig("images");
       rc.dropdown = RecipeService.getConfig("dropdown");
+      rc.dropdown.sort.order = Object.keys(rc.dropdown.sort);
+
       rc.showDebug = RecipeService.isDebug();
       rc.hasPhoto = false;
       rc.error = false;
