@@ -9,6 +9,6 @@
 			<a class="category nowrap" ng-repeat="cat in type.Categories" ng-if="vm.isSelected(cat.ID)" ng-click="vm.toggle(cat.ID, false)"> {{cat.Name}}</a>
 		</div>
 
-		<button id="category_{{cat.ID}}" class="category col-xs-6 btn" ng-repeat="cat in type.Categories" ng-click="vm.toggle(cat.ID)" ng-class="{'btn-primary': vm.isSelected(cat.ID), 'btn-default': !vm.isSelected(cat.ID)}" ng-if="type.show">{{cat.Name}}</button>
+		<button id="category_{{cat.ID}}" class="category col-xs-6 btn" ng-repeat="cat in type.Categories" ng-click="vm.toggle(cat.ID)" ng-class="{'btn-primary': vm.isSelected(cat.ID), 'btn-default': !vm.isSelected(cat.ID)}" title="{{cat.Name}}" ng-if="type.show">{{cat.Name}}</button>
 	</div>
 </div>

@@ -38,14 +38,14 @@ a.button
 .fixedTopLeft
 {
     position: fixed;
-    top: 60px;
+    top: 100px;
     left: 10px;
 }
 
 .fixedTopRight
 {
     position: fixed;
-    top: 60px;
+    top: 100px;
     right: 10px;
 }
 
@@ -57,6 +57,8 @@ a.button
     border-radius: 0px;
     border-left: none;
     border-bottom: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .bordered

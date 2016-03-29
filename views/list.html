@@ -21,33 +21,33 @@
 <br/>
     <div class="input-group">
       <span class="input-group-btn">
-         <button type="button" class="btn btn-default"><label for="dd_size">Display</label></button> 
+         <button type="button" class="btn btn-default dropdown-label"><label for="dd_size">Display</label></button> 
       </span>
       <select id="dd_size" ng-model="rc.filters.size" name="hasPhoto" class="form-control" ng-options="item for item in rc.dropdown.size" ng-change="rc.filterRecipeList()">
         </select>
     </div>
 
-    <div class="input-group">
+    <div class="input-group border-collapse">
       <span class="input-group-btn">
-         <button type="button" class="btn btn-default"><label for="dd_hasPhoto">Photo</label></button> 
+         <button type="button" class="btn btn-default dropdown-label"><label for="dd_hasPhoto">With photo</label></button> 
       </span>
       <select id="dd_hasPhoto" ng-model="rc.filters.hasPhoto" name="hasPhoto" class="form-control" ng-options="item for item in rc.dropdown.yesno" ng-change="rc.filterRecipeList()">
-      	<option value="">All</option>
+      	<option value="">-</option>
         </select>
     </div>
 
-    <div class="input-group">
+    <div class="input-group border-collapse">
       <span class="input-group-btn">
-         <button type="button" class="btn btn-default"><label for="dd_from">From</label></button> 
+         <button type="button" class="btn btn-default dropdown-label"><label for="dd_from">From user</label></button> 
       </span>
       <select id="dd_from" ng-model="rc.filters.from" name="from" class="form-control" ng-options="item for item in rc.dropdown.from" ng-change="rc.filterRecipeList()">
       	<option value="">All</option>
         </select>
     </div>
 
-    <div class="input-group">
+    <div class="input-group border-collapse">
       <span class="input-group-btn">
-        <button type="button" class="btn btn-default" ng-click="rc.filters.reverse = !rc.filters.reverse; rc.filterRecipeList()">
+        <button type="button" class="btn btn-default dropdown-label" ng-click="rc.filters.reverse = !rc.filters.reverse; rc.filterRecipeList()">
           <label for="dd_order">Order <i class="glyphicon" ng-class="rc.orderArrow()"></i></label>
         </button> 
       </span>
@@ -55,7 +55,7 @@
       </select>
     </div>
 
-
+<br/>
 	<div id="categories" class="scrollY">
 		<category-select types="rc.categoryTypes" selected="rc.filters.selectedCategories" change="rc.loadRecipeList"></category-select>
 	</div>
