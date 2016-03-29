@@ -365,13 +365,6 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
       return !!rc.selectedCategories[id];
     };
 
-/*
-    rc.selectedCategoriesArray = function()
-    {
-      return Object.values(rc.selectedCategories).filter(function(el) { return !!el; });
-    };
-*/
-
     rc.selectedCategoryTitles = function()
     {
       var titles = [];
