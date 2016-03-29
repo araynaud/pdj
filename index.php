@@ -98,7 +98,7 @@ if(!$offline)
 <?php echoJsVar("pdjConfig");?>
 </script>
 </head>
-<body class="nomargin bgwhite" ng-class="lc.bodyClasses()" ng-controller="LayoutController as lc">
+<body class="nomargin bgwhite" ng-class="lc.bodyClasses()" ng-controller="LayoutController as lc" on-scroll-h="lc.toggleSidebar(false)">
 	<div id="background" class="nomargin bg hidden-print" ng-style="lc.backgroundImage" ng-if="lc.backgroundImage">
 		<div id="backgroundOverlay" class="stretchH" ng-style="lc.overlay" ng-if="lc.overlay"></div>
 	</div>
