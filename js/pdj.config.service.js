@@ -271,7 +271,7 @@ angular.module('pdjServices')
 
     this.isMobile = function() 
     { 
-        return svc.clientIs("Android|webOS|iPhone|iPad|iPod|BlackBerry|Phone|mobile");
+        return svc.clientIs("Android|webOS|iPhone|iPod|BlackBerry|Phone|mobile") && !svc.clientIs("iPad");
     };
 
     this.clientIs = function(str) 

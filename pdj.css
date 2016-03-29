@@ -38,14 +38,14 @@ a.button
 .fixedTopLeft
 {
     position: fixed;
-    top: 100px;
+    top: 60px;
     left: 10px;
 }
 
 .fixedTopRight
 {
     position: fixed;
-    top: 100px;
+    top: 60px;
     right: 10px;
 }
 
