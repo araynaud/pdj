@@ -105,7 +105,7 @@ if(!$offline)
 
 	<div class="visible-print-block" id="printHeader">
 		<img class="floatL" style="height: 1cm;" src="images/<?=getConfig('app.logo.print')?>" alt="PDJ"/>
-		<p class="centered title">{{lc.shortTitle()}}</p>
+		<p class="h2 bold text-center">{{lc.shortTitle()}}</p>
 	</div>
 
 	<nav class="navbar navbar-default navbar-fixed-top hidden-print">
