@@ -25,6 +25,9 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
       rc.hasPhoto = false;
       rc.error = false;
       rc.status = "";
+      rc.isRecipe = !!$stateParams.recipeId;
+      rc.isArticle = !!$stateParams.articleId;
+      rc.isList = RecipeService.stateIs(["list","search"]);    
       rc.isNew = RecipeService.stateIs("submit");    
       rc.isEdit = RecipeService.stateIs("edit");    
       rc.isView = RecipeService.stateIs("recipe");   
@@ -475,7 +478,7 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
         var defaultTitle = RecipeService.getConfig("defaultTitle");
 
         var selectedTitles = rc.selectedCategoryTitles();
-        if(selectedTitles)
+        if(rc.isList && selectedTitles)
           RecipeService.title = String.append(selectedTitles, " ", "recipes");
 
         document.title = String.append(RecipeService.title, " - ", defaultTitle);

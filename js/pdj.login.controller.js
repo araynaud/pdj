@@ -19,6 +19,7 @@ function ($scope, $window, ConfigService, LocationService)
 
     lc.init = function()
     {
+        Object.copyProperty(ConfigService, lc, "isLoggedIn stateIs logout");
         lc.showDebug = ConfigService.isDebug();
         lc.form = {};
         lc.currentState = ConfigService.currentState();
@@ -53,7 +54,7 @@ function ($scope, $window, ConfigService, LocationService)
         if(LocationService.countries)
           return lc.countries = LocationService.countries;
 
-        if(ConfigService.stateIs("signup") || ConfigService.stateIs("profile"))
+        if(ConfigService.stateIs(["signup", "profile"]))
           LocationService.loadCountries().then(function(response) { lc.countries = response; });
     }
 
@@ -133,10 +134,6 @@ function ($scope, $window, ConfigService, LocationService)
 
         return true;
     };
-
-    lc.isLoggedIn = ConfigService.isLoggedIn;
-    lc.stateIs    = ConfigService.stateIs;
-    lc.logout     = ConfigService.logout;
 
     lc.init();
 

@@ -105,7 +105,13 @@ angular.module('pdjServices')
 
     this.stateIs = function(st)
     {
-        return $state.is(st);
+        if(!angular.isArray(st))
+            return $state.is(st);
+
+        for (var i = 0; i < st.length; i++)
+            if($state.is(st[i]))
+                return true;
+        return false;
     };
 
     this.currentState = function()
