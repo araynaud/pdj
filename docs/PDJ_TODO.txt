@@ -1,16 +1,8 @@
-load units via service
-
-directives for filters
-dont use checkboxes but colored buttons
-N columns
-
-store search filters in RecipeService, not controller
-
-keep filter values in service
+X load units via service
+X directives for filters. dont use checkboxes but colored buttons. N columns
+X store search filters in RecipeService, not controller. keep filter values in service
 
 separate config / login service
-
-
 
 Ratings
 
@@ -24,7 +16,7 @@ when user signed in
 review and bookmark icons available from list and from recipe page.
 show average score and vote
 score widget: 1 PPP-- 5  offIcon, onIcon, + 2 checkboxes: i made it, i'd make it again
-score directive
+X score directive: star-rating
 
 Publish:
 when user saves a recipe: display message 
