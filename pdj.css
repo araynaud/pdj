@@ -35,20 +35,6 @@ a.button
     border-radius: 12px;
 }
 
-.fixedTopLeft
-{
-    position: fixed;
-    top: 60px;
-    left: 10px;
-}
-
-.fixedTopRight
-{
-    position: fixed;
-    top: 60px;
-    right: 10px;
-}
-
 .category
 {
     font-size: 0.9em;
