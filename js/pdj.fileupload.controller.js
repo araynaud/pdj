@@ -14,10 +14,11 @@ function ($window, $stateParams, Upload, ConfigService, AlbumService)
 
     uc.init = function()
     {
-        uc.offline =    ConfigService.isOffline();
-        uc.showDebug =  ConfigService.getConfig("debug.angular");
-        uc.baseUrl =    ConfigService.getConfig("upload.baseUrl");
+        uc.offline    = ConfigService.isOffline();
+        uc.showDebug  = ConfigService.getConfig("debug.angular");
+        uc.baseUrl    = ConfigService.getConfig("upload.baseUrl");
         uc.baseServer = ConfigService.getConfig("upload.server");
+        uc.isIE11     = ConfigService.clientIs("Trident/7.0");
 
         uc.recipeId = $stateParams.recipeId;
         uc.queued = true;
@@ -26,6 +27,14 @@ function ($window, $stateParams, Upload, ConfigService, AlbumService)
         uc.loadData();
         uc.resetLog();
     };
+
+
+//IE11 hack for file input label
+    uc.browse = function()
+    {
+        if(uc.isIE11)
+            angular.element("label[for=inputFiles]").click();
+    }
 
 //load existing recipe info from DB
 //check if user has access to it.

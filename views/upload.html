@@ -3,13 +3,13 @@
 <form class="file-uploader container" name="uploadForm">
 <h3>Add new images</h3>
     <div class="col-sm-4 col-sm-offset-4"> 
-        <label for="inputFiles" class="uploadThumbnail shadow">
+        <label for="inputFiles" class="uploadThumbnail border1black shadow" ng-click="uc.browse()">
           <div class="uploadLabel" ng-if="!uc.uploadUrl">Click to Select Photo<br/>{{uc.progressPercentage}}</div>
           <img id="thumbnail" ng-src="{{uc.uploadUrl}}" ng-show="uc.uploadUrl"/> 
         </label> 
     </div>
-    <input type="file" id="inputFiles" ngf-select ng-model="uc.files" name="file" ngf-multiple="true" 
-        accept="image/*" required ngf-change="uc.upload()" style="width: 0px; height: 0px; " />
+    <input type="file" id="inputFiles" class="size0" ngf-select ng-model="uc.files" name="file" ngf-multiple="true" 
+        accept="image/*" required ngf-change="uc.upload()" />
 <br/>
 <div class="inlineBlock" ng-if="uc.mainImage">
     <h4>Main image</h3>
