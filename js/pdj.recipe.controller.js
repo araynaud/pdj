@@ -33,6 +33,7 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
       rc.isView = RecipeService.stateIs("recipe");   
       rc.isMobile = RecipeService.isMobile();
       rc.isLoggedIn = RecipeService.isLoggedIn;
+      rc.isAdmin = RecipeService.isAdmin;
       rc.loadUnits();
       rc.loadCategoryTypes();
       if(rc.categoryTypes)
@@ -515,11 +516,12 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
 
     // https://twitter.com/intent/tweet?text=Pasta with Homemade Tomato Sauce&via=Piment Du Jour&url=http://pimentdujour.com/pdj/%23/recipe/1
 
-    rc.directLinkUrl = function()
+    rc.directLinkUrl = function(recipe)
     {
+      recipe = valueOrDefault(recipe, rc.recipe);
+      if(!recipe) return currentUrl;
       var currentUrl = $window.location.href.substringBefore("#").substringBefore("?");
-      if(!rc.recipe) return currentUrl;
-      var id = (rc.recipe) ? rc.recipe.ID : null;
+      var id = recipe ? recipe.ID : null;
       if(id)
         currentUrl += "?recipe=" + id;
       return currentUrl;
@@ -572,6 +574,37 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
           rc.userRating.recipeID = rc.recipe.ID;
           RecipeService.postToResource(RecipeService.ratingResource, {action: "SetUserRating" }, rc.userRating, "globalRating", rc);
       }, 0);        
+    };
+
+    rc.getRecipeAccess = function(recipe)
+    {
+      recipe = valueOrDefault(recipe, rc.recipe);
+      if(!recipe) return;
+      if(recipe.IsPublic) return "public";
+      if(recipe.PublishRequested) return "publication requested";
+      return "private";
+    };
+
+    rc.getRecipeAccessIcon = function(recipe)
+    {
+      recipe = valueOrDefault(recipe, rc.recipe);
+      if(!recipe) return;
+      return recipe.IsPublic ? "glyphicon-globe" : "glyphicon-lock";
+    };
+
+    rc.hasEditAccess = function(recipe)
+    {
+        return rc.isAdmin() || rc.isMine(recipe);
+    };
+
+    rc.setRecipeAccess = function(publish, recipe)
+    {
+      recipe = valueOrDefault(recipe, rc.recipe);
+      if(!rc.hasEditAccess(recipe)) return;
+
+      publish = valueOrDefault(publish, !recipe.IsPublic);
+      rc.access = { recipeID: recipe.ID, makePublic: publish };
+      RecipeService.postToResource(RecipeService.recipeAccessResource, { }, rc.access, "setAccessResponse", rc);
     };
 
     rc.cancelEdit = function()

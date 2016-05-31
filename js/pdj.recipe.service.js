@@ -20,6 +20,7 @@ angular.module('pdjServices')
         svc.articleResource      = svc.getResource("pdj", "Article/:article");
         svc.listResource         = svc.getResource("pdj", "Recipe/GetRecipeList", "searchText=:search:categories");
         svc.recipeResource       = svc.getResource("pdj", "Recipe/GetRecipeDetails", "recipeId=:id");
+        svc.recipeAccessResource = svc.getResource("pdj", "Recipe/SetRecipeAccess");
         svc.recipeSaveResource   = svc.getResource("pdj", "Recipe/SaveRecipe");
         svc.unitResource         = svc.getResource("pdj", "Unit/GetYieldUnits");
         svc.ratingResource       = svc.getResource("pdj", "RecipeRating/:action");

@@ -88,7 +88,8 @@
 		 src="{{rc.recipePhotoUrl(recipe,3)}}" model="recipe" on-error="rc.removeImage" ui-sref="recipe({recipeId: recipe.ID})"></crop-image>
 
 		<div class="floatR pad5 hidden-print">
-			<a class="spaceLeft" href="{{rc.shareUrl()}}" title="Direct link" ng-if="recipe.IsPublic"><img alt="link" class="icon-medium" src="images/link.png"/></a>
+      <a class="icon-medium textOutline glyphicon" ng-class="rc.getRecipeAccessIcon(recipe)" title="{{rc.getRecipeAccess(recipe)}}" ng-click="rc.setRecipeAccess(undefined, recipe)"></a>
+			<a class="spaceLeft" href="{{rc.directLinkUrl(recipe)}}" title="Direct link" ng-if="recipe.IsPublic"><img alt="link" class="icon-medium" src="images/link.png"/></a>
 			<a ui-sref="edit({recipeId: recipe.ID})"   class="glyphicon glyphicon-edit icon-medium textOutline"   title="Edit Recipe" ng-if="rc.isMine(recipe)"></a>
 			<a ui-sref="upload({recipeId: recipe.ID})" class="glyphicon glyphicon-camera icon-medium textOutline spaceLeft" title="Add photos"  ng-if="rc.isMine(recipe)"></a>
 		</div>
