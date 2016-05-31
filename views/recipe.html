@@ -60,7 +60,7 @@
 
 	<h3 ng-if="rc.recipe.RecipeIngredients.length">Ingredients</h3>
 	<ul class="none" ng-if="rc.recipe.RecipeIngredients.length">
-		<li ng-repeat="ingredient in rc.recipe.RecipeIngredients">{{ingredient}}</li>
+		<li ng-repeat="ingredient in rc.recipe.RecipeIngredients track by $index">{{ingredient}}</li>
 	</ul>
 
 	</div>
@@ -69,12 +69,12 @@
 
 	<h3 ng-if="rc.recipe.RecipeSteps.length">Directions</h3>
 	<ul ng-class="{ steps: rc.recipe.RecipeSteps.length > 1, none: rc.recipe.RecipeSteps.length <= 1 }" ng-if="rc.recipe.RecipeSteps.length">
-		<li ng-repeat="step in rc.recipe.RecipeSteps">{{step}}</li>
+		<li ng-repeat="step in rc.recipe.RecipeSteps track by $index">{{step}}</li>
 	</ul>
 
 	<h3 ng-if="rc.recipe.AllRecipeTips.length">Tips</h3>
 	<ul ng-if="rc.recipe.AllRecipeTips.length">
-		<li ng-repeat="tip in rc.recipe.AllRecipeTips">{{tip}}</li>
+		<li ng-repeat="tip in rc.recipe.AllRecipeTips track by $index">{{tip}}</li>
 	</ul>
 
 	<h3 ng-if="rc.recipe.RecipeLinks.length">Links</h3>
