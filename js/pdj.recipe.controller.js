@@ -18,6 +18,8 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
       rc.filters = RecipeService.filters;
       rc.imgConfig = RecipeService.getConfig("images");
       rc.dropdown = RecipeService.getConfig("dropdown");
+      rc.accessLevels = RecipeService.getConfig("access");
+
       if(isDefined("dropdown.sort", rc))
         rc.dropdown.sort.order = Object.keys(rc.dropdown.sort);
 
@@ -386,13 +388,16 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
     rc.errorMessage =  function (response)
     {
       rc.loading = false;
-      rc.status = response.Exception ? response.Exception.Message : response.Message || "Error: No data returned";
+      var message = response.Exception ? response.Exception.Message : response.Message || "Error: No data returned";
+      rc.alert(message, "danger");
     };
 
     rc.successMessage =  function (response)
     {
       rc.loading = false;
-      rc.status = response ? response.Message : "";
+      var message= response ? response.Message : "";
+      if(message)
+        rc.alert(message, "success", 2000);
     };
 
     rc.getSearchCategories = function(search)
@@ -538,7 +543,8 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
 
     rc.saveRecipe = function()
     {
-      rc.form.CategoryIDs = Object.keys(rc.selectedCategories);
+      if(rc.selectedCategories)
+        rc.form.CategoryIDs = Object.keys(rc.selectedCategories);
       if(rc.YieldUnit)
         rc.form.YieldUnitTypeID = rc.YieldUnit.ID;
 
@@ -576,20 +582,33 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
       }, 0);        
     };
 
-    rc.getRecipeAccess = function(recipe)
+    rc.getRecipeAccessLevel = function(recipe)
     {
-      recipe = valueOrDefault(recipe, rc.recipe);
-      if(!recipe) return;
-      if(recipe.IsPublic) return "public";
-      if(recipe.PublishRequested) return "publication requested";
-      return "private";
+        recipe = valueOrDefault(recipe, rc.recipe);
+        if(!recipe) return;
+        if(recipe.IsPublic) return "public";
+        if(recipe.PublishRequested) return "pending";
+        return "private";
     };
 
+    rc.getRecipeAccess = function(recipe)
+    {
+        var levelKey = rc.getRecipeAccessLevel(recipe);
+        var level = rc.accessLevels[levelKey];
+        if(level && level.status)
+          return level.status;
+        return levelKey;
+    };
+    
     rc.getRecipeAccessIcon = function(recipe)
     {
-      recipe = valueOrDefault(recipe, rc.recipe);
-      if(!recipe) return;
-      return recipe.IsPublic ? "glyphicon-globe" : "glyphicon-lock";
+        recipe = valueOrDefault(recipe, rc.recipe);
+        if(!recipe) return;
+
+        var levelKey = rc.getRecipeAccessLevel(recipe);
+        var level = rc.accessLevels[levelKey];
+        if(level && level.icon)
+          return "glyphicon-" + level.icon;
     };
 
     rc.hasEditAccess = function(recipe)
@@ -604,7 +623,40 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
 
       publish = valueOrDefault(publish, !recipe.IsPublic);
       rc.access = { recipeID: recipe.ID, makePublic: publish };
-      RecipeService.postToResource(RecipeService.recipeAccessResource, { }, rc.access, "setAccessResponse", rc);
+      rc.recipe = recipe;
+      RecipeService.postToResource(RecipeService.recipeAccessResource, null, rc.access, rc.setAccessResponse);
+    };
+
+    rc.setAccessResponse = function(response)
+    {
+        if(!response.success)
+          return rc.alert(response.Message, "danger");
+
+        if(rc.isAdmin())
+        {
+          rc.recipe.IsPublic = rc.access.makePublic;
+          rc.recipe.PublishRequested = false;
+        }
+        else if(rc.access.makePublic)
+          rc.recipe.PublishRequested = true;
+        else
+          rc.recipe.IsPublic = rc.recipe.PublishRequested = false;
+
+        var message="Recipe {0} is now {1}.".format(rc.recipe.Name, rc.getRecipeAccess());
+        rc.alert(message, "success", 2000);
+    };
+
+    rc.alert = function(message, type, duration)
+    {
+      rc.status = message;
+      rc.statusType = type;
+      if(duration)
+        $timeout(rc.closeAlert, duration);
+    };
+
+    rc.closeAlert = function()
+    {
+      rc.status=null;
     };
 
     rc.cancelEdit = function()

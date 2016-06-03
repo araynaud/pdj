@@ -51,9 +51,8 @@ angular.module('pdjServices')
         var deferred = $q.defer();
         resource.get(params, function(response)
         { 
-            if(key)
-                obj[key] = response.Data;
-            deferred.resolve(response.Data);
+            var result = svc.onResponse(response, key, obj);
+            deferred.resolve(result);
         });
         return deferred.promise;
     };
@@ -67,13 +66,29 @@ angular.module('pdjServices')
         var deferred = $q.defer();
         resource.save(params, post, function(response)
         { 
-            if(key)
-                obj[key] = response.Data;
-            deferred.resolve(response.Data);
+            var result = svc.onResponse(response, key, obj);
+            deferred.resolve(result);
         });
         return deferred.promise;
     };
 
+    //transform service response with a function or store it in a variable
+    this.onResponse = function(response, key, obj)
+    {
+        var success = response.State == "SUCCESS";
+        if(response.Data) 
+            response = response.Data;
+        response.success = success;
+
+        if(angular.isFunction(key))
+            response = key(response);
+        else if(angular.isFunction(obj[key]))
+            response = obj[key](response);
+        else if(obj && key)
+            obj[key] = response;
+        
+        return response;
+    }
 
     this.loadCsv = function(url, key, obj)
     {

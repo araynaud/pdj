@@ -68,6 +68,7 @@
 	<p ng-if="!lc.isLoggedIn()">Welcome! Here are some of our latest recipes.<br/>
 	You can <a class="btn btn-primary" ui-sref="signin">Log in</a> or <a class="btn btn-primary" ui-sref="signup">Sign up</a> to discover more content, and submit your own recipes!</p>
 
+  <!-- Small template -->
 	<div id="item_{{recipe.ID}}" class="recipeListItemSmall bordered bgwhite margin shadow" ng-repeat="recipe in rc.filteredList" ng-if="rc.filters.size=='small'">
 		<crop-image class="recipeImage" src="{{rc.recipePhotoUrl(recipe,2)}}" model="recipe" on-error="rc.removeImage" ui-sref="recipe({recipeId: recipe.ID})"></crop-image>
 
@@ -80,24 +81,31 @@
 
 		<div class="bottomLeftCorner stretchW centered">
 			<a class="recipeTag small pad2 nowrap" ng-click="rc.selectCategory(cat.ID, true); rc.loadRecipeList()" ng-repeat="cat in recipe.categories">{{cat.Name}}</a>
+
+      <a class="icon-small textOutline glyphicon hidden-print" ng-if="rc.isLoggedIn()" ng-class="rc.getRecipeAccessIcon(recipe)" title="{{rc.getRecipeAccess(recipe)}}" ng-click="rc.setRecipeAccess(undefined, recipe)"></a>
+
 		</div>
 	</div>
 
+  <!-- Large template -->
 	<div id="item_{{recipe.ID}}" class="recipeListItemLarge bordered bgwhite margin shadow" ng-repeat="recipe in rc.filteredList" ng-if="rc.filters.size=='large'">
 		<crop-image class="recipeImage" ng-class="{'col-sm-6': recipe.hasPhoto && !rc.isMobile}"
 		 src="{{rc.recipePhotoUrl(recipe,3)}}" model="recipe" on-error="rc.removeImage" ui-sref="recipe({recipeId: recipe.ID})"></crop-image>
-
-		<div class="floatR pad5 hidden-print">
-      <a class="icon-medium textOutline glyphicon" ng-class="rc.getRecipeAccessIcon(recipe)" title="{{rc.getRecipeAccess(recipe)}}" ng-click="rc.setRecipeAccess(undefined, recipe)"></a>
-			<a class="spaceLeft" href="{{rc.directLinkUrl(recipe)}}" title="Direct link" ng-if="recipe.IsPublic"><img alt="link" class="icon-medium" src="images/link.png"/></a>
-			<a ui-sref="edit({recipeId: recipe.ID})"   class="glyphicon glyphicon-edit icon-medium textOutline"   title="Edit Recipe" ng-if="rc.isMine(recipe)"></a>
-			<a ui-sref="upload({recipeId: recipe.ID})" class="glyphicon glyphicon-camera icon-medium textOutline spaceLeft" title="Add photos"  ng-if="rc.isMine(recipe)"></a>
-		</div>
 
 		<div class="pad5" ng-class="{'col-sm-6': recipe.hasPhoto && !rc.isMobile}">
 			<div class="centered">
 				<a class="recipeTitle textWhiteOutline" ui-sref="recipe({recipeId: recipe.ID})">{{recipe.Name}}</a>
 				<p class="margin left">{{recipe.Description}}</p>
+
+        <div class="floatR right pad5 hidden-print">
+          <a class="spaceLeft" href="{{rc.directLinkUrl(recipe)}}" title="Direct link" ng-if="recipe.IsPublic"><img alt="link" class="icon-medium" src="images/link.png"/></a>
+          <a ui-sref="edit({recipeId: recipe.ID})"   class="glyphicon glyphicon-edit icon-medium textOutline"   title="Edit Recipe" ng-if="rc.isMine(recipe)"></a>
+          <a ui-sref="upload({recipeId: recipe.ID})" class="glyphicon glyphicon-camera icon-medium textOutline spaceLeft" title="Add photos"  ng-if="rc.isMine(recipe)"></a>
+          <br/>
+          <a class="bold" ng-click="rc.setRecipeAccess(undefined, recipe)">{{rc.getRecipeAccess(recipe)}}</a>
+          <a class="icon-medium textOutline glyphicon" ng-class="rc.getRecipeAccessIcon(recipe)" ng-click="rc.setRecipeAccess(undefined, recipe)"></a>
+        </div>
+
 				<a class="recipeTag pad2 nowrap" ng-click="rc.selectCategory(cat.ID, true); rc.loadRecipeList()" ng-repeat="cat in recipe.categories">{{cat.Name}}</a>
 			</div>
 		</div>
@@ -114,6 +122,8 @@
 		<div class="small bold textWhiteOutline"  ng-show="!rc.loading">{{rc.filteredList.length ? rc.plural(rc.filteredList.length>1, "recipe") : "No results found."}}</div>
 		{{rc.status}}
 	</div>
+
+  <uib-alert class="fixedBottomRight" type="{{rc.statusType}}" close="rc.closeAlert()" ng-if="rc.status">{{rc.status}}</uib-alert>
 
 </div>
 </div>

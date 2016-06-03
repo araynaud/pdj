@@ -19,12 +19,10 @@
 	</div>
 
 	<div ng-class="{'col-xs-6': rc.hasPhoto && rc.split && !rc.isMobile}">
-		<span class="error">{{rc.status}}</span>
 		<p ng-bind-html="rc.displayProperty('Author')"></p>
 		<p class="text bold">{{rc.recipe.Description}}</p>
 		<div class="hidden-print" id="recipeIcons">
 			<div class="floatR">
-				<a class="glyphicon icon-medium textOutline" ng-class="rc.getRecipeAccessIcon()" title="{{rc.getRecipeAccess()}}" ng-click="rc.setRecipeAccess()"></a>
 				<a class="spaceLeft" href="{{rc.shareUrl()}}" title="Direct link" ng-if="rc.recipe.IsPublic"><img alt="link" class="icon-medium" src="images/link.png"/></a>
 				<a class="spaceLeft" target="facebook" href="{{rc.shareUrl('facebook')}}" title="share on Facebook" ng-if="rc.recipe.IsPublic"><img alt="facebook" class="icon-medium" src="images/facebook.png"/></a>
 				<a class="spaceLeft" target="twitter" href="{{rc.shareUrl('twitter')}}" title="tweet" ng-if="rc.recipe.IsPublic"><img alt="twitter" class="icon-medium" src="images/twitter.png"/></a>
@@ -32,6 +30,12 @@
 			<a ui-sref="edit({recipeId: rc.recipe.ID})"   class="glyphicon glyphicon-edit icon-medium textOutline"   title="Edit Recipe" ng-if="rc.isMine(rc.recipe)"></a>
 			<a ui-sref="upload({recipeId: rc.recipe.ID})" class="glyphicon glyphicon-camera icon-medium textOutline spaceLeft" title="Add photos"  ng-if="rc.isMine(rc.recipe)"></a>
 			<a onclick="print()" class="glyphicon glyphicon-print icon-medium textOutline spaceLeft" title="Print"></a>
+
+			<a class="spaceLeft bold" ng-click="rc.setRecipeAccess()">{{rc.getRecipeAccess()}}</a>
+			<a class="bold" ng-click="rc.setRecipeAccess()">
+				<i class="glyphicon icon-medium textOutline" ng-class="rc.getRecipeAccessIcon()"></i>
+			</a>
+
 		</div>
 
 		<div class="borderH pad5 right" ng-class="{'col-xs-5': true || !rc.split || rc.isMobile}">
@@ -84,5 +88,6 @@
 	</p>
 
 	</div>
-
 </div>
+
+<uib-alert class="fixedBottomRight" type="{{rc.statusType}}" close="rc.closeAlert()" ng-if="rc.status">{{rc.status}}</uib-alert>

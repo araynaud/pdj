@@ -22,7 +22,17 @@ Publish:
 when user saves a recipe: display message 
 "This recipe is currently private. Other users cannot see it yet. Click Publish so that we review and publish it."
 
-Admin: can publish
+Admin: click on the icon to make them public/private anytime.
+refresh automatically the status, based on the success response.
+confirmation message "This recipe has been published" / unpublished".
+
+Non-admin: Add some messages
+ - after saving: "Your recipe is currently private. Other users cannot see it yet. After you finish editing it, you may click publish to have it reviewed for publication."
+ - after clicking publish : "Thanks for submitting your recipe. We will review and publish it as soon as possible.". Then disable the publish button.
+
+The owner of the recipe can also unpublish their recipe anytime. same confirmation message.
+
++ add a filter in the list: public / pending / private
 
 --------------
 
