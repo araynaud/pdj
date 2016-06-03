@@ -19,6 +19,7 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
       rc.imgConfig = RecipeService.getConfig("images");
       rc.dropdown = RecipeService.getConfig("dropdown");
       rc.accessLevels = RecipeService.getConfig("access");
+      rc.dropdown.access = Object.keys(rc.accessLevels);
 
       if(isDefined("dropdown.sort", rc))
         rc.dropdown.sort.order = Object.keys(rc.dropdown.sort);
@@ -137,6 +138,9 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
 
       if(rc.filters.from)
         rc.filteredList = rc.filteredList.filterBy(rc.isMine, rc.filters.from == "Me")
+
+      if(rc.filters.access)
+        rc.filteredList = rc.filteredList.filterBy(rc.getRecipeAccessLevel, rc.filters.access);
 
       if(rc.filters.order)
       {        

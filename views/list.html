@@ -47,6 +47,15 @@
 
     <div class="input-group border-collapse">
       <span class="input-group-btn">
+         <button type="button" class="btn btn-default dropdown-label"><label for="dd_access">Access</label></button> 
+      </span>
+      <select id="dd_access" ng-model="rc.filters.access" name="access" class="form-control" ng-options="item for item in rc.dropdown.access" ng-change="rc.filterRecipeList()">
+        <option value="">All</option>
+        </select>
+    </div>
+
+    <div class="input-group border-collapse">
+      <span class="input-group-btn">
         <button type="button" class="btn btn-default dropdown-label" ng-click="rc.filters.reverse = !rc.filters.reverse; rc.filterRecipeList()">
           <label for="dd_order">Order <i class="glyphicon" ng-class="rc.orderArrow()"></i></label>
         </button> 
