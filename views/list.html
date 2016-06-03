@@ -91,7 +91,7 @@
 		<div class="bottomLeftCorner stretchW centered">
 			<a class="recipeTag small pad2 nowrap" ng-click="rc.selectCategory(cat.ID, true); rc.loadRecipeList()" ng-repeat="cat in recipe.categories">{{cat.Name}}</a>
 
-      <a class="icon-small textOutline glyphicon hidden-print" ng-if="rc.isLoggedIn()" ng-class="rc.getRecipeAccessIcon(recipe)" title="{{rc.getRecipeAccess(recipe)}}" ng-click="rc.setRecipeAccess(undefined, recipe)"></a>
+      <a class="icon-small textOutline glyphicon hidden-print" ng-if="rc.hasEditAccess(recipe)" ng-class="rc.getRecipeAccessIcon(recipe)" title="{{rc.getRecipeAccess(recipe)}}" ng-click="rc.setRecipeAccess(recipe)"></a>
 
 		</div>
 	</div>
@@ -111,8 +111,8 @@
           <a ui-sref="edit({recipeId: recipe.ID})"   class="glyphicon glyphicon-edit icon-medium textOutline"   title="Edit Recipe" ng-if="rc.isMine(recipe)"></a>
           <a ui-sref="upload({recipeId: recipe.ID})" class="glyphicon glyphicon-camera icon-medium textOutline spaceLeft" title="Add photos"  ng-if="rc.isMine(recipe)"></a>
           <br/>
-          <a class="bold" ng-click="rc.setRecipeAccess(undefined, recipe)">{{rc.getRecipeAccess(recipe)}}</a>
-          <a class="icon-medium textOutline glyphicon" ng-class="rc.getRecipeAccessIcon(recipe)" ng-click="rc.setRecipeAccess(undefined, recipe)"></a>
+          <a class="bold" ng-if="rc.hasEditAccess(recipe)" ng-click="rc.setRecipeAccess(recipe)">{{rc.getRecipeAccess(recipe)}}</a>
+          <a class="icon-medium textOutline glyphicon" ng-if="rc.hasEditAccess(recipe)" ng-class="rc.getRecipeAccessIcon(recipe)" ng-click="rc.setRecipeAccess(recipe)"></a>
         </div>
 
 				<a class="recipeTag pad2 nowrap" ng-click="rc.selectCategory(cat.ID, true); rc.loadRecipeList()" ng-repeat="cat in recipe.categories">{{cat.Name}}</a>
@@ -125,14 +125,12 @@
 	    <a class="btn btn-default menu-toggle glyphicon glyphicon-search" title="Search" ng-show="!lc.sidebar && lc.isLoggedIn()" ng-click="lc.toggleSidebar(true)"></a>
 	</div>
 
-	<div class="fixedTopRight hidden-print">
+	<div class="fixedTopRight hidden-print right">
 		<img src="images/ajax-loader.gif" ng-show="rc.loading"/>
-		<div class="title textWhiteOutline" ng-show="!rc.loading && rc.filteredList.length">{{rc.filteredList.length}}</div>
+		<div class="title right textWhiteOutline" ng-show="!rc.loading && rc.filteredList.length">{{rc.filteredList.length}}</div>
 		<div class="small bold textWhiteOutline"  ng-show="!rc.loading">{{rc.filteredList.length ? rc.plural(rc.filteredList.length>1, "recipe") : "No results found."}}</div>
-		{{rc.status}}
+    <uib-alert class="" type="{{rc.statusType}}" close="rc.closeAlert()" ng-if="rc.status">{{rc.status}}</uib-alert>
 	</div>
-
-  <uib-alert class="fixedBottomRight" type="{{rc.statusType}}" close="rc.closeAlert()" ng-if="rc.status">{{rc.status}}</uib-alert>
 
 </div>
 </div>

@@ -623,10 +623,11 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
 
     rc.hasEditAccess = function(recipe)
     {
+        recipe = valueOrDefault(recipe, rc.recipe);
         return rc.isAdmin() || rc.isMine(recipe);
     };
 
-    rc.setRecipeAccess = function(publish, recipe)
+    rc.setRecipeAccess = function(recipe, publish)
     {
       recipe = valueOrDefault(recipe, rc.recipe);
       if(!rc.hasEditAccess(recipe)) return;

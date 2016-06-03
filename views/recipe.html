@@ -31,11 +31,8 @@
 			<a ui-sref="upload({recipeId: rc.recipe.ID})" class="glyphicon glyphicon-camera icon-medium textOutline spaceLeft" title="Add photos"  ng-if="rc.isMine(rc.recipe)"></a>
 			<a onclick="print()" class="glyphicon glyphicon-print icon-medium textOutline spaceLeft" title="Print"></a>
 
-			<a class="spaceLeft bold" ng-click="rc.setRecipeAccess()">{{rc.getRecipeAccess()}}</a>
-			<a class="bold" ng-click="rc.setRecipeAccess()">
-				<i class="glyphicon icon-medium textOutline" ng-class="rc.getRecipeAccessIcon()"></i>
-			</a>
-
+			<a class="spaceLeft bold" ng-if="rc.hasEditAccess()" ng-click="rc.setRecipeAccess()">{{rc.getRecipeAccess()}}</a>
+			<a ng-if="rc.hasEditAccess()" class="glyphicon icon-medium textOutline" ng-class="rc.getRecipeAccessIcon()" ng-click="rc.setRecipeAccess()"></a>
 		</div>
 
 		<div class="borderH pad5 right" ng-class="{'col-xs-5': true || !rc.split || rc.isMobile}">
@@ -90,4 +87,4 @@
 	</div>
 </div>
 
-<uib-alert class="fixedBottomRight" type="{{rc.statusType}}" close="rc.closeAlert()" ng-if="rc.status">{{rc.status}}</uib-alert>
+<uib-alert class="fixedTopRight" type="{{rc.statusType}}" close="rc.closeAlert()" ng-if="rc.status">{{rc.status}}</uib-alert>
