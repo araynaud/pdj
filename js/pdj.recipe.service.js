@@ -27,8 +27,14 @@ angular.module('pdjServices')
 
         //values from config file
         svc.hideKeywords = svc.getConfig("recipe.tags.hide") || [];
+        svc.initFilters();
+    };
+
+    svc.initFilters = function()
+    {
         svc.filters = svc.getConfig("filters") || {};
         svc.filters.selectedCategories = {};
+        return svc.filters;
     };
 
 //Data load functions
@@ -91,7 +97,6 @@ angular.module('pdjServices')
 
 	this.loadRecipeList = function()
 	{
-        svc.filters
         var catqs = this.getCategoriesQS(svc.filters.selectedCategories);
         var deferred = $q.defer();
 	    this.listResource.get({ search: svc.filters.query, categories: catqs }, function(response)

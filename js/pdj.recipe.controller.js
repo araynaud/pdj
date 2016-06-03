@@ -120,10 +120,16 @@ function ($window, $stateParams, $timeout, RecipeService, AlbumService)
         return rc.filters.reverse ? 'glyphicon-arrow-down': 'glyphicon-arrow-up';
     };
 
+    rc.clearFilters = function()
+    {      
+        rc.filters = RecipeService.initFilters();
+        console.log("clearFilters", rc.filters);
+    };
+
     rc.filterRecipeList = function()
     {
       rc.filteredList = rc.list; 
-      if(!rc.filters) return rc.filteredList;
+      if(!rc.isLoggedIn() || !rc.filters) return rc.filteredList;
 
       if(rc.filters.hasPhoto)
         if(isDefined("filteredList.0.hasPhoto", rc))
